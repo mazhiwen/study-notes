@@ -1,0 +1,21 @@
+{
+  "name": "testgulpless",
+  "version": "1.0.0",
+  "description": "s",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.0.4",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-imagemin": "^3.2.0",
+    "gulp-less": "^3.3.0",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-rev-append": "^0.1.8",
+    "gulp-uglify": "^2.1.2"
+  }
+}

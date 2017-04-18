@@ -1,0 +1,28 @@
+*{
+	border: none;
+	margin: 0;
+	padding: 0;
+}
+
+.imggroup_box{
+	text-align: center;
+	box-sizing:border-box;
+	width: 100%;
+	padding: 20px;
+}
+
+.imggroup_box>img:first-child{
+
+}
+
+img{
+	width: 100%;
+}
+
+
+
+
+
+
+
+

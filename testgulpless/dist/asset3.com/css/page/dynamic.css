@@ -1,0 +1,6 @@
+@import url('../common/main.css');
+@import url('../common/sub_common.css');
+.banner_img_box{
+	background-image: url('../../images/dynamic/banner.jpg');
+
+}

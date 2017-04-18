@@ -1,0 +1,27 @@
+@import url('../common/main.css');
+
+.sub_1{
+	display: table;
+	width: 100%;
+	box-sizing: border-box;
+}
+.sub_1>div{
+	text-align: center;
+	vertical-align: middle;
+	display: table-cell;
+}
+.sub_1>div:nth-child(1){
+	text-align: left;
+	width: 50%;
+}
+.sub_1>div:nth-child(1)>p{
+	margin-top: 40px;
+}
+.sub_1>div:nth-child(1)>img{
+	width: 55%;
+}
+.sub_1>div:nth-child(2)>img{
+	width: 50%;
+}
+
+

@@ -1,0 +1,163 @@
+
+
+
+
+.spacing_word{
+	letter-spacing: 4em;
+	font-size: 22px;
+	padding-left: 4em;
+	
+}
+.banner_gray{
+	font-size: 18px;
+	color: #b4b4b4;
+}
+
+
+
+/*内容区域*/
+.content_articlelist{
+/*	box-shadow: 0px 0px 5px 0px rgba(0, 0, 0,0.2);*/
+	background-color: transparent;
+	display: table;
+}
+
+.content_left,.bourgeoisie_left{
+	width: 70%;
+	display: table-cell;
+}
+.content_right,.bourgeoisie_right{
+	width: 30%;
+	display: table-cell;
+	vertical-align: top;
+	padding-top: 20px;
+	padding-left: 20px;
+}
+
+/*文章块样式*/
+.article_box{
+	background-color: white;
+	width: 100%;
+	margin: 20px auto;
+	padding: 15px;
+	box-sizing: border-box;
+}
+.article_box>*{
+	vertical-align: top;
+}
+.article_box>img{
+	width: 25%;
+}
+.article_text_box{
+	display: inline-block;
+	width: 70%;
+	padding-left: 15px;
+	box-sizing: border-box;
+}
+
+.article_type{
+	background-color: #383634;
+	color: white;
+	border-left: 7px solid #48bc7b;
+	font-size: 11px;
+	padding: 4px 12px;
+}
+.article_title{
+	display: block;
+	line-height: 30px;
+	color: #383634;
+	font-weight: 300;
+	font-size: 24px;
+	margin: 23px auto 10px;
+}
+.article_desc{
+	line-height: 23px;
+	color: #727272;
+	font-size: 14px;
+}
+.article_time{
+	display: inline-block;
+	width: 100%;
+	text-align: right;
+	margin-top: 10px;
+	line-height: 14px;
+	color: #a1a1a1;
+	font-size: 14px;
+}
+
+.linked_wrap{
+	padding: 15px;
+	background-color: white;
+	box-sizing: border-box;
+	font-size: 14px;
+	margin-bottom: 10px;
+	
+}
+.linked_article_wrap{
+	border-bottom:1px solid rgb(245, 246, 246);
+	padding: 16px 0 13px 0;
+}
+.article_type_linked{
+	box-sizing:border-box;
+	width: 100%;
+	display: inline-block;
+}
+.article_type_blue{
+	
+	border-color: #228ce2;
+}
+.article_type_red{
+	border-color: #c65140;
+}
+.article_type_yellow{
+	border-color: #cd9a3f;
+}
+.linked_title_box{
+	height: 24px;
+	line-height: 24px;
+	overflow: hidden;
+}
+.linked_author,.linked_author_wrap>*{
+	color: #a1a1a1;
+}
+.linked_title{
+	color: #1c1c1c;
+	margin-left: 5px;
+}
+.linked_author_wrap>*{
+	display: inline-block;
+	width: 50%;
+}
+.linked_time{
+	text-align: right;
+}
+
+
+@media(max-width:600px) {
+	.content_right,.bourgeoisie_right{
+		display: none;
+	}
+	.content{
+		width: 95%;
+	}
+	.spacing_word {
+	    letter-spacing: 1.5em;
+	    font-size: 13px;
+	    padding-left: 1.5em;
+	}
+	.banner_gray {
+	    font-size: 11px;
+	}
+	.article_box > img {
+	    display: none;
+	}
+	.article_text_box {
+	    width: 100%;
+	    padding-left: 0px;
+	}
+	.article_title {
+	    font-size: 19px;	
+	}
+
+
+}

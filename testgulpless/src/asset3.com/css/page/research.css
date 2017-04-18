@@ -1,0 +1,12 @@
+@import url('../common/main.css');
+
+.banner_img_box{
+	background-image: url('../../images/dynamic/banner.jpg');
+
+}
+.content_right>img{
+	width: 100%;
+}
+
+
+

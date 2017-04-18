@@ -1,0 +1,52 @@
+@import url('../common/main.css');
+
+.sub_3{
+	overflow: hidden;
+}
+.sub_3>div{
+	padding-bottom: 20px;
+}
+.sub_3>div>h2{
+/*	font-size: 22px;*/
+	color: rgb(39, 39, 39);
+	margin-bottom: 20px;
+}
+.sub_3>div>p{
+/*	color: rgb(114, 114, 114);
+	font-size: 12px;	*/
+}
+.sub_3_text_left{
+	clear: both;
+	text-align: right;
+	margin-left: 7px;
+	width: 50%;
+	background: url(../../images/aboutus/about_3_dot.jpg) repeat-y right;
+}
+.sub_3_text_left>*{
+	padding-right: 50px;
+}
+.sub_3_text_left>h2{	
+	background: url(../../images/aboutus/about_3_big_dot.jpg) no-repeat right top;
+}
+.sub_3_text_left>p{	
+	padding-left: 100px;
+}
+
+.sub_3_text_right{
+	text-align: left;
+	width: 50%;
+	float: right;
+	margin-right: 7px;
+	background: url(../../images/aboutus/about_3_dot.jpg) repeat-y left;
+}
+.sub_3_text_right>*{
+	padding-left: 50px;
+}
+.sub_3_text_right>h2{	
+	background: url(../../images/aboutus/about_3_big_dot.jpg) no-repeat left top;
+}
+.sub_3_text_right>p{	
+	padding-right: 100px;
+}
+
+

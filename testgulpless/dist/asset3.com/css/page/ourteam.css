@@ -1,0 +1,24 @@
+@import url('../common/main.css');
+
+.sub_5{
+	
+}
+.person_box{
+	
+}
+.person_box>h2{
+
+        color: rgb(39, 39, 39);
+	border-bottom: #b4b4b4 solid 1px;
+	padding: 10px 0;
+	margin-bottom: 20px;
+}
+.person_box>p{
+
+/*    color: rgb(114, 114, 114);
+*/
+	line-height: 28px;
+	
+}
+
+
