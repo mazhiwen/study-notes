@@ -43,4 +43,27 @@ instance2. sayAge(); //27
 
 
 
-///////////////////原型式继承
+///////////////////寄生组合式继承
+function inheritPrototype( subType, superType){ 
+    var prototype = object( superType. prototype); //创建 对象 
+    prototype. constructor = subType; //增强 对象 
+    subType. prototype = prototype; //指定 对象 
+}
+
+function SuperType( name){ 
+    this. name = name; 
+    this. colors = ["red", "blue", "green"]; 
+} 
+SuperType. prototype. sayName = function(){ 
+    alert( this. name); 
+}; 
+function SubType( name, age){ 
+    SuperType. call( this, name); 
+    this. age = age; 
+}
+ inheritPrototype( SubType, SuperType); 
+ SubType. prototype. sayAge = function(){ 
+     alert( this. age); 
+    };
+
+
