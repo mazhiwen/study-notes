@@ -1,1 +1,0 @@
-define(function(require){require("commonMain")(),$(".sub_nav_box>li").each(function(i,s){$(this).click(function(){$(this).addClass("sub_nav_active"),$(this).siblings().removeClass("sub_nav_active");var s=$(".sub_"+(i+1));s.show(),s.siblings().hide()})})});

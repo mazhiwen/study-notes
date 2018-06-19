@@ -1,1 +1,0 @@
-define(function(require,exports,module){function e(e){var n=new RegExp("\\S+\\/(\\S*?)\\.html","g"),t=n.exec(e);return!!t&&t[1]}module.exports=e});
