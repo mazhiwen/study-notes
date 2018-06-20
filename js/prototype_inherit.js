@@ -1,11 +1,7 @@
-// var obj={
-//     a:1,
-//     b:2
-// }
-// with (obj){
-//     b=3;
-// }
-// console.log(obj);
+
+
+
+
 
 //////////////////组合继承  (原型链 和 借用构造函数共同构成)
 function SuperType( name){ 
@@ -44,8 +40,14 @@ instance2. sayAge(); //27
 
 
 ///////////////////寄生组合式继承
+function object( o){ 
+    function F(){} 
+    F. prototype = o; 
+    return new F(); 
+}
 function inheritPrototype( subType, superType){ 
     var prototype = object( superType. prototype); //创建 对象 
+    // 或者 var prototype = Object.create( superType. prototype); 
     prototype. constructor = subType; //增强 对象 
     subType. prototype = prototype; //指定 对象 
 }
@@ -61,9 +63,9 @@ function SubType( name, age){
     SuperType. call( this, name); 
     this. age = age; 
 }
- inheritPrototype( SubType, SuperType); 
- SubType. prototype. sayAge = function(){ 
-     alert( this. age); 
-    };
+inheritPrototype( SubType, SuperType); 
+SubType. prototype. sayAge = function(){
+  alert( this. age); 
+};
 
 
