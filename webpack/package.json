@@ -1,21 +1,35 @@
 {
   "name": "webpack-demo",
   "version": "1.0.0",
-  "description": "",
+  "description": "学习webpack,基于webpack官网教程",
   "main": "index.js",
   "scripts": {
     "watch": "webpack --watch",
-    "build": "webpack",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --open",
+    "server": "node server.js",
+    "build": "webpack"
   },
-  "keywords": [],
-  "author": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mazhiwen/study-notes/tree/master/webpack"
+  },
+  "keywords": [
+    "webpack",
+    "study"
+  ],
+  "author": "Marjoven",
   "license": "ISC",
   "devDependencies": {
     "clean-webpack-plugin": "^0.1.16",
-    "html-webpack-plugin": "^2.30.1",
-    "http-server": "^0.10.0",
-    "webpack": "^3.5.4"
+    "css-loader": "^1.0.0",
+    "express": "^4.16.3",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^0.21.0",
+    "webpack": "^4.16.0",
+    "webpack-cli": "^3.0.8",
+    "webpack-dev-middleware": "^3.1.3",
+    "webpack-dev-server": "^3.1.4"
   },
   "dependencies": {
     "lodash": "^4.17.4",
