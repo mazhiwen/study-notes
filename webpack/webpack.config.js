@@ -32,7 +32,7 @@ module.exports = {
     }),
     new webpack.NamedModulesPlugin(),//热更新相关
     new webpack.HotModuleReplacementPlugin(),//热更新相关
-    //代码分离 4移除此配置
+    //代码分离 webpack4移除此配置
     // new webpack.optimize.CommonsChunkPlugin({
     //   name: 'common' // 指定公共 bundle 的名称。
     // })
@@ -86,6 +86,6 @@ module.exports = {
     //服务器访问地址
     publicPath: '/'
   },
-  //mode 会执行uglyfyjs
+  //mode production 会执行uglyfyjs
   mode: "production"
 };

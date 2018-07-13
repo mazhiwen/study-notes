@@ -19,7 +19,11 @@
 
 https://webpack.docschina.org/guides/tree-shaking/
 
+注意：
 
+1.使用 ES2015 模块语法（即 import 和 export）
+2.在项目 package.json 文件中，添加一个 "sideEffects" 入口。
+3.引入一个能够删除未引用代码(dead code)的压缩工具(minifier)（例如 UglifyJSPlugin）。
 
 ### 使用config 或者 dev prod
 
@@ -74,8 +78,25 @@ button.onclick = e => import(/* webpackChunkName: "print" */ './print').then(mod
 
 ### 创建library
 
-兼容conmmonjs amd cmd
+兼容es6 commonjs amd cmd
 
 
 ### shimming
 
+new webpack.ProvidePlugin({
+  _: 'lodash'
+  //join: ['lodash', 'join']
+})
+
+
+### devtool
+
+此选项控制是否生成，以及如何生成 source map。
+
+https://github.com/webpack/webpack/tree/master/examples/source-map
+
+
+### devserver
+
+webpack-dev-server 配置 devServer
+webpack-dev-middleware 

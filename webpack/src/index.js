@@ -9,7 +9,6 @@ function component() {
     var btn = document.createElement('button');
     // lodash 是由当前 script 脚本 import 导入进来的
     // element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-
     
     cube(5);
     

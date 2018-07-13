@@ -43,8 +43,9 @@ module.exports = {
       //     reuseExistingChunk: true 
       //   }
       // }
-      
-      
+    }),
+    new webpack.ProvidePlugin({
+      _: 'lodash'
     })
   ],
   output: {
@@ -56,7 +57,14 @@ module.exports = {
       {
         test:/\.css$/,
         use: ['style-loader', 'css-loader']
-      }
+      },
+      // {
+      //   test: /\.js$/,
+      //   include: path.resolve(__dirname, "src"),
+      //   loader: "babel-loader"
+      // }
+    
     ]
+    
   },
 };

@@ -3,7 +3,10 @@ const common = require('./webpack.common.js');
 const webpack = require('webpack');
 
 module.exports = merge(common, {
+
   devtool: 'inline-source-map',
+  // devtool: 'eval',
+  //使用 webpack-dev-server
   devServer:{
     //开发启动服务目录
     contentBase: './dist',
@@ -15,7 +18,8 @@ module.exports = merge(common, {
     new webpack.HotModuleReplacementPlugin()//热更新相关
   ],
   output:{
-    filename: '[name].bundle.js'
+    filename: '[name].bundle.js',
+    publicPath: '/'
   },
   mode:'development'
 

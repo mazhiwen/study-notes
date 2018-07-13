@@ -1,10 +1,15 @@
 const express = require('express');
 const webpack = require('webpack');
 const webpackDevMiddleware = require('webpack-dev-middleware');
+const merge = require('webpack-merge');
 
 const app = express();
-const config = require('./webpack.config.js');
-const compiler = webpack(config);
+const config = require('./webpack.dev.js');
+const compiler = webpack(merge(config,{
+  output:{
+    publicPath: '/'
+  }
+}));
 
 // Tell express to use the webpack-dev-middleware and use the webpack.config.js
 // configuration file as a base.
