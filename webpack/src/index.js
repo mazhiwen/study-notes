@@ -1,4 +1,4 @@
-// import _ from 'lodash';
+import _ from 'lodash';
 import printMe from './print.js';
 // import utility from 'utility-mar';
 import { cube } from './math.js';
@@ -10,16 +10,24 @@ function component() {
     // lodash 是由当前 script 脚本 import 导入进来的
     // element.innerHTML = _.join(['Hello', 'webpack'], ' ');
 
-    element.innerHTML = [
-      'Hello webpack!',
-      '5 cubed is equal to ' + cube(5)
-    ].join('\n\n');
+    
+    cube(5);
+    
+    console.log(
+      _.join(['Another', 'module', 'loaded!'], ' ')
+    );
 
-
-    btn.innerHTML = 'Click me and check the console!';
+    btn.innerHTML = 'fuckindex!';
     btn.onclick = printMe;
     element.appendChild(btn);
     return element;
+
+
+    
+
+
+
+    
   }
   
   document.body.appendChild(component());

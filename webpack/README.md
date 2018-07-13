@@ -3,9 +3,9 @@
 
 
 
-### package.json
+### tree-shaking 死代码 dead code
 
-
+目前发现对node_modules 无效
 如果所有代码都不包含副作用，我们就可以简单地将该属性标记为 false，来告知 webpack，它可以安全地删除未用到的 export 导出。
 "sideEffects": false
 如果你的代码确实有一些副作用，那么可以改为提供一个数组：
@@ -18,3 +18,45 @@
 }
 
 https://webpack.docschina.org/guides/tree-shaking/
+
+
+
+"start": "webpack-dev-server --open --config webpack.dev.js",
+"build": "webpack --config webpack.prod.js"
+
+
+
+### 代码分离
+
+#### 同步
+
+webpack.optimize.SplitChunksPlugin
+
+#### 异步 
+
+import(/* webpackChunkName: "lodash" */ 'lodash').then(_ => {
+  var element = document.createElement('div');
+  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+  return element;
+}).catch(error => 'An error occurred while loading the component');
+
+OR
+
+async function getComponent() {
+  const _ = await import(/* webpackChunkName: "lodash" */ 'lodash');
+  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+  return element;
+}
+getComponent().then(component => {
+  document.body.appendChild(component);
+});
+
+
+### 懒加载
+
+button.onclick = e => import(/* webpackChunkName: "print" */ './print').then(module => {
+  var print = module.default;
+  print();
+});
+
+注意当调用 ES6 模块的 import() 方法（引入模块）时，必须指向模块的 .default 值，因为它才是 promise 被处理后返回的实际的 module 对象。

@@ -13,5 +13,7 @@ module.exports = merge(common, {
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     })
-  ]
+  ],
+  //mode 会执行uglyfyjs
+  mode: "production"
 });
