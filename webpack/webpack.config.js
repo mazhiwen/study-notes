@@ -72,13 +72,14 @@ module.exports = {
     })
   ],
   //代码分离
-  optimization:{
-    splitChunks: {
-      name: 'common'
-    }
-  },
+  // optimization:{
+  //   splitChunks: {
+  //     name: 'common'
+  //   }
+  // },
   output: {
     filename: '[name].bundle.js',
+    // filename: '[name].[chunkhash].js',
     //非入口 chunk 的名称
     chunkFilename: '[name].bundle.js',
     path: path.resolve(__dirname, 'dist'),

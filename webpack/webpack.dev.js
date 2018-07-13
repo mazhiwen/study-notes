@@ -1,5 +1,6 @@
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
+const webpack = require('webpack');
 
 module.exports = merge(common, {
   devtool: 'inline-source-map',
@@ -12,5 +13,10 @@ module.exports = merge(common, {
   plugins:[
     new webpack.NamedModulesPlugin(),//热更新相关
     new webpack.HotModuleReplacementPlugin()//热更新相关
-  ]
+  ],
+  output:{
+    filename: '[name].bundle.js'
+  },
+  mode:'development'
+
 });

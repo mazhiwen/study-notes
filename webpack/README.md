@@ -21,10 +21,16 @@ https://webpack.docschina.org/guides/tree-shaking/
 
 
 
+### 使用config 或者 dev prod
+
+#### dev prod
+
 "start": "webpack-dev-server --open --config webpack.dev.js",
 "build": "webpack --config webpack.prod.js"
 
+#### config
 
+"build": "webpack"
 
 ### 代码分离
 
@@ -60,3 +66,16 @@ button.onclick = e => import(/* webpackChunkName: "print" */ './print').then(mod
 });
 
 注意当调用 ES6 模块的 import() 方法（引入模块）时，必须指向模块的 .default 值，因为它才是 promise 被处理后返回的实际的 module 对象。
+
+
+### mode 配置
+
+
+
+### 创建library
+
+兼容conmmonjs amd cmd
+
+
+### shimming
+

@@ -14,6 +14,9 @@ module.exports = merge(common, {
       'process.env.NODE_ENV': JSON.stringify('production')
     })
   ],
+  output:{
+    filename: '[name].[chunkhash].js',
+  },  
   //mode 会执行uglyfyjs
   mode: "production"
 });
