@@ -85,3 +85,32 @@ var createXHR = (function(){
 
 
 /**************** 函数绑定 ****************/
+
+//this指向丢失
+var handler = { 
+  message: "Event handled", 
+  handleClick: function( event){ 
+    alert( this. message); 
+  } 
+}; 
+var btn = document. getElementById(" my- btn"); 
+EventUtil. addHandler( btn, "click", handler. handleClick);
+//闭包解决
+EventUtil. addHandler( btn, "click", function( event){ 
+  handler. handleClick( event); 
+});
+//bind函数
+function bind( fn, context){
+  //创建闭包 
+  return function(){ 
+    return fn. apply( context, arguments); 
+  }; 
+}
+//bind解决
+EventUtil. addHandler( btn, "click", bind( handler. handleClick, handler));
+
+
+
+
+
+
