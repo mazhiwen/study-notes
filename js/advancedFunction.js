@@ -108,6 +108,8 @@ function bind( fn, context){
 }
 //bind解决
 EventUtil. addHandler( btn, "click", bind( handler. handleClick, handler));
+//es5 提供原生bind方法
+EventUtil. addHandler( btn, "click", handler. handleClick.bind(handler));
 
 
 
