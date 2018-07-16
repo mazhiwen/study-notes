@@ -18,8 +18,7 @@ module.exports = merge(common, {
     new webpack.HotModuleReplacementPlugin()//热更新相关
   ],
   output:{
-    filename: '[name].bundle.js',
-    publicPath: '/'
+    filename: '[name].bundle.js'
   },
   mode:'development'
 

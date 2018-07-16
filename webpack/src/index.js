@@ -13,7 +13,7 @@ function component() {
     cube(5);
     
     console.log(
-      _.join(['Another', 'module', 'loaded!'], ' ')
+      _.join(['dddddddd', 'module', 'loaded!'], ' ')
     );
 
     btn.innerHTML = 'fuckindex!';
