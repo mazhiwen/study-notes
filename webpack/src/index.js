@@ -1,10 +1,10 @@
 import _ from 'lodash';
 import printMe from './print.js';
-// import utility from 'utility-mar';
+import {utiDate} from 'utility-mar';
 import { cube } from './math.js';
 import './style.css';
 function component() {
-    // console.log(utility.toDateTime);
+    console.log(utiDate.toDateTime);
     var element = document.createElement('div');
     var btn = document.createElement('button');
     // lodash 是由当前 script 脚本 import 导入进来的
