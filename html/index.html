@@ -3,84 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
+    <base href='/html/a/'></base>
     <style>
-        *{margin:0;
-            padding:0;
-            list-style:none;}
-        .wrap{height:170px;
-            width:490px;
-            margin:60px auto;
-            overflow: hidden;
-            position: relative;
-            margin:100px auto;}
-        .wrap ul{position:absolute;}
-        .wrap ul li{height:170px;}
-        .wrap ol{position:absolute;
-            right:5px;
-            bottom:10px;}
-        .wrap ol li{height:20px; width: 20px;
-            background:#ccc;
-            border:solid 1px #666;
-            margin-left:5px;
-            color:#000;
-            float:left;
-            /*display: inline-block;*/
-            line-height:center;
-            text-align:center;
-            cursor:pointer;}
-        .wrap ol .on{background:#E97305;
-            color:#fff;}
-
+       
     </style>
-    <script type="text/javascript">
-        window.onload=function(){
-            var wrap=document.getElementById("wrap");
-            var pic=document.getElementById("pic").getElementsByTagName('li');
-            var list=document.getElementById("list").getElementsByTagName('li');
-            var index=0;
-            //ѭ���л�
-            var timer=setInterval(show,1000);
-
-            //��ʾͼƬ
-            function show() {
-                qiehuan(index);
-                index++;
-                if(index>=pic.length){
-                    index=0;
-                }
-            }
-
-            function qiehuan(curIndex) {
-                for (var i=0;i<=pic.length-1;i++){
-                    console.log(i);
-                    pic[i].style.display="none";
-                    list[i].className="";
-                }
-                pic[curIndex].style.display="block";
-                list[curIndex].className="on";
-
-            }
-
-        };
-
-    </script>
+    <link href="./test.css" rel="stylesheet">
 </head>
 <body>
 <div class="wrap" id='wrap'>
-    <ul id="pic">
-        <li><img src="http://img.mukewang.com/54111cd9000174cd04900170.jpg" alt=""></li>
-        <li><img src="http://img.mukewang.com/54111dac000118af04900170.jpg" alt=""></li>
-        <li><img src="http://img.mukewang.com/54111d9c0001998204900170.jpg" alt=""></li>
-        <li><img src="http://img.mukewang.com/54111d8a0001f41704900170.jpg" alt=""></li>
-        <li><img src="http://img.mukewang.com/54111d7d00018ba604900170.jpg" alt=""></li>
-    </ul>
-    <ol id="list">
-        <li class="on">1</li>
-        <li>2</li>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
-    </ol>
+
+    
+ 
+    
 </div>
+<script type="text/javascript" >
+       
+</script>
 </body>
 </html>
