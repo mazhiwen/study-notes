@@ -6,8 +6,8 @@
 ```javascript
 functiontest(){
   //varimg=document.getElementByTagName('img');
-  vardoc=document;
-  varimg=doc.getElementByTagName('img');
+  var doc=document;
+  var img=doc.getElementByTagName('img');
 }
 ```
 2. 避免with语句
