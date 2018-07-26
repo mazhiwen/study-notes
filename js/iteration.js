@@ -145,11 +145,27 @@ var bool=array.every(function callback(currentValue, index, array){
     return currentValue>0;
 });
 
+
+//*******Array.some()
+// 测试数组中的某些元素是否通过由提供的函数实现的测试
+[1, 2, 3, 4, 5].some(function(currentValue, index, array) {
+// checks whether an element is even
+    return currentValue % 2 === 0;
+});
+
+
 //*******Array.filter()
 //返回通过测试callback 的新数组
 //不修改原数组 
 var newArray = array.filter(function callback(currentValue, index, array){
     return currentValue>0;
+});
+
+//*******Array.reduce()
+//array从左到右执行callback
+// 返回最终return
+array.reduce((accumulator, currentValue,currentIndex,array) => {
+    return  accumulator + currentValue
 });
 
 
