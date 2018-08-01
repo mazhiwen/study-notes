@@ -147,12 +147,10 @@ for( names. front(); names. currPos() < names. length(); names. next()) {
 }
 ```
 
-
-
-
-##  链表 
+## 链表
 
 ### 1. 单向链表
+
 链表是由一组节点组成的集合。每个节点都使用一个对象的引用指向它的后继。  
 指向另一个节点的引用叫做链。  
 尾元素指向null  
@@ -160,19 +158,19 @@ Head->节点->节点->null
 
 ```javascript
 //Node 表示节点
-function Node( element) { 
-  this. element = element; 
-  this. next = null; 
+function Node( element) {
+  this. element = element;
+  this. next = null;
 }
 
 //LinkedList   表示链表 及 操作方法
-function LList() { 
-  this. head = new Node(" head"); 
-  this. find = find; 
-  this. insert = insert; 
+function LList() {
+  this. head = new Node(" head");
+  this. find = find;
+  this. insert = insert;
   this. findPrevious= findPrevious;
-  this. remove = remove; 
-  this. display = display; 
+  this. remove = remove;
+  this. display = display;
 }
 
 //查找节点
@@ -291,11 +289,10 @@ function display() {
 
 ```
 
-
-
-
 ## 字典
+
 键-值对形式 ， key value对
+
 ```javascript
 //基础用 Array，非Object
 //javascript 一切皆对象
@@ -340,11 +337,11 @@ function clear() {
 }
 ```
 
-
-
 ## 散列
+
 ### 1. 散列表,散列函数
-插入，取用，删除快    
+
+插入，取用，删除快  
 查找慢  
 使用散列表存储数据时，通过一个散列函数将键映射为一个数字，这个数字的范围是0到散列表的长度。  
 理想情况下，散列函数会将每个键值映射为一个唯一的数组索引。  
@@ -368,7 +365,7 @@ function put( data) {
 } 
 //散列函数 简单实现
 //key的ASCII码的值的和除以数组长度，取余
-function simpleHash( data) { 
+function simpleHash( data) {  
   var total = 0; 
   for (var i = 0; i < data. length; ++ i) { 
     total += data. charCodeAt( i); 
@@ -385,7 +382,9 @@ function showDistro() {
   } 
 }
 ```
+
 散列函数的选择依赖于键值的数据类型。
+
 * 如果键是整型，最简单的散列函数就是以数组的长度对键取余。在一些情况下，比如数组的长度是10，而键值都是10的倍数时，就不推荐使用这种方式了。这也是数组的长度为什么要是质数的原因之一，就像我们在上个构造函数中，设定数组长度为137一样。如果键是随机的整数，则散列函数应该更均匀地分布这些键。这种散列方式称为除留余数法。
 * 在很多应用中，键是字符串类型。事实证明，选择针对字符串类型的散列函数是很难的，选择时必须加倍小心。
 
@@ -405,6 +404,7 @@ function betterHash( string) {
   return parseInt( total); 
 }
 ```
+
 ```javascript
 //修改为存储键值对
 //修改put 存值 改为 存储键值对
@@ -416,26 +416,136 @@ function get( key) {
   return this. table[ this. betterHash( key)]; 
 }
 ```
+
 ### 2. 碰撞处理
 
+当 散 列 函数 对于 多个 输入 产生 同样 的 输出 时， 就 产生了 碰撞。
+
+* 开链法  
+
+散列表的底层数组中，每个数组元素（数据单元）又是一个新的数据结构（如数组），就可以存储多个键。  
+即二维数组
+
+```javascript
+
+//将原散列表底层数组 改为 二维数组
+function buildChains() { 
+  for (var i = 0; i < this. table. length; ++ i) { 
+    this. table[ i] = new Array(); 
+  } 
+}
+//只保存value 的put
+function put(){
+
+}
+function showDistro() { 
+  var n = 0; 
+  for (var i = 0; i < this. table. length; ++ i) { 
+    if (this. table[ i][ 0] != undefined) { 
+      print( i + ": " + this. table[ i]); 
+    } 
+  } 
+}
+
+//保存键值 二维数组内连续两个单元第一个保存key，第二个保存value
+function put( key, data) { 
+  var pos = this. betterHash( key); 
+  var index = 0; 
+  if (this. table[ pos][ index] == undefined) { 
+    this. table[ pos][ index] = key; 
+    this. table[ pos][ index+ 1] = data; 
+  } else { 
+    while (this. table[ pos][ index] != undefined) { 
+      ++ index; 
+    } 
+    this. table[ pos][ index] = key; 
+    this. table[ pos][ index+ 1] = data; 
+  } 
+}
+function get( key) { 
+  var index = 0; 
+  var hash = this. betterHash( key); 
+  if (this. table[ pos][ index] = key) { 
+    return this. table[ pos][ index+ 1]; 
+    index+= 2;
+  } 
+  else { 
+    while (this. table[ pos][ index] != key) { 
+      index += 2; 
+    } 
+    return this. table[ pos][ index+ 1]; 
+  } 
+  return undefined; 
+}
+```
+
+* 线性探测法
+
+依次检查散列表的下一个位置是否为空，如果空，插入，如果不空，继续查找下一个  
+常用选择：数组大小是数据个数的1.5倍，用开链法；数组大小是数据个数的两倍以及以上，用线性探测  
+
+```javascript
+//原table数组存key values数组存value
+this. values = [];
+function put( key, data) { 
+  var pos = this. betterHash( key); 
+  if (this. table[ pos] == undefined) { 
+    this. table[ pos] = key; 
+    this. values[ pos] = data; 
+  } else { 
+    while (this. table[ pos] != undefined) { 
+      pos++; 
+    } 
+    this. table[ pos] = key; 
+    this. values[ pos] = data; 
+  } 
+}
+function get( key) { 
+  var hash = -1; 
+  hash = this. betterHash( key); 
+  if (hash > -1) { 
+    for (var i = hash; this. table[ hash] != undefined; i++) { 
+      if (this. table[ hash] == key) { 
+        return this. values[ hash]; 
+      } 
+    } 
+  } 
+  return undefined; 
+}
+```
+
+## 集合
+
+特点：成员无序，不能有相同成员
+
+## 二叉树
+
+树 ：  
+非线性数据结构,存储层级关系数据，有序列表。  
+由边连接的节点组成  
+一棵树最上面的节点称为根节点，如果一个节点下面连接多个节点，那么该节点称为父节点，它下面的节点称为子节点。一个节点可以有0个、1个或多个子节点。没有任何子节点的节点称为叶子节点。  
+二叉树：二叉树是一种特殊的树，它的子节点个数不超过两个。二叉树具有一些特殊的计算性质，使得在它们之上的一些操作异常高效。  
+路径：从一个节点到另一个节点的这一组边称为路径。  
+遍历：以某种特定顺序访问树中所有的节点称为树的遍历。  
+深度：树可以分为几个层次，根节点是第0层，它的子节点是第1层，子节点的子节点是第2层，以此类推。树中任何一层的节点可以都看做是子树的根，该子树包含根节点的子节点，子节点的子节点等。我们定义树的层数就是树的深度。  
 
 
+## 排序
 
-
-##  排序 
 ### 1. 冒泡  
+
 相邻比较，交换顺序
 每进行一趟排序都会找出一个较大值  
 - 如果数据正序，只需要走一趟即可完成排序。所需的比较次数C和记录移动次数M均达到最小值，   
 即：Cmin=n-1;Mmin=0;  
 所以，冒泡排序最好的时间复杂度为O(n)。  
+
 - 如果数据是反序的，则需要进行n-1趟排序。每趟排序要进行n-i次比较(1≤i≤n-1)，  
-且每次比较都必须移动记录三次来达到交换记录位置。在这种情况下，比较和移动次数均达到最大值：    
-$$Cmax=\frac{n(n-1)}{2}=O(n^2)$$    
-$$Mmax=\frac{3n(n-1)}{2}=O(n^2)$$ 
+且每次比较都必须移动记录三次来达到交换记录位置。在这种情况下，比较和移动次数均达到最大值：  
+
+$$Cmax=\frac{n(n-1)}{2}=O(n^2)$$  
+$$Mmax=\frac{3n(n-1)}{2}=O(n^2)$$  
 冒泡排序的最坏时间复杂度为：\\(O(n^2)\\) 。  
-
-
 
 第1次循环：比较n个数据  
 第2次循环：比较n-1个数据  
@@ -444,21 +554,22 @@ $$Mmax=\frac{3n(n-1)}{2}=O(n^2)$$
 第i次循环：比较n-i+1个数据  
 ...  
 第n-1次循环：比较2个数据
+
 ```javascript
-function bubbleSort() { 
+function bubbleSort() {  
   var numElements = this. dataStore. length; // 数据总长度
   for ( var outer = numElements; outer >= 2; --outer) { //numElements 至 2 ，总numElements-1次
-    for ( var inner = 0; inner <= outer - 1; ++ inner ) { 
-      if (this. dataStore[ inner] > this. dataStore[ inner + 1]) { 
-        swap( this. dataStore, inner, inner + 1); 
-      } 
-    } 
-  } 
+    for ( var inner = 0; inner <= outer - 1; ++ inner ) {  
+      if (this. dataStore[ inner] > this. dataStore[ inner + 1]) {  
+        swap( this. dataStore, inner, inner + 1);  
+      }  
+    }  
+  }  
 }
-function swap( arr, index1, index2) { 
-  var temp = arr[ index1]; 
-  arr[ index1] = arr[ index2]; 
-  arr[ index2] = temp; 
+function swap( arr, index1, index2) {  
+  var temp = arr[ index1];  
+  arr[ index1] = arr[ index2];  
+  arr[ index2] = temp;  
 }
 
 
