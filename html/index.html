@@ -1,23 +1,29 @@
-﻿<!doctype html>
-<html lang="en">
+﻿<!DOCTYPE html>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <base href='/html/a/'></base>
-    <style>
-       
-    </style>
-    <link href="./test.css" rel="stylesheet">
+<meta charset="utf-8"> 
+<title>菜鸟教程(runoob.com)</title> 
+<script src="https://cdn.bootcss.com/jquery/1.10.2/jquery.min.js">
+</script>
+<script>
+$(document).ready(function(){
+  $("input").select(function(e){
+    //   e.preventDefault();
+    console.log(e);
+    // $("input").after("文本已选中!");
+  });
+  $("button").click(function(){
+    // $("input").trigger("select");
+    $("input").select();
+  });
+});
+</script>
 </head>
 <body>
-<div class="wrap" id='wrap'>
 
-    
- 
-    
-</div>
-<script type="text/javascript" >
-       
-</script>
+<input type="text" value="Hello World">
+<br><br>
+<button>触发输入框的 select 事件</button>
+
 </body>
 </html>
