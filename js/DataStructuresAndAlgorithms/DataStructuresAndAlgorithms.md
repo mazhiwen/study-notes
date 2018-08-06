@@ -815,13 +815,38 @@ function bfs( s) {
     }
     for each( var w in this. adj[ v]) {
       if (!this. marked[ w]) {
-        this. edgeTo[ w] = v;
+        // this. edgeTo[ w] = v;
         this. marked[ w] = true;
         queue. push( w);
       }
     }
   }
 }
+```
+
+### 3. 查找最短路径
+
+```javascript
+//Graph类添加 edgeTo:从一个顶点到下一个顶点的所有边
+this.edgeTo=[];
+//广度优先搜索bfs 放开edgeTo操作
+//pathTo 与指定顶点有共同边的所有顶点
+function pathTo( v) {
+  var source = 0;
+  if (!this. hasPathTo( v)) {
+    return undefined;
+  }
+  var path = [];
+  for (var i = v; i != source; i = this. edgeTo[ i]) {
+    path. push( i);
+  }
+  path. push( v);
+  return path;
+}
+function hashPathTo( v) {
+  return this. marked[ v];
+}
+
 ```
 
 ## 排序
