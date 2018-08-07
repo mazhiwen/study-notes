@@ -891,6 +891,8 @@ function topSortHelper( v, visited, stack) {
 
 ## 排序算法
 
+***基本排序算法：***
+
 ### 1. 冒泡排序
 
 相邻比较，交换顺序
@@ -934,7 +936,7 @@ function swap( arr, index1, index2) {
 ### 2. 选择排序
 
 从第一个元素开始，每次与其他元素比较  
-选择 排序 从 数组 的 开头 开始， 将 第一个 元素 和 其他 元素 进行 比较。 检查 完 所有 元素 后， 最小 的 元素 会被 放到 数组 的 第一个 位置， 然后 算法 会 从 第二个 位置 继续。 这个 过程 一直 进行， 当 进行 到 数组 的 倒数 第二个 位置 时， 所有 的 数据 便 完成 了 排序。
+选择排序从数组的开头开始，将第一个元素和其他元素进行比较。检查完所有元素后，最小的元素会被放到数组的第一个位置，然后算法会从第二个位置继续。这个过程一直进行，当进行到数组的倒数第二个位置时，所有的数据便完成了排序。
 
 ```javascript
 function selectionSort() {
@@ -953,8 +955,9 @@ function selectionSort() {
 
 ### 3. 插入排序
 
-```javascript
+外层遍历数据，内层将当前值与前面的值遍历比大小，当前值小，则前移。移到比前面值大，则停止.
 
+```javascript
 function insertionSort() {
   var temp, inner;
   //从1 到 最后一个 遍历数据
@@ -963,18 +966,21 @@ function insertionSort() {
     inner = outer;//inner 初始化为outer索引
     //当 inner-1的值>=temp值 时 inner--
     while (inner > 0 && (this. dataStore[ inner - 1] >= temp)) {
-      this. dataStore[ inner] = this. dataStore[ inner - 1];//inner-1 后移为inner值
+      this. dataStore[ inner] = this. dataStore[ inner - 1];//inner-1的值 后移为inner位置
       --inner;
     }
+    //inner 值为temp
     this. dataStore[ inner] = temp;
   }
 }
 ```
 
+***总结基本排序算法速度:  
+插入排序>选择排序>冒泡排序***  
 
+***高级排序算法：***
 
-
-
+### 4. 希尔排序
 
 
 
