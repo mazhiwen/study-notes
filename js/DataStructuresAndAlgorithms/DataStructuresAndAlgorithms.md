@@ -1,4 +1,3 @@
-<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=default"></script>
 
 ##  数组去重 
 ```javascript
@@ -804,6 +803,7 @@ function dfs( v) {
   广度 优先 搜索 从 第一个 顶点 开始， 尝试 访问 尽可能 靠近 它的 顶点。 本质上， 这种 搜索 在 图上 是 逐 层 移动 的， 首先 检查 最靠近 第一个 顶点 的 层， 再 逐渐 向下 移动 到 离 起始 顶点 最 远的 层。
 
 ```javascript
+//s=0
 function bfs( s) {
   var queue = [];
   this. marked[ s] = true;
@@ -840,18 +840,58 @@ function pathTo( v) {
   for (var i = v; i != source; i = this. edgeTo[ i]) {
     path. push( i);
   }
-  path. push( v);
+  path. push( source);
   return path;
 }
 function hashPathTo( v) {
   return this. marked[ v];
 }
+```
+
+### 4. 拓扑排序
+
+```javascript
+//Graph类添加
+this. vertexList = [];
+//拓扑排序函数
+function topSort() {
+  var stack = [];//排序存储栈
+  var visited = [];//是否访问过标记
+  //遍历所有顶点 都标记为未访问
+  for (var i = 0; i < this. vertices; i++) {
+    visited[ i] = false;
+  }
+  //遍历所有顶点
+  for (var i = 0; i < this. vertices; i++) {
+    if (visited[ i] == false) {//如果顶点未访问过
+      this. topSortHelper( i, visited, stack);//(深度优先)排序访问顶点
+    }
+  }
+  //遍历 并输出排序存储栈
+  for (var i = 0; i < stack. length; i++) {
+    if (stack[ i] != undefined && stack[ i] != false) {
+      print( this. vertexList[ stack[ i]]);
+    }
+  }
+}
+//排序访问函数(深度优先)
+function topSortHelper( v, visited, stack) {
+  visited[ v] = true;//设置v已访问
+  for each( var w in this. adj[ v]) { //遍历v的邻接点 w
+    if (!visited[ w]) {//如果w未访问
+      //排序访问w 第二层第一个参数为false
+      this. topSortHelper( visited[ w], visited, stack);
+    }
+  }
+  //排序存储栈 push v
+  stack. push( v);
+}
 
 ```
 
-## 排序
+## 排序算法
 
-### 1. 冒泡  
+### 1. 冒泡排序
 
 相邻比较，交换顺序
 每进行一趟排序都会找出一个较大值
@@ -863,9 +903,7 @@ function hashPathTo( v) {
 * 如果数据是反序的，则需要进行n-1趟排序。每趟排序要进行n-i次比较(1≤i≤n-1)，  
   且每次比较都必须移动记录三次来达到交换记录位置。在这种情况下，比较和移动次数均达到最大值：  
 
-$$Cmax=\frac{n(n-1)}{2}=O(n^2)$$  
-$$Mmax=\frac{3n(n-1)}{2}=O(n^2)$$  
-冒泡排序的最坏时间复杂度为：\\(O(n^2)\\) 。  
+![s](./11533632197.png)
 
 第1次循环：比较n个数据  
 第2次循环：比较n-1个数据  
@@ -891,13 +929,47 @@ function swap( arr, index1, index2) {
   arr[ index1] = arr[ index2];  
   arr[ index2] = temp;  
 }
-
-
 ```
 
+### 2. 选择排序
 
+从第一个元素开始，每次与其他元素比较  
+选择 排序 从 数组 的 开头 开始， 将 第一个 元素 和 其他 元素 进行 比较。 检查 完 所有 元素 后， 最小 的 元素 会被 放到 数组 的 第一个 位置， 然后 算法 会 从 第二个 位置 继续。 这个 过程 一直 进行， 当 进行 到 数组 的 倒数 第二个 位置 时， 所有 的 数据 便 完成 了 排序。
 
+```javascript
+function selectionSort() {
+  var min, temp;
+  for (var outer = 0; outer <= this. dataStore. length - 2; ++ outer) {
+    min = outer;
+    for (var inner = outer + 1; inner <= this. dataStore. length - 1; ++ iner) {
+      if (this. dataStore[ inner] < this. dataStore[ min]) {
+        min = inner;
+      }
+      swap( this. dataStore, outer, min);
+    }
+  }
+}
+```
 
+### 3. 插入排序
+
+```javascript
+
+function insertionSort() {
+  var temp, inner;
+  //从1 到 最后一个 遍历数据
+  for (var outer = 1; outer <= this. dataStore. length - 1; ++ outer) {
+    temp = this. dataStore[ outer];//temp 初始化为outer的值
+    inner = outer;//inner 初始化为outer索引
+    //当 inner-1的值>=temp值 时 inner--
+    while (inner > 0 && (this. dataStore[ inner - 1] >= temp)) {
+      this. dataStore[ inner] = this. dataStore[ inner - 1];//inner-1 后移为inner值
+      --inner;
+    }
+    this. dataStore[ inner] = temp;
+  }
+}
+```
 
 
 
