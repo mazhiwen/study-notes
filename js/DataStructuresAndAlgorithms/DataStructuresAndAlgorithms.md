@@ -936,7 +936,7 @@ function swap( arr, index1, index2) {
 ### 2. 选择排序
 
 从第一个元素开始，每次与其他元素比较  
-选择排序从数组的开头开始，将第一个元素和其他元素进行比较。检查完所有元素后，最小的元素会被放到数组的第一个位置，然后算法会从第二个位置继续。这个过程一直进行，当进行到数组的倒数第二个位置时，所有的数据便完成了排序。
+选择排序从数组的开头开始，将第一个元素和其他元素(后面的)进行比较。检查完所有元素后，最小的元素会被放到数组的第一个位置，然后算法会从第二个位置继续。这个过程一直进行，当进行到数组的倒数第二个位置时，所有的数据便完成了排序。
 
 ```javascript
 function selectionSort() {
@@ -982,9 +982,135 @@ function insertionSort() {
 
 ### 4. 希尔排序
 
+类似插入排序，但首先比较最远的元素，而不是相邻元素  
+外 循环 控制 ***间隔 序列*** 的 移动。 也就是说， 算法 在 第一次 处理 数据 集 时， 会 检查 所有 间隔 为 5 的 元素。 下一 次 遍历 会 检查 所有 间隔 为 3 的 元素。 最后 一次 则 会对 间隔 为 1 的 元素， 也就是 相邻 元素 执行 标准 插入 排序。 在 开始 做 最后 一次 处理 时， 大部分 元素 都将 在 正确 的 位置， 算法 就 不必 对 很多 元素 进行 交换。 这 就是 希 尔 排序 比 插入 排序 更 高效 的 地方。
 
 
+```javascript
+//硬编码间隔序列
+//设置间隔序列
+this. gaps = [5, 3, 1];
+//希尔排序
+function shellsort() {
+  //间隔序列循环
+  for (var g = 0; g < this. gaps. length; ++ g) {
+    //i初始化为gap，到数据末端循环
+    for (var i = this. gaps[ g]; i < this. dataStore. length; ++ i) {
+      //temp为i的值
+      var temp = this. dataStore[ i];
+      //对i前面的所有gap间隔的值比较
+      //j初始化i;j>=gap且j-gap的值>temp;j=j-gap
+      for (var j = i; j >= this. gaps[ g] && this. dataStore[ j- this. gaps[ g]] > temp; j -= this. gaps[ g]) {
+        //大小值替换
+        this. dataStore[ j] = this. dataStore[ j - this. gaps[ g]];
+      }
+      this. dataStore[ j] = temp;
+    }
+  }
+}
+//动态计算间隔序列
+function shellsort1() {
+  var N = this. dataStore. length;
+  var h = 1;
+  while (h < N/ 3) {
+    h = 3 * h + 1;
+  }
+  while (h >= 1) {
+    for (var i = h; i < N; i++) {
+      for (var j = i; j >= h && this. dataStore[ j] < this. dataStore[ j- h]; j -= h) {
+        swap( this. dataStore, j, j- h);
+      }
+    }
+    h = (h- 1)/ 3;
+  }
+}
+
+```
+
+### 5. 归并排序
+
+* 自底向上的归并排序 : 这个算法首先将数据集分解为一组只有一个元素的数组。然后通过创建一组左右子数组将它们慢慢合并起来，每次合并都保存一部分排好序的数据，直到最后剩下的这个数组所有的数据都已完美排序。
+
+```javascript
+function mergeSort( arr) {
+  if (arr. length < 2) {
+    return;
+  }
+  var step = 1;//控制子序列的大小
+  var left, right;
+  while (step < arr. length) {
+    left = 0;
+    right = step;
+    while (right + step <= arr. length) {
+      mergeArrays( arr, left, left+ step, right, right+ step);
+      left = right + step; right = left + step;
+    } 
+    if (right < arr. length) {
+      mergeArrays( arr, left, left+ step, right, arr. length);
+    }
+    step *= 2;
+  }
+}
+function mergeArrays( arr, startLeft, stopLeft, startRight, stopRight) {
+  var rightArr = new Array( stopRight - startRight + 1);
+  var leftArr = new Array( stopLeft - startLeft + 1);
+  k = startRight;
+  for (var i = 0; i < (rightArr. length- 1); ++ i) {
+    rightArr[ i] = arr[ k]; ++ k;
+  }
+  k = startLeft;
+  for (var i = 0; i < (leftArr. length- 1); ++ i) {
+    leftArr[ i] = arr[ k]; ++ k;
+  }
+  rightArr[ rightArr. length- 1] = Infinity; // 哨兵 值
+  leftArr[ leftArr. length- 1] = Infinity; // 哨兵 值
+  var m = 0;
+  var n = 0;
+  for (var k = startLeft; k < stopRight; ++ k) {
+    if (leftArr[ m] <= rightArr[ n]) {
+      arr[ k] = leftArr[ m];
+      m++;
+    } else {
+      arr[ k] = rightArr[ n];
+      n++;
+    }
+  }
+  print(" left array - ", leftArr);
+  print(" right array - ", rightArr);
+}
 
 
+```
 
+### 6. 快速排序
+
+这个 算法 首先 要在 列表 中选 择一 个 元素 作为 基准 值（ pivot）。 数据 排序 围绕 基准 值 进行， 将 列表 中小 于 基准 值 的 元素 移到 数组 的 底部， 将 大于 基准 值 的 元素 移到 数组 的 顶部。  
+处理大型数据集合时性能快  
+***算法步骤:***
+
+1. 选择 一个 基准 元素， 将 列表 分隔 成 两个 子 序列；
+2. 对列 表 重新 排序， 将 所有 小于 基准 值 的 元素 放在 基准 值 的 前面， 所有 大于 基准 值 的 元素 放在 基准 值 的 后面；  
+3. 分别 对 较小 元素 的 子 序列 和 较大 元素 的 子 序列 重复 步骤 1 和 2。  
+
+```javascript
+function qSort( list) {
+  if (list. length == 0) {
+    return [];
+  }
+  var lesser = [];
+  var greater = [];
+  var pivot = list[ 0];
+  for (var i = 1; i < list. length; i++) {
+    if (list[ i] < pivot) {
+      lesser. push( list[ i]);
+    } else {
+      greater. push( list[ i]);
+    }
+  }
+  return qSort( lesser). concat( pivot, qSort( greater));
+}
+
+```
+
+## 搜索算法
 
