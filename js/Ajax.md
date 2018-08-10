@@ -1,4 +1,7 @@
-# 1
+# Ajax
+
+https://juejin.im/post/58c883ecb123db005311861a?utm_source=gold_browser_extension
+
 
 ```javascript
 function reqListener () {

@@ -153,12 +153,53 @@ function curry( fn){
   }; 
 }
 //应用以上
-
 var curriedAdd = curry( add, 5); //参数为5的add柯里化
 curriedAdd( 3); //8
 
+//另外一种思路
+// countMoney为立即执行函数，返回的结果是另一个函数
+const countMoney = (function () {
+  let money = 0
+  let args = []//闭包参数
+  const res = function () {
+    if (arguments.length === 0) {
+      for (let i = 0; i < args.length; i++) {
+        money += args[i]
+      }
+      return money
+    } else {
+      // arguments 是个类数组来着，应该用展开符展开才能push进去
+      args.push(...arguments)
+      return res //闭包函数
+    }
+  }
+  return res
+})()
+// 2018-01-01 存了1毛钱
+countMoney(1)
+// 2018-01-02 存了2毛钱
+countMoney(2)
+// 2018-01-03 存了3毛钱
+countMoney(3)
+// 2018-01-04 存了4毛钱
+countMoney(4)
+//一年以后
+// 统计这笔巨额存款 输出结果为 10
+console.log(countMoney())
+// 你还可以装逼地进行花式统计，结果同样是10
+countMoney(1)(2)(3)(4)()
 
 
 
+
+
+
+
+
+/**************** arguments ****************/
+function test(){
+  console.log(arguments);
+}
+test(1,2);
 
 
