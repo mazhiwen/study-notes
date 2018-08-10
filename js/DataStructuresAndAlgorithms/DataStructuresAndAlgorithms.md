@@ -1236,4 +1236,35 @@ function binSearch( arr, data) {
   }
   return -1;
 }
+//计算重复次数
+function count( arr, data) {
+  var count = 0;
+  //position是重复位置的中间位置
+  var position = binSearch( arr, data);
+  if (position > -1) {
+    ++ count;
+    for (var i = position- 1; i > 0; --i) {
+      if (arr[ i] == data) {
+        ++ count;
+      } else {
+        break;
+      }
+    }
+    for (var i = position+ 1; i < arr. length; ++ i) {
+      if (arr[ i] == data) {
+        ++ count;
+      } else {
+        break;
+      }
+    }
+  }
+  return count;
+}
+
 ```
+
+## 高级算法
+
+### 1.动态规划
+
+### 2.贪心算法
