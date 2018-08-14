@@ -1,6 +1,12 @@
-.test {
-  width: 50px;
-  height: 50px;
-  background: gray;
-  transform: matrix(1,0,0,1,10,10);
+.wrap{
+  position:relative;
+  background:gray;
+  height: 100px;
+}
+.test{
+  background: red;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 }
