@@ -114,6 +114,33 @@ flex-shrink: \<number> ;flex 元素的收缩规则,flex 元素仅在默认宽度
 
 flex-basis:指定了 flex 元素在主轴方向上的初始大小
 
+## 选择器
+
+基本的：
+
+1. id选择器（id="name"）  
+1. 类选择器（class="head"）  
+1. 标签选择器（body, div, ul, li）  
+1. 全局选择器（*）  
+
+复杂的：
+
+1. 组合选择器（.head .head_logo）  
+1. 后代选择器 （#head .nav ul li 从父集到子孙集）  
+1. 群组选择器 (div, span, img {color:Red} 具有相同样式的标签分组显示)  
+1. 继承选择器  
+1. 伪类选择器（链接样式，a元素的伪类）  
+1. 子选择器（div>p, 带大于号>）  
+1. CSS相邻相邻兄弟选择器（h1+p, 带加号+）  
+
+优先级：  
+!important > 行内样式 > ID选择器 > 类选择器 > 标签 > 通配符 > 继承 > 浏览器默认属性  
+后写的会覆盖先写的
+
+## 行内元素和块元素
+
+块级元素： div p forn ul li h1-h6  
+行内元素：span img input a i
 
 ## 0.5px的边
 
@@ -158,3 +185,43 @@ flex-basis:指定了 flex 元素在主轴方向上的初始大小
   transform: translate(-50%,-50%);
 }
 ```
+
+## 清除浮动
+
+1.给父级元素定义高度  
+2.让父级元素也浮动  
+3.父级定义display:table  
+4.父元素设置overflow:hidden  
+5.clearfix:使用内容生成的方式清除浮动  
+
+```css
+.clearfix:after {  /* :after选择器向选定的元素之后插入内容  */
+  content:""; /* 生成内容为空  */
+  display: block; /* 块级元素显示  */
+  clear:both; /* 清除前面元素  */
+}
+```
+
+不破坏文档流，没有副作用
+
+## 三栏布局
+
+两边两栏宽度固定，中间栏宽度自适应
+
+方案一：  
+position（绝对定位法） center的div需要放在最后面
+绝对定位法原理将左右两边使用absolute定位，因为绝对定位使其脱离文档流，后面的center会自然流动到他们的上卖弄，然后margin属性，留出左右两边的宽度。就可以自适应了。  
+方案二：  
+float 自身浮动法 center的div需要放到后面
+自身浮动法的原理就是对左右使用float:left和float：right，float使左右两个元素脱离文档流，中间的正常文档流中，使用margin指定左右外边距对其进行一个定位。  
+方案三(圣杯布局)：  
+原理就是margin负值法。使用圣杯布局首先需要在center元素外部包含一个div,包含的div需要设置float属性使其形成一个BFC，并且这个宽度和margin的负值进行匹配
+
+## 左边定宽，右边自适应
+
+方案一：左边设置浮动，右边宽度设置100% .left{float:left} .right:{width:100%}  
+方案二：左设置浮动，右用cacl去补宽度计算 .left{float:left} .right:{width:cacl(100vw-200px}  
+方案三：父容器设置display：flex right部分是设置flex：1  
+方案四：右边div套个包裹、并前置、左及包裹 双浮动  
+
+## BFC (Block Formatting Context)
