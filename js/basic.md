@@ -1,4 +1,7 @@
+# javascript基础知识点
+
 ## 变量提升
+
 //声明（变量，函数等）提升， 赋值不提升
 
 ```javascript
@@ -7,15 +10,14 @@ var a=2;
 //再进行执行阶段 a=2;
 
 //函数优先变量提升 ,如 function foo(){}
-foo(); // 1 var foo; 
-function foo() { console. log( 1 ); } 
+foo(); // 1 var foo;
+function foo() { console. log( 1 ); }
 foo = function() { console. log( 2 ); };
 //解析为:
-function foo() { console. log( 1 ); } 
-foo(); // 1 
+function foo() { console. log( 1 ); }
+foo(); // 1
 foo = function() { console. log( 2 ); };
 ```
-
 
 ## 作用域
 
@@ -29,7 +31,7 @@ foo = function() { console. log( 2 ); };
 ```javascript
 (function foo(){ // <-- 添加 这 一行  //不行。 foo 变量 名 被 隐藏 在 自身 中， 不会 非必要 地 污染 外部 作用域。
   var a = 3; 
-  console. log( a ); // 3 
+  console. log( a ); // 3
 })(); // <-- 以及 这 一行
 ```
 
@@ -48,7 +50,7 @@ Undefined
 Number  
 String  
 Symbol  
-Object  
+Object(new生成的,如：Array,Date,Function,RegExp等)
 
 ## 类型检测
 
@@ -88,8 +90,48 @@ typeof new Date() === 'object';
 typeof function(){} === 'function';
 ```
 
-
 ## instanceof
+
 // 检测原型 
 
+## 深拷贝 浅拷贝
 
+```javascript
+//深拷贝
+//1.JSON.stringify() JSON.parse()
+//2.递归赋值??????????????????????????????错误需修正
+//判断是否是可迭代对象
+function isIteration(obj){
+  let objType = Object.prototype.toString.call(obj);
+  return objType=='[object Object]'||objType=='[object Array]'
+}
+function deepCopy(obj) {
+  
+  if (!isIteration(obj)) {
+    throw new Error('error arguments');
+  }
+  // const targetObj = obj.constructor === Array ? [] : {};
+  const targetObj = Array.isArray(obj) ? [] : {};
+  for (let key in obj) {
+    //只对对象自有属性进行拷贝
+    if (obj.hasOwnProperty(key)) {
+      if (isIteration(obj[key])) {
+        targetObj[key] = deepCopy(obj[key]);
+      } else {
+        targetObj[key] = obj[key];
+      }
+    }
+  }
+  
+  
+  return targetObj;
+}
+```
+
+## 内存泄漏
+
+指由于疏忽或错误造成程序未能释放已经不再使用的内存的情况。内存泄漏并非指内存在物理上的消失，而是应用程序分配某段内存后，由于设计错误，失去了对该段内存的控制，因而造成了内存的浪费。  
+
+检测:内存持续增多，存在内存泄漏；内存平稳，不存在内存泄漏
+
+(https://segmentfault.com/a/1190000008901861)

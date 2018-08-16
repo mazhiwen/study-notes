@@ -1,13 +1,17 @@
-# 同源策略
+# 
+
+## 同源策略
+
+协议+端口号+域名要相同
+
 1. Cookie、LocalStorage 和 IndexDB 无法读取  
 2. DOM 和 Js对象无法获得  
 3. AJAX 请求不能发送  
 
+## 方法
 
+### CORS
 
-# 方法
-
-## CORS
 (Cross-Origin Resource Sharing)  
 跨域浏览器加origin请求头
 
@@ -15,6 +19,7 @@
 
 method:GET, HEAD, POST  
 Content-Type:application/x-www-form-urlencoded , multipart/form-data ,  text/plain
+
 ```javascript
 //js
 Origin:''
@@ -22,11 +27,13 @@ Origin:''
 Access-Control-Allow-Origin: *
 Access-Control-Allow-Methods:'GET'
 ```
+
 * 非简单请求
 
 method：不是简单请求中的一种  
 Content-Type：不是简单请求中的一种  
 浏览器先发送option， Preflighted requests请求
+
 ```javascript
 //js
 OPTIONS 
@@ -40,17 +47,19 @@ Access-Control-Allow-Headers: Content-Type
 Access-Control-Allow-Methods: GET, POST, PUT, DELETE 
 Content-Type: text/html
 ```
+
 cookie
+
 ```javascript
 //启用cookie
 xhr.withCredentials = true;
 //server
 Access-Control-Allow-Credentials: true
 ```
-## JSONP
+### JSONP
 GET  
 js 文件不受浏览器同源策略的影响，所以通过 Script 便签可以进行跨域的请求
-### 前端
+#### 前端
 前端发送给后端一个方法名字。后端在数据包将返回数据包装为方法参数，与方法，一起返回。前端拿到返回结果后，会执行该函数。
 ```javascript
 
@@ -66,19 +75,21 @@ function onBack(res) {
     alert(JSON.stringify(res));
 }
 ```
-### 后端
+
+#### 后端
+
 ```javascript
 //返回content
 onBack({"status": true, "user": "admin"})
 ```
-### 缺点
+
+#### 缺点
+
 它支持 GET 请求而不支持 POST 等其它类行的 HTTP 请求。  
 它只支持跨域 HTTP 请求这种情况，不能解决不同域的两个页面或 iframe 之间进行数据通信的问题
 
+### 代理
 
-
-
-## 代理
 ```sh
 server{
     # 监听9099端口
@@ -88,12 +99,13 @@ server{
     #凡是localhost:9099/api这个样子的，都转发到真正的服务端地址http://localhost:9871 
     location ^~ /api {
         proxy_pass http://localhost:9871;
-    }    
+    }
 }
 ```
 
 反向代理  
 通过nginx配置一个代理服务器（域名与domain1相同，端口不同）做跳板机，反向代理访问domain2接口，并且可以顺便修改cookie中domain信息，方便当前域cookie写入，实现跨域登录。
+
 ```sh
 #proxy服务器
 server {
@@ -112,13 +124,11 @@ server {
 }
 ```
 
+### iframe form   待定????
 
-
-
-
-## iframe form   待定????
-没有返回值    
+没有返回值
 创建form，提交到后端地址 ， 添加到创建的iframe ，submit form 
+
 ```javascript
 const requestPost = ({url, data}) => {
   // 首先创建一个用来发送数据的iframe.
@@ -161,7 +171,7 @@ requestPost({
 })
 ```
 
+## 相关
 
-# 相关  
 https://segmentfault.com/a/1190000011145364  
 https://www.zhihu.com/topic/19612046/top-answers

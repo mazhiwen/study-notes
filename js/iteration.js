@@ -167,6 +167,7 @@ var newArray = array.filter(function callback(currentValue, index, array){
 //array从左到右执行callback
 // 返回最终return
 array.reduce((accumulator, currentValue,currentIndex,array) => {
+    //accumulator ：上一个累加值       
     return  accumulator + currentValue
 });
 

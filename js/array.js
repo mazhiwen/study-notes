@@ -25,9 +25,6 @@ var list1 = list(1, 2, 3); // [1, 2, 3]
 array.splice(start,deleteCount,item1, item2,itemn);
 
 
-/**************** Array.concat ****************/
-
-
 
 
 /**************** Array.sort ****************/
@@ -42,3 +39,12 @@ array.sort(function compareFunction(a, b) {
 
 /**************** 迭代 ****************/
 // 见iteration.js
+
+
+
+
+/**************** Array.concat ****************/
+// 将数组和/或值连接成新数组
+// 此方法不会更改现有数组，而是返回一个新数组
+// 参数可以是 array , 或者 value
+array.concat(value1,value2,valuen);

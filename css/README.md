@@ -11,13 +11,11 @@ turn :1turn
 
 形式：\<number> + 长度单位（px，em，pt，in，mm，...）  
 
-* 相对单位：
-
+***相对单位：***  
 em  
 rem  
 
-* 绝对单位：  
-
+***绝对单位：***  
 px:像素（点）  
 mm:毫米  
 cm:厘米  
@@ -208,14 +206,111 @@ CSS相邻相邻兄弟选择器（h1+p, 带加号+）
 
 两边两栏宽度固定，中间栏宽度自适应
 
-方案一：  
-position（绝对定位法） center的div需要放在最后面
-绝对定位法原理将左右两边使用absolute定位，因为绝对定位使其脱离文档流，后面的center会自然流动到他们的上卖弄，然后margin属性，留出左右两边的宽度。就可以自适应了。  
-方案二：  
-float 自身浮动法 center的div需要放到后面
-自身浮动法的原理就是对左右使用float:left和float：right，float使左右两个元素脱离文档流，中间的正常文档流中，使用margin指定左右外边距对其进行一个定位。  
-方案三(圣杯布局)：  
-原理就是margin负值法。使用圣杯布局首先需要在center元素外部包含一个div,包含的div需要设置float属性使其形成一个BFC，并且这个宽度和margin的负值进行匹配
+* position（绝对定位法） center的div需要放在最后面
+  绝对定位法原理将左右两边使用absolute定位，因为绝对定位使其脱离文档流，后面的center会自然流动到他们的上卖弄，然后margin属性，留出左右两边的宽度。就可以自适应了。  
+  
+* float 自身浮动法 center的div需要放到后面
+  自身浮动法的原理就是对左右使用float:left和float：right，float使左右两个元素脱离文档流，中间的正常文档流中，使用margin指定左右外边距对其进行一个定位。  
+
+```html
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>双飞翼</title>
+    <style>
+.main{
+    float:left;
+    width:100%;
+    height:100px;
+    background:#999;
+}
+.left{
+    float:left;
+    width:180px;
+    height:100px;
+    margin-left:-100%;
+    background:#111;
+}
+.right{
+    float:left;
+    width:200px;
+    height:100px;
+    margin-left:-200px;
+    background:#eee;
+}
+.inline{
+  /*main实际展示区域*/
+  margin:0 200px 0 180px;
+  background: #ddd;
+}
+</style>
+</head>
+<body>
+  <div class="main">
+    <div class="inline">middle</div>
+  </div>
+  <div class="left">left</div>
+  <div class="right">right</div>
+</body>
+</html>
+```
+
+* 圣杯布局：
+
+```html
+<!DOCTYPE html>
+<html>
+<head lang="en">
+<title>圣杯</title>
+<style>
+.container{
+  /*控制main区域*/
+  padding:0 200px 0 180px;
+  height:100px;
+}
+.main{
+  /*继承container宽度*/
+  float:left;
+  width:100%;
+  height:100px;
+  background:#999;
+}
+.left{
+
+  float:left;
+  width:180px;
+  height:100px;
+  /*左移到左侧 相对main区域*/
+  position:relative;
+  left:-180px;
+  /*同位上移*/
+  margin-left:-100%;
+  background:#111;
+}
+.right{
+  float:left;
+  width:200px;
+  height:100px;
+  margin-left:-200px;
+  background:#eee;
+  position:relative;
+  right:-200px;
+}
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="main">middle</div>
+  <div class="left">left</div>
+  <div class="right">right</div>
+</div>
+</body>
+</html>
+
+
+
+```
 
 ## 左边定宽，右边自适应
 
