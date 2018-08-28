@@ -90,25 +90,27 @@ flex容器:display:flex;
 
 flex-direction: row;更改 flex 元素的排列方向;  
 
-flex-wrap: wrap; 换行策略，是否自动换行，是否超出缩放，溢出;  
+flex-wrap:[wrap | nowrap] 换行策略，是否自动换行，是否超出缩放，溢出;  
 
 flex-flow :flex-direction flex-wrap; 简写;  
 
-align-content: ;侧轴项目分配空间  
+align-content: ;垂直空间分配 对其  
 
-justify-content:  ;如何分配主轴的弹性元素之间及其周围的空间  
+justify-content:[flex-start | flex-end | center | space-between | space-around | initial]  ;元素之间及其周围的空间.元素如何排列，以及空间隔  
 
 align-items: ; 所有子节点的对其方式  
 
 * 子元素属性: flex item  
 
+order:[number] 定义项目的排列顺序。数值越小，排列越靠前，默认为0。
+
 flex-basis:  ;布局空白的基准值  
 
 flex:flex-grow flex-shrink flex-basis;简写;规定了弹性元素如何伸长或缩短以适应flex容器中的可用空间  
 
-flex-grow: \<number> ;定义弹性盒子项（flex item）的拉伸因子。  
+flex-grow: [number] ;定义弹性盒子项（flex item）的拉伸因子。默认为 0; 
 
-flex-shrink: \<number> ;flex 元素的收缩规则,flex 元素仅在默认宽度之和大于容器的时候才会发生收缩，其收缩的大小是依据 flex-shrink 的值;  
+flex-shrink: [number] ;flex 元素的收缩规则,flex 元素仅在默认宽度之和大于容器的时候才会发生收缩，其收缩的大小是依据 flex-shrink 的值;  
 
 flex-basis:指定了 flex 元素在主轴方向上的初始大小
 
