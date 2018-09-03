@@ -94,11 +94,11 @@ flex-wrap:[wrap | nowrap] 换行策略，是否自动换行，是否超出缩放
 
 flex-flow :flex-direction flex-wrap; 简写;  
 
-align-content: ;垂直空间分配 对其  
+align-content: ;定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。  
 
 justify-content:[flex-start | flex-end | center | space-between | space-around | initial]  ;元素之间及其周围的空间.元素如何排列，以及空间隔  
 
-align-items: ; 所有子节点的对其方式  
+align-items: flex-start | flex-end | center | baseline | stretch; 定义项目在交叉轴上如何对齐。  
 
 * 子元素属性: flex item  
 
@@ -108,7 +108,7 @@ flex-basis:  ;布局空白的基准值
 
 flex:flex-grow flex-shrink flex-basis;简写;规定了弹性元素如何伸长或缩短以适应flex容器中的可用空间  
 
-flex-grow: [number] ;定义弹性盒子项（flex item）的拉伸因子。默认为 0; 
+flex-grow: [number] ;定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。
 
 flex-shrink: [number] ;flex 元素的收缩规则,flex 元素仅在默认宽度之和大于容器的时候才会发生收缩，其收缩的大小是依据 flex-shrink 的值;  
 
