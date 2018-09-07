@@ -25,6 +25,14 @@ pc:12 点活字
 
 ## transition
 
+transition: property duration timing-function delay;  
+transition-property:规定设置过渡效果的 CSS 属性的名称。
+transition-duration	规定完成过渡效果需要多少秒或毫秒。  
+transition-timing-function	规定速度效果的速度曲线。  
+transition-delay	定义过渡效果何时开始。  
+transition:width 2s;  
+
+
 ## animation
 
 ## transform
@@ -78,6 +86,17 @@ transform:  translateX(tx)
 transform:  translateY(ty)
 ```
 
+## box-shadow
+
+box-shadow: h-shadow v-shadow blur spread color inset;
+h-shadow	必需。水平阴影的位置。允许负值。  
+v-shadow	必需。垂直阴影的位置。允许负值。 	
+blur	可选。模糊距离。	 
+spread	可选。阴影的尺寸。  
+color	可选。阴影的颜色。请参阅 CSS 颜色值。  
+inset	可选。将外部阴影 (outset) 改为内部阴影。  
+
+
 ## flex布局
 
 主轴:flex-direction:row | row-reverse | column | column-reverse  
@@ -96,7 +115,7 @@ flex-flow :flex-direction flex-wrap; 简写;
 
 align-content: ;定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。  
 
-justify-content:[flex-start | flex-end | center | space-between | space-around | initial]  ;元素之间及其周围的空间.元素如何排列，以及空间隔  
+justify-content:[flex-start | flex-end | center | space-between | space-around | initial]  ;主轴上，元素之间及其周围的空间.元素如何排列，以及空间隔  
 
 align-items: flex-start | flex-end | center | baseline | stretch; 定义项目在交叉轴上如何对齐。  
 
