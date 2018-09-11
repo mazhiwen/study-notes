@@ -429,3 +429,16 @@ flex boxes (元素的display: flex或inline-flex)；
   /*或者 float: left;*/
 }
 ```
+
+## media
+
+### print
+
+```css
+@media print{
+  /* background 无效时，添加 -webkit-print-color-adjust: exact; */
+}
+
+```
+position,float 会导致打印位置错乱.
+
