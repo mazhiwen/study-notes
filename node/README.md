@@ -8,4 +8,4 @@
 
 ## env
 echo $NODE_ENV  
-export NODE_ENV=production
+export NODE_ENV=integration
