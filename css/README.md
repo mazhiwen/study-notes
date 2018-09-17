@@ -442,3 +442,9 @@ flex boxes (元素的display: flex或inline-flex)；
 ```
 position,float 会导致打印位置错乱.
 
+
+
+## initial,inherit,unset 
+
+initial 关键字可用于任何 HTML 元素上的任何 CSS 属性。
+

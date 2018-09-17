@@ -48,3 +48,11 @@ array.sort(function compareFunction(a, b) {
 // 此方法不会更改现有数组，而是返回一个新数组
 // 参数可以是 array , 或者 value
 array.concat(value1,value2,valuen);
+
+
+
+/**************** Array.includes ****************/
+arr.includes(searchElement)  
+arr.includes(searchElement, fromIndex)  
+//fromIndex :
+//从该索引处开始查找 searchElement。如果为负值，则按升序从 array.length + fromIndex 的索引开始搜索。默认为 0。
