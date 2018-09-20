@@ -15,3 +15,7 @@ console.log(a);
 
 //匹配 /aaa/bbb 中的aaa
 '/aaa/bb'.match(/\/([^/]*)/);
+
+
+//只匹配英文数字下划线
+/^[\w]*$/.test('sd')
