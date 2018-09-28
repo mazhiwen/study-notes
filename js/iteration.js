@@ -35,7 +35,7 @@ while (n < 3) {//条件检测会在每次 statement 执行之前发生
 
 
 /**************** for...in  ****************/
-//遍历key
+//遍历key 遍历arr object
 // 这个 for...in 语句循环一个指定的变量来循环一个对象所有可枚举的属性
 //array 返回index,object 返回key
 let arr = [3, 5, 7];
@@ -48,7 +48,7 @@ for (let key in arr) {
   
   
 /**************** for...of  ****************/
-//遍历value
+//遍历value  遍历arr
 for (let value of arr) {
     console.log(value); // logs "3", "5", "7" // 注意这里没有 hello
 }
