@@ -13,3 +13,12 @@ oReq.onload = reqListener;
 oReq.open("get", "yourFile.txt", true);
 oReq.send();
 ```
+
+
+
+
+
+
+
+# 文件类型 
+blob
