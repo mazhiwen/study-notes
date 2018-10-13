@@ -8,3 +8,18 @@ yarn cache clean
 
 
 yarn remove
+
+
+
+
+
+
+
+
+
+
+
+
+## npm
+
+npm install -g mocha
