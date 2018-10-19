@@ -135,3 +135,16 @@ function deepCopy(obj) {
 检测:内存持续增多，存在内存泄漏；内存平稳，不存在内存泄漏
 
 (https://segmentfault.com/a/1190000008901861)
+
+
+
+
+
+
+
+
+## event
+
+input  焦点keyup
+
+body监听 keyup? 回车？

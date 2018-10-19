@@ -102,3 +102,14 @@ https://juejin.im/entry/574f95922e958a00683e402d
 
 ## 10. 代码检测
 [eslint](https://github.com/webpack-contrib/eslint-loader)
+
+
+
+## 11.resolve
+
+alias:{
+  'vue': 'vue/dist/vue.esm.js',
+  'api': path.resolve(__dirname, 'src/api')
+}
+
+import api from 'api';
