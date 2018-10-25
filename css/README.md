@@ -38,7 +38,7 @@ transition:width 2s;
 ## transform
 
 只对 block 级元素生效！
-
+不占用文档流
 ```css
 /*****************matrix(矩阵)
 https://www.cnblogs.com/Ivy-s/p/6786622.html
