@@ -1,4 +1,7 @@
-﻿<!doctype html>
+# 编辑器开发原理
+
+```html
+<!doctype html>
 <html>
 <head>
 <title>Rich Text Editor</title>
@@ -153,3 +156,5 @@ img.intLink { border: 0; }
 </form>
 </body>
 </html>
+
+```
