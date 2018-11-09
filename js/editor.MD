@@ -1,5 +1,19 @@
 # 编辑器开发原理
 
+## 第三方
+
+draftjs  
+wangeditor3
+
+
+## api
+
+document.execCommand
+
+
+
+
+## 代码
 ```html
 <!doctype html>
 <html>
