@@ -60,6 +60,7 @@ var arr=[1,'a'];
 Array.isArray(arr);
 arr instanceof Array;
 //安全检测
+Object. prototype. toString. call( arr ) == "[object Object]";
 Object. prototype. toString. call( arr ) == "[object Array]";
 Object. prototype. toString. call( arr ) == "[object Function]";
 Object. prototype. toString. call( arr ) == "[object RegExp]";
@@ -148,3 +149,6 @@ function deepCopy(obj) {
 input  焦点keyup
 
 body监听 keyup? 回车？
+
+
+## cookie
