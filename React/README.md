@@ -24,6 +24,16 @@ React.createRef()
 //materialUI组件 可添加classes props控制样式
 <div classes={{}}>
 </div>
+
+
+// materialui 样式
+
+withStyles
+const StyledChip = withStyles(createStyles({
+  root: {
+    height: 25,
+  },
+}))(Chip);
 ```
 
 ### render渲染dom
