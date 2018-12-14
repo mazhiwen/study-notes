@@ -42,4 +42,7 @@ brew services restart nginx
 
 #停止nginx服务
 brew services stop nginx
+
+#域名配置
+https://www.cnblogs.com/rickzhai/p/7896432.html
 ```
