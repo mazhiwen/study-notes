@@ -46,3 +46,15 @@ brew services stop nginx
 #域名配置
 https://www.cnblogs.com/rickzhai/p/7896432.html
 ```
+
+
+
+## nginx启动检查
+
+
+检查
+/www/server/nginx/sbin/ ./nginx -t
+
+重启
+sbin目录下
+./nginx -s reload
