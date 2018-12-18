@@ -8,3 +8,13 @@ async function asyncCall() {
   return v3;
 }
 
+
+
+
+1.Object.values/Object.entries
+
+
+
+
+
+
