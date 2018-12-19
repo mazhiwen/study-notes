@@ -1,9 +1,11 @@
-/****************for ****************/
+/****************iterations 迭代相关 ****************/
+
+/****************for 
 
 
 
 
-/****************do...while ****************/
+/****************do...while
 do {
     //statement 在检查条件之间会执行一次
     i += 1;
@@ -11,7 +13,7 @@ do {
 } while (i < 5);
 
 
-/****************while ****************/
+/****************while 
 var n = 0;
 var x = 0;
 while (n < 3) {//条件检测会在每次 statement 执行之前发生
@@ -21,20 +23,20 @@ while (n < 3) {//条件检测会在每次 statement 执行之前发生
 
 
 
-/****************break ****************/
+/****************break 
 //break中止循环(for,do...while,while,label)，switch 
 
 
 
 
 
-/****************continue  ****************/
+/****************continue  
 //继续循环
 
 
 
 
-/**************** for...in  ****************/
+/**************** for...in 
 //遍历key 遍历arr object
 // 这个 for...in 语句循环一个指定的变量来循环一个对象所有可枚举的属性
 //array 返回index,object 返回key
@@ -47,7 +49,7 @@ for (let key in arr) {
   
   
   
-/**************** for...of  ****************/
+/**************** for...of  
 //遍历value  遍历arr
 for (let value of arr) {
     console.log(value); // logs "3", "5", "7" // 注意这里没有 hello
@@ -57,7 +59,7 @@ for (let value of arr) {
 
 
 
-/****************  entries ****************/
+/****************  entries 
 
 //*******array.entries()  返回一个Array Iterator
 var arr = ["a", "b", "c"];
@@ -122,7 +124,9 @@ Object.entries(obj).forEach(([key, value]) => {
 var obj = { foo: "bar", baz: 42 }; 
 var map = new Map(Object.entries(obj));
 console.log(map); // Map { foo: "bar", baz: 42 }
-
+Object.entries(obj).map(([key, value]) => {
+    console.log(`${key} ${value}`); // "a 5", "b 7", "c 9"
+});
 
 
 
@@ -154,7 +158,7 @@ var bool=array.every(function callback(currentValue, index, array){
 // checks whether an element is even
     return currentValue % 2 === 0;
 });
-
+//只要有某些通过函数测试返回true 则结果为true
 
 //*******Array.filter()
 //返回通过测试callback 的新数组
@@ -172,6 +176,56 @@ array.reduce((accumulator, currentValue,currentIndex,array) => {
 });
 
 
+
+
+/**************** Array其他 ****************/
+
+/**************** Array.slice
+//slice() 方法返回一个从开始到结束（不包括结束）选择的数组的一部分浅拷贝到一个新数组对象。
+//原始数组不会被修改。
+array.slice();// [0, end]
+array.slice(begin);// [begin, end]
+array.slice(begin, end);// [begin, end)
+//slice 方法可以用来将一个类数组（Array-like）对象/集合转换成一个新数组。
+//你只需将该方法绑定到这个对象上。 
+//一个函数中的 arguments 就是一个类数组对象的例子。
+function list() {
+  return Array.prototype.slice.call(arguments);
+  //[].slice.call(arguments)也可以
+}
+var list1 = list(1, 2, 3); // [1, 2, 3]
+
+
+/**************** Array.splice 
+//在原数组 删除现有元素 或 添加新元素
+// start 负数或超过数组长度:从末尾开始  其他:索引
+// deleteCount 移除的长度 0:不删除，添加   >start:删除start至deletecount
+// itemn 添加的元素
+array.splice(start,deleteCount,item1, item2,itemn);
+
+
+/**************** Array.sort 
+// 默认unicode顺序
+// compareFunction 规则:
+// compareFunction(a, b) < 0 , a在b前 ; >0 ,相反
+// 原数组已经被排序后的数组代替,并作为返回
+array.sort(function compareFunction(a, b) {
+  return a - b;
+});
+
+/**************** Array.concat 
+// 将数组和/或值连接成新数组
+// 此方法不会更改现有数组，而是返回一个新数组
+// 参数可以是 array , 或者 value
+array.concat(value1,value2,valuen);
+
+
+
+/**************** Array.includes
+arr.includes(searchElement)  
+arr.includes(searchElement, fromIndex)  
+//fromIndex :
+//从该索引处开始查找 searchElement。如果为负值，则按升序从 array.length + fromIndex 的索引开始搜索。默认为 0。
 
 
 
