@@ -35,5 +35,5 @@ Object.isFrozen(person);
 //数据属性，访问器属性
 
 
-
-
+/**************** hasOwnPropty****************/
+// 检测是否自身有某属性 返回boolean
