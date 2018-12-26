@@ -78,12 +78,27 @@ button.onclick = e => import(/* webpackChunkName: "print" */ './print').then(mod
 兼容es6 commonjs amd cmd
 
 
-## 7. shimming
+## 7. shimming  
+
+让 webpack 打包时自动发现关键的全局变量并自动的引入。它是一种隐性的全局变量。  
+
 ```
-new webpack.ProvidePlugin({
-  _: 'lodash'
-  //join: ['lodash', 'join']
-})
+module.exports = {
+  resolve: {
+    extensions: ['.js', '.json'],
+    alias: {
+      Config: path.resolve(__dirname, '../src/utils/Config')
+    }
+  },
+  plugins: [
+    new ExtractTextPlugin("styles.css"),
+    new webpack.ProvidePlugin({
+      Config: "Config"
+    }),
+  ],
+  module: {
+  }
+};
 ```
 
 ## 8. devtool
