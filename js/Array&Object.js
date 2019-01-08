@@ -1,5 +1,6 @@
-/****************iterations 迭代相关 ****************/
-
+/***********************************************************************************/
+/*************************************iterations 迭代相关 ******************************/
+/***********************************************************************************/
 /****************for 
 
 
@@ -130,7 +131,22 @@ Object.entries(obj).map(([key, value]) => {
 
 
 
-/****************Array 的迭代****************/
+
+
+
+
+
+
+
+
+
+
+
+/***********************************************************************************/
+/*************************************Array*************************************/
+/***********************************************************************************/
+
+
 
 //*******Array.map 传入 函数，每个元素调用一次函数，返回array
 // map 不修改原数组
@@ -170,15 +186,15 @@ var newArray = array.filter(function callback(currentValue, index, array){
 //*******Array.reduce()
 //array从左到右执行callback
 // 返回最终return
-array.reduce((accumulator, currentValue,currentIndex,array) => {
-    //accumulator ：上一个累加值       
-    return  accumulator + currentValue
-});
-
-
-
-
-/**************** Array其他 ****************/
+array.reduce(
+    //callback
+    (accumulator, currentValue,currentIndex,array) => {
+        //accumulator ：上一个累加值       
+        return  accumulator + currentValue
+    },
+    //initialValue
+    initialValue
+);
 
 /**************** Array.slice
 //slice() 方法返回一个从开始到结束（不包括结束）选择的数组的一部分浅拷贝到一个新数组对象。
@@ -232,4 +248,67 @@ arr.includes(searchElement, fromIndex)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+/***********************************************************************************/
+/************************************* Object *************************************/
+/***********************************************************************************/
+
+
+
+/**************** keys ****************/
+Object.keys() 
+// 方法会返回一个由一个给定对象的自身可枚举属性组成的数组
+var arr = ['a', 'b', 'c'];
+console.log(Object.keys(arr)); // console: ['0', '1', '2']
+
+
+/**************** 防篡改 Extensions ****************/
+var person = { name: "Nicholas" }; 
+Object. preventExtensions( person); 
+person. age = 29; 
+alert( person. age); //undefined
+//检测是否可扩展
+Object.isExtensible(person);
+
+
+
+/**************** 密封 seal****************/
+Object.seal(person);
+//密封对象，不可扩展 ,满足isExtensible
+person. age = 29;//无效
+//已有成员的[[Configurable]]为false,即不可删除属性
+delete person.name;//无效
+//属性值可修改
+//检测是否seal
+Object.isSealed(person);
+
+
+
+/**************** 冻结 freeze****************/
+Object.freeze(person);
+//满足isExtensible 和 isSealed
+//数据属性的[[Writable]]为false ,不可设置值
+person.name='aaa';//无效
+//检测
+Object.isFrozen(person);
+
+
+
+
+/**************** Object****************/
+//数据属性，访问器属性
+
+
+/**************** hasOwnPropty****************/
+// 检测是否自身有某属性 返回boolean
 
