@@ -196,7 +196,7 @@ array.reduce(
     initialValue
 );
 
-/**************** Array.slice
+//**************** Array.slice
 //slice() 方法返回一个从开始到结束（不包括结束）选择的数组的一部分浅拷贝到一个新数组对象。
 //原始数组不会被修改。
 array.slice();// [0, end]
@@ -212,15 +212,15 @@ function list() {
 var list1 = list(1, 2, 3); // [1, 2, 3]
 
 
-/**************** Array.splice 
+//**************** Array.splice 
 //在原数组 删除现有元素 或 添加新元素
 // start 负数或超过数组长度:从末尾开始  其他:索引
 // deleteCount 移除的长度 0:不删除，添加   >start:删除start至deletecount
-// itemn 添加的元素
+// itemn 添加的元素 
 array.splice(start,deleteCount,item1, item2,itemn);
 
 
-/**************** Array.sort 
+//**************** Array.sort 
 // 默认unicode顺序
 // compareFunction 规则:
 // compareFunction(a, b) < 0 , a在b前 ; >0 ,相反
@@ -229,7 +229,7 @@ array.sort(function compareFunction(a, b) {
   return a - b;
 });
 
-/**************** Array.concat 
+//**************** Array.concat 
 // 将数组和/或值连接成新数组
 // 此方法不会更改现有数组，而是返回一个新数组
 // 参数可以是 array , 或者 value
@@ -237,7 +237,7 @@ array.concat(value1,value2,valuen);
 
 
 
-/**************** Array.includes
+//**************** Array.includes
 arr.includes(searchElement)  
 arr.includes(searchElement, fromIndex)  
 //fromIndex :
@@ -246,6 +246,11 @@ arr.includes(searchElement, fromIndex)
 
 
 
+//**************** Array.findIndex
+// 查询满足callback的index并返回
+fileList.findIndex((value,index,thisarr)=>{
+    return value.uid===file.uid
+})
 
 
 

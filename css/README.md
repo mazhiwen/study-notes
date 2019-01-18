@@ -448,3 +448,8 @@ position,float 会导致打印位置错乱.
 
 initial 关键字可用于任何 HTML 元素上的任何 CSS 属性。
 
+
+
+## background
+
+background:url('../../static/images/home_logo.png') no-repeat center left / auto 80% ;
