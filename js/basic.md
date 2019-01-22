@@ -156,3 +156,75 @@ body监听 keyup? 回车？
 
 ## node编译js
 babel
+
+
+
+
+## 闭包
+
+定义：当函数可以记住并访问所在的词法作用域时，就产生了闭包，即使函数是在当前词法作用域外执行  
+
+```javascript
+function foo() { 
+  var a = 2; 
+  function bar() { 
+    console. log( a ); 
+  } 
+  return bar; 
+} 
+var baz = foo(); 
+baz(); // 2 ———— 朋友， 这 就是 闭 包 的 效果。
+
+```
+没有常规执行foo的垃圾回收机制,
+foo内的作用域依然存在，可以在baz中调用,
+闭包阻止了垃圾回收  
+回调函数也是闭包
+个人总结return function 的妙用
+ 
+* 闭包与循环
+
+```javascript
+//错误1
+for (var i= 1; i<= 5; i++) { 
+  setTimeout( function timer() { 
+    console. log( i ); 
+  }, i* 1000 ); 
+}
+//错误改进2  iife
+for (var i= 1; i<= 5; i++) { 
+  (function() { 
+    setTimeout( function timer() { 
+      console. log( i ); 
+    }, i* 1000 ); 
+  })(); 
+}
+//正确
+for (var i= 1; i<= 5; i++) { 
+  (function() { 
+    var j = i; 
+    setTimeout( function timer() { 
+      console. log( j ); 
+    }, j* 1000 ); 
+  })(); 
+}
+//改进
+for (var i= 1; i<= 5; i++) { 
+  (function( j) { 
+    setTimeout( function timer() { 
+      console. log( j ); 
+    }, j* 1000 ); 
+  })( i ); 
+}
+//新用法
+for (var i= 1; i<= 5; i++) { 
+  let j = i; // 是的， 闭 包 的 块 作用域！ 
+  setTimeout( function timer() { 
+    console. log( j ); 
+  }, j* 1000 ); 
+}
+
+
+```
+
+

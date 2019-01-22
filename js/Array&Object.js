@@ -1,12 +1,12 @@
 /***********************************************************************************/
 /*************************************iterations 迭代相关 ******************************/
 /***********************************************************************************/
-/****************for 
+//****************for 
 
 
 
 
-/****************do...while
+//*******************do...while
 do {
     //statement 在检查条件之间会执行一次
     i += 1;
@@ -14,7 +14,7 @@ do {
 } while (i < 5);
 
 
-/****************while 
+//*******************while 
 var n = 0;
 var x = 0;
 while (n < 3) {//条件检测会在每次 statement 执行之前发生
@@ -24,20 +24,20 @@ while (n < 3) {//条件检测会在每次 statement 执行之前发生
 
 
 
-/****************break 
+//******************break 
 //break中止循环(for,do...while,while,label)，switch 
 
 
 
 
 
-/****************continue  
+//*****************continue  
 //继续循环
 
 
 
 
-/**************** for...in 
+//**************** for...in 
 //遍历key 遍历arr object
 // 这个 for...in 语句循环一个指定的变量来循环一个对象所有可枚举的属性
 //array 返回index,object 返回key
@@ -50,7 +50,7 @@ for (let key in arr) {
   
   
   
-/**************** for...of  
+//**************** for...of  
 //遍历value  遍历arr
 for (let value of arr) {
     console.log(value); // logs "3", "5", "7" // 注意这里没有 hello
@@ -60,14 +60,14 @@ for (let value of arr) {
 
 
 
-/****************  entries 
+//****************  entries 
 
-//*******array.entries()  返回一个Array Iterator
+//*****array.entries()  返回一个Array Iterator
 var arr = ["a", "b", "c"];
 var iterator = arr.entries();
 console.log(iterator);
 
-//*******Object.entries(object) 
+//*****Object.entries(object) 
 // 返回一个给定对象自身可枚举属性的键值对数组
 //Function 是不可枚举的
 const obj = { foo: 'bar', baz: 42 };

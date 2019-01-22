@@ -1,4 +1,4 @@
-/**************** 匿名函数 立即执行函数***************
+//**************** 匿名函数 立即执行函数 IIFE****************/
 //function后面没有定义名称
 //匿名函数调用
 //调用一,必须要实现赋值
@@ -23,11 +23,11 @@ var fn=function(x,y){
     
   }
 )();
-*/
 
 
 
-/**************** 作用域安全的构造函数 ***************
+
+//**************** 作用域安全的构造函数 ****************/
 //不用new，直接调用构造函数时会改变this为window，以下修正
 function Polygon( sides){ 
   if (this instanceof Polygon) { 
@@ -50,11 +50,11 @@ function Rectangle( width, height){
 } 
 Rectangle. prototype = new Polygon(); 
 var rect = new Rectangle( 5, 10);
-*/
 
 
 
-/**************** 惰性载入 ***************
+
+//**************** 惰性载入 ****************/
 //惰性 载入 表示 函数 执行 的 分支 仅 会 发生 一次。
 //方法一：重写
 function createXHR(){ 
@@ -81,11 +81,11 @@ var createXHR = (function(){
     }; 
   }
 })();
-*/
 
 
 
-/**************** 函数绑定 ***************
+
+//**************** 函数绑定 ****************/
 //this指向丢失
 var handler = { 
   message: "Event handled", 
@@ -110,12 +110,12 @@ function bind( fn, context){
 EventUtil. addHandler( btn, "click", bind( handler. handleClick, handler));
 //es5 提供原生bind方法
 EventUtil. addHandler( btn, "click", handler. handleClick.bind(handler));
-*/
 
 
 
 
-/**************** call apply***************
+
+//**************** call apply****************/
 //Function.prototype.call
 fun.call(thisArg, arg1, arg2, argn);
 //call方法的作用和 apply() 方法类似，
@@ -123,12 +123,12 @@ fun.call(thisArg, arg1, arg2, argn);
 // 而apply()方法接受的是一个包含多个参数的数组。
 //Function.prototype.apply
 fun.apply(thisArg, [argsArray])
-*/
 
 
 
 
-/**************** 函数柯里化 ****************/
+
+//**************** 函数柯里化 ****************/
 //下一个函数的参数是上一个函数的结果
 //且函数体内运行逻辑相同
 //一个函数 多个参数
@@ -196,7 +196,7 @@ countMoney(1)(2)(3)(4)()
 
 
 
-/**************** arguments ****************/
+//**************** arguments ****************/
 function test(){
   console.log(arguments);
 }
