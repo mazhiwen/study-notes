@@ -117,6 +117,7 @@ EventUtil. addHandler( btn, "click", handler. handleClick.bind(handler));
 
 //**************** call apply****************/
 //Function.prototype.call
+//把fun内的this指向thisArg;
 fun.call(thisArg, arg1, arg2, argn);
 //call方法的作用和 apply() 方法类似，
 // 只有一个区别，就是call()方法接受的是若干个参数的列表，
