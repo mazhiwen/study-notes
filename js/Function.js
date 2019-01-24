@@ -129,6 +129,27 @@ fun.apply(thisArg, [argsArray])
 
 
 
+
+
+//****************** bind*******************/
+//语法: function.bind(thisArg[, arg1[, arg2[, ...]]])
+var module = {
+  x: 42,
+  getX: function() {
+    return this.x;
+  }
+}
+var unboundGetX = module.getX;
+console.log(unboundGetX()); // The function gets invoked at the global scope
+// expected output: undefined
+var boundGetX = unboundGetX.bind(module);
+console.log(boundGetX());
+// expected output: 42
+
+
+
+
+
 //**************** 函数柯里化 ****************/
 //下一个函数的参数是上一个函数的结果
 //且函数体内运行逻辑相同
@@ -195,8 +216,6 @@ countMoney(1)(2)(3)(4)()
 
 
 
-
-
 //**************** arguments ****************/
 function test(){
   console.log(arguments);
@@ -204,3 +223,34 @@ function test(){
 test(1,2);
 
 
+
+
+
+
+//**************** 偏函数 ****************/
+// bind()的另一个最简单的用法是使一个函数拥有预设的初始参数。
+// 只要将这些参数（如果有的话）作为bind()的参数写在this后面。
+// 当绑定函数被调用时，这些参数会被插入到目标函数的参数列表的开始位置，
+// 传递给绑定函数的参数会跟在它们后面。
+// fnBind = fn.bind(null,34);
+// fnBind为绑定函数, fn为目标函数
+function list() {
+  return Array.prototype.slice.call(arguments);
+}
+function addArguments(arg1, arg2) {
+    return arg1 + arg2
+}
+var list1 = list(1, 2, 3); // [1, 2, 3]
+var result1 = addArguments(1, 2); // 3
+// 创建一个函数，它拥有预设参数列表。
+var leadingThirtysevenList = list.bind(null, 37);
+// 创建一个函数，它拥有预设的第一个参数
+var addThirtySeven = addArguments.bind(null, 37); 
+var list2 = leadingThirtysevenList(); 
+// [37]
+var list3 = leadingThirtysevenList(1, 2, 3); 
+// [37, 1, 2, 3]
+var result2 = addThirtySeven(5); 
+// 37 + 5 = 42 
+var result3 = addThirtySeven(5, 10);
+// 37 + 5 = 42 ，第二个参数被忽略
