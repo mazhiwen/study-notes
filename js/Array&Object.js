@@ -155,7 +155,7 @@ var newArray = array.map(function callback(currentValue, index, array) {
 
 //*******Array.forEach()
 // 为每个数组元素执行callback函数 没有返回值
-// 修改原数组
+// 不修改原数组
 array.forEach(function callback(currentValue, index, array) {  
 })
 
