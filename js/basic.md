@@ -71,7 +71,7 @@ foo = function() { console. log( 2 ); };
 
 如果指定的属性在指定的对象或其原型链中，则in 运算符返回true。
 
-## 数据类型 7种
+## 语言类型 7种
 
 Boolean  
 Null  
@@ -401,3 +401,25 @@ this 是在 运行时 进行 绑 定的， 并不 是在 编写 时 绑 定， �
     (p. foo = o. foo)(); // 2
     ```
     赋值 表达式 p. foo = o. foo 的 返回 值 是 目标 函数 的 引用， 因此 调用 位置 是 foo() 而 不是 p. foo() 或者 o. foo()。 根据 我们 之前 说过 的， 这里 会 应用 默认 绑 定。
+
+
+
+
+
+
+
+## Math
+
+
+
+
+
+## Error
+
+
+```javascript
+throw new Error();
+```
+
+
+## symbol

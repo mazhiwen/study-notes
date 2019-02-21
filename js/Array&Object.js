@@ -268,6 +268,27 @@ fileList.findIndex((value,index,thisarr)=>{
 /************************************* Object *************************************/
 /***********************************************************************************/
 
+/******************* 基本 *******************/
+
+//键访问 属性访问
+varmyObject={a:2};
+myObject.a;//2
+myObject["a"];//2 接受utf8/unicode字符串
+
+//可计算属性名 es6新增可计算属性名
+var prefix="foo";
+varmyObject={
+  [prefix+"bar"]:"hello",
+  [prefix+"baz"]:"world"
+};
+myObject["foobar"];//hello
+myObject["foobaz"];//world
+ 
+
+
+
+
+
 
 
 /**************** keys ****************/
