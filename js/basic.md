@@ -71,13 +71,14 @@ foo = function() { console. log( 2 ); };
 
 如果指定的属性在指定的对象或其原型链中，则in 运算符返回true。
 
-## 语言类型 7种
+## 简单基本类型 7种
 
-Boolean  
-Null  
-Undefined  
-Number  
-String  
+简单基本类型本身不是对象
+boolean  
+null  
+undefined  
+number  
+string 区别于String内置对象，是字面量，不同的类型  
 Symbol  
 Object(new生成的,如：Array,Date,Function,RegExp等)
 
@@ -110,6 +111,8 @@ typeof "bla" === 'string';
 typeof true === 'boolean';
 // Symbols
 typeof Symbol() === 'symbol';
+// null
+typeof null === 'object'; //bug
 // Undefined
 typeof undefined === 'undefined';
 // Objects
@@ -407,7 +410,7 @@ this 是在 运行时 进行 绑 定的， 并不 是在 编写 时 绑 定， �
 
 
 
-
+ 
 ## Math
 
 
