@@ -123,7 +123,7 @@ align-items: flex-start | flex-end | center | baseline | stretch; 定义项目�
 
 order:[number] 定义项目的排列顺序。数值越小，排列越靠前，默认为0。
 
-flex-basis:  ;布局空白的基准值  
+flex-basis:  ;布局空白的基准值  指定了 flex 元素在主轴方向上的初始大小
 
 flex:flex-grow flex-shrink flex-basis;简写;规定了弹性元素如何伸长或缩短以适应flex容器中的可用空间  
 
@@ -131,7 +131,6 @@ flex-grow: [number] ;定义项目的放大比例，默认为0，即如果存在�
 
 flex-shrink: [number] ;flex 元素的收缩规则,flex 元素仅在默认宽度之和大于容器的时候才会发生收缩，其收缩的大小是依据 flex-shrink 的值;  
 
-flex-basis:指定了 flex 元素在主轴方向上的初始大小
 
 ## 选择器
 

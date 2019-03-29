@@ -19,6 +19,12 @@ foo(); // 1
 foo = function() { console. log( 2 ); };
 ```
 
+
+## 运算规则
+
+从右到左
+
+
 ## 作用域
 
 
@@ -129,9 +135,17 @@ typeof function(){} === 'function';
 
 ## 深拷贝 浅拷贝
 
+
+### 深拷贝
+
 ```javascript
-//深拷贝
-//1.JSON.stringify() JSON.parse()
+
+//1. var newObj=JSON.parse(JSON.stringify(someObj))
+// 需要保证someObj是json安全的  
+// 当值为undefined、function、symbol 会在转换过程中被忽略。。。
+// concat方法与slice也存在这样的情况，他们都不是真正的深拷贝，都是浅拷贝，值的引用地址没变
+
+
 //2.递归赋值??????????????????????????????错误需修正
 //判断是否是可迭代对象
 function isIteration(obj){
@@ -161,6 +175,23 @@ function deepCopy(obj) {
 }
 ```
 
+### 浅拷贝
+
+1.resObject = Object.assign(target,origina,originb,...)
+
+### 数据类型存储方式
+
+1.引用类型
+存储：
+栈：name：指针[指向堆值] 
+堆[指针]：value
+2.基本类型
+存储：
+栈：name：value
+https://blog.csdn.net/flyingpig2016/article/details/52895620
+
+
+
 ## 内存泄漏
 
 指由于疏忽或错误造成程序未能释放已经不再使用的内存的情况。内存泄漏并非指内存在物理上的消失，而是应用程序分配某段内存后，由于设计错误，失去了对该段内存的控制，因而造成了内存的浪费。  
@@ -173,6 +204,16 @@ function deepCopy(obj) {
 
 
 
+
+
+
+
+
+## js中的堆 和 栈
+
+在计算机领域中，堆栈是两种数据结构，它们只能在一端(称为栈顶(top))对数据项进行插入和删除。  
+堆：队列优先,先进先出；由操作系统自动分配释放 ，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈。  
+栈：先进后出；动态分配的空间 一般由程序员分配释放， 若程序员不释放，程序结束时可能由OS回收，分配方式倒是类似于链 表。  
 
 
 
