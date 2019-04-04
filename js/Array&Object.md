@@ -204,11 +204,12 @@ var list1 = list(1, 2, 3); // [1, 2, 3]
 
 ## Array.splice *******************/
 //在原数组 删除现有元素 或 添加新元素
+返回被删除的，并改变原数组
 // start 负数或超过数组长度:从末尾开始  其他:索引
 // deleteCount 移除的长度 0:不删除，添加   >start:删除start至deletecount
 // itemn 添加的元素 
 array.splice(start,deleteCount,item1, item2,itemn);
-
+ 
 
 ## Array.sort *******************/
 // 默认unicode顺序
