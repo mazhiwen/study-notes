@@ -30,3 +30,18 @@ git clean -d -f 删除未跟踪的目录和文件
 
 
 
+## 配置origin
+
+~/ssh/config文件:
+
+```sh
+#git.domain.com
+Host git.wolaidai.com
+IdentityFile ~/.ssh/id_rsa
+
+
+#github.com
+Host github.com
+IdentityFile ~/.ssh/github_mazhiwen 
+
+```
