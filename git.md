@@ -28,6 +28,11 @@ git reset --hard HEAD : 将stage area中未提交的file回滚到之前的commit
 git checkout . && git clean -df
 git clean -d -f 删除未跟踪的目录和文件
 
+清楚git缓存
+git rm -r --cached .
+
+忽略大小写 windows git
+git config core.ignorecase false
 
 
 ## 配置origin
@@ -44,4 +49,17 @@ IdentityFile ~/.ssh/id_rsa
 Host github.com
 IdentityFile ~/.ssh/github_mazhiwen 
 
+
+
+
 ```
+
+
+
+## stash
+git stash   , 加save 可以保存stash 加备注  
+git stash pop  弹出最近保存，盏
+git stash apply stash@{1}
+git stash drop stash@{1} 移除某个list
+git stash clear 清空list
+git stash show 查看差异
