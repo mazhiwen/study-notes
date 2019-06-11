@@ -2,6 +2,15 @@
 基于webpack官网教程  
 本项目可直接用作webpack项目demo
 
+
+## 配置
+
+执行webpack默认获取webpack.config.js配置
+
+
+
+
+
 ***
 ## 1. tree-shaking， 死代码 dead code ，按需加载
 目前发现对node_modules 无效  
