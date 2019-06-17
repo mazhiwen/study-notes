@@ -7,11 +7,24 @@
 
 执行webpack默认获取webpack.config.js配置
 
+启动webpack配置使用config 或者 dev,prod
 
+### dev prod
 
+```
 
-
+"start": "webpack-dev-server --open --config webpack.dev.js",
+"build": "webpack --config webpack.prod.js"
+```
+### config
+```
+"build": "webpack"
+```
 ***
+
+
+
+
 ## tree-shaking， 死代码 dead code ，按需加载
 目前发现对node_modules 无效  
 如果所有代码都不包含副作用，我们就可以简单地将该属性标记为 false，来告知 webpack，它可以安全地删除未用到的 export 导出。  
@@ -32,21 +45,11 @@
 * 在项目 package.json 文件中，添加一个 "sideEffects" 入口。  
 * 引入一个能够删除未引用代码(dead code)的压缩工具(minifier)（例如 UglifyJSPlugin）。
 
-## 启动webpack配置使用config 或者 dev,prod
 
-### dev prod
-```
-"start": "webpack-dev-server --open --config webpack.dev.js",
-"build": "webpack --config webpack.prod.js"
-```
-### config
-```
-"build": "webpack"
-```
+
 
 
 ## webpack.optimization
-
 
 ### runtimeChunk
 
@@ -55,16 +58,14 @@ webpack运行时的代码
 runtimeChunk: {
   name: "manifest"
 }
+runtime mainfest 是webpack用来管理所有模块的交互
 
 ### SplitChunksPlugin
 
 代码分离
 
-
-
 1. 根据不同entry
 配置多个entry可以实现分离
-
 
 
 2. SplitChunksPlugin
@@ -247,13 +248,11 @@ import api from 'api';
 
 ## html-webpack-plugin
 
-
 ### 单页面
 
-默认output将所有bundlejs 添加到生成的index.html
+默认output将所有bundle 添加到生成的index.html
 
 ### 多页面配置 
-
 在config多建立 plugin实例就可以
 
 plugins: [
@@ -265,11 +264,23 @@ plugins: [
   })
 ]
 
+### template
+- ejs  
+rule配置ejsloader
+{
+  test: /\.ejs$/,
+  loader: 'ejs-loader',
+  query: {
+
+  },
+},
+
+ejsloader采用lodash.template编译函数的规则
+
 
 ## output
 
 是html js 的output配置，主要是js
-
 
 
 ## ProvidePlugin

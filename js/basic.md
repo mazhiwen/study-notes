@@ -467,3 +467,9 @@ throw new Error();
 
 
 ## symbol
+
+
+
+## Reflect
+
+js内置对象，提供拦截javascript 操作的方法

@@ -90,3 +90,106 @@ minxin适合有公用 类似react hoc，可以抽离template 和js 的还是抽�
 ## 样式
 
 vue 有时候局部样式组件 有时候全局控制
+
+
+
+## slot 
+
+
+
+v2.6.0 以后引入v-slot
+
+v3 以后会 slot 废弃
+
+
+### slot-scope  
+
+
+- v2.6以前旧语法
+
+主要用途是，用来在外层组件同时调用父组件，以及父组件的slot组件  
+外层组件传递数据给父组件  
+父组件内部，父组件将数据解析后，传递给父组件的slot
+
+外层组件->list->父组件
+```javascript
+<wrappercomponent>
+  <parent :data="list">
+  // slot-scope 可以作用于 template 或者 div等
+    <template slot-scope="props">
+      <child :data="props.rowData">
+      
+      </child>
+    </template>
+  </parent>
+</wrappercomponent>
+
+// parent组件
+<div>
+  <slot v-for="item in list" :rowdata="item">
+  
+  </slot>
+</div>
+
+```
+
+
+- 新语法
+
+
+```javascript
+// parent组件
+<div>
+  <slot v-for="item in list" v-bind:rowdata="item">
+  
+  </slot>
+</div>
+// 使用 调用
+<parent :data="list">
+// default是slot 具名可以是其他
+    <template v-slot:default="slotProps">
+      <child :data="slotProps.rowData">
+      
+      </child>
+    </template>
+  </parent>
+```
+
+
+### 作用域
+
+slot 的作用域：
+父组件的作用域 和 slot的作用域是独立的。
+
+
+
+### 语法用法
+
+- slot语法
+
+```jsx
+<parent>
+
+  <slot name="hh"></slot>
+</parent>
+
+
+// 旧语法
+<parent >
+  <div slot="hh">
+  
+  </div>
+</parent>
+
+// 新语法
+// v-slot 只能添加在一个 <template>
+<parent>
+  <template v-slot:hh>
+    <div>
+
+    </div>
+  </template>
+</parent>
+
+```
+
