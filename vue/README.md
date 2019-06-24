@@ -95,15 +95,10 @@ vue 有时候局部样式组件 有时候全局控制
 
 ## slot 
 
-
-
 v2.6.0 以后引入v-slot
-
 v3 以后会 slot 废弃
 
-
 ### slot-scope  
-
 
 - v2.6以前旧语法
 
@@ -133,15 +128,12 @@ v3 以后会 slot 废弃
 
 ```
 
-
 - 新语法
-
 
 ```javascript
 // parent组件
 <div>
   <slot v-for="item in list" v-bind:rowdata="item">
-  
   </slot>
 </div>
 // 使用 调用
@@ -155,12 +147,10 @@ v3 以后会 slot 废弃
   </parent>
 ```
 
-
 ### 作用域
 
 slot 的作用域：
 父组件的作用域 和 slot的作用域是独立的。
-
 
 
 ### 语法用法
@@ -169,15 +159,12 @@ slot 的作用域：
 
 ```jsx
 <parent>
-
   <slot name="hh"></slot>
 </parent>
-
 
 // 旧语法
 <parent >
   <div slot="hh">
-  
   </div>
 </parent>
 
@@ -186,10 +173,108 @@ slot 的作用域：
 <parent>
   <template v-slot:hh>
     <div>
-
     </div>
   </template>
 </parent>
 
 ```
+
+
+
+## 模版语法
+
+```html
+<script type="text/x-template" id="anchored-heading-template">
+  <h1 v-if="level === 1">
+    <slot></slot>
+  </h1>
+  <h2 v-else-if="level === 2">
+    <slot></slot>
+  </h2>
+</script>
+```
+### 缩写
+
+v-bind:class --- :class
+v-on:click --- @click
+
+
+
+
+## 组件注册
+
+```js
+Vue.component('anchored-heading', {
+  // dom可以用template模版语法
+  // 写法见上面模版语法
+  template: '#anchored-heading-template',
+  // 或者
+  // 用render函数
+  render: function (createElement) {
+    return createElement(
+      'h' + this.level,   // 标签名称
+      // vue实例属性this
+      this.$slots.default // 子节点数组
+    )
+  },
+  props: {
+    level: {
+      type: Number,
+      required: true
+    }
+  }
+})
+```
+
+## 渲染函数 render函数
+
+### render
+
+```js
+render: function (createElement) {
+  return createElement(
+  
+  )
+}
+```
+render没有提供v-model 对应的
+
+### createElement
+
+```js
+// @returns {VNode}
+createElement(
+  // {String | Object | Function}
+  // 一个 HTML 标签名、组件选项对象，或者
+  // resolve 了上述任何一种的一个 async 函数。必填项。
+  'div',
+
+  // {Object}
+  // 一个与模板中属性对应的数据对象。可选。
+  {
+    // (详情见下一节)
+  },
+
+  // {String | Array}
+  // 子级虚拟节点 (VNodes)，由 `createElement()` 构建而成，
+  // 也可以使用字符串来生成“文本虚拟节点”。可选。
+  [
+    '先写一些文字',
+    createElement('h1', '一则头条'),
+    createElement(MyComponent, {
+      props: {
+        someProp: 'foobar'
+      }
+    })
+  ]
+)
+```
+
+
+
+## 函数式组件
+
+
+
+
 
