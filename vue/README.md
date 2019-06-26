@@ -274,7 +274,40 @@ createElement(
 
 ## 函数式组件
 
+它无状态 (没有响应式数据)，也没有实例 (没有 this 上下文)。
+
+```js
+Vue.component('my-component', {
+  functional: true,
+  // Props 是可选的
+  props: {
+    // ...
+  },
+  // 为了弥补缺少的实例
+  // 提供第二个参数作为上下文
+  render: function (createElement, context) {
+    // ...
+  }
+})
+
+// 模版语法
+<template functional>
+  <div>{{ props.foo }}</div>
+</template>
+```
 
 
 
+
+## vue-router
+
+
+
+### router-link
+
+要注意，当 <router-link> 对应的路由匹配成功，将自动设置 class 属性值 .router-link-active
+
+
+
+## vue 使用jsx
 

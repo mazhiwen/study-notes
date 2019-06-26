@@ -302,3 +302,18 @@ new webpack.ProvidePlugin({
   jQuery: 'jquery'
 });
 ```
+
+
+## import 中间件
+
+
+```js
+a.js
+import {paramaterA} from "config.js"
+paramaterA=2;
+
+b.js
+import {paramaterA} from "config.js"
+console.log(paramaterA);
+// 此处会对a.js变更做出响应
+```
