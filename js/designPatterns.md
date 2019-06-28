@@ -59,6 +59,12 @@ JavaScript基于原型的面向对象系统参考了Self语言和Smalltalk语言
 对象 会 记住 它的 原型。  
  如果 对象 无法 响应 某个 请求， 它 会把 这个 请求 委托 给 它自己 的 原型。
 
+- 经测试 
+```js
+Object.__proto__ === Function.__proto__
+// true
+```
+
 - js中的原型实现：  
 从Object.prototype克隆
 
@@ -152,7 +158,7 @@ alert ( obj. name );//sven
 
 ### 闭包
 
-闭包的作用：
+- 闭包的作用：
 
 ```js
 // 1. 封装变量
@@ -189,4 +195,32 @@ var mult = (function(){
   } 
 })();
 
+
+
+// 2.延续局部变量的寿命
+var report = function( src ){ 
+  var img = new Image(); 
+  img. src = src; 
+}; 
+report( 'http:// xxx. com/ getUserInfo' );
+// 闭包优化后为：
+// 保存了new 的img
+var report = (function(){ 
+  var imgs = []; 
+  return function( src ){ 
+    var img = new Image(); 
+    imgs. push( img ); 
+    img. src = src; 
+  } 
+})();
+
+
 ```
+
+
+
+- 闭包和面向对象的关系，通常用面向对象思想能实现的功能，闭包也能实现。反之亦然。对象以方法的形式包含了过程，而闭包是在过程中以以环境的形式包含了数据。  
+在JavaScript语言的祖先Scheme语言中，甚至都没有提供面向对象的原生设计，但可以使用闭包来实现一个完整的面向对象系统。
+
+
+

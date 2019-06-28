@@ -2,25 +2,25 @@
 //function后面没有定义名称
 //匿名函数调用
 //调用一,必须要实现赋值
-var fn=function(x,y){
-  return x+y;
-}(2,3);
+var fn = function (x, y) {
+  return x + y;
+}(2, 3);
 //调用二
-(function(x,y){
-  return x+y;
-})(2,3);
+(function (x, y) {
+  return x + y;
+})(2, 3);
 //自执行函数,第一个()将函数变成表达式，第二个()执行函数
 //函数可以具名，匿名
 //方法一，外层括号，可换成 +, - ,~ ,true 等
 (
-  function (param) { 
-    
-  } (param)//可以传递参数
+  function (param) {
+
+  }(param) //可以传递参数
 );
 //方法二
 (
-  function () { 
-    
+  function () {
+
   }
 )();
 
@@ -29,27 +29,28 @@ var fn=function(x,y){
 
 //**************** 作用域安全的构造函数 ****************/
 //不用new，直接调用构造函数时会改变this为window，以下修正
-function Polygon( sides){ 
-  if (this instanceof Polygon) { 
-    this. sides = sides; 
-    this. getArea = function(){ return 0; }; 
-  } 
-  else { 
-    return new Polygon( sides); 
-  } 
-} 
+function Polygon(sides) {
+  if (this instanceof Polygon) {
+    this.sides = sides;
+    this.getArea = function () {
+      return 0;
+    };
+  } else {
+    return new Polygon(sides);
+  }
+}
 //通过 call 方式继承，会被破坏，因为会new ，子类失去父类私有属性
 //以下 call + prototype继承可修正
-function Rectangle( width, height){ 
-  Polygon. call( this, 2); 
-  this. width = width; 
-  this. height = height; 
-  this. getArea = function(){ 
-    return this. width * this. height; 
-  }; 
-} 
-Rectangle. prototype = new Polygon(); 
-var rect = new Rectangle( 5, 10);
+function Rectangle(width, height) {
+  Polygon.call(this, 2);
+  this.width = width;
+  this.height = height;
+  this.getArea = function () {
+    return this.width * this.height;
+  };
+}
+Rectangle.prototype = new Polygon();
+var rect = new Rectangle(5, 10);
 
 
 
@@ -57,28 +58,26 @@ var rect = new Rectangle( 5, 10);
 //**************** 惰性载入 ****************/
 //惰性 载入 表示 函数 执行 的 分支 仅 会 发生 一次。
 //方法一：重写
-function createXHR(){ 
-  if (typeof XMLHttpRequest != "undefined"){ 
+function createXHR() {
+  if (typeof XMLHttpRequest != "undefined") {
     //重写
-    createXHR = function(){ 
-      return new XMLHttpRequest(); 
+    createXHR = function () {
+      return new XMLHttpRequest();
     };
-  }else {
-    createXHR = function(){
-    }
-  }  
+  } else {
+    createXHR = function () {}
+  }
 }
 //方法二：函数载入时就指定为正确的函数
 //创建匿名 自执行的函数
-var createXHR = (function(){ 
-  if (typeof XMLHttpRequest != "undefined"){ 
+var createXHR = (function () {
+  if (typeof XMLHttpRequest != "undefined") {
     //返回正确函数
-    return function(){ 
-      return new XMLHttpRequest(); 
-    }; 
-  }else{
-    return function(){ 
-    }; 
+    return function () {
+      return new XMLHttpRequest();
+    };
+  } else {
+    return function () {};
   }
 })();
 
@@ -87,29 +86,29 @@ var createXHR = (function(){
 
 //**************** 函数绑定 ****************/
 //this指向丢失
-var handler = { 
-  message: "Event handled", 
-  handleClick: function( event){ 
-    alert( this. message); 
-  } 
-}; 
-var btn = document. getElementById(" my- btn"); 
-EventUtil. addHandler( btn, "click", handler. handleClick);
+var handler = {
+  message: "Event handled",
+  handleClick: function (event) {
+    alert(this.message);
+  }
+};
+var btn = document.getElementById(" my- btn");
+EventUtil.addHandler(btn, "click", handler.handleClick);
 //闭包解决
-EventUtil. addHandler( btn, "click", function( event){ 
-  handler. handleClick( event); 
+EventUtil.addHandler(btn, "click", function (event) {
+  handler.handleClick(event);
 });
 //bind函数
-function bind( fn, context){
+function bind(fn, context) {
   //创建闭包 
-  return function(){ 
-    return fn. apply( context, arguments); 
-  }; 
+  return function () {
+    return fn.apply(context, arguments);
+  };
 }
 //bind解决
-EventUtil. addHandler( btn, "click", bind( handler. handleClick, handler));
+EventUtil.addHandler(btn, "click", bind(handler.handleClick, handler));
 //es5 提供原生bind方法
-EventUtil. addHandler( btn, "click", handler. handleClick.bind(handler));
+EventUtil.addHandler(btn, "click", handler.handleClick.bind(handler));
 
 
 
@@ -135,7 +134,7 @@ fun.apply(thisArg, [argsArray])
 //语法: function.bind(thisArg[, arg1[, arg2[, ...]]])
 var module = {
   x: 42,
-  getX: function() {
+  getX: function () {
     return this.x;
   }
 }
@@ -155,39 +154,41 @@ console.log(boundGetX());
 //且函数体内运行逻辑相同
 //一个函数 多个参数
 //内部函数 和 外部函数的 组合
-function add( num1, num2){ 
-  return num1 + num2; 
+function add(num1, num2) {
+  return num1 + num2;
 }
-add(2,3); 
-function curriedAdd(num2){
-  return add (5,num2);
+add(2, 3);
+
+function curriedAdd(num2) {
+  return add(5, num2);
   //return add (add(2,3),num2);
 }
 curriedAdd(3);
 //柯里化
-function curry( fn){ 
-  var args = Array. prototype. slice. call( arguments, 1); //外函数arguments
+function curry(fn) {
+  var args = Array.prototype.slice.call(arguments, 1); //外函数arguments
   //返回柯里化
-  return function(){ 
-    var innerArgs = Array. prototype. slice. call( arguments);//内函数arguments 
-    var finalArgs = args. concat( innerArgs); 
-    return fn. apply( null, finalArgs); 
-  }; 
+  return function () {
+    var innerArgs = Array.prototype.slice.call(arguments); //内函数arguments 
+    var finalArgs = args.concat(innerArgs);
+    return fn.apply(null, finalArgs);
+  };
 }
 //应用以上
-var curriedAdd = curry( add, 5); //参数为5的add柯里化
-curriedAdd( 3); //8
+var curriedAdd = curry(add, 5); //参数为5的add柯里化
+curriedAdd(3); //8
 
 //另外一种思路
 // countMoney为立即执行函数，返回的结果是另一个函数
 const countMoney = (function () {
   let money = 0
-  let args = []//闭包参数
+  let args = [] //闭包参数
   const res = function () {
     if (arguments.length === 0) {
       for (let i = 0; i < args.length; i++) {
         money += args[i]
       }
+      console.log(money);
       return money
     } else {
       // arguments 是个类数组来着，应该用展开符展开才能push进去
@@ -197,6 +198,8 @@ const countMoney = (function () {
   }
   return res
 })()
+// 注意：countMoney会立即执行上面，并且返回res 一个函数
+// 执行countMoney(1)时，相当于执行res(1)
 // 2018-01-01 存了1毛钱
 countMoney(1)
 // 2018-01-02 存了2毛钱
@@ -217,10 +220,10 @@ countMoney(1)(2)(3)(4)()
 
 
 //**************** arguments ****************/
-function test(){
+function test() {
   console.log(arguments);
 }
-test(1,2);
+test(1, 2);
 
 
 
@@ -237,20 +240,21 @@ test(1,2);
 function list() {
   return Array.prototype.slice.call(arguments);
 }
+
 function addArguments(arg1, arg2) {
-    return arg1 + arg2
+  return arg1 + arg2
 }
 var list1 = list(1, 2, 3); // [1, 2, 3]
 var result1 = addArguments(1, 2); // 3
 // 创建一个函数，它拥有预设参数列表。
 var leadingThirtysevenList = list.bind(null, 37);
 // 创建一个函数，它拥有预设的第一个参数
-var addThirtySeven = addArguments.bind(null, 37); 
-var list2 = leadingThirtysevenList(); 
+var addThirtySeven = addArguments.bind(null, 37);
+var list2 = leadingThirtysevenList();
 // [37]
-var list3 = leadingThirtysevenList(1, 2, 3); 
+var list3 = leadingThirtysevenList(1, 2, 3);
 // [37, 1, 2, 3]
-var result2 = addThirtySeven(5); 
+var result2 = addThirtySeven(5);
 // 37 + 5 = 42 
 var result3 = addThirtySeven(5, 10);
 // 37 + 5 = 42 ，第二个参数被忽略
