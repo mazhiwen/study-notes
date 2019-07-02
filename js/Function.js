@@ -116,6 +116,7 @@ EventUtil.addHandler(btn, "click", handler.handleClick.bind(handler));
 
 //**************** call apply****************/
 //Function.prototype.call
+// 返回调用有指定this值和参数的函数的结果。
 //把fun内的this指向thisArg;
 fun.call(thisArg, arg1, arg2, argn);
 //call方法的作用和 apply() 方法类似，

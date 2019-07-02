@@ -110,28 +110,29 @@ obj={
     this.a
   }
 }
+obj.getA();
 
 // 2. 作为普通函数调用 指向全局对象
 // 浏览器端是window
 function A(){
   this.a=2;
 }
-
+A();
 
 // 3. 构造器调用 （function）
-// this有两种指向，取决于是否显式返回一个对象{}
+// this有两种指向，取决于是否显式返回一个object {}
 
-// 如果是:this指向返回的object
+// 如果是返回一个object {}:this指向返回的object {}
 var MyClass = function(){ 
   this. name = 'sven'; 
-  return { // 显 式 地 返回 一个 对象 
+  return { // 显 式 地 返回 一个 object {} 
     name: 'anne' 
   } 
 }; 
 var obj = new MyClass(); 
 alert ( obj. name );//anne
 
-// 如果不是，this指向function
+// 如果不是返回一个object {}，this指向myclass function
 var MyClass = function(){ 
   this. name = 'sven'; 
   return 'anne'
@@ -217,10 +218,112 @@ var report = (function(){
 
 ```
 
-
-
 - 闭包和面向对象的关系，通常用面向对象思想能实现的功能，闭包也能实现。反之亦然。对象以方法的形式包含了过程，而闭包是在过程中以以环境的形式包含了数据。  
 在JavaScript语言的祖先Scheme语言中，甚至都没有提供面向对象的原生设计，但可以使用闭包来实现一个完整的面向对象系统。
 
+- 闭包与内存管理:可以手动把闭包变量设置=null，可以实现回收变量;  
 
+
+### 高阶函数
+
+#### js满足高阶函数  
+是至少满足下列条件之一的函数：  
+1. 函数可以作为参数被传递
+
+2. 函数可以作为返回值输出  
+
+```js
+// 例如
+Object.prototype.toString().call([1,2,3]) 
+// 输出"[Object Array]"
+
+```
+
+
+#### AOP:  
+
+AOP（ 面向 切面 编程） 的 主要 作用 是把 一些 跟 核心 业务 逻辑 模块 无关 的 功能 抽 离 出来， 这些 跟 业务 逻辑 无关 的 功能 通常 包括 日志 统计、 安全 控制、 异常 处理 等。 把这 些 功能 抽 离 出来 之后， 再通过“ 动态 织入” 的 方式 掺入 业务 逻辑 模块 中。 这样做 的 好处 首先 是 可以 保持 业务 逻辑 模块 的 纯净 和 高 内聚性， 其次 是 可以 很 方便 地 复 用 日志 统计 等 功能 模块。
+
+
+
+- 实现一个**链式调用**
+```js
+
+Function. prototype. before = function( beforefn ){ 
+  var __self = this; // 保存原函数的引用 ,this指向Function的实例function
+  return function(){ // 返回包含了原函数和新函数的"代理"函数   ***[注释1]***
+   beforefn. apply( this, arguments ); // this指向当前function
+   
+   return __self. apply( this, arguments ); // 执行 原函数 
+  } 
+};
+Function. prototype. after = function( afterfn ){ 
+  var __self = this; 
+  return function(){ //***[注释2]***
+    var ret = __self. apply( this, arguments ); 
+    afterfn. apply( this, arguments ); 
+    return ret; 
+  } 
+}; 
+var func = function(){ 
+  console. log( 2 ); 
+}; 
+func = func
+.before( function(){ 
+  console. log( 1 ); 
+})// 返回一个function ，即Function实例；； 这个例子中返回 ***[注释1]*** function
+.after( function(){ 
+  console. log( 3 ); 
+}); // 返回一个function ，即Function实例；；这个例子中返回 ***[注释2]*** function
+
+func();
+// 输出1 2 3
+```
+
+
+#### 高阶函数的其他应用
+
+1. currying 柯里化：
+
+currying又称部分求值。一个currying的函数首先会接受一些参数，接受了这些参数之后，该函数并不会立即求值，而是继续返回另外一个函数，刚才传入的参数在函数形成的闭包中被保存起来。待到函数被真正需要求值的时候，之前传入的所有参数都会被一次性用于求值。  
+每次进行数据push，最后一次性计算，返回
+
+
+```js
+
+// 一个Array push 用法的小技巧
+var args=[];
+[].push.apply(args,arguments);
+
+
+// 一个通用的currying 实现
+var currying = function( fn ){ 
+  var args = []; 
+  return function(){ 
+    if ( arguments. length === 0 ){ 
+      return fn. apply( this, args ); 
+    }else{ 
+      [].push. apply( args, arguments ); 
+      return arguments. callee; 
+    } 
+  } 
+}; 
+var cost = (function(){ 
+  var money = 0; 
+  return function(){ 
+    for ( var i = 0, l = arguments. length; i < l; i++ ){ 
+      money += arguments[ i ]; 
+    } 
+    return money; 
+  } 
+})(); 
+// 把一个函数通过一个函数转化为另一个函数
+// 转化 成 currying 函数
+var cost = currying( cost );  
+cost( 100 ); // 未 真正 求值 
+cost( 200 ); // 未 真正 求值 
+cost( 300 ); // 未 真正 求值 
+alert ( cost() ); // 求值 并 输出： 600
+
+```
 
