@@ -308,6 +308,7 @@ var currying = function( fn ){
     } 
   } 
 }; 
+// 原cost是一个遍历执行数据操作的闭包function
 var cost = (function(){ 
   var money = 0; 
   return function(){ 
@@ -319,6 +320,7 @@ var cost = (function(){
 })(); 
 // 把一个函数通过一个函数转化为另一个函数
 // 转化 成 currying 函数
+// 转化为根据参数判断执行的currying函数
 var cost = currying( cost );  
 cost( 100 ); // 未 真正 求值 
 cost( 200 ); // 未 真正 求值 
@@ -327,3 +329,10 @@ alert ( cost() ); // 求值 并 输出： 600
 
 ```
 
+2. uncurrying
+
+在 我们 的 预期 中， Array. prototype 上 的 方法 原本 只能 用来 操作 array 对象。 但 用 call 和 apply 可以 把 任意 对象 当作 this 传入 某个 方法， 这样一来， 方法 中 用到 this 的 地方 就 不再 局限于 原来 规定 的 对象，而是加以泛化并得到更广的适用性.
+
+
+
+  

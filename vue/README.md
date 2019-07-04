@@ -311,3 +311,160 @@ Vue.component('my-component', {
 
 ## vue 使用jsx
 
+
+
+
+## vuex
+
+dispatch(actions(commit)) ->
+commit(mutations(state))) -> view 
+
+```js
+
+//////////// 声明 /////////////
+const store = new Vuex.Store({
+
+  state: {
+    todos: [
+      { id: 1, text: '...', done: true },
+      { id: 2, text: '...', done: false }
+    ]
+  },
+
+  //////////////////////////////getters
+  //getters类似于 vuex state的计算属性
+  getters: {
+    // 根据state返回新的state
+    doneTodos: state => {
+      return state.todos.filter(todo => todo.done)
+    },
+    //Getter 也可以接受其他 getter 作为第二个参数：
+    // 访问：this.$store.getters.doneTodosCount
+    doneTodosCount: (state, getters) => {
+      return getters.doneTodos.length
+    },
+    // getter 返回一个函数，来实现给 getter 传参
+    // store.getters.getTodoById(2)
+    // -> { id: 2, text: '...', done: false }
+    getTodoById: (state) => (id) => {
+      return state.todos.find(todo => todo.id === id)
+    }
+  },
+
+  //////////////////////////////mutations
+  // Mutation 必须是同步函数
+  mutations: {
+    // 执行都可以用
+    // store.commit({
+    //   type: 'increment',
+    //   amount: 10
+    // })
+    // 使用:store.commit('increment')
+    increment (state) {
+      // 变更状态
+      state.count++
+    },
+    // store.commit('increment', 10)
+    increment (state, n) {
+      state.count += n
+    }
+  }
+
+  //////////////////////////////Action
+  // Action 类似于 mutation，不同在于：
+  // Action 提交的是 mutation，而不是直接变更状态。
+  // Action 可以包含任意异步操作。
+  actions: {
+    increment (context) {
+      context.commit('increment')
+    },
+    increment ({ commit }) {
+      commit('increment')
+    },
+    // 异步
+    incrementAsync ({ commit }) {
+      setTimeout(() => {
+        commit('increment')
+      }, 1000)
+    }
+  }
+  //使用: store.dispatch('increment')
+  // 以载荷形式分发
+  // store.dispatch('incrementAsync', {
+  //   amount: 10
+  // })
+  // // 以对象形式分发
+  // store.dispatch({
+  //   type: 'incrementAsync',
+  //   amount: 10
+  // })
+
+})
+
+
+
+
+
+
+//////////// 使用 /////////////
+import { mapState,mapGetters,mapMutations,mapActions} from 'vuex'
+export default {
+  // ...
+  computed: {
+
+    //////////////////////////////mapState
+    ...mapState({
+      // 箭头函数可使代码更简练
+      count: state => state.count,
+
+      // 传字符串参数 'count' 等同于 `state => state.count`
+      countAlias: 'count',
+
+      // 为了能够使用 `this` 获取局部状态，必须使用常规函数
+      countPlusLocalState (state) {
+        return state.count + this.localCount
+      }
+    }),
+    // mapState 或者当计算属性名称 = 子节点名称时 如下操作
+    mapState([
+      // 映射 this.count 为 store.state.count
+      'count','countA'
+    ]),
+
+    //////////////////////////////mapGetters
+    // 使用对象展开运算符将 getter 混入 computed 对象中
+    ...mapGetters([
+      'doneTodosCount',
+      'anotherGetter',
+      // 把 `this.doneCount` 映射为 `this.$store.getters.doneTodosCount`
+      doneCount: 'doneTodosCount'
+    ]),
+
+  },
+  methods:{
+
+    //////////////////////////////mapMutations
+    ...mapMutations([
+      'increment', // 将 `this.increment()` 映射为 `this.$store.commit('increment')`
+
+      // `mapMutations` 也支持载荷：
+      'incrementBy' // 将 `this.incrementBy(amount)` 映射为 `this.$store.commit('incrementBy', amount)`
+    ]),
+    ...mapMutations({
+      add: 'increment' // 将 `this.add()` 映射为 `this.$store.commit('increment')`
+    })
+
+    //////////////////////////////mapActions
+    ...mapActions([
+      'increment', // 将 `this.increment()` 映射为 `this.$store.dispatch('increment')`
+
+      // `mapActions` 也支持载荷：
+      'incrementBy' // 将 `this.incrementBy(amount)` 映射为 `this.$store.dispatch('incrementBy', amount)`
+    ]),
+    ...mapActions({
+      add: 'increment' // 将 `this.add()` 映射为 `this.$store.dispatch('increment')`
+    })
+  }
+}
+
+```
