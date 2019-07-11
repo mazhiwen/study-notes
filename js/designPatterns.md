@@ -334,5 +334,28 @@ alert ( cost() ); // 求值 并 输出： 600
 在 我们 的 预期 中， Array. prototype 上 的 方法 原本 只能 用来 操作 array 对象。 但 用 call 和 apply 可以 把 任意 对象 当作 this 传入 某个 方法， 这样一来， 方法 中 用到 this 的 地方 就 不再 局限于 原来 规定 的 对象，而是加以泛化并得到更广的适用性.
 
 
+```js
+// 给function添加uncurrying方法
+Function.prototype.uncurrying = function () {
+  var self = this;
+  // 返回一个函数 
+  return function () {
+    console.log(arguments);
+    // obj获取arguments的第一个参数
+    var obj = Array.prototype.shift.call(arguments);
+    // 对一个参数obj 执行self方法,参数是：arguments 
+    // self也就是调用uncurrying的方法 
+    return self.apply(obj, arguments);
+  };
+};
+var push = Array.prototype.push.uncurrying();
+(function () {
+  push(arguments, 4);
+  console.log(arguments);// 输出：[ 1, 2, 3, 4] 
+})(1, 2, 3);
+
+
+
+```
 
   

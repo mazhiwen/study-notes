@@ -317,3 +317,29 @@ import {paramaterA} from "config.js"
 console.log(paramaterA);
 // 此处会对a.js变更做出响应
 ```
+
+
+## externals 
+
+防止将某些 import 的包(package)打包到 bundle 中，而是在运行时(runtime)再去从外部获取这些扩展依赖(external dependencies)。  
+例如：cdn
+
+```js
+// 1. html script引入
+// 2.webpack 
+externals: {
+  jquery: 'jQuery'
+}
+// 3.js引用
+import $ from 'jquery';
+
+$('.my-element').animate(...);
+```
+
+## providePlugins
+
+
+
+
+## mini-css-extract-plugin
+
