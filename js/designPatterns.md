@@ -337,25 +337,138 @@ alert ( cost() ); // 求值 并 输出： 600
 ```js
 // 给function添加uncurrying方法
 Function.prototype.uncurrying = function () {
+  // self也就是调用uncurrying的方法 
+  // 也就是Array.prototype.push
   var self = this;
-  // 返回一个函数 
+  // uncurrying返回一个 执行调用uncurring函数 的函数 
   return function () {
     console.log(arguments);
     // obj获取arguments的第一个参数
     var obj = Array.prototype.shift.call(arguments);
     // 对一个参数obj 执行self方法,参数是：arguments 
-    // self也就是调用uncurrying的方法 
     return self.apply(obj, arguments);
   };
 };
+//目的： 把Array.prototype.push转换为push常用方法
 var push = Array.prototype.push.uncurrying();
 (function () {
   push(arguments, 4);
   console.log(arguments);// 输出：[ 1, 2, 3, 4] 
 })(1, 2, 3);
 
-
-
 ```
 
-  
+
+- 实践
+
+```js
+for (var i = 0, fn, ary = ['push', 'shift', 'forEach']; fn = ary[i++];) {
+  Array[fn] = Array.prototype[fn].uncurrying();
+};
+var obj = {
+  "length": 3,
+  "0": 1,
+  "1": 2,
+  "2": 3
+};
+Array.push(obj, 4);
+// 向 对象 中 添加 一个 元素
+console.log(obj.length);
+// 输出： 4 
+var first = Array.shift(obj);
+// 截取 第一个 元素 
+console.log(first); // 输出： 1 
+console.log(obj); // 输出：{ 0: 2, 1: 3, 2: 4, length: 3} 
+Array.forEach(obj, function (i, n) {
+  console.log(n); // 分别 输出： 0, 1, 2 
+});
+```
+
+3. 函数节流
+
+
+- 函数有可能被非常频繁地调用，而造成大的性能问题。比如：  
+window.onresize  
+mousemove  
+上传进度
+
+- 函数节流的原理:  
+比如onresize，监听浏览器大小变化，console输出变化，1秒钟进行了10次。实际我们只需要2次或者3次。我们就可以按照时间段来忽略一些，比如确保500ms内打印一次，可以借助setTimeout来完成
+
+- 函数截流代码实现:  
+
+```js
+// 把需要节流的目标执行函数，转换为节流函数
+// 返回一个闭包形成的 带有私有状态的function
+var throttle = function (fn,interval){
+  var _self=fn,
+    timer,
+    firstTime = true;
+  return function(){
+    var args=arguments,
+      _me=this;
+    if(firstTime){
+      _slef.apply(_me,args);
+      return firstTime=false;
+    }
+    if(timer){
+      return false;
+    }
+    timer = setTimeout(function(){
+      clearTimeout(timer);
+      timer=null;
+      _slef.apply(_me,args);
+    },interval||500);
+
+  }
+}
+window.onresize = throttle(function(){
+  console.log(1);
+},500);
+```
+
+
+4. 分时函数
+
+```js
+// 例如一次性给dom遍历挂载上千dom节点，可能会页面卡死
+// 解决方案是：
+// 如下timeChunk,把1秒钟挂载1000个节点，改为每200毫秒8个节点
+
+var timeChunk =  function (ary,fn,count){
+  // ary:需要操作的数据
+  // fn : 实际操作函数
+  // count: 每批操作的数据个数
+  var obj,
+    t;
+  var len =  ary.length;
+  var start =  function (){
+    for (var i=0;i<Math.min(count||1,ary.length);i++){
+      var obj = ary.shift();
+      fn(obj);
+    }
+  }
+  return function(){
+    t = setInterval(function(){
+      if(ary.length===0){
+        return clearInterval(t);
+      }
+      start();
+    },200);
+  }
+}
+
+// 执行填充数据测试
+// 执行测试代码
+var ary = [];
+for(var i=1;i<=1000;i++){
+  ary.push(i);
+}
+var renderFriendList = timeChunk(ary,function(n){
+  var div = document.createElement('div');
+  div.innerHTML = n;
+  document.body.appendChild(div);
+},8);
+renderFriendList();
+
+```

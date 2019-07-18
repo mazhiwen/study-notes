@@ -135,13 +135,17 @@ Object.entries(obj).map(([key, value],index) => {
 // array.baz  array[baz]
 // array.length : 2
 
-
-
 ## Array.map*******************/
-//  传入 函数，每个元素调用一次函数，返回array
-// map 不修改原数组
+- map会生成新的数组，并返回
+- 传入 函数，每个元素调用一次函数，返回array
+- map 不会修改原数组,可以在 callback 执行时改变原数组
+- function内部return的值会赋给返回的新数组对应的索引index  
+```js
 var newArray = array.map(function callback(currentValue, index, array) {  
+  //return 会赋值给新数组对应index的数据
+  return xxx;
 })
+```
 
 ## Array.forEach() *******************/
 // 为每个数组元素执行callback函数 没有返回值
@@ -201,7 +205,6 @@ function list() {
 }
 var list1 = list(1, 2, 3); // [1, 2, 3]
 
-
 ## Array.splice *******************/
 //在原数组 删除现有元素 或 添加新元素
 返回被删除的数组，并改变原数组
@@ -226,16 +229,11 @@ array.sort(function compareFunction(a, b) {
 // 参数可以是 array , 或者 value
 array.concat(value1,value2,valuen);
 
-
-
 ## Array.includes*******************/
 arr.includes(searchElement)  
 arr.includes(searchElement, fromIndex)  
 //fromIndex :
 //从该索引处开始查找 searchElement。如果为负值，则按升序从 array.length + fromIndex 的索引开始搜索。默认为 0。
-
-
-
 
 ## Array.findIndex*******************/
 // 查询满足callback的index并返回
@@ -243,10 +241,21 @@ fileList.findIndex((value,index,thisarr)=>{
     return value.uid===file.uid
 })
 
-
-
 ## Array.indexOf*******************/
 返回在数组中可以找到一个给定元素的第一个索引，如果不存在，则返回-1。
+
+## Array.shift
+arr.shift();  
+删除并返回数组头部的元素，  
+并会修改原数组
+
+
+## Array.unshift
+arr.unshift(4, 5);  
+将一个或多个元素添加到数组的开头  
+返回该数组的新长度  
+并会修改原数组
+
 
 
 
