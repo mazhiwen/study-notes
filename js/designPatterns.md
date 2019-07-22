@@ -472,3 +472,140 @@ var renderFriendList = timeChunk(ary,function(n){
 renderFriendList();
 
 ```
+
+5. 惰性加载函数  
+
+某些逻辑只需要加载一次  
+// 例如：事件嗅探工作  
+// 不同浏览器的嗅探逻辑不一样,需要在不同浏览器做一个通用的嗅探事件  
+// 实现:  
+// 把嗅探if判断提前到代码加载的时候:  
+
+- 方案一：  
+缺点：嗅探函数始终会在最初加载，就算没有调用
+```js
+var addEvent = (function(){
+  if(window.addEventListener){
+    return function(elem,type,handler){
+      elem.addEventListener(type,handler,false);
+    }
+  }
+  if(window.attachEvent){
+    return function(elem,type,handler){
+      elem.attachEvent('on'+type,handler);
+    }
+  }
+})()
+```
+- 最终方案:  
+真正实现惰性加载函数
+```html
+
+<html>
+  <body>
+    <div id="div1">点击我绑定</div>
+    <script>
+      var addEvent = function (elem,type,handler){
+        if(window.addEventListener){
+          addEvent = function(elem , type, handler){
+            elem.addEventListener(type,handler,false);
+          }
+        }else if(window.attachEvent){
+          addEvent = function(elem , type, handler){
+            elem.attachEvent('on'+type,handler);
+          }
+        }
+        addEvent(elem , type, handler);
+      }
+      //执行
+      var div = document.getElementById('div1');
+      addEvent(div,'click',function(){
+        alert(1);
+      }); 
+      addEvent(div,'click',function(){
+        alert(2);
+      });
+    </script>
+  </body>
+</html>
+```
+
+## 设计模式
+
+### 单例模式
+
+定义：保证一个类仅有一个实例，并提供一个访问它的全局访问点.  
+比如线程池，全局缓存，浏览器中的Window对象。
+
+> function内部this,并赋值function一个变量，可以实现私有变量。prototype又可以操作私有变量.
+
+
+```js
+// 实现一
+var Singleton = function (name){
+  this.name=name;
+  this.instance = null;
+}
+Singleton.prototype.getName=function(){
+  alert(this.name);
+}
+Singleton.getInstance = function(name){
+  if(!this.instance){
+    this.instance = new Singleton(name);
+  }
+  return this.instance;
+}
+var a = Singleton.getInstance('sven1');
+var b = Singleton.getInstance('sven2');
+// a === b
+
+
+// 实现二
+var Singleton = function (name){
+  this.name=name;
+}
+Singleton.prototype.getName=function(){
+  alert(this.name);
+}
+Singleton.getInstance = (function(){
+  var instance = null ;
+  return function(name){
+    if(!instance){
+      instance = new Singleton(name);
+    }
+    return instance;
+  }
+})();
+var a = Singleton.getInstance('sven1');
+var b = Singleton.getInstance('sven2');
+// a === b
+
+
+
+//实现三 透明的单例模式
+var CreateDiv = (function(){
+  var instance;
+  var CreateDiv = function(html){
+    if(instance){
+      return instance;
+    }
+    this.html=html;
+    this.init();
+    return instance = this;
+  }
+  CreateDiv.prototype.init=function(){
+    var div=document.createElement('div');
+    div.innerHTML=this.html;
+    document.body.appendChild(div);
+  }
+  return CreateDiv;
+})();
+var a = new CreateDiv('sven1');
+var b = new CreateDiv('sven2');
+// a === b
+
+
+
+```
+
+
