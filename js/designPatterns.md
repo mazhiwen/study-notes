@@ -605,7 +605,57 @@ var b = new CreateDiv('sven2');
 // a === b
 
 
+// 实现四 用代理实现单例模式
+// 原始函数:需要被代理转换单例的
+var CreateDiv = function(html){
+  this.html = html ;
+  this.init();
+}
+CreateDiv.prototype.init = function(){
+  var div = document.createElement('div');
+  div.innerHTML = this.html;
+  document.body.appendChild(div);
+}
+// 代理函数
+// 不影响原始函数扩展为非单例，
+// 即把单例转换逻辑抽离出来
+var ProxySingletonCreateDiv = (function (){
+  var instance;
+  return function(html){
+    if(!instance){
+      instance = new CreateDiv(html);
+    }
+    return instance;
+  }
+})();
+var a = new ProxySingletonCreateDiv('sven1');
+var b = new ProxySingletonCreateDiv('sven2');
+// a === b
 
 ```
+
+
+单例在js实现的问题:  
+
+- 全局变量不是单例模式，但在js中，我们经常会这么做
+- 全局变量会造成命名空间污染
+- js的创造者是Brendan Eich ， 认为全局变量是js设计上的失误
+- 解决全局变量污染:  
+  1.命名空间  
+  2.使用闭包封装私有变量
+```js
+var user = (function(){
+  var _name = 'sven',
+    _age=29;
+  return {
+    getUserInfo:function(){
+      return _name + '-' + _age;
+    }
+  }  
+}
+)()
+```
+
+
 
 
