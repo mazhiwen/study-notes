@@ -539,9 +539,9 @@ var addEvent = (function(){
 
 > function内部this,并赋值function一个变量，可以实现私有变量。prototype又可以操作私有变量.
 
-
+#### 实现一
 ```js
-// 实现一
+
 var Singleton = function (name){
   this.name=name;
   this.instance = null;
@@ -558,9 +558,10 @@ Singleton.getInstance = function(name){
 var a = Singleton.getInstance('sven1');
 var b = Singleton.getInstance('sven2');
 // a === b
+```
 
-
-// 实现二
+#### 实现二
+```js
 var Singleton = function (name){
   this.name=name;
 }
@@ -579,10 +580,11 @@ Singleton.getInstance = (function(){
 var a = Singleton.getInstance('sven1');
 var b = Singleton.getInstance('sven2');
 // a === b
+```
 
 
-
-//实现三 透明的单例模式
+#### 实现三 透明的单例模式
+```js
 var CreateDiv = (function(){
   var instance;
   var CreateDiv = function(html){
@@ -603,9 +605,10 @@ var CreateDiv = (function(){
 var a = new CreateDiv('sven1');
 var b = new CreateDiv('sven2');
 // a === b
+```
 
-
-// 实现四 用代理实现单例模式
+#### 实现四 用代理实现单例模式
+```js
 // 原始函数:需要被代理转换单例的
 var CreateDiv = function(html){
   this.html = html ;
@@ -631,16 +634,15 @@ var ProxySingletonCreateDiv = (function (){
 var a = new ProxySingletonCreateDiv('sven1');
 var b = new ProxySingletonCreateDiv('sven2');
 // a === b
-
 ```
 
 
-单例在js实现的问题:  
+#### 单例在js实现的问题:  
 
-- 全局变量不是单例模式，但在js中，我们经常会这么做
-- 全局变量会造成命名空间污染
-- js的创造者是Brendan Eich ， 认为全局变量是js设计上的失误
-- 解决全局变量污染:  
+全局变量不是单例模式，但在js中，我们经常会这么做  
+全局变量会造成命名空间污染  
+js的创造者是Brendan Eich ， 认为全局变量是js设计上的失误  
+解决全局变量污染:  
   1.命名空间  
   2.使用闭包封装私有变量
 ```js
@@ -656,6 +658,72 @@ var user = (function(){
 )()
 ```
 
+#### 惰性单例
+在需要的时候才创建对象实例。
+```js
+// 实现思路
+var vreateFn = (function(){
+  var div;
+  return function(){
+    if(!div){
+      div=;
+    }
+    return div;
+  }
+})();
+vreateFn();
+```
+
+#### 通用的惰性单例
+
+- 单一职责原则：把不同职责的功能方法分离开来。
+```js
+// 普通函数转单例 工厂方法:
+var getSingle = function(fn){
+  var result;
+  return function(){
+    return result || (result = fn.apply(this,arguments));
+  }
+}
+
+// 被转换的函数，需要return 一个result，才能被工厂方法记录
+// 被转换函数的执行结果是返回一个 实例
+// 例如:
+var createLoginLayer =function(){
+  var div= ````;
+    //```div操作
+  return div;
+}
+```
 
 
+### 策略模式
 
+> 定义:定义一系列的算法，把他们一个个封装起来，并且使他们可以相互替换。
+
+> 将不变的部分和变化的部分隔开是每个设计模式的主题
+
+> 一个基于策略模式的程序至少有两部分:  
+> 1.策略类:封装具体算法，负责具体计算 ;  
+> 2.环境类:接收客户请求，把请求委托给策略类
+
+```js
+// 实现计算不同策略下的年终奖
+// 策略
+var strategies = {
+  "S":function(salary){
+    return salary*4;
+  },
+  "A":function(salary){
+    return salary*3;
+  },
+  "B":function(salary){
+    return salary*2;
+  },
+}
+// 环境
+var calculateBonus = function(level,salary){
+  return strategies[level](salary);
+}
+
+```
