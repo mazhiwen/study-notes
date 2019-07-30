@@ -321,6 +321,10 @@ Object.keys()
 var arr = ['a', 'b', 'c'];
 console.log(Object.keys(arr)); // console: ['0', '1', '2']
 
+## Object.values(obj)
+Object.values()方法返回一个给定对象自身的所有可枚举属性值的数组，值的顺序与使用for...in循环的顺序相同 ( 区别在于 for-in 循环枚举原型链中的属性 )。
+
+
 ## getOwnPropertyNames()
 
 返回所有属性，包括可枚举 不可枚举 

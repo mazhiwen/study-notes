@@ -22,7 +22,8 @@ HTTP请求线程
 
 拖动的元素事件流:
 dragstart 
-ondrag
+drag
+dragend
 
 拖动移动到的目标元素事件流:
 dragenter

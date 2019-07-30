@@ -88,7 +88,7 @@ string 区别于String内置对象，是字面量，不同的类型
 Symbol  
 Object(new生成的,如：Array,Date,Function,RegExp等)
 
-## 类型检测
+## 类型检测 判断
 
 ```javascript
 //常规检测
@@ -101,6 +101,10 @@ Object. prototype. toString. call( arr ) == "[object Array]";
 Object. prototype. toString. call( arr ) == "[object Function]";
 Object. prototype. toString. call( arr ) == "[object RegExp]";
 window. JSON && Object. prototype. toString. call( JSON) == "[object JSON]";
+// 数字检测另外一种方式
+typeof value === 'number' && !isNaN(value);
+
+
 ```
 
 ## typeof
