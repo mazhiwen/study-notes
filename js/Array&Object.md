@@ -237,7 +237,7 @@ arr.includes(searchElement, fromIndex)
 
 ## Array.findIndex*******************/
 // 查询满足callback的index并返回
-fileList.findIndex((value,index,thisarr)=>{
+findindex = fileList.findIndex((value,index,thisarr)=>{
     return value.uid===file.uid
 })
 

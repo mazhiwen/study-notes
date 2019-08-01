@@ -745,5 +745,36 @@ var calculateBonus = function(level,salary){
 
 - 保护代理 和 虚拟代理  
 保护代理用于控制不同权限的对象对目标对象的访问，代理者帮本体处理事务，js中不容易实现  
-虚拟代理比较常见，代理者帮客户处理事务
+虚拟代理比较常见，是代理者帮客户处理事务
 
+- 虚拟代理实现图片预加载
+
+```js
+var myImage = (function(){
+  var imgNode = document.createElement('img');
+  document.body.appendChild(imgNode);
+  return {
+    setSrc:function(src){
+      imgNode.src=src;
+    }
+  }
+})();
+
+var proxyImage=(function(){
+  var img = new Image();
+  img.onload = function(){
+    myImage.setSrc(this.src);
+  }
+  return {
+    setSrc : function(){
+      myImage.setSrc('file:// /C:/Users/svenzeng/Desk/load.gif');
+      img.src=src;
+    }    
+  }
+})();
+```
+
+- 代理的意义
+
+> 单一职责原则（一个面向对象的设计原则）：
+就一个类而言，应该只有一个引起它变化的原因，如果一个对象承担了多项职责，就意味着这个对象将变的巨大，引起它变化的原因可能有多个。鼓励将行为分布到细粒度的对象之中。如果一个对象职责过多，职责都耦合到一起，会导致脆弱，低内聚。
