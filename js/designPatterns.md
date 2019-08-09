@@ -778,3 +778,57 @@ var proxyImage=(function(){
 
 > 单一职责原则（一个面向对象的设计原则）：
 就一个类而言，应该只有一个引起它变化的原因，如果一个对象承担了多项职责，就意味着这个对象将变的巨大，引起它变化的原因可能有多个。鼓励将行为分布到细粒度的对象之中。如果一个对象职责过多，职责都耦合到一起，会导致脆弱，低内聚。
+
+> 例如MyImage是设置图片功能，通过代理，我们给系统添加了新的经过MyImage的行为。符合开放-封闭原则。设置图片 和 预加载两个功能被隔离在两个对象。各自变化而不影响对方。
+
+- 代理和本体接口具有一致性
+
+- 虚拟代理实现合并HTTP请求
+
+```js
+// 多个checkbox 每点一个发送到服务器
+// 实现点击后 间隔2秒 一次性发送
+var synchronousFile = function(id){
+  console.log('开始同步'+id);
+}
+var proxySynchronousFile = (function(){
+  var cache = [],//保存一段时间内需要同步的id
+    timer;//定时器
+  return function(id){
+    cache.push(id);
+    if(timer){
+      return;
+    }
+    timer = setTimeout(function(){
+      synchronousFile(cache.join(','));
+      clearTimeout(timer);
+      timer=null;
+    },2000);
+  }
+  
+})();
+
+// 遍历给checkbox绑定
+// proxySynchronousFile事件
+
+```
+
+- 虚拟代理与惰性加载
+
+场景：真正的miniConsole可能上千行代码，加载慢。  
+我们加载前先实现一个代理的miniConsole，并存储console数据。  
+此时，不影响系统正常使用miniConsole的API  
+再执行，加载miniConsole.js,加载完后对存储的console数据，执行真正的miniConsole
+```js
+
+var cache = [];
+var miniConsole = {
+  log: function(){
+    var args = arguments;
+    cache.push(function(){
+      return miniConsole.log.apply();
+    });
+  }
+}
+
+```

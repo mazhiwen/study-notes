@@ -25,6 +25,7 @@ this.$el 指当前挂载的组件，mounted才有，created没有
 ```javascript
 Vue.component('base-checkbox', {
   model: {
+    // 默认prop是value 默认event是input
     prop: 'checked',
     event: 'change'
   },
@@ -39,7 +40,11 @@ Vue.component('base-checkbox', {
     >
   `
 })
-<base-checkbox v-model="lovingVue"></base-checkbox>
+<base-checkbox 
+  v-model="lovingVue" 
+  @change=""
+>
+</base-checkbox>
 ```
 
 3. $parent $children $root  

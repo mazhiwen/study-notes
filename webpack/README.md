@@ -336,10 +336,16 @@ import $ from 'jquery';
 $('.my-element').animate(...);
 ```
 
-## providePlugins
 
 
 
 
 ## mini-css-extract-plugin
 
+
+
+
+
+## 地址路径问题
+
+webpack配置中字符串格式的 路径'' 一般是以webpack执行命令的路径 ，pkgjson路径;
