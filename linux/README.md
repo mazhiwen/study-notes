@@ -58,3 +58,8 @@ ls -a 查看隐藏
 ### mv 
 mv ./build/* ../
 mv ./build ../
+
+
+### 文件 文件夹
+
+touch file 新建文件

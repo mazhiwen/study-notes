@@ -40,6 +40,9 @@ git rm -r --cached .
 忽略大小写 windows git
 git config core.ignorecase false
 
+3. 放弃git add 
+git reset 
+
 
 ### reset远程commit
 
