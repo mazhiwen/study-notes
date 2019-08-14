@@ -20,13 +20,34 @@ HTTP请求线程
 
 需要draggable = "true"
 
-拖动的元素事件流:
-dragstart 
-drag
+拖动的元素事件流:  
+dragstart  
+drag 持续  
 dragend
 
-拖动移动到的目标元素事件流:
-dragenter
-dragover
-dragleave
+拖动移动到的目标元素事件流:  
+dragenter  
+dragover  
+dragleave  
+drop
 
+
+
+
+
+## http
+
+### 1.1
+
+
+
+### 2.0
+
+
+### https
+
+
+
+## SessionStorage, LocalStorage, Cookie
+
+参考：https://harttle.land/2014/10/01/http.html#header-5

@@ -73,11 +73,33 @@ foo = function() { console. log( 2 ); };
  主要 区别： 词法 作用域 是在 写 代码 或者说 定义 时 确定 的， 而 动态 作用域 是在 运行时 确定 的。（ this 也是！） 词法 作用域 关注 函数 在何处 声明， 而 动态 作用域 关注 函数 从何 处 调用。
 
 
-## in
+## **in 运算符**
 
 如果指定的属性在指定的对象或其原型链中，则in 运算符返回true。
 
-## 简单基本类型 7种
+```js
+prop in object
+// 数组
+var trees = new Array("redwood", "bay", "cedar", "oak", "maple");
+0 in trees        // 返回true
+3 in trees        // 返回true
+6 in trees        // 返回false
+"bay" in trees    // 返回false (必须使用索引号,而不是数组元素的值)
+"length" in trees // 返回true (length是一个数组属性)
+Symbol.iterator in trees // 返回true (数组可迭代，只在ES2015+上有效)
+
+// 内置对象
+"PI" in Math          // 返回true
+
+// 自定义对象
+var mycar = {make: "Honda", model: "Accord", year: 1998};
+"make" in mycar  // 返回true
+"model" in mycar // 返回true
+
+```
+
+
+## **简单基本类型 7种**
 
 简单基本类型本身不是对象
 boolean  

@@ -530,9 +530,9 @@ var addEvent = (function(){
 </html>
 ```
 
-## 设计模式
+## **设计模式**
 
-### 单例模式
+### **单例模式**
 
 定义：保证一个类仅有一个实例，并提供一个访问它的全局访问点.  
 比如线程池，全局缓存，浏览器中的Window对象。
@@ -697,7 +697,7 @@ var createLoginLayer =function(){
 ```
 
 
-### 策略模式
+### **策略模式**
 
 - 定义:定义一系列的算法，把他们一个个封装起来，并且使他们可以相互替换。
 
@@ -737,17 +737,17 @@ var calculateBonus = function(level,salary){
 
 
 
-### 代理模式
+### **代理模式**
 
-- 代理模式是为一个对象提供一个代用品或占位符，以便控制对它的访问。  
+#### 代理模式是为一个对象提供一个代用品或占位符，以便控制对它的访问。  
 不用代理：客户-》本体  
 用代理: 客户 -》代理 -》本体 
 
-- 保护代理 和 虚拟代理  
+#### 保护代理 和 虚拟代理  
 保护代理用于控制不同权限的对象对目标对象的访问，代理者帮本体处理事务，js中不容易实现  
 虚拟代理比较常见，是代理者帮客户处理事务
 
-- 虚拟代理实现图片预加载
+#### 虚拟代理实现图片预加载
 
 ```js
 var myImage = (function(){
@@ -774,16 +774,16 @@ var proxyImage=(function(){
 })();
 ```
 
-- 代理的意义
+#### 代理的意义
 
 > 单一职责原则（一个面向对象的设计原则）：
 就一个类而言，应该只有一个引起它变化的原因，如果一个对象承担了多项职责，就意味着这个对象将变的巨大，引起它变化的原因可能有多个。鼓励将行为分布到细粒度的对象之中。如果一个对象职责过多，职责都耦合到一起，会导致脆弱，低内聚。
 
 > 例如MyImage是设置图片功能，通过代理，我们给系统添加了新的经过MyImage的行为。符合开放-封闭原则。设置图片 和 预加载两个功能被隔离在两个对象。各自变化而不影响对方。
 
-- 代理和本体接口具有一致性
+#### 代理和本体接口具有一致性
 
-- 虚拟代理实现合并HTTP请求
+#### 虚拟代理实现合并HTTP请求
 
 ```js
 // 多个checkbox 每点一个发送到服务器
@@ -813,14 +813,15 @@ var proxySynchronousFile = (function(){
 
 ```
 
-- 虚拟代理与惰性加载
+#### 虚拟代理与惰性加载
 
 场景：真正的miniConsole可能上千行代码，加载慢。  
 我们加载前先实现一个代理的miniConsole，并存储console数据。  
 此时，不影响系统正常使用miniConsole的API  
 再执行，加载miniConsole.js,加载完后对存储的console数据，执行真正的miniConsole
-```js
 
+```js
+// 初始化，并没有真正加载miniConsole
 var cache = [];
 var miniConsole = {
   log: function(){
@@ -830,5 +831,71 @@ var miniConsole = {
     });
   }
 }
+// 按键呼出真正的miniConsole
+var handler = function (ev){
+  if(ev.keyCode === 113){
+    var script = document.createElement('script');
+    script.onload = function(){
+      for(var i = 0,fn;fn = cache[ i++ ];){
+        fn();
+      }
+    }
+    script.src = 'miniConsole.js';
+    document.getElementByTagName('head')[0].appendChild(script);
+    document.body.removeEventListener('keydown',handler);
+  }
+}
+document.body.addEventListener('keydown',handler,false);
+// miniConsole.js代码
+miniConsole = {
+  log:function(){
+    // 执行真正代码
+  }
+}
 
 ```
+
+#### 缓存代理
+
+> 缓存代理可以给开销大的运算结果提供暂时的存储，在下次运算时，如果传递参数和之前一致，则可以直接返回存储的运算结果
+
+ajax异步请求数据也可以做缓存代理
+
+
+#### 用高阶函数动态创建代理
+
+做一个用于创建缓存代理的工厂函数，动态传入计算方法，就可以为计算方法创建缓存代理。
+
+```js
+// 计算乘积
+var mult = function(){
+
+}
+
+
+// 创建缓存代理的工厂函数
+var createProxyFactory = function(fn){
+  var cache = {};
+  return function(){
+    var args = Array.prototype.join.call(arguments,',');
+    if(args in cache){
+      return cache[args];
+    }
+    return cache[args] = fn.apply(this,arguments);
+  }
+}
+
+var proxyMult = createProxyFactory( mult ),
+
+```
+
+### **迭代器模式**
+
+> 提供一种方法顺序访问一个集合对象中的各个元素，而不需要暴露对象内部显示
+
+#### 内部迭代器,外部迭代器
+
+> 外部迭代器必须显式地请求迭代下一个元素。
+
+> 外部迭代器: 外部迭代器增加了一些调用的复杂度，也增强了迭代器的灵活性，我们可以手工控制迭代的过程或者顺序。
+

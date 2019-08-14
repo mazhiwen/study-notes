@@ -13,7 +13,10 @@ https://alexjoverm.github.io/2017/07/16/Lazy-load-in-Vue-using-Webpack-s-code-sp
 this.$el 指当前挂载的组件，mounted才有，created没有
 
 
-## 组件通信
+## **组件通信**
+
+
+https://segmentfault.com/a/1190000019208626?utm_source=tag-newest
 
 1. vuex
 全局
@@ -61,7 +64,8 @@ Vue.component('base-checkbox', {
 
 
 6. $attrs和$listeners  
-适用于第三方复杂组件构建，a -> b -> c 深层次传递prop 和 event
+适用于第三方复杂组件构建，a -> b -> c 深层次传递prop 和 event  
+简单来说：$attrs与$listeners 是两个对象，$attrs 里存放的是父组件中绑定的非 Props 属性，$listeners里存放的是父组件中绑定的非原生事件。
 
 ```javascript
 a:
@@ -69,14 +73,10 @@ a:
 getCData(val){
   console.log("这是来自C组件的数据："+val)
 }
- 
-
 b:
 <C v-bind="$attrs" v-on="$listeners"></C>
 // <!-- C组件中能直接触发getCData的原因在于 B组件调用C组件时 使用 v-on 绑定了$listeners 属性 -->
 // <!-- 通过v-bind 绑定$attrs属性，C组件可以直接获取到A组件中传递下来的props（除了B组件中props声明的） -->
-
-
 c:
 v-model="$attrs.messagec" @input="passCData($attrs.messagec)"
 passCData(){
@@ -84,9 +84,9 @@ passCData(){
 }
 ```
 
-## 组合
+## **组合**
 
-### mixin
+### **mixin**
 
 minxin适合有公用 类似react hoc，可以抽离template 和js 的还是抽离成组件比较合适
 

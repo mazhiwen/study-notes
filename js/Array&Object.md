@@ -256,8 +256,15 @@ arr.unshift(4, 5);
 返回该数组的新长度  
 并会修改原数组
 
+## array.join()
 
-
+```js
+var elements = ['Fire', 'Air', 'Water'];
+console.log(elements.join());
+// expected output: "Fire,Air,Water"
+console.log(elements.join('-'));
+// expected output: "Fire-Air-Water"
+```
 
 
 
