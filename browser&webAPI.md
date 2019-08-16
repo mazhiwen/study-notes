@@ -13,10 +13,11 @@ HTTP请求线程
 
 
 
-## event
+## **event**
 
+MDN参考:https://developer.mozilla.org/zh-CN/docs/Web/Events
 
-###  drag
+###  **drag**
 
 需要draggable = "true"
 
@@ -30,6 +31,12 @@ dragenter
 dragover  
 dragleave  
 drop
+
+### **mouseenter  mouseover**
+
+mouseover:在鼠标穿过元素和子元素的时候都会触发一次，并重新初始化mouse事件
+
+mouseenter: 只有鼠标穿过绑定元素，才会触发mouseenter，且子元素不会。
 
 
 

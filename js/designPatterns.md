@@ -108,6 +108,7 @@ obj={
   a:2,
   getA:function(){
     this.a
+    // 2
   }
 }
 obj.getA();
@@ -1178,13 +1179,16 @@ var Event = (function(){
           if( !stack || !stack.length ){
             return;
           }
+          return each( stack, function(){
+            return this.apply( _self, args);
+          })
         };
         _create = function(namespace){
           var namespace = namespace || _default;
           var cache = {},
               offlineStack = [],
               ret = {
-                listen:function(key, fn, last){
+                listen: function(key, fn, last){
                   _listen(key, fn, cache);
                   if(offlineStack === null){
                     return;
@@ -1198,11 +1202,11 @@ var Event = (function(){
                   }
                   offlineStack = null;
                 },
-                one:function(key, fn, last){
+                one: function(key, fn, last){
                   _remove( key, cache);
                   this.listen(key, fn, last);
                 },
-                remove:function(key, fn){
+                remove: function(key, fn){
                   _remove( key, cache, fn);
                 },
                 trigger: function(){
@@ -1219,9 +1223,8 @@ var Event = (function(){
                   }
                   return fn();
                 }
-
               }
-              return namespace ? (namespaceCache[namespace] ? namespaceCache[namespace] : namespaceCache[namespace] = ret ) : ret;
+          return namespace ? (namespaceCache[namespace] ? namespaceCache[namespace] : namespaceCache[namespace] = ret ) : ret;
         }
         return {
           create: _create,
@@ -1245,5 +1248,79 @@ var Event = (function(){
   }();
   return Event;
 }())
+// 应用
+// 先发布后订阅
+Event.trigger('click',1);
+Event.listen('click',function(a){
+  console.log(a);
+});
+// 使用命名空间
+Event.create('namespace1').listen('click',function(a){
+  console.log(a);
+});
+Event.create('namespace1').trigger('click',1);
+Event.create('namespace2').listen('click',function(a){
+  console.log(a);
+});
+Event.create('namespace2').trigger('click',2);
+```
+
+> 发布-订阅模式的优点非常明显，一为时间上的解耦，二为对象之间的解耦。
+
+> 缺点：多个发布-订阅嵌套到一起时，不利于追踪bug
+
+
+### **命令模式**
+
+> 有时候需要向某些对象发送请求，但是并不知道**请求的接收者**是谁，也不知道被**请求的操作**是什么。此时需要一种松耦合的方式设计程序，使得请求发送者和接受者能够消除彼此之间的耦合关系。
+
+
+
+```js
+// 简单实现
+var RefreshMenuBarCommand = function(receiver){
+  return {
+    execute: function(){
+      receiver.refresh();
+    }
+  }
+}
+var setCommand = function(button,command){
+  button.onclick = function(){
+    command.execute();
+  }
+}
+var refreshMenuBarCommand = RefreshMenuBarCommand(MenuBar);
+setCommand( button1 , refreshMenuBarCommand );
 
 ```
+
+```js
+// 另外一个命令模式应用场景
+var ball = document.getElementById('ball');
+var pos = document.getElementById('pos');
+var moveBtn = document.getElementById('moveBtn');
+var cancelBtn = document.getElementById('cancelBtn');
+var MoveCommand = function(receiver,pos){
+  this.recerver = recerver;
+  this.pos = pos;
+  this.oldPos = null;
+}
+MoveCommand.prototype.execute = function(){
+  this.receiver.start('left',this.pos,1000,'strongeaseout');
+  this.oldPos = this.receiver.dom.getBoundingClientRect()[this.receiver.propertyName];
+}
+MoveCommand.prototype.undo = function(){
+  this.reveiver.start('left',this.oldPos,1000,'strongEaseOut');
+}
+var moveCommand;
+moveBtn.onclick = function(){
+  var animate = new Animate(ball);
+  moveCommand = new MoveCommand(animate,pos.value);
+  moveCommand.execute();
+}
+cancelBtn.onclick = function(){
+  moveCommand.undo();
+}
+```
+
