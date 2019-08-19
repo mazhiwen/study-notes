@@ -1295,6 +1295,8 @@ setCommand( button1 , refreshMenuBarCommand );
 
 ```
 
+#### **撤销命令**
+
 ```js
 // 另外一个命令模式应用场景
 var ball = document.getElementById('ball');
@@ -1323,4 +1325,186 @@ cancelBtn.onclick = function(){
   moveCommand.undo();
 }
 ```
+
+#### **撤销和重做**
+
+在某些情况下，无法顺利地利用undo操作让对象回到execute之前的状态。比如在一个canvas画图程序中，画布上有一些点，我们在这些点之间画了N条线把这些点相互链接起来，用命令模式实现的。但是很难做到undo操作，因为canvas画图中擦除一条线，相对不容易。  
+最好的办法是先清楚画布，然后把刚才执行过的命令全部执行一遍，这一点同样可以利用一个历史列表堆栈办到。记录命令日志，然后重复执行它们。
+
+```js
+var Ryu = {
+  attack:function(){
+    console.log('攻击');
+  },
+  defense:function(){
+    console.log('defense');
+  },
+  jump:function(){
+    console.log('jump');
+  },
+  crouch:function(){
+    console.log('crouch');
+  }
+};
+// 创建命令
+var makeCommand = function(receiver,state){
+  return function(){
+    receiver[state]();
+  }
+}
+var commands = {
+  "119":"jump", //w
+  "115":"crouch", //s
+  "97":"defense", //a
+  "100":"attack", //d
+}
+var commandStack = [];// 保存命令的堆栈
+document.onkeypress = function(ev){
+  var keyCode = ev.keyCode,
+      command = makeCommand( Ryu,command[keyCode] );
+  if(command){
+    command();//执行命令
+    commandStack.push(command);//将刚刚执行过的命令保存进堆栈
+  }
+};
+// 点击播放录像，播放历史记录
+document.getElementById('replay').onclick = function(){
+  var command;
+  while( command = commandStack.shift() ){
+    command();
+  }
+}
+
+```
+
+#### **命令队列**
+
+把命令存在命令堆栈，上一个命令执行完才执行下一个命令，异步执行。将命令排队进行。  
+命令执行完，通知执行下一条命令，这个通知方式，可以是回调，也可以是发布-订阅模式。
+
+#### **宏命令**
+
+> 命令集合执行。操作命令集合。
+
+```js
+var ACommand = {
+  execute:function(){
+  }
+}
+var BCommand = {
+  execute:function(){
+  }
+}
+// ...
+var Macrocommand = function(){
+  return {
+    commandList: [] ,
+    add: function( command ){
+      this.commandList.push( command );
+    },
+    execute: function(){
+      for ( var i = 0,command; command = this.commandList[i++];){
+        command.execute();
+      }
+    }
+  }
+};
+var macrocommand = Macrocommand();
+macrocommand.add( ACommand );
+macrocommand.add( BCommand );
+macrocommand.add( CCommand );
+macrocommand.execute();
+
+```
+
+### **组合模式**
+
+> 组合模式就是用小的子对象来构建更大的对象，而这些小的对象本身也是由更小的“孙对象”构成的。
+
+#### **组合模式的用途:**
+
+1. 表示树形结构,组合模式可以很方便地描述对象部分-整体层次结构  
+2. 利用对象多态性 统一对待组合对象和单个对象
+
+#### **实现**
+
+例如上述命令模式，宏命令的例子中，我们可以组合Acommand = commandA1 + commandA2 + commandA3 ，Bcommand类似, 最终 command = Acommand + Bcommand 。 调用步骤只需要调用最上层对象的 execute 方法。
+
+#### **抽象类在组合模式中应用**
+
+Java中，基于一个Component来编写程序，不用去区分到底是组合对象还是叶对象。我们在同一个对象的add中，既可以添加组合对象，也可以添加叶对象。
+
+#### **透明性带来的安全问题**
+
+组合模式的透明性使得发起请求的客户不用去顾忌树中组合对象和叶对象的区别，但它们在本质上是有区别的。  
+组合对象可以拥有子节点，叶对象下面就没有子节点，所以我们也许会发生误操作，比如试图往叶对象中添加子节点。解决方法是给叶对象增加add 判断叶节点不可以添加子节点。
+
+#### **实例 - 文件夹**
+
+```js
+//Folder
+var Folder = function(name){
+  this.name = name;
+  this.files = [];
+}
+Folder.prototype.add = function(file){
+  this.file.push(file);
+}
+Folder.prototype.scan = function(file){
+  console.log( '开始扫描文件夹:'+this.name );
+  for ( var i = 0, file, files = this.files; file = files[ i++ ]){
+    file.scan();
+  }
+}
+// File
+var File = function(name){
+  this.name = name;
+}
+File.prototype.add = function(file){
+  throw new Error( '文件下面不能再添加文件' );
+}
+File.prototype.scan = function(file){
+  console.log( '开始扫描文件:' + this.name );
+}
+// 组合
+var folder = new Folder( '学习资料' );
+var folder1 = new Folder( 'javascript' );
+var folder2 = new Folder( 'jQuery' );
+
+var file1 = new File( 'xxxx' );
+var file2 = new File( 'xxxx' );
+var file3 = new File( 'xxxx' );
+
+folder1.add( file1 );
+folder2.add( file2 );
+
+folder.add( folder1 );
+folder.add( folder2 );
+folder.add( file3 );
+
+folder.scan();
+
+```
+
+#### **一些应该注意的点**
+
+> 组合模式不是父子关系： HAS-A 而不是 IS-A
+
+> 对叶对象操作的一致性：组合模式除了要求组合对象和叶对象拥有相同的接口之外，还有一个必要条件，就是对一组叶对象的操作必须具有一致性
+
+> 双向映射关系
+
+> 用职责链模式提高组合模式性能
+
+#### 引用父对象
+
+#### 何时引用组合模式
+
+- 表示对象的部分-整体层次结构。组合模式可以方便地构造一棵树来表示对象的部分-整体结构。特别是我们在开发期间不确定这棵树到底存在多少层次。只需要通过请求树的最顶层对象，便能对整棵树做统一的操作。
+
+- 客户希望统一对待树中的所有对象，组合模式使客户可以忽略组合对象和叶对象的区别，客户在面对这棵树的时候，不用关心当前处理的对象是组合对象还是叶对象，也不用写一堆if else分别处理他们
+
+
+
+
 

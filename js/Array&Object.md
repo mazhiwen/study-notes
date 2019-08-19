@@ -244,17 +244,31 @@ findindex = fileList.findIndex((value,index,thisarr)=>{
 ## Array.indexOf*******************/
 返回在数组中可以找到一个给定元素的第一个索引，如果不存在，则返回-1。
 
-## Array.shift
+## array.shift
 arr.shift();  
 删除并返回数组头部的元素，  
 并会修改原数组
 
+## array.unshift
 
-## Array.unshift
 arr.unshift(4, 5);  
 将一个或多个元素添加到数组的开头  
 返回该数组的新长度  
 并会修改原数组
+
+## array.pop
+
+数组中删除最后一个元素，并返回该元素的值。此方法更改数组的长度
+```js
+var plants = ['broccoli', 'cauliflower', 'cabbage', 'kale', 'tomato'];
+console.log(plants.pop());
+// expected output: "tomato"
+console.log(plants);
+// expected output: Array ["broccoli", "cauliflower", "cabbage", "kale"]
+plants.pop();
+console.log(plants);
+// expected output: Array ["broccoli", "cauliflower", "cabbage"]
+```
 
 ## array.join()
 
