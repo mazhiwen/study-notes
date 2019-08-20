@@ -1,3 +1,59 @@
+# 面向对象在js中的实现
+
+## **es5**
+
+### **原型链概念**
+
+```js
+function func(){
+
+}
+```
+
+> 创建一个function(func)，这个function(func)就会自动创建一个prototype属性，这个属性指向函数的原型对象(originObj).  
+
+```js
+func.prototype = originObj  
+```
+
+> 默认的情况下，所有的原型对象(originObj)都会都会自动获得一个constructor(构造函数)属性 , 这个constructor指向prototype属性所在函数的指针
+
+```js
+originObj.constructor = func
+// originObj 中还有其他属性，方法
+originObj.sayName =  //自定义方法等
+```
+> 当调用构造函数func 创建( new )一个新实例( func1 )后，该实例（ func1 ）的内部将包含一个指针，指向构造函数的原型对象( func.prototype 也即是 originObj )
+
+> ECMA-262第5版中这个内部指针叫 [[prototype]] ,但在浏览器中都支持一个属性 \_\_proto\_\_
+
+```js
+func1.__proto__ = func.prototype
+```
+
+> 原型属性的查找链： 
+```
+func1 -> func1.__proto__(func.prototype) 
+```
+
+> 当为对象( func1 )添加一个属性(同名)时，不会修改原型( originObj )中的属性，而是屏蔽原型中的属性，阻止我们访问原型中属性
+
+```js
+func.prototype.name = 'aa';
+func1.name = 'dsadsa';
+```
+
+> delete操作符可以删除实例( func1 )的属性( name ),让我们重新可以访问原型链的属性 ( name )
+
+```js
+delete func1.name
+```
+
+
+
+### **基于原型链实现模块化**
+
+```js
 //*********************************** 基本模块
 function CoolModule() { 
     var something = "cool"; 
@@ -138,10 +194,10 @@ function object( o){
     return new F(); 
 }
 function inheritPrototype( subType, superType){ 
-    var prototype = object( superType. prototype); //创建 对象 
+    var prototype = object( superType.prototype); //创建 对象 
     // 或者 var prototype = Object.create( superType. prototype); 
-    prototype. constructor = subType; //增强 对象 
-    subType. prototype = prototype; //指定 对象 
+    prototype.constructor = subType; //增强 对象 
+    subType.prototype = prototype; //指定 对象 
 }
 
 function SuperType( name){ 
@@ -156,8 +212,8 @@ function SubType( name, age){
     this. age = age; 
 }
 inheritPrototype( SubType, SuperType); 
-SubType. prototype. sayAge = function(){
+SubType.prototype.sayAge = function(){
   alert( this. age); 
 };
 
-
+```
