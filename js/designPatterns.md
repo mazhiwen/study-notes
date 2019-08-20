@@ -1507,7 +1507,136 @@ folder.scan();
 
 ### **模版方法模式**
 
+#### **定义**
+
+> 模版方法是一种只需要使用继承就可以实现的非常简单的模式
+
+> 由两部分组成，第一部分是抽象父类，第二部分是具体的实现子类。通常在抽象父类中封装了子类的算法框架，包括实现一些公共方法以及封装子类中所有方法的执行顺序。子类通过继承这个抽象类，也继承了整个算法结构。
 
 
+#### **抽象类**
 
+> 抽象类是要被继承的，不可以实例化。另一种类具体类可以被实例化。
+
+> 抽象类表示一种契约，继承了这个抽象类的所有子类都拥有跟抽象类一致的接口方法。抽象类的主要作用就是为它的子类定义这些公共接口
+
+> 抽象类中申明抽象方法，抽象方法没有具体的实现过程，子类继承这个抽象类时，必须重写父类的抽象方法。
+
+#### **模版方法的使用场景**
+
+> 模版方法通常被架构师用于搭建项目的框架，架构师定好了框架的骨架，程序员继承框架的结构之后，负责往里面填空。
+
+例如，前端构建一系列的UI组件，过程一般如下:  
+1. 初始化一个div容器
+2. 通过ajax请求拉取相应数据  
+3. 把数据渲染到div容器里，完成组件的构造  
+4. 通知用户组件渲染完毕
+
+#### **钩子方法**
+
+> 钩子方法用来解决，在模版方法中，父类抽象类已定义好的算法，需要做适度变化。
+
+```js
+// 抽象父类
+var Beverage = function(){
+};
+Beverage.prototype.boilWater = function(){
+  console.log('把水煮沸');
+}
+Beverage.prototype.brew = function(){
+  console.log('子类必须重写brew方法');
+}
+Beverage.prototype.addCondiments = function(){
+  console.log('子类必须重写pourInCup方法');
+}
+Beverage.prototype.customerWantsCondiments = function(){
+  return true;//默认需要调料
+}
+Beverage.prototype.init = function(){
+  this.boilWater();
+  this.brew();
+  this.pourInCup();
+  if(this.customerWantsCondiments){
+    // 返回true，则需要调料
+    this.addCondiments();
+  }
+}
+
+// 子类继承模版父类
+var CoffeeWithHook = function(){
+
+}
+CoffeeWithHook.prototype = new Beverage();
+CoffeeWithHook.prototype.brew = function(){
+  console.log('冲咖啡');
+}
+CoffeeWithHook.prototype.addCondiments = function(){
+  console.log('加糖');
+}
+CoffeeWithHook.prototype.customerWantsCondiments = function(){
+  return window.confirm('请问需要调料吗?');
+}
+var coffeeWithHook = new CoffeeWithHook();
+coffeeWithHook.init();
+
+```
+
+#### **好莱坞原则**
+
+> 我们允许底层组件将自己挂钩到高层组件中，而高层组件会决定什么时候，以何种方式去使用这些底层组件，高层组件对待底层组件的方式，跟演艺公司对待新人演员一样，都是“别调用我，我们会调用你”
+
+
+#### 更好的用js实现模版方法
+
+```js
+var Beverage = function( param ){
+  var boilWater = function(){
+  }
+  var brew = param.brew || function(){
+    throw new Error('必须传递brew方法');
+  }
+  var pourInCup = param.pourInCup || function(){
+    throw new Error('必须传递pourInCup方法');
+  }
+
+  var F = function(){};
+  F.prototype.init = function(){
+    boilWater();
+    brew();
+    pourInCup();
+  }
+
+  return F;
+}
+
+var Coffee = Beverage({
+  brew: function(){
+    // 沸水冲咖啡 
+  },
+  pourInCup: function(){
+    // 咖啡到进杯子 
+  }
+})
+
+var Tea = Beverage({
+  brew: function(){ 
+    // 沸水冲茶叶
+  },
+  pourInCup: function(){
+    // 茶到进杯子 
+  }
+})
+
+var coffee = new Coffee();
+coffee.init();
+var tea = new Tea();
+tea.init();
+```
+
+> 模版方法是一种典型的通过封装变化提高系统扩展性的设计模式。
+
+> 在JavaScript中，我们用高阶函数是更好的实现选择。
+
+
+### **享元模式**
 
