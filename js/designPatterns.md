@@ -1640,3 +1640,125 @@ tea.init();
 
 ### **享元模式**
 
+> 享元模式是一种用于性能优化的模式
+
+> 以时间换空间的方式
+
+#### **内部状态与外部状态**
+
+享元模式要求将对象的属性划分为内部状态与外部状态。目标是尽量减少共享对象的数量。
+
+- 内部状态存储与对象内部
+- 内部状态可以被一些对象共享
+- 内部状态独立于具体的场景，通常不会改变
+- 外部状态取决于具体的场景，并根据场景变化，外部状态不能被共享
+
+#### **实例:文件上传**
+
+```js
+var Upload = function( uploadType ){
+  // 内部状态
+  this.uploadType = uploadType;
+}
+Upload.prototype.delFile = function( id ){
+  //给当前upload对象的this赋值 并操作新的值
+  // 新值为文件对象的数据以及dom
+  // 获取了外部状态，并操作外部状态
+  uploadManager.setExternalState(id,this);
+  if( this.file < 3000 ){
+    return this.dom.parentNode.removeChild( this.dom );
+  }
+  if( window.confirm('确定要删除该文件吗？'+this.fileName)){
+    return this.dom.parentNode.removeChild(this.dom);
+  }
+}
+
+// 创建享元对象的工厂函数
+// 实际最后只会根据 uploadType 分别只生成一个对象
+var UploadFactory = ( function(){
+  var createFlyWeightObjs = {};
+  return {
+    create: function( uploadType ){
+      if(createFlyWeightObjs[uploadType]){
+        return createFlyWeightObjs[uploadType]
+      }
+      return createFlyWeightObjs[uploadType] = new Upload(uploadType);
+    }
+  }
+} )()
+
+// 管理器存储外部状态
+var uploadManager = (function(){
+  var uploadDatabase = {};
+  return {
+    add : function( id, uploadType, fileName, fileSize){
+      var flyWeightObj = UploadFactory.create( uploadType );
+      var dom = document.createElement('div');
+      dom.innerHtml = '<span>文件名称:'+fileName+',文件大小:'+ fileSize +'</span>' + '<button class="delFile">删除</button>';
+      dom.querySelector('.delFile').onclick = function(){
+        flyWeightObj.delFile( id );
+      }
+      document.body.appendChild(dom);
+      uploadDatabase[ id ] = {
+        fileName:fileName,
+        fileSize:fileSize,
+        dom:dom
+      }
+      return flyWeightObj;
+    },
+    setExternalState: function(id,flyWeightObj){
+      var uploadData = uploadDatabase[ id ];
+      for( var i in uploadData ){
+        flyWeightObj[i] = uploadData[i];
+      }
+    }
+  }
+})()
+
+// 实际操作方法，遍历通过 管理器操作对象
+var id = 0 ;
+window.startUpload = function( uploadType,files ){
+  for(var i = 0,file;file = files[ i++ ];){
+    var uploadObj = uploadManager.add( ++id,uploadType,file.fileName,file.fileSize);
+  }  
+}
+
+// 使用
+startUpload('plugin',[
+  {
+    fileName:'1.txt',
+    fileSize:1000
+  },
+  {
+    fileName:'2.html',
+    fileSize:3000
+  },
+  {
+    fileName:'3.txt',
+    fileSize:5000
+  }
+]);
+startUpload('flash',[
+  {
+    fileName:'4.txt',
+    fileSize:1000
+  },
+  {
+    fileName:'5.html',
+    fileSize:3000
+  },
+  {
+    fileName:'6.txt',
+    fileSize:5000
+  }
+]);
+
+```
+
+#### **享元模式的适用性 适用场景**
+
+- 一个程序中适用了大量的相似对象
+- 由于适用了大量的对象，造成很大的内存开销
+- 对象的大多数状态都可以变为外部状态
+- 剥离出对象的外部状态后，可以用相对较少的共享对象取代大量对象
+
