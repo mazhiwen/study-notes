@@ -8,12 +8,12 @@
 
 
 
-## 核心纪要
+## **核心纪要**
 
 - 修改代码总是危险的，修改的地方越多，程序出错的可能性就越大，
 
 
-## 基本知识
+## **基本知识**
 
 ### 面向对象
 
@@ -1762,3 +1762,113 @@ startUpload('flash',[
 - 对象的大多数状态都可以变为外部状态
 - 剥离出对象的外部状态后，可以用相对较少的共享对象取代大量对象
 
+
+### **职责链模式**
+
+> 职责链模式的定义：使多个对象都有机会处理请求，从而避免请求的发送者和接收者之间的耦合关系，将这些对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理它为止。
+
+#### **职责链现实场景**
+
+挤公交，给售票员钱，上车后，不知道售票员在哪，把钱给附近的人，传递到售票员。
+
+> 职责链优点：请求发送者只需要知道链中的第一个节点，从而弱化了发送者和一组接收者之间的强联系。
+
+#### **实现一个职责链节点**
+
+```js
+// 未优化的模式
+if(a){
+
+}else{
+
+}
+
+if(b){
+
+}else{
+
+}
+
+if(c){
+
+}else{
+
+}
+
+
+// 优化后的
+// 500定金送100券，200定金送50券，库存下，3类型不优先
+// orderType: 订单类型(1:预定金500，2:预定200，3:普通购买)
+// pay: 是否支付定金，否的话降级为普通模式
+// stock: 用于普通购买的库存
+var order500 = function(orderType,pay,stock){
+  if(orderType === 1 && pay === true){
+    console.log("500元定金预购，得到100优惠券");
+  }else{
+    // 我不知道下一个请求是谁反正往后面传递
+    return "nextSuccessor";
+  }
+}
+var order200 = function(orderType,pay,stock){
+  if(orderType === 2 && pay === true){
+    console.log("200元定金预购，得到50优惠券");
+  }else{
+    return "nextSuccessor";
+  }
+}
+var orderNormal = function(orderType,pay,stock){
+  if( stock > 0 ){
+    console.log("普通购买，无优惠券");
+  }else{
+    console.log("手机库存不足");
+  }
+}
+
+var Chain = function( fn ){
+  this.fn = fn;
+  this.successor = null;
+}
+// 指定在链中的下一个节点
+Chain.prototype.setNextSuccessor = function( successor ){
+  return this.successor = successor;
+}
+// 传递请求给某个节点
+Chain.prototype.passRequest = function(){
+  // 这段语法是链式的核心
+  var ret = this.fn.apply(this,arguments);
+  if ( ret === 'nextSuccessor' ){
+    return this.successor && this.successor.passRequest.apply(this.successor,arguments);
+  }
+  return ret;
+}
+
+var chainOrder500 = new Chain( order500 );
+var chainOrder200 = new Chain( order200 );
+var chainOrderNormal = new Chain( orderNormal );
+
+chainOrder500.setNextSuccessor(chainOrder200);
+chainOrder500.setNextSuccessor(chainOrderNormal);
+
+chainOrder500.passRequest(1,true,500);
+//输出 500元定金预购，得到100优惠券
+chainOrder500.passRequest(2,true,500);
+//输出 200元定金预购，得到50优惠券
+chainOrder500.passRequest(3,true,500);
+//输出 普通购买，无优惠券
+chainOrder500.passRequest(1,false,500);
+//输出 手机库存不足
+
+// 临时在链中添加一个节点
+var order300 = function(){
+  // ...
+}
+
+var chainOrder300 = new Chain( order300 );
+chainOrder500.setNextSuccessor(chainOrder300);
+chainOrder300.setNextSuccessor(chainOrder200);
+
+```
+
+#### **异步职责链**
+
+Chain添加next 方法，
