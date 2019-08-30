@@ -533,7 +533,7 @@ var addEvent = (function(){
 
 ## **设计模式**
 
-### **单例模式**
+1. ### **单例模式**
 
 定义：保证一个类仅有一个实例，并提供一个访问它的全局访问点.  
 比如线程池，全局缓存，浏览器中的Window对象。
@@ -698,7 +698,7 @@ var createLoginLayer =function(){
 ```
 
 
-### **策略模式**
+2. ### **策略模式**
 
 - 定义:定义一系列的算法，把他们一个个封装起来，并且使他们可以相互替换。
 
@@ -738,7 +738,7 @@ var calculateBonus = function(level,salary){
 
 
 
-### **代理模式**
+3. ### **代理模式**
 
 #### 代理模式是为一个对象提供一个代用品或占位符，以便控制对它的访问。  
 不用代理：客户-》本体  
@@ -890,7 +890,7 @@ var proxyMult = createProxyFactory( mult ),
 
 ```
 
-### **迭代器模式**
+4. ### **迭代器模式**
 
 > 提供一种方法顺序访问一个集合对象中的各个元素，而不需要暴露对象内部显示
 
@@ -943,7 +943,7 @@ for 循环data{
 }
 ```
 
-### **发布-订阅模式 [观察者模式]**
+5. ### **发布-订阅模式 [观察者模式]**
 
 > 定义对象间的一种一对多的依赖关系，当一个对象状态改变时，所有依赖它的对象都将得到通知。
 
@@ -1270,7 +1270,7 @@ Event.create('namespace2').trigger('click',2);
 > 缺点：多个发布-订阅嵌套到一起时，不利于追踪bug
 
 
-### **命令模式**
+6. ### **命令模式**
 
 > 有时候需要向某些对象发送请求，但是并不知道**请求的接收者**是谁，也不知道被**请求的操作**是什么。此时需要一种松耦合的方式设计程序，使得请求发送者和接受者能够消除彼此之间的耦合关系。
 
@@ -1417,7 +1417,7 @@ macrocommand.execute();
 
 ```
 
-### **组合模式**
+7. ### **组合模式**
 
 > 组合模式就是用小的子对象来构建更大的对象，而这些小的对象本身也是由更小的“孙对象”构成的。
 
@@ -1505,7 +1505,7 @@ folder.scan();
 - 客户希望统一对待树中的所有对象，组合模式使客户可以忽略组合对象和叶对象的区别，客户在面对这棵树的时候，不用关心当前处理的对象是组合对象还是叶对象，也不用写一堆if else分别处理他们
 
 
-### **模版方法模式**
+8. ### **模版方法模式**
 
 #### **定义**
 
@@ -1638,7 +1638,7 @@ tea.init();
 > 在JavaScript中，我们用高阶函数是更好的实现选择。
 
 
-### **享元模式**
+9. ### **享元模式**
 
 > 享元模式是一种用于性能优化的模式
 
@@ -1763,7 +1763,7 @@ startUpload('flash',[
 - 剥离出对象的外部状态后，可以用相对较少的共享对象取代大量对象
 
 
-### **职责链模式**
+10. ### **职责链模式**
 
 > 职责链模式的定义：使多个对象都有机会处理请求，从而避免请求的发送者和接收者之间的耦合关系，将这些对象连成一条链，并沿着这条链传递该请求，直到有一个对象处理它为止。
 
@@ -1876,10 +1876,174 @@ chainOrder300.setNextSuccessor(chainOrder200);
 Chain添加next 方法，
 
 
-### **中介者模式**
+11. ### **中介者模式**
 
 > 中介者模式的作用就是解除对象与对象之间的紧耦合关系。中介者使各对象之间耦合松散，而且可以独立地改变他们之间的交互。中介者模式使网状的多对多模式变成了相对简单的一对多关系。
 
 #### 现实场景
 
 机场指挥塔 博彩公司
+
+
+#### 中介者实现购买手机案例
+
+选择手机颜色
+
+选择手机数量
+
+显示选择颜色
+
+显示选择数量
+
+根据状态显示购买按钮可用和文案
+
+```js
+// 手机库存
+var goods = {
+  "red|32G": 3,
+  "red|16G": 0,
+  "blue|32G": 1,
+  "blue|16G": 6
+}
+//中介者
+var mediator = (function(){
+  var colorSelect = document.getElementById('colorSelect'),
+      memorySelect = document.getElementById('memorySelect'),
+      numberInput = document.getElementById('numberInput'),
+      colorInfo = document.getElementById('colorInfo'),
+      memoryInfo = document.getElementById('memoryInfo'),
+      NumberInfo = document.getElementById('NumberInfo'),
+      nextBtn = document.getElementById('nextBtn');
+  return {
+    changed:function(obj){
+      var color = colorSelect.value,
+        memory = memorySelect.value,
+        number = numberInput.value,
+        // 颜色和内存对应的手机库存量
+        stock = goods[color + '|' + memory];
+      if( obj === colorSelect){
+        colorInfo.innerHtml = color;
+      }else if( obj === memorySelect ){
+        memoryInfo.innerHtml = memory;
+      }else if( obj === numberInput ){
+        NumberInfo.innerHtml = number;
+      }
+      if(!color){
+        nextBtn.disabled = true;
+        nextBtn.innerHtml = '请选择手机颜色';
+        return ;
+      }
+      if(!memory){
+        nextBtn.disabled = true;
+        nextBtn.innerHtml = '请选择手机内存';
+        return ;
+      }
+      if(((number - 0) | 0) !== number - 0){
+        nextBtn.disabled = true;
+        nextBtn.innerHtml = '请输入正确的购买数量';
+        return ;
+      }
+      nextBtn.disabled = false;
+      nextBtn.innerHtml = '放入购物车';
+    }
+  }
+}())
+//  事件函数
+colorSelect.onchange = function(){
+  mediator.changed( this );
+}
+memorySelect.onchange = function(){
+  mediator.changed( this );
+}
+numberInput.onInput = function(){
+  mediator.changed( this );
+}
+```
+
+> 中介者模式是迎合迪米特法则的一种实现。迪米特法则也叫最少知识原则，是指一个对象应该尽可能少地了解另外的对象（类似不和陌生人说话）。如果对象之间的耦合性太高，一个对象发生改变之后，难免会影响到其他的对象，跟“城门失火，殃及池鱼”的道理是一样的。而在中介者模式里，对象之间几乎不知道彼此的存在，它们只能通过中介者对象来互相影响对方。
+
+12. ### 装饰者模式
+
+decorator
+
+> 装饰者模式：给对象动态地增加职责的方式
+
+> 装饰者模式能够在不改变对象自身的基础上，在程序运行期间给对象动态地添加职责。跟继承者相比，装饰者是一种更轻便灵活的做法，这是一种“即用即付”的方式，比如天冷来就多穿一件衣服
+
+#### 模拟传统面向对象语言的装饰者模式
+
+```js
+// 基本类
+var Plane = function(){
+
+}
+Plane.prototype.fire = function(){
+  console.log('发射普通子弹');
+}
+// 装饰类一
+var MissileDecrator = function(plane){
+  this.plane = plane;
+}
+MissileDecrator.prototype.fire = function(){
+  this.plane.fire();
+  console.log('发射导弹');
+}
+// 装饰类二
+var AtomDecrator = function(plane){
+  this.plane = plane;
+}
+AtomDecrator.prototype.fire = function(){
+  this.plane.fire();
+  console.log('发射原子弹');
+}
+// 调用
+var plane = new Plane();
+plane = new MissileDecrator(plane);
+plane = new AtomDecrator(plane);
+plane.fire();
+// 分别输出: 发射普通子弹，发射导弹，发射原子弹
+```
+
+> 装饰者模式将一个对象嵌入另一个对象之中，实际上相当于这个对象被另一个对象包装起来，形成一条包装链。请求随着这条链依次传递到所有的对象，每个对象都有处理这条请求的机会。
+
+#### 装饰js函数
+
+```js
+
+var _getElementById = document.getElementById;
+document.getElementById = function(){
+  alert(1);
+  return _getElementById.apply(ducument,arguments);
+}
+var button = document.getElementById('button');
+
+```
+
+#### 用AOP实现装饰函数
+
+```js
+Function.prototype.before = function( beforefn ){
+  var _self = this;//保持原函数的引用
+  return function(){//返回了包含了原函数和新函数的“代理”函数
+    beforefn.apply(this,arguments);//执行新函数，且保证this不被劫持，新函数接受的参数，也会被原封不动地传入原函数，新函数在原函数之前执行
+    return _self.apply(this,arguments);//执行原函数并返回原函数的执行结果
+    //并且保证this不被劫持
+  }
+}
+
+Function.prototype.after = function( afterfn ){
+  var _self = this;
+  return function(){
+    var ret = _self.apply(this,arguments);
+    afterfn.apply(this,arguments);
+    return ret;
+  }
+}
+
+// 应用
+document.getElementById = document.getElementById.before(function(){
+  alert(1);
+})
+var button = document.getElementById('button');
+console.log(button);
+```

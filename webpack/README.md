@@ -282,6 +282,8 @@ ejsloader采用lodash.template编译函数的规则
 
 是html js 的output配置，主要是js
 
+### publicPath
+
 
 ## ProvidePlugin
 自动加载模块，而不必到处 import 或 require 。

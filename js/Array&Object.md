@@ -205,7 +205,7 @@ function list() {
 }
 var list1 = list(1, 2, 3); // [1, 2, 3]
 
-## Array.splice *******************/
+## array.splice *******************/
 //在原数组 删除现有元素 或 添加新元素
 返回被删除的数组，并改变原数组
 // start 负数或超过数组长度:从末尾开始  其他:索引
@@ -214,7 +214,7 @@ var list1 = list(1, 2, 3); // [1, 2, 3]
 array.splice(start,deleteCount,item1, item2,itemn);
  
 
-## Array.sort *******************/
+## array.sort *******************/
 // 默认unicode顺序
 // compareFunction 规则:
 // compareFunction(a, b) < 0 , a在b前 ; >0 ,相反
@@ -223,19 +223,19 @@ array.sort(function compareFunction(a, b) {
   return a - b;
 });
 
-## Array.concat *******************/
+## array.concat *******************/
 // 将数组和/或值连接成新数组
 // 此方法不会更改现有数组，而是返回一个新数组
 // 参数可以是 array , 或者 value
 array.concat(value1,value2,valuen);
 
-## Array.includes*******************/
+## array.includes*******************/
 arr.includes(searchElement)  
 arr.includes(searchElement, fromIndex)  
 //fromIndex :
 //从该索引处开始查找 searchElement。如果为负值，则按升序从 array.length + fromIndex 的索引开始搜索。默认为 0。
 
-## Array.findIndex*******************/
+## array.findIndex*******************/
 // 查询满足callback的index并返回
 findindex = fileList.findIndex((value,index,thisarr)=>{
     return value.uid===file.uid
