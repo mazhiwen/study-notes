@@ -2127,3 +2127,95 @@ document.getElementById('button').onclick = showLogin;
 
 - 用AOP动态改变函数的参数
 
+给ajax更好的添加参数
+
+```js
+/////////////////// 原函数
+var ajax = function(type,url,param){
+  console.dir(param);
+}
+ajax('get','http://xxx',{name:'sven'});
+
+/////////////////// 给原函数添加token
+var getToken = function(){
+
+}
+var ajax = function(type,url,param){
+  param = param || {};
+  param.Token = geToken();
+}
+//上面的做法使ajax函数相对变得僵硬了，不方便移植，移植时Token是多余的
+/////////////////// 用AOP的方式优化
+//还原ajax函数
+ajax = ajax.before(function(type,url,param){
+  param.Token = getToken();
+})
+ajax('get','http://xxx',{name:'sven'});
+
+```
+
+> 用AOP的方式给ajax函数动态装饰TOken参数，保证了ajax函数是一个相对纯净的函数，提高了ajax函数的可复用性，它在被迁往其他项目的时候，不需要做任何修改。
+
+- 插件式的表单验证
+
+实现表单验证
+
+```js
+formSubmit = function(){
+  if(username.value === ''){
+    return alert('xxx');
+  }
+  var param = {
+    username:username.value
+  }
+  ajax('http://ds',param);
+}
+// 此处提交函数承担了两个职责，提交ajax请求 和 验证输入合法性
+// 会造成函数臃肿，职业混用，谈不上任何复用性
+
+
+// 下面进行分离 校验validate
+var validate = function(){
+  if(username.value === ''){
+    alert('xxx')
+    return false;
+  }
+}
+var formSubmit = function(){
+  if(validate() === false){
+    return;
+  }
+  var param = {
+    username:username.value
+  }
+  ajax('http://ds',param);
+}
+
+
+// 进一步优化代码
+// 使validate和formsubmit完全分离开来
+Function.prototype.before = function( beforefn ){
+  var _self = this;
+  return function(){
+    if( beforefn.apply(this,arguments) === false ){
+      //beforefn返回false的情况直接return,不再执行后面的原函数
+      return ;
+    }
+    _self.apply(this,arguments);
+  }
+}
+var validate = function(){
+  if( username.value === '' ){
+    alert('用户名不能空');
+    return false;
+  }
+}
+var formSubmit = function(){
+  var param = {
+    username : username,value
+  }
+  ajax('http',param);
+}
+formSubmit = formSubmit.before( validate );
+
+```
