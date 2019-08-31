@@ -2021,6 +2021,9 @@ var button = document.getElementById('button');
 
 #### 用AOP实现装饰函数
 
+
+- 实现一
+
 ```js
 Function.prototype.before = function( beforefn ){
   var _self = this;//保持原函数的引用
@@ -2041,9 +2044,86 @@ Function.prototype.after = function( afterfn ){
 }
 
 // 应用
+// 给函数添加 装饰的before
 document.getElementById = document.getElementById.before(function(){
   alert(1);
 })
+//执行函数
 var button = document.getElementById('button');
 console.log(button);
 ```
+
+- 实现二
+
+```js
+window.onload = function(){
+  alert(1);
+}
+
+window.onload = ( window.onload || function(){} ).after(function(){
+  alert(2);
+}).after(function(){
+  alert(3);
+}).after(function(){
+  alert(4);
+});
+```
+
+- 改进实现一 
+
+实现一的AOP是在Function.prototype上，这样会污染原型，我们做改进
+
+```js
+// 把一个fn装饰为 装饰后的fn
+var before = function( fn, beforefn ){
+  return function(){//装饰后的fn
+    beforefn.apply( this, arguments );
+    return fn.apply( this, arguments );
+  }
+}
+var a = before(
+  function(){alert(3)},
+  function(){alert(2)}
+);
+a = before( a,function(){
+  alert(1);
+});
+a();
+
+```
+
+#### AOP的应用实例
+
+> 用AOP装饰函数的技巧在实际开发中非常有用。不论是业务业务代码的编写，还是在框架层面，我们都可以把行为依照职责分成粒度更细的函数，随后通过装饰把它们合并到一起，这有助于我们编写一个松耦合和高复用性的系统。
+
+- 数据统计上报
+
+> 分离业务代码和数据统计代码，是AOP的经典应用之一
+
+```js
+//点击按钮打开浮层，数据上报
+
+Function.prototype.after = function(afterfn){
+  var _self = this;
+  return function(){
+    var ret = _self.apply(this,arguments);
+    afterfn.apply(this,arguments);
+    return ret;
+  }
+}
+
+var showLogin = function(){
+  console.log('打开登录浮层');
+}
+
+var log = function(){
+  console.log('上报标签为'+this.getAttribute('tag'));
+}
+
+showLogin = showLogin.after(log);//打开浮框后上报数据
+
+document.getElementById('button').onclick = showLogin;
+```
+
+- 用AOP动态改变函数的参数
+

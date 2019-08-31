@@ -11,6 +11,10 @@ HTTP请求线程
 
 MDN参考:https://developer.mozilla.org/zh-CN/docs/Web/Events
 
+### event 实例对象
+
+
+
 ###  **drag 拖动**
 
 需要draggable = "true"
@@ -40,7 +44,12 @@ focus:获得焦点(不冒泡)
 
 blur:失去焦点(不冒泡)
 
-## 元素窗口距离
+
+
+## **HTMLElement**
+
+
+## **元素窗口距离**
 
 - 元素距离视口 包括元素外部滚动  读写
 
@@ -52,7 +61,7 @@ Element.scrollTop: 设置或获取位于对象最顶端和窗口中可见内容�
 
 相对于  HTMLElement.offsetParent 节点的左边界偏移的像素值
 
-HTMLElement.offsetLeft: 获取对象相对于版面或由offsetParent属性指定的父坐标的计算左侧位置
+HTMLElement.offsetLeft: 返回当前元素左上角相对于  HTMLElement.offsetParent 节点的左边界偏移的像素值
 
 HTMLElement.offsetTop: 获取对象相对于版面或由offsetTop属性指定的父坐标的计算顶端位置
 
@@ -101,6 +110,6 @@ Element.scrollHeight: 获取对象的滚动高度。
 
 
 
-## SessionStorage, LocalStorage, Cookie
+## **SessionStorage, LocalStorage, Cookie**
 
 参考：https://harttle.land/2014/10/01/http.html#header-5
