@@ -2218,4 +2218,45 @@ var formSubmit = function(){
 }
 formSubmit = formSubmit.before( validate );
 
+submitBtn.onclick = function(){
+  formSubmit();
+}
+
 ```
+
+> 最后的优化中，校验输入和提交表单的代码完全分离开来，它们不再有耦合关系。formSubmit = formSubmit.before( validate )这句代码，如果把校验规则动态接在formSubmit函数之前，validate成为一个即插即用的函数，甚至可以被写成配置文件的形式，这有利于我们分开维护这两个函数。
+
+13. ### 状态模式
+
+状态模式的部分定义:  
+> 1. 允许一个对象在其内部状态改变时改变它的行为：  
+将状态封装成独立的类，并将请求委托给当前的状态对象，当对象的内部状态改变时，会带来不同的行为变化。
+
+> 2. 对象看起来似乎修改了它的类：  
+从客户的角度来讲，我们使用的对象，在不同的状态下具有截然不同的行为，这个对象看起来是从不同类中实例化而来的，实际上这是使用了委托的效果。
+
+
+
+#### 状态模式的通用结构
+
+```js
+var Light = function(){
+  //持有状态对象的引用
+  this.offLightState = new OffLightState(this);
+  // ...其他状态类似写法
+
+  this.button = null;
+}
+
+Light.prototype.init = function(){
+  var button = document.createElement('button'),
+      self = this;
+  this.button = document.body.appendChild( button );
+  this.button.innerHtml = '开关';
+  this.currState = this.offLightState;//设置默认初始状态
+  this.button.onclick = function(){
+    self.currState.buttonWasPressed();
+  }
+}
+```
+
