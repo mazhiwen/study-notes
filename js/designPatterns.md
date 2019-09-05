@@ -2240,6 +2240,8 @@ submitBtn.onclick = function(){
 #### 状态模式的通用结构
 
 ```js
+//上下文状态管理器
+
 var Light = function(){
   //持有状态对象的引用
   this.offLightState = new OffLightState(this);
@@ -2253,6 +2255,7 @@ Light.prototype.init = function(){
       self = this;
   this.button = document.body.appendChild( button );
   this.button.innerHtml = '开关';
+  // 状态指向 对应的状态类实例
   this.currState = this.offLightState;//设置默认初始状态
   this.button.onclick = function(){
     self.currState.buttonWasPressed();
@@ -2260,3 +2263,53 @@ Light.prototype.init = function(){
 }
 ```
 
+```js
+// 状态类
+var OffLightState = function( light ){
+  this.light = light;
+}
+
+OffLightState.prototype.buttonWasPressed = function(){
+  console.log('弱光');
+  this.light.setState( this.light.weakLightState );
+}
+// ...其他状态类
+
+
+
+//状态类的实现优化为抽象类
+var State = function(){
+
+}
+State.prototype.buttonWasPressed = function(){
+  throw new Error('父类的buttonWasPressed方法必须被重写');
+}
+var SuperStrongLightState = function( light ){
+  this.light = light;
+}
+SuperStrongLightState.prototype = new State();
+SuperStrongLightState.prototype.buttonWasPressed = function(){
+  console.log('关灯');
+  this.light.setState( this.light.offLightState );
+}
+```
+
+#### 状态模式的优缺点
+
+优点：
+
+> 状态模式定义了状态与行为之间的关系，并将它们封装在一个类里。通过增加新的状态，很容易增加新的状态和转换
+
+> 避免context无限膨胀，状态模式的逻辑被分布在状态类中，也去掉了context中原本过多的条件分支
+
+> 用对象代替字符串来记录当前状态，使得状态的切换更加一目了然
+
+> context中的请求动作和状态类中封装的行为可以非常容易地独立变化而互不影响
+
+缺点:
+
+> 会在系统中定义许多状态类，编写20个状态类是一项枯燥乏味的工作，而且系统中会因此而增加不少对象。另外，由于逻辑分散在状态类中，虽然避开了不受欢迎的条件分支语句，但也造成了逻辑分散的问题，我们无法在一个地方就看出整个状态机的逻辑。
+
+#### 状态模式中的性能优化点
+
+> 有两种状态来管理state对象的创建和销毁。第一种是仅当state对象被需要时才创建并随后销毁，另一种是一开始就创建好所有的状态对象，并且始终不销毁他们。如果state对象比较庞大，可以用第一种方式类节省内存，这样可以避免创建一些不会用到的对象并及时地回收他们。但如果状态的改变很频繁，最好一开始
