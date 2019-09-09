@@ -59,6 +59,40 @@ Vue.component('base-checkbox', {
 基本是不可响应式的
 核心用法是调用祖父等级别的方法
 
+
+```js
+//  provide 选项允许我们指定我们想要提供给后代组件的数据/方法。在这个例子中，就是 <google-map> 内部的 getMap 方法：
+
+provide: function () {
+  return {
+    getMap: this.getMap
+  }
+}
+
+// 然后在任何后代组件里，我们都可以使用 inject 选项来接收指定的我们想要添加在这个实例上的属性：
+inject: ['getMap']
+
+
+示例
+// 父级组件提供 'foo'
+var Provider = {
+  provide: {
+    foo: 'bar'
+  },
+  // ...
+}
+
+// 子组件注入 'foo'
+var Child = {
+  inject: ['foo'],
+  created () {
+    console.log(this.foo) // => "bar"
+  }
+  // ...
+}
+
+```
+
 5. props  $emit  @on  
 是响应式的,父子传递prop和event
 
@@ -84,9 +118,9 @@ passCData(){
 }
 ```
 
-## **组合**
+## 组合
 
-### **mixin**
+### mixin
 
 minxin适合有公用 类似react hoc，可以抽离template 和js 的还是抽离成组件比较合适
 

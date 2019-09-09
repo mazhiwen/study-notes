@@ -2523,12 +2523,138 @@ appendDiv({
 
 
 
+### 代码重构
 
+#### 提炼函数
 
+> 如果一个函数过长，不得不加上若干注释才能让这个函数显得易读一些，那这些函数就很有必要进行重构。
 
+> 如果在函数中有一段代码可以被独立出来，那我们最好把这些代码放进另外一个独立的函数中。这是一种常见的优化。优点：
 
+- 避免出现超大函数
+- 独立出来的函数有助于代码复用
+- 独立出来的函数更容易被覆写
+- 独立出来的函数如果拥有一个良好的命名，它本身就起到了注释的作用
 
+#### 合并重复的条件判断
 
+> 函数体内有一些条件分支语句，并且条件分支语句内都散布了重复的代码。那这段代码可以在条件分支语句外执行。
 
+```js
+if(){
+  //..
+  jump()
+}else{
+  //..
+  jump()
+}
 
+// 优化
+if(){
+  //..
+}else{
+  //..
+}
+jump()
+```
 
+#### 把条件分支语句提炼成函数
+
+> 把条件分支语句的条件 提炼为函数，更易读
+
+```js
+if(data.getMonth() >= 6 && data.getMonth() <= 9){
+  // ...
+}
+// 优化为
+var isSummer = function(){
+  return data.getMonth() >= 6 && data.getMonth() <= 9;
+}
+if(isSummer()){
+  //...
+}
+
+```
+
+#### 合理使用循环
+
+> 如果有些代码实际上负责的是一些重复性的工作，那么合理利用循环不仅可以完成同样的功能，还可以使代码量更少
+
+```js
+var createXHR = function(){
+  var xhr;
+  try(
+    xhr = new ActiveXObject('MSXML2.XMLHttp.6.0');
+  )catch(e){
+    try(
+      xhr = new ActiveXObject('MSXML2.XMLHttp.3.0');
+    )catch(e){
+      xhr = new ActiveXObject('MSXML2.XMLHttp');
+    }
+  }
+  return xhr;
+}
+var xhr = createXHR();
+
+// 优化后
+
+var createXHR = function(){
+  var versions = ['MSXML2.XMLHttp.6.0','MSXML2.XMLHttp.3.0','MSXML2.XMLHttp'];
+  for( var i=0,version;version = versions[i++];){
+    try(
+      return new ActiveXObject(version);
+    )catch(e){
+    }
+  }
+} 
+```
+
+#### 提前让函数退出代替嵌套条件分支
+
+> 避免嵌套的if else ；常见的做法是进行反转if表达式
+
+```js
+var del = function(obj){
+  var ret;
+  if( !obj.isReadOnly ){
+    if( obj.isFolder ){
+      ret = deleteFolder( obj );
+    }else if(obj.isFile){
+      ret = deleteFile(obj);
+    }
+  }
+  return ret;
+}
+
+// 优化
+
+var del = function(obj){
+  if(obj.isReadOnly){
+    return;
+  }
+  if(obj.isFolder){
+    return  deleteFolder( obj );
+  }
+  if(obj.isFile){
+    return  deleteFile( obj );
+  }
+}
+```
+
+#### 传递对象参数代替过长的参数列表
+
+> 把过长的参数放到一个obj内
+
+```js
+fun(a,b,c)
+// 优化
+fun({
+  a,
+  b,
+  c
+})
+```
+
+#### 尽量减少参数数量
+
+> 尽量减少函数接收参数数量
