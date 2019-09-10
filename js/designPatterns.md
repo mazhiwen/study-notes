@@ -2670,3 +2670,128 @@ var global = typeof window !== "undefined" ? window:this;
 #### 合理使用链式调用
 
 
+> 类似jquery的链式调用方法，即让方法调用结果后，返回对象自身。
+
+```js
+var User = function(){
+  this.id = null;
+  this.name = null;
+}
+
+User.prototype.setId = function(id){
+  this.id = id;
+  return this;
+}
+
+User.prototype.setName = function(name){
+  this.name = name;
+  return this;
+}
+console.log(new User().setId(1314).setName('sven'));
+
+```
+
+> 如果链式不稳定，会造成调试困难，调试必须拆开，加断点。如果链式很容易发生变化，倒置调试和维护困难，建议使用普通调用的形式。
+
+```js
+var user = new User();
+user.setId('');
+user.setName('');
+
+```
+
+#### 分解大型类
+
+- 原本的一个精灵动物类
+
+```js
+var Spirit = function( name ){
+  this.name = name;
+}
+Spirit.prototype.attack = function( type ){
+  if( type === 'waveBoxing' ){
+    console.log( this.name + ':使用波动拳' );
+  }else if( type === 'whirKick' ){
+    console.log( this.name + ':使用旋风腿' );
+  }
+}
+var spirit = new Spirit('RYU');
+spirit.attack('waveBoxing');
+spirit.attack('whirKick');
+
+```
+
+- 优化后:
+
+> attack这个类太大，实际上它完全有必要作为一个单独的类存在。面向对象设计鼓励将行为分布在合理数量的更小对象中
+
+```js
+//攻击类
+var Attack = function( spirit ){
+  this.spirit = spirit;
+}
+Attack.prototype.start = function(type){
+  return this.list[type].call(this);
+}
+Attack.prototype.list={
+  waveBoxing: function(){
+    console.log( this.spirit.name+'使用拳');
+  },
+  whirKick: function(){
+    console.log( this.spirit.name+'使用腿');
+  }
+}
+// spirit类
+var Spirit = function( name ){
+  this.name = name;
+  this.attackObj = new Attack( this );
+}
+Spirit.prototype.attack = function(type){
+  this.attackObj.start(type);
+}
+
+var spirit = new Spirit('RYU');
+spirit.attack('waveBoxing');
+spirit.attack('whirKick');
+```
+
+#### 用return退出多重循环
+
+在函数体内有一个两重循环语句，我们需要在内层循环中判断，当到达某个临界条件时退出外层的循环。
+
+常见的做法是引入外层控制变量标记 或者 设置循环条件的标记
+
+```js
+var func = function(){
+  var flag = false;
+  for( var i = 0;i<10;i++){
+    for(var j =0;j<10;j++>){
+      if(i*j>30){
+        flag = true;
+        break;
+      } 
+    }
+    if(flag === true){
+      break;
+    }
+  }
+}
+```
+
+更简单的做法是在需要中止循环的时候退出整个方法, 用return，并且当此时在循环之后还有一些将被执行的代码时，如果提前return，代码就不会被执行. 此时，可以把循环后的代码放到return后面，也可以把他们提炼为一个单独的函数
+
+```js
+var print = function( i ){
+  console.log(i);
+}
+var func = function(){
+  for(var i=0;i<10;i++){
+    for(var j=0;j<10;j++){
+      if(i*j>30){
+        return print(i);
+      }
+    }
+  }
+}
+func();
+```
