@@ -455,7 +455,15 @@ initial 关键字可用于任何 HTML 元素上的任何 CSS 属性。
 
 ## background
 
-background:url('../../static/images/home_logo.png') no-repeat center left / auto 80% ;
+- background:
+
+url('../../static/images/home_logo.png') no-repeat center left / auto 80% ;
+
+- background-size:
+
+percentage|cover|contain|length
+
+
 
 
 ## 文字溢出 省略号 ...
