@@ -346,6 +346,27 @@ Vue.component('my-component', {
 
 要注意，当 <router-link> 对应的路由匹配成功，将自动设置 class 属性值 .router-link-active
 
+### history 模式
+
+1. webpack devconfig
+```js
+devServer:{
+  historyApiFallback: true,
+}
+output: {
+  publicPath: '/',
+},
+```
+
+2. router实例
+```js
+const router = new VueRouter({
+  mode: 'history',
+}); 
+```
+
+3.生产环境nginx配置
+
 
 
 ## vue 使用jsx
