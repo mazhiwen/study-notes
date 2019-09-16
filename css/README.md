@@ -23,6 +23,23 @@ in:英寸
 pt:磅  
 pc:12 点活字
 
+## position
+
+CSS position属性用于指定一个元素在文档中的定位方式。top，right，bottom 和 left 属性则决定了该元素的最终位置。
+
+值：
+
+- static
+
+该关键字指定元素使用正常的布局行为，即元素在文档常规流中当前的布局位置。此时 top, right, bottom, left 和 z-index 属性无效。
+
+- relative
+
+- absolute
+
+- fixed
+
+
 ## transition
 
 transition: property duration timing-function delay;  

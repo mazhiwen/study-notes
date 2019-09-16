@@ -13,9 +13,7 @@ MDN参考:https://developer.mozilla.org/zh-CN/docs/Web/Events
 
 ### event 实例对象
 
-
-
-###  **drag 拖动**
+### drag 拖动
 
 需要draggable = "true"
 
@@ -30,7 +28,7 @@ dragover
 dragleave  
 drop
 
-### **mouse 鼠标**
+### mouse 鼠标
 
 mouseover: 在鼠标穿过元素和子元素的时候都会触发一次，并重新初始化mouse事件
 mouseout：指针移出元素，或者移到它的子元素上。（会冒泡），每个当前元素以及子元素移出都会触发
@@ -38,18 +36,25 @@ mouseout：指针移出元素，或者移到它的子元素上。（会冒泡）
 mouseenter: 只有鼠标穿过绑定元素，才会触发mouseenter，且子元素不会。（不冒泡）
 mouseleave: 指针移出元素范围外。（不冒泡）
 
-### **焦点事件**
+### 焦点事件
 
 focus:获得焦点(不冒泡)
 
 blur:失去焦点(不冒泡)
 
+## Element
 
+https://developer.mozilla.org/zh-CN/docs/Web/API/Element
 
-## **HTMLElement**
+> Element 是一个通用性非常强的基类，所有 Document 对象下的对象都继承自它。这个接口描述了所有相同种类的元素所普遍具有的方法和属性。一些接口继承自 Element 并且增加了一些额外功能的接口描述了具体的行为。例如， HTMLElement 接口是所有 HTML 元素的基本接口，而 SVGElement 接口是所有 SVG 元素的基础。大多数功能是在这个类的更深层级（hierarchy）的接口中被进一步制定的。
 
+### HTMLElement
 
-## **元素窗口距离**
+HTMLElement 接口表示所有的 HTML 元素。一些HTML元素直接实现了HTMLElement接口，其它的间接实现HTMLElement接口.
+
+继承自父接口Element和 GlobalEventHandlers的属性  
+
+#### 元素窗口距离
 
 - 元素距离视口 包括元素外部滚动  读写
 
@@ -59,12 +64,39 @@ Element.scrollTop: 设置或获取位于对象最顶端和窗口中可见内容�
 
 - 元素相对于offsetParent的偏移量 只读
 
-相对于  HTMLElement.offsetParent 节点的左边界偏移的像素值
+相对于HTMLElement.offsetParent节点的左边界偏移的像素值
 
-HTMLElement.offsetLeft: 返回当前元素左上角相对于  HTMLElement.offsetParent 节点的左边界偏移的像素值
+HTMLElement.offsetLeft: 返回当前元素左上角相对于HTMLElement.offsetParent节点的左边界偏移的像素值
 
 HTMLElement.offsetTop: 获取对象相对于版面或由offsetTop属性指定的父坐标的计算顶端位置
 
+> 如果父元素设置了position属性值，只要不为static,那么 子元素.offsetParent 就是div
+
+```html
+div style="width: 300px; border-color:blue;
+  border-style:solid; border-width:1;">
+  <span>Short span. </span>
+  <span id="long">Long span that wraps withing this div.</span>
+</div>
+
+<div id="box" style="position: absolute; border-color: red;
+  border-width: 1; border-style: solid; z-index: 10">
+</div>
+
+<script>
+  var box = document.getElementById("box");
+  var long = document.getElementById("long"); 
+  // 
+  // long.offsetLeft这个值就是span的offsetLeft.
+  // long.offsetParent 返回的是body（在chrome浏览器中测试）
+  // 如果id为long的span元素的父元素div，设置了position属性值，只要不为static,那么long.offsetParent就是div
+
+  box.style.left = long.offsetLeft + document.body.scrollLeft + "px";
+  box.style.top = long.offsetTop + document.body.scrollTop + "px";
+  box.style.width = long.offsetWidth + "px";
+  box.style.height = long.offsetHeight + "px";
+</script> 
+```
 
 - 元素本身 包括元素内部滚动 只读
 
