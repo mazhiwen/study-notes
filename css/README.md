@@ -39,6 +39,23 @@ CSS position属性用于指定一个元素在文档中的定位方式。top，ri
 
 - fixed
 
+## white-space
+
+white-space CSS 属性是用来设置如何处理元素中的 空白。
+
+```css
+/* Keyword values */
+white-space: normal;
+
+white-space: nowrap;
+/*和 normal 一样，连续的空白符会被合并。但文本内的换行无效。*/
+
+white-space: pre;
+white-space: pre-wrap;
+white-space: pre-line;
+```
+
+## word-break
 
 ## transition
 

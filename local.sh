@@ -1,3 +1,4 @@
+git status
 git add .
-git commit -m "app"
+git commit -m "up"
 git push
