@@ -11,6 +11,12 @@ HTTP请求线程
 
 MDN参考:https://developer.mozilla.org/zh-CN/docs/Web/Events
 
+### 事件冒泡
+
+事件冒泡的概念：
+
+绑定事件在父元素，当子元素有该事件类型发生时，会触发刚才父元素绑定的对应事件
+
 ### event 实例对象
 
 ### drag 拖动
