@@ -1,5 +1,10 @@
 # http
 
+https://developer.mozilla.org/zh-CN/docs/Web/HTTP
+
+## 常规header
+
+Content-Type
 
 
 ## 请求header

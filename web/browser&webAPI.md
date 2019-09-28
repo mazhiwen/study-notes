@@ -11,6 +11,8 @@ HTTP请求线程
 
 MDN参考:https://developer.mozilla.org/zh-CN/docs/Web/Events
 
+https://developer.mozilla.org/en-US/docs/Web/API/Event
+
 ### 事件冒泡
 
 事件冒泡的概念：
@@ -36,11 +38,26 @@ drop
 
 ### mouse 鼠标
 
+#### 事件type
+
 mouseover: 在鼠标穿过元素和子元素的时候都会触发一次，并重新初始化mouse事件
 mouseout：指针移出元素，或者移到它的子元素上。（会冒泡），每个当前元素以及子元素移出都会触发
 
 mouseenter: 只有鼠标穿过绑定元素，才会触发mouseenter，且子元素不会。（不冒泡）
 mouseleave: 指针移出元素范围外。（不冒泡）
+
+#### MouseEvent
+
+https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/
+
+- MouseEvent.clientX
+
+它提供事件发生时的应用客户端区域的水平坐标 (与页面坐标不同)
+
+
+
+
+
 
 ### 焦点事件
 
@@ -133,7 +150,9 @@ Element.scrollWidth: 表示元素内容的宽度，包括由于滚动而未显�
 
 Element.scrollHeight: 获取对象的滚动高度。
 
+- element.getBoundingClientRect()
 
+https://www.jianshu.com/p/824eb6f9dda4
 
 ## **http**
 
