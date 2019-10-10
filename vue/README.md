@@ -1,7 +1,16 @@
 
+# 关于vue的文档
 
 
+## vue插件开发
 
+https://www.imooc.com/article/19691
+
+https://juejin.im/post/5d3eb28cf265da03e71acd15
+
+## Vue Cli
+
+https://cli.vuejs.org/zh/guide/
 
 ## vue webpack 懒加载 代码分离
 
@@ -725,9 +734,4 @@ store.registerModule(['nested', 'myModule'], {
   // ...
 })
 // 之后就可以通过 store.state.myModule 和 store.state.nested.myModule 访问模块的状态。
-
-
-
-
-
 ```
