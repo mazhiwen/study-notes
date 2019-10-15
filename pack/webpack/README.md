@@ -3,6 +3,28 @@
 本项目可直接用作webpack项目demo
 
 
+
+
+## import 规则
+
+工作机制
+
+前提是你在做web开发，试图用webpack或者rollup打包你的项目；
+
+首先会从本地的node_modules文件夹中找到vue文件夹，看是否存在package.json文件；
+
+如果找到了package.json，就会先找module字段，然后读取对应的路径下的文件，查找到此结束；
+
+如果没找到module字段，就会找main字段，然后读取对应的路径下的文件，查找到此结束；
+
+如果没有main字段，就会在vue文件夹下找index.js文件，然后读取文件，查找到此结束；
+
+如果以上都没找到就会返回异常，扔出not find异常
+
+如果不存在package.json就会找index.js文件，然后读取文件，查找到此结束；如果还没有就会抛出异常；
+
+
+
 ## 配置
 
 执行webpack默认获取webpack.config.js配置
@@ -189,8 +211,7 @@ button.onclick = e => import(/* webpackChunkName: "print" */ './print').then(mod
 
 
 
-## 创建library
-兼容es6 commonjs amd cmd
+
 
 
 ## shimming  
@@ -284,6 +305,133 @@ ejsloader采用lodash.template编译函数的规则
 
 ### publicPath
 
+
+
+### library相关
+
+#### library
+
+#### libraryTarget
+
+- libraryTarget: 'var' - （默认值）
+
+当 library 加载完成，入口起点的返回值将分配给一个变量：
+
+当使用此选项时，将 output.library 设置为空，会因为没有变量导致无法赋值。
+
+- 通过在对象上赋值暴露
+
+如
+
+```js
+// libraryTarget: 'window'
+
+//
+window['MyLibrary'] = _entry_return_;
+window.MyLibrary.doSomething();
+```
+
+- 模块定义系统
+
+1. libraryTarget: 'commonjs2'
+
+入口起点的返回值将分配给 module.exports 对象。这个名称也意味着模块用于 CommonJS 环境：
+
+```js
+module.exports = _entry_return_;
+require('MyLibrary').doSomething();
+```
+
+注意，output.library 会被省略，因此对于此特定的 output.libraryTarget，无需再设置 output.library 。
+
+2. libraryTarget: 'amd'
+
+将你的 library 暴露为 AMD 模块。
+
+```js
+module.exports = {
+  //...
+  output: {
+    library: 'MyLibrary',
+    libraryTarget: 'amd'
+  }
+};
+
+//output文件
+define('MyLibrary', [], function() {
+  return _entry_return_;
+});
+//如果output.library未定义，则如下生成
+define([], function() {
+  return _entry_return_; // 此模块返回值，是入口 chunk 返回的值
+});
+
+// 引用
+require(['MyLibrary'], function(MyLibrary) {
+  // 使用 library 做一些事……
+});
+```
+
+3. libraryTarget: 'umd'
+
+将你的 library 暴露为所有的模块定义下都可运行的方式。它将在 CommonJS, AMD 环境下运行，或将模块导出到 global 下的变量。了解更多请查看 UMD 仓库。
+
+```js
+module.exports = {
+  //...
+  output: {
+    library: 'MyLibrary',
+    libraryTarget: 'umd'
+  }
+};
+
+//output
+(function webpackUniversalModuleDefinition(root, factory) {
+  if(typeof exports === 'object' && typeof module === 'object')//commonjs
+    module.exports = factory();
+  else if(typeof define === 'function' && define.amd)//amd
+    define([], factory);
+  else if(typeof exports === 'object')//commonjs
+    exports['MyLibrary'] = factory();
+  else
+    root['MyLibrary'] = factory();
+})(typeof self !== 'undefined' ? self : this, function() {
+  return _entry_return_; // 此模块返回值，是入口 chunk 返回的值
+});
+
+
+```
+
+
+
+## 模块规范概念
+
+### commonjs
+
+Node应用模块，
+```js
+module.exports.x = x;
+module.exports.addX = addX;
+
+var example = require('./example.js');
+console.log(example.x); // 5
+console.log(example.addX(1)); // 6
+```
+
+### umd
+
+### amd
+
+```js
+define
+require
+```
+### es6
+
+```js
+export 
+import 
+```
 
 ## ProvidePlugin
 自动加载模块，而不必到处 import 或 require 。
