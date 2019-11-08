@@ -1,3 +1,9 @@
 ### base
 href:根据web服务的绝对地址  
 [xmlbase W3C地址](https://www.w3.org/TR/xmlbase/)
+
+
+
+### 元素内容分类
+
+https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Content_categories#Flow_content

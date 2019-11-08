@@ -20,6 +20,12 @@ foo = function() { console. log( 2 ); };
 ```
 
 
+## 技巧 优化
+
+数据初始化null
+if 提升到外层
+
+
 ## 运算规则
 
 从右到左
