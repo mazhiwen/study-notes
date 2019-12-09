@@ -514,6 +514,393 @@ HTTP2.0为数据流和连接的流量控制提供了一个简单的机制：
 
 
 
+## 优化交付
+
+> 影响绝大多数Web应用性能的并非带宽，而是延迟。网速越来越快，但延迟似乎并没有缩短
+
+**经典的性能优化最佳实践**
+
+### 1.减少DNS查找：  
+每一次主机名解析都需要一次网络往返，从而增加请求的延迟时间，同时还会阻塞后续请求。
+
+### 2.重用TCP连接：  
+尽可能使用持久连接，以消除TCP握手和慢启动延迟；
+
+### 3.减少HTTP重定向：
+HTTP重定向极费时间，特别是不同域名之间的重定向，更加费时；这里面既有额外的DNS查询，TCP握手，还有其他延迟。最佳的重定向次数为零。
+
+### 4.使用CDN（内容分发网络）：  
+把数据放到离用户地理位置更近的地方，可以显著减少每次TCP连接的网络延迟，增大吞吐量
+
+### 5.去掉不必要的资源：  
+任何请求都不如没有请求
+
+
+### 6.在客户端缓存资源：
+
+- 保证首部包含适当的缓存字段：
+
+  Cache-Control：指定缓存时间  
+  Last-Modified和Etag首部提供验证机制
+
+- 图片合适的有损压缩
+
+  WebP是谷歌开发的一种新图片格式
+
+
+### 7.传输压缩过的内容：  
+传输资源采用最好的压缩手段
+
+### 8.消除不必要的请求开销： 
+
+减少请求的HTTP首部数据（比如HTTP cookie），节省的时间相当于几次往返的延迟时间。
+
+- HTTP是无状态协议
+
+- RFC2965扩展：允许任何网站针对自身来源关联和更新cookie元数据；浏览器保存数据，而在随后发送给来源的每一个请求的cookie首部中自动附加这些信息。  
+浏览器会自动附加关联的cookie数据；  
+HTTP1.x下，包括cookie在内的HTTP首部都会在不压缩的状态下传输；
+
+- 大多数浏览器限制cookie大小4KB
+
+
+
+### 9.并行处理请求和响应： 
+
+
+- 使用持久连接，从HTTP1.0升级到1.1
+- 利用多个HTTP1.1实现并行下载
+- 可能的情况下利用HTTP1.1管道
+- 考虑升级到HTTP2.0
+- 确保服务器有足够的资源并行处理请求
+
+
+
+### 10.针对协议版本采取优化措施：  
+HTTP 1.x支持有限的并行机制，要求打包资源，跨域分散资源，等等。相对而言，HTTP2.0只要建立一个连接就能实现最佳性能，同时无需针对HTTP1.x的那些优化方法。
+
+
+
+## XMLHttpRequest
+
+> XHR是浏览器层面的API
+
+> XHR之前，网页要获取状态更新，必须刷新一次。XHR之后，实现异步实现，是网页交互应用的根本技术
+
+> XHR并不是针对XML开发的
+
+### 跨源资源共享（CORS）
+
+> XHR允许设置自定义HTTP首部，但有些首部是应用代码不能设定的：  
+Accept-Charset, Accept-Encoding,Access-Control-*  
+Host, Upgrade, Connection, Reffer, Origin  
+Cookie, Sec-*, Proxy-*以及其他很多首部
+
+#### 浏览器处理跨源
+
+
+XHRAPI调用相同，不过浏览器会处理请求
+
+请求：  
+GET /resource.js HTTP/1.1  
+Host: third.com  
+Origin: http://example.com
+...
+
+响应：  
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin：http://example.com
+...
+
+third.com  同意 example.com的请求，就会返回Access-Control-Allow-Origin，否则不返回对应信息。
+
+Access-Control-Allow-Origin：* 允许来自任何源的请求。
+
+
+#### CORS的一系列安全措施
+
+- CORS请求会省略cookie和HTTP认证等用户凭据：  
+
+要启用cookie和HTTP认证，客户端需要XHR请求时额外发送withCredentials属性。同时，服务器以适当的首部（Access-Control-Allow-Credentials）响应。
+
+
+- 客户端被限制只能发送“简单的跨源请求”，包括只能使用特定的方法（GET POST HEAD）。只能访问可以通过XHR发送并读取的HTTP首部
+
+如果客户端需要写或者读自定义的HTTP首部，想要使用“不简单的方式”发送请求，那么它必须首先要获得第三方服务器的许可，发送一个preflight请求（options）
+
+```
+//preflight请求
+OPTIONS /resource.js HTTP1.1
+Host: third.com
+Origin: http://example.com
+Access-Control-Request-Method: POST
+Access-Control-Request-Headers: My-Customer-Header
+
+//响应
+//HTTP1.1 200 OK
+Access-Control-Allow-Origin: http://example.com
+Access-Control-Allow-Methods: GET,POST,PUT
+Access-Control-Allow-Headers: My-Customer-Header
+
+//正式的CORS请求
+```
+
+### XHR下载数据
+
+> XHR可以传输文本数据，二进制数据
+
+> 浏览器自动编码，解码很多原生数据类型:  
+ArrayBuffer: 固定长度的二进制数据缓冲区  
+Blob：二进制大对象或者不可变数据  
+Document：解析后得到的HTML或XML文档  
+JSONJSON：表示简单数据结构的Javascript对象  
+Text：简单的文本字符串
+
+> Blob是HTML5的file API
+
+### XHR上传数据
+
+> XHR send()方法可以接受DOMString，Document，FormData，Blob，File 以及ArrayBuffer对象
+
+
+```js
+//简单文本上传到服务器
+var xhr = new XMLHttpRequest();
+xhr.open('POST','./upload');
+xhr.onload = function(){
+  ...
+}
+xhr.send('text string');
+
+//FormData API动态创建表单数据，上传multipart/form-data对象
+var formData = new FormData();
+formData.append('id',2);
+formData.append('str','dwqewqeq');
+
+var xhr = new XMLHttpRequest();
+xhr.open('POST','./upload');
+xhr.onload = function(){}
+xhr.send(formData);
+
+//上传8字节整型的有类型数组
+var xhr = new XMLHttpRequest();
+xhr.open('POST','./upload');
+xhr.onload = function(){};
+var uInt8Array = new Uint8Array([1,2,3]);
+xhr.send(uInt8Array.buffer);
+
+
+
+//上传二进制Blob或用户提交的文件
+var blob = ...;
+const BYTE_PER_CHUNK = 1024*1024;
+const SIZE = blob.size;
+
+var start = 0;
+var end = BYTE_PER_CHUNK;
+
+while(start < SIZE) {
+  var xhr = new XMLHttpRequest();
+  xhr.open('POST','/upload');
+  xhr.onload = function(){}
+  xhr.setRequestHeader('Content-Range',start+'-'+end+'/'+SIZE);
+  xhr.send(blob.splice(start,end));
+  start = end;
+  end = start + BYTE_PER_CHUNK;
+}
+
+
+```
+
+### 上传下载进度
+
+> 要估算传输完成的数据量，服务器必须在响应中提供内容长度（Content-Length）首部，对于分块数据，由于响应的总长度未知，因此就无法估计进度了。
+
+> XHR默认没有超时限制
+
+```js
+var xhr = new XMLHttpRequest();
+xhr.open('GET','./resource');
+xhr.timeout = 5000;
+
+xhr.addEventListener('load',function(){
+});
+xhr.addEventListener('error',function(){
+});
+var onProgressHandler = function(event){
+  if(event.lengthComputable){
+    var progress = (event.loaded / event.total) * 100;
+  }
+}
+//上传注册进度
+xhr.upload.addEventListener('progress',onProgressHandler);
+//下载注册进度
+xhr.addEventListener('progress',onProgressHandler);
+xhr.send();
+```
+
+### 实时通知 交付
+
+#### 轮询
+
+```js
+setInterval("xhrFn,60000");
+```
+定时发送XHR
+
+#### 长轮询
+
+```js
+function checkUpdates(url){
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET',url);
+  xhr.onload = function(){
+    ...
+    checkUpdates('/update');
+  }
+  xhr.send();
+}
+checkUpdates(('/update');
+```
+
+### XHR场景
+
+> 局限性：  
+从未考虑流式数据处理，支持有限  
+没有好的方式实时交付更新
+
+
+## 服务器发送事件（SSE）
+
+> Server-Sent Event(SSE)：让服务器可以向客户端流式发送文本消息。
+
+> SSE的两个组件：  
+1.浏览器中的EventSource  
+2.新的“事件流”数据格式
+
+> SSE的特点：  
+通过一个长连接低延迟交付  
+高效的浏览器消息解析，不会出现无限缓冲  
+自动跟踪最后看到的消息及自动重新连接  
+消息通知在客户端以DOM事件形式呈现
+
+### EventSource API
+
+```js
+var source = new EventSource("/path/to/stream-url");
+source.onopen = function(){
+  //...
+}
+source.onerror = function(){
+  //...
+}
+//监听foo事件 使用自定义代码
+source.addEventListener("foo", function(event){
+  processFoo(event.data);
+})
+
+source.onmessage = function(event){
+  log_message(event.id,event.data);
+  if(event.id == "CLOSE") {
+    source.close();
+  }
+}
+```
+
+> 目前大多数浏览器支持，IE和Opera Mini不支持
+
+> 有腻子脚本可以在XHR基础上实现在不支持的浏览器使用EventSource。有库可以选择。比如jQuery.EventSource使用XHR轮询模拟SSE
+
+### Event Stream 协议
+
+SSE事件流是以流式HTTP响应形式交付的。  
+客户端发起常规HTTP请求，服务器以自定义的“text/event-stream”内容类型响应，然后交付UTF-8编码的事件数据。
+
+```
+//请求
+GET /stream HTTP/1,1
+Host: example.com
+Accept: text/event-stream
+
+//响应
+HTTP/1.1 200 OK
+Connection: keep-alive
+Connection-type: text/event-stream
+Transfer-Encoding: chunked
+//中断后重新连接的时间
+retry: 15000
+//不带消息类型的简单文本
+data: First message is a simple string
+//不带消息类型的JSON数据
+data:{"message":"23131"}
+//类型为foo的简单文本
+event: foo
+data: Message of type foo
+//带消息类型和ID的多行文本
+id: 42
+event: bar
+data: Multi-line message of 
+data: type "bar" and id "42"
+
+id:43
+data:Last message, id "43"
+
+```
+
+> SSE连接是UTF-8编码，本质上是HTTP流式响应，是可以压缩的
+
+### SSE使用场景以及性能
+
+> 两个局限：  
+1.只能从服务器向客户端发送数据，不能满足需要请求流的场景（比如向服务器流式上传大文件）  
+2.事件流协议设计为只能传输UTF-8数据，即使可以传输二进制流，效率也不高
+
+
+## WebSocket
+
+> WS是浏览器中最灵活的一个传输机制，其简单API可以让我们在客户端和服务器之间以数据流的形式实现各种应用数据交互（包括JSON及自定义的二进制消息格式），而且两端都可以随时向另一端发送数据
+
+### WebSocket API
+
+```js
+var ws = new WebSocket('wss://example.com/socket');
+
+ws.onerror = function(error){
+
+}
+ws.onclose = function(error){
+
+}
+ws.onopen = function(){
+  ws.send("connection established .hello server");
+}
+ws.onmessage = function(msg){
+  if(msg.data instanceof Blob){
+    processBlob(msg.data);
+  } else {
+    processText(msg.data);
+  }
+} 
+```
+
+> WS也可以用Javascript库来模拟
+
+> 使用库时，如Socket.IO时，要留心其底层实现，以及客户端和服务器的配置，保证尽可能利用原生WS接口以求最佳性能。确保传输机制满足性能要求。
+
+- WS与WSS
+
+ws表示纯文本信息  
+wss表示使用加密信道通信（TCP + TLS）  
+WebSocket的连接协议也可以用于浏览器之外的场景，可以通过非HTTP协商机制交换数据。
+
+- 接收文本和二进制数据
+
+浏览器接收到新消息后，如果是文本数据，会自动将其转换成DOMString对象，如果是二进制数据或Blob对象，会直接将其转交给应用。
+
+
+
+
+
 
 
 
