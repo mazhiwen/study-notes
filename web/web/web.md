@@ -1008,6 +1008,20 @@ WebRTC实现使用Opus和VP8编解码器。单方高清音视频流最多需要2
 ![](./udp.jpeg)
 
 
+### RTCPeerConnection API简介
+
+- RTCPeerConnection 管理穿越NAT的完整ICE工作流
+- 发送自动（STUN）持久化信号
+- 跟踪本地流
+- 跟踪远程流
+- 按需触发自动流协商
+- 提供必要的API，以生成连接提议，接收应答，允许我们查询连接的当前状态，等等，
+
+
+### DataChannel
+
+
+
 ### 建立端到端的连接
 
 
