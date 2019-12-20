@@ -245,10 +245,56 @@ https://github.com/webpack/webpack/tree/master/examples/source-map
 
 
 ## devserver
+
+### webpack-dev-server 
+
+配置 devServer
+
+- proxy
+
+如果你有单独的后端开发服务器 API，并且希望在同域名下发送 API 请求 ，那么代理某些 URL 会很有用。
+
+https://www.jianshu.com/p/f489e7764cb8
+```js
+module.exports = {
+    //...
+    devServer: {
+        proxy: [{
+            context: ['/auth', '/api'],
+            target: 'http://localhost:3000',
+        }]
+    }
+};
+
+//解决跨域原理
+// 上面的参数列表中有一个changeOrigin参数, 是一个布尔值, 设置为true, 本地就会虚拟一个服务器接收你的请求并代你发送该请求,
+module.exports = {
+  //...
+  devServer: {
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        // pathRewrite: {'^/api' : ''},
+        changeOrigin: true,  // target是域名的话，需要这个参数，
+        secure: false,          // 设置支持https协议的代理
+      }
+    }
+  }
+};
+
 ```
-webpack-dev-server 配置 devServer
-webpack-dev-middleware 
-```
+
+
+
+- progress
+
+将运行进度输出到控制台。webpack-dev-server --progress
+
+
+
+### webpack-dev-middleware 
+
+
 https://juejin.im/entry/574f95922e958a00683e402d
 
 ## 代码检测

@@ -4,6 +4,8 @@
 
 ## vue插件开发
 
+Vue 插件允许开发人员构建全局级别的功能并将其添加到 Vue。用于向程序添加可以全局访问的方法和属性、资源，选项，mixin 以及其他自定义 API
+
 https://www.imooc.com/article/19691
 
 https://juejin.im/post/5d3eb28cf265da03e71acd15
@@ -180,6 +182,8 @@ props:{
 
 minxin适合有公用 类似react hoc，可以抽离template 和js 的还是抽离成组件比较合适
 
+如果你要在 mixin 中定义生命周期 hook，那么它在执行时将优先于组件自己的 hook 。
+
 
 
 ## 样式
@@ -293,6 +297,40 @@ slot 的作用域：
 v-bind:class --- :class
 v-on:click --- @click
 
+### 模版和渲染函数对比
+
+```js
+
+new Vue({
+  el: '#app',
+  data: {
+    fruits: ['Apples', 'Oranges', 'Kiwi']
+  },
+  template:
+      `<div>
+         <h1>Fruit Basket</h1>
+         <ol>
+           <li v-for="fruit in fruits">{{ fruit }}</li>
+         </ol>
+      </div>`
+});
+
+new Vue({
+  el: '#app',
+  data: {
+    fruits: ['Apples', 'Oranges', 'Kiwi']
+  },
+  render: function(createElement) {
+    return createElement('div', [
+      createElement('h1', 'Fruit Basket'),
+      createElement('ol', this.fruits.map(function(fruit) { 
+        return createElement('li', fruit); 
+      }))
+    ]);
+  }
+});
+
+```
 
 
 
@@ -735,3 +773,10 @@ store.registerModule(['nested', 'myModule'], {
 })
 // 之后就可以通过 store.state.myModule 和 store.state.nested.myModule 访问模块的状态。
 ```
+
+
+## 虚拟DOM
+
+虚拟节点（VNode）表示 DOM 树中的节点。当需要操纵时，可以在虚拟 DOM的 内存中执行计算和操作，而不是在真实 DOM 上进行操纵。这自然会更快，并且允许虚拟 DOM 算法计算出最优化的方式来更新实际 DOM 结构。
+
+一旦计算出，就将其应用于实际的 DOM 树，这就提高了性能，这就是为什么基于虚拟 DOM 的框架（例如 Vue 和 React）如此突出的原因。

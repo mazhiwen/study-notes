@@ -6,7 +6,7 @@ HTTP请求线程
 
 
 
-## **http**
+## http
 
 ### 1.1
 
@@ -24,7 +24,7 @@ HTTP请求线程
 参考：https://harttle.land/2014/10/01/http.html#header-5
 
 
-## **URL**
+## URL
 
 URL() 构造函数返回一个新创建的 URL 对象，表示由一组参数定义的 URL。
 
@@ -35,12 +35,29 @@ url = new URL(url, [base])
 
 属性
 
-- origin:
-- host
+### origin:
+
+### host
+
+### pathname
+
+URL接口的pathname属性是一个USVString，包含一个初始 '/' 和URL的路径(如果没有路径，则为空字符串)
+
+```js
+var url = new URL('https://developer.mozilla.org/en-US/docs/Web/API/URL/pathname');
+
+var result = url.pathname; // Returns:"/en-US/docs/Web/API/URL/pathname"
+```
+
+## Location对象
+
+同URL对象
 
 
 
-## **window**
+
+
+## window
 
 
 ### **window.postMessage**
