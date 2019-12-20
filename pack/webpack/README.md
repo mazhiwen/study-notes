@@ -82,15 +82,15 @@ runtimeChunk: {
 }
 runtime mainfest 是webpack用来管理所有模块的交互
 
-### SplitChunksPlugin
+### 代码分离code-splitting
 
-代码分离
+https://webpack.docschina.org/guides/code-splitting/
 
-1. 根据不同entry
+### 根据不同entry
+
 配置多个entry可以实现分离
 
-
-2. SplitChunksPlugin
+### SplitChunksPlugin
 
 https://juejin.im/post/5af1677c6fb9a07ab508dabb
 https://segmentfault.com/a/1190000013476837
@@ -175,19 +175,19 @@ module.exports = {
 - priority 在某些情况下，还是挺有用的，可以设置打包chunks的优先级。
 
 
-
-3. 异步  动态引入 懒加载
+### 异步 动态引入 懒加载
 
 SplitChunksPlugin 会对asyc import.then等动态分离动态chunk
+
 ```javascript
+//
 import(/* webpackChunkName: "lodash" */ 'lodash').then(_ => {
   var element = document.createElement('div');
   element.innerHTML = _.join(['Hello', 'webpack'], ' ');
   return element;
 }).catch(error => 'An error occurred while loading the component');
 
-
-
+//async优化
 async function getComponent() {
   const _ = await import(/* webpackChunkName: "lodash" */ 'lodash');
   element.innerHTML = _.join(['Hello', 'webpack'], ' ');
@@ -197,8 +197,6 @@ getComponent().then(component => {
   document.body.appendChild(component);
 });
 
-
-
 button.onclick = e => import(/* webpackChunkName: "print" */ './print').then(module => {
   var print = module.default;
   print();
@@ -207,11 +205,13 @@ button.onclick = e => import(/* webpackChunkName: "print" */ './print').then(mod
 // 注意当调用 ES6 模块的 import() 方法（引入模块）时，必须指向模块的 .default 值，因为它才是 promise 被处理后返回的实际的 module 对象。
 ```
 
+### 预取/预加载模块(prefetch/preload module)
+
+```js
+import(/* webpackPrefetch: true */ 'LoginModal');
+```
+
 ## mode 配置  
-
-
-
-
 
 
 ## shimming  

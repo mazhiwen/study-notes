@@ -1,6 +1,38 @@
 
 # 关于vue的文档
 
+可参考:https://juejin.im/post/5d9d386fe51d45784d3f8637
+
+## 目录
+
+- [vue插件开发](#vue插件开发)
+- [VueCli](#VueCli)
+- [webpack,懒加载,代码分离](#webpack,懒加载,代码分离)
+- [el](#el)
+- [组件通信](#组件通信)
+- [props](#props)
+- [组合](#组合)
+- [样式](#样式)
+- [slot](#slot)
+- [模版语法](#模版语法)
+- [组件注册](#组件注册)
+- [渲染函数,render函数](#渲染函数,render函数)
+- [函数式组件](#函数式组件)
+- [vue-router](#vue-router)
+- [vue使用jsx](#vue使用jsx)
+- [vuex](#vuex)
+- [虚拟DOM](#虚拟DOM)
+- [生命周期](#生命周期)
+- [keep-alive](#keep-alive)
+- [异步组件](#异步组件)
+- [watch](#watch)
+- [$root](#$root)
+- [.sync](#.sync)
+- [递归组件](#递归组件)
+- [其他技巧](#其他技巧)
+
+
+
 
 ## vue插件开发
 
@@ -10,21 +42,79 @@ https://www.imooc.com/article/19691
 
 https://juejin.im/post/5d3eb28cf265da03e71acd15
 
-## Vue Cli
+### Vue.extend
+
+
+### install,Vue.use
+
+```js
+var MyPlugin = {};
+MyPlugin.install = function (Vue, options) {
+  // 2. 添加全局资源,第二个参数传一个值默认是update对应的值
+  Vue.directive('click', {
+    bind(el, binding, vnode, oldVnode) {
+      //做绑定的准备工作,添加时间监听
+      console.log('指令my-directive的bind执行啦');
+    },
+    inserted: function(el){
+    //获取绑定的元素
+    console.log('指令my-directive的inserted执行啦');
+    },
+    update: function(){
+    //根据获得的新值执行对应的更新
+    //对于初始值也会调用一次
+    console.log('指令my-directive的update执行啦');
+    },
+    componentUpdated: function(){
+    console.log('指令my-directive的componentUpdated执行啦');
+    },
+    unbind: function(){
+    //做清理操作
+    //比如移除bind时绑定的事件监听器
+    console.log('指令my-directive的unbind执行啦');
+    }
+  })
+
+  // 3. 注入组件
+  Vue.mixin({
+    created: function () {
+      console.log('注入组件的created被调用啦');
+      console.log('options的值为',options)
+    }
+  })
+
+  // 4. 添加实例方法
+  Vue.prototype.$myMethod = function (methodOptions) {
+    console.log('实例方法myMethod被调用啦');
+  }
+}
+
+//调用MyPlugin
+Vue.use(MyPlugin,{someOption: true })
+
+//3.挂载
+new Vue({
+  el: '#app'
+});
+```
+
+
+
+## VueCli
 
 https://cli.vuejs.org/zh/guide/
 
-## vue webpack 懒加载 代码分离
+## webpack,懒加载,代码分离
 
 https://alexjoverm.github.io/2017/07/16/Lazy-load-in-Vue-using-Webpack-s-code-splitting/
 
 
-## el 
+## el
 
 this.$el 指当前挂载的组件，mounted才有，created没有
 
 
-## **组件通信**
+## 组件通信
 
 
 https://segmentfault.com/a/1190000019208626?utm_source=tag-newest
@@ -199,33 +289,6 @@ v3 以后会 slot 废弃
 
 ### slot-scope  
 
-- v2.6以前旧语法
-
-主要用途是，用来在外层组件同时调用父组件，以及父组件的slot组件  
-外层组件传递数据给父组件  
-父组件内部，父组件将数据解析后，传递给父组件的slot
-
-外层组件->list->父组件
-```javascript
-<wrappercomponent>
-  <parent :data="list">
-  // slot-scope 可以作用于 template 或者 div等
-    <template slot-scope="props">
-      <child :data="props.rowData">
-      
-      </child>
-    </template>
-  </parent>
-</wrappercomponent>
-
-// parent组件
-<div>
-  <slot v-for="item in list" :rowdata="item">
-  
-  </slot>
-</div>
-
-```
 
 - 新语法
 
@@ -259,12 +322,6 @@ slot 的作用域：
 ```jsx
 <parent>
   <slot name="hh"></slot>
-</parent>
-
-// 旧语法
-<parent >
-  <div slot="hh">
-  </div>
 </parent>
 
 // 新语法
@@ -324,7 +381,7 @@ new Vue({
     return createElement('div', [
       createElement('h1', 'Fruit Basket'),
       createElement('ol', this.fruits.map(function(fruit) { 
-        return createElement('li', fruit); 
+        return createElement('li', fruit);
       }))
     ]);
   }
@@ -359,7 +416,7 @@ Vue.component('anchored-heading', {
 })
 ```
 
-## 渲染函数 render函数
+## 渲染函数,render函数
 
 ### render
 
@@ -463,7 +520,7 @@ const router = new VueRouter({
 
 
 
-## vue 使用jsx
+## vue使用jsx
 
 
 
@@ -780,3 +837,188 @@ store.registerModule(['nested', 'myModule'], {
 虚拟节点（VNode）表示 DOM 树中的节点。当需要操纵时，可以在虚拟 DOM的 内存中执行计算和操作，而不是在真实 DOM 上进行操纵。这自然会更快，并且允许虚拟 DOM 算法计算出最优化的方式来更新实际 DOM 结构。
 
 一旦计算出，就将其应用于实际的 DOM 树，这就提高了性能，这就是为什么基于虚拟 DOM 的框架（例如 Vue 和 React）如此突出的原因。
+
+
+## 生命周期
+
+- 最适合从 API 调用中获取数据的生命周期hook：
+
+尽管这取决于组件的用途及，但是创建的生命周期 hook 内通常非常适合放置 API 调用。这时可以使用组件的数据和响应性功能，但是该组件尚未渲染。
+
+- updated hook： 
+
+在更新响应性数据并重新渲染虚拟 DOM 之后，将调用更新的 hook。它可以用于执行与 DOM 相关的操作，但是（默认情况下）不能保证子组件会被渲染，尽管也可以通过在更新函数中使用 this.$nextTick 来确保。
+
+- keep-alive
+
+keep-alive 元素缓存该组件并从那里获取它，而不是每次都重新渲染它。
+
+### 顺序
+
+beforeCreate:组件实例刚被创建，组件属性计算之前，如data属性等。
+
+created：组件实例创建完成，属性已绑定，但DOM还未生成，$el属性还不存在
+
+beforeMount: 模版编译/挂载之前
+
+mounted: 模版编译/挂载之后
+
+beforeUpdate: 组件更新之前
+
+updated: 组件更新之后
+
+activated: for keep-alive,组件被激活时调用
+
+deactivated: for keep-alive,组件被移除时调用
+
+beforeDestroy : 组件销毁前
+
+destroyed: 组件销毁后
+
+
+
+## 异步组件
+
+```js
+//写法一
+Vue.component('async-example', function (resolve, reject) {
+  setTimeout(function () {
+    // 向 `resolve` 回调传递组件定义
+    resolve({
+      template: '<div>I am async!</div>'
+    })
+  }, 1000)
+})
+
+//写法二
+//推荐的做法是将异步组件和 webpack 的 code-splitting 功能一起配合使用：
+Vue.component('async-webpack-example', function (resolve) {
+  // 这个特殊的 `require` 语法将会告诉 webpack
+  // 自动将你的构建代码切割成多个包，这些包
+  // 会通过 Ajax 请求加载
+  require(['./my-async-component'], resolve)
+})
+
+//写法三 : webpack 2 和 ES2015 语法
+Vue.component(
+  'async-webpack-example',
+  // 这个 `import` 函数会返回一个 `Promise` 对象。
+  () => import('./my-async-component')
+)
+//局部注册
+new Vue({
+  // ...
+  components: {
+    'my-component': () => import('./my-async-component')
+  }
+})
+
+```
+
+## watch
+
+```js
+//立即执行
+watch: {
+  inpVal:{
+    handler: 'getList',
+    immediate: true
+  }
+}
+
+//深度监听
+watch:{
+  inpValObj:{
+    handler(newVal,oldVal){
+      console.log(newVal)
+      console.log(oldVal)
+    },
+    deep:true
+  }
+}
+//此时发现oldVal和 newVal 值一样; 因为它们索引同一个对象/数组,Vue 不会保留修改之前值的副本; 所以深度监听虽然可以监听到对象的变化,但是无法监听到具体对象里面那个属性的变化
+
+```
+
+## $root
+
+```js
+// 父组件
+mounted(){
+  console.log(this.$root) //获取根实例,最后所有组件都是挂载到根实例上
+  console.log(this.$root.$children[0]) //获取根实例的一级子组件
+  console.log(this.$root.$children[0].$children[0]) //获取根实例的二级子组件
+}
+```
+
+## .sync
+
+```
+// 父组件
+<home :title.sync="title" />
+//编译时会被扩展为
+<home :title="title"  @update:title="val => title = val"/>
+
+// 子组件
+// 所以子组件可以通过$emit 触发 update 方法改变
+mounted(){
+  this.$emit("update:title", '这是新的title')
+}
+```
+
+## 递归组件
+
+```js
+// 递归组件: 组件在它的模板内可以递归的调用自己，只要给组件设置name组件就可以了。
+// 设置那么House在组件模板内就可以递归使用了,不过需要注意的是，
+// 必须给一个条件来限制数量，否则会抛出错误: max stack size exceeded
+// 组件递归用来开发一些具体有未知层级关系的独立组件。比如：
+// 联级选择器和树形控件 
+
+<template>
+  <div v-for="(item,index) in treeArr">
+      子组件，当前层级值： {{index}} <br/>
+      <!-- 递归调用自身, 后台判断是否不存在改值 -->
+      <tree :item="item.arr" v-if="item.flag"></tree>
+  </div>
+</template>
+<script>
+export default {
+  // 必须定义name，组件内部才能递归调用
+  name: 'tree',
+  data(){
+    return {}
+  },
+  // 接收外部传入的值
+  props: {
+     item: {
+      type:Array,
+      default: ()=>[]
+    }
+  }
+}
+</script>
+```
+
+## 其他技巧
+
+### img加载失败
+
+```html
+// page 代码
+<img :src="imgUrl" @error="handleError" alt="">
+<script>
+export default{
+  data(){
+    return{
+      imgUrl:''
+    }
+  },
+  methods:{
+    handleError(e){
+      e.target.src=reqiure('图片路径') //当然如果项目配置了transformToRequire,参考上面 27.2
+    }
+  }
+}
+</script>
+```
