@@ -30,6 +30,7 @@
 - [.sync](#.sync)
 - [递归组件](#递归组件)
 - [其他技巧](#其他技巧)
+- [SSR-Vue](#SSR-Vue)
 
 
 
@@ -280,6 +281,23 @@ minxin适合有公用 类似react hoc，可以抽离template 和js 的还是抽�
 
 vue 有时候局部样式组件 有时候全局控制
 
+class和style绑定:
+
+```html
+<!-- 对象语法 -->
+<div v-bind:class="{ active: isActive, 'text-danger': hasError }"></div>
+data: {
+  isActive: true,
+  hasError: false
+}
+<!-- 数组语法 -->
+<div v-bind:class="[isActive ? activeClass : '', errorClass]"></div>
+
+data: {
+  activeClass: 'active',
+  errorClass: 'text-danger'
+}
+```
 
 
 ## slot 
@@ -527,6 +545,9 @@ const router = new VueRouter({
 
 ## vuex
 
+
+### 语法
+
 dispatch(actions(commit)) ->
 commit(mutations(state))) -> view 
 
@@ -630,11 +651,7 @@ const store = new Vuex.Store({
       commit('gotOtherData', await getOtherData())
     }
   }
-
-
 })
-
-
 
 //////////// 使用 /////////////
 import { mapState,mapGetters,mapMutations,mapActions} from 'vuex'
@@ -695,11 +712,6 @@ export default {
     })
   }
 }
-
-
-
-
-
 
 //////////////////////////////Module
 const moduleA = {
@@ -798,8 +810,6 @@ const store = new Vuex.Store({
 // store.state.b // -> moduleB 的状态
 // 模块的mutation getter方法，接收到的第一个参数是模块的局部state
 
-
-
 ///////////////vue 使用module
 import { createNamespacedHelpers } from 'vuex'
 const { mapState, mapActions } = createNamespacedHelpers('some/nested/module')
@@ -830,6 +840,11 @@ store.registerModule(['nested', 'myModule'], {
 })
 // 之后就可以通过 store.state.myModule 和 store.state.nested.myModule 访问模块的状态。
 ```
+
+
+### vuex同步localstorage
+
+vuex-persistedstate
 
 
 ## 虚拟DOM
@@ -874,6 +889,11 @@ deactivated: for keep-alive,组件被移除时调用
 beforeDestroy : 组件销毁前
 
 destroyed: 组件销毁后
+
+### 加载渲染过程
+
+父 beforeCreate -> 父 created -> 父 beforeMount -> 子 beforeCreate -> 子 created -> 子 beforeMount -> 子 mounted -> 父 mounted
+
 
 
 
@@ -1022,3 +1042,7 @@ export default{
 }
 </script>
 ```
+
+## SSR-Vue
+
+https://juejin.im/post/5cb6c36e6fb9a068af37aa35

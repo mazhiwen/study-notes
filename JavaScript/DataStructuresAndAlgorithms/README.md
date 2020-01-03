@@ -1,5 +1,25 @@
+## 目录
 
-##  数组去重 
+- [常用算法](#常用算法)
+  - [数组去重](#数组去重)
+  - [计算数组中每个元素出现的次数](#计算数组中每个元素出现的次数)
+- [数据结构与算法选择](#数据结构与算法选择)
+- [列表](#列表)
+- [链表](#链表)
+- [字典](#字典)
+- [散列](#散列)
+- [集合](#集合)
+- [二叉树](#二叉树)
+- [图](#图)
+- [排序算法](#排序算法)
+- [查找算法](#查找算法)
+- [高级算法](#高级算法)
+
+
+
+## 常用算法
+
+###  数组去重 
 ```javascript
 let arr = [1,2,1,2,3,5,4,5,3,4,4,4,4];
 let result = arr.sort().reduce((init, current)=>{
@@ -11,7 +31,7 @@ let result = arr.sort().reduce((init, current)=>{
 console.log(result); //[1,2,3,4,5]
 ```
 
-##  计算数组中每个元素出现的次数 
+###  计算数组中每个元素出现的次数 
 ```javascript
 var names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice'];
 var countedNames = names.reduce(function (allNames, name) { 
@@ -27,7 +47,7 @@ var countedNames = names.reduce(function (allNames, name) {
 // { 'Alice': 2, 'Bob': 1, 'Tiff': 1, 'Bruce': 1 }
 ```
 
-## 数据结构与算法 选择
+## 数据结构与算法选择
 
 ![数据结构](./760432-20161005131748739-688884364.png)
 
