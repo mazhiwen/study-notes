@@ -501,6 +501,13 @@ console.log(Math.ceil(7.004));
 
 ### .floor
 
+返回小于或等于一个给定数字的最小整数
+
+```js
+console.log(Math.ceil(7.004));
+// expected output: 7
+```
+
 ### .max
 
 ### .min

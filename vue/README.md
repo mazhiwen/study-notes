@@ -29,8 +29,9 @@
 - [$root](#$root)
 - [.sync](#.sync)
 - [递归组件](#递归组件)
-- [其他技巧](#其他技巧)
 - [SSR-Vue](#SSR-Vue)
+- [动画](#动画)
+- [其他技巧知识](#其他技巧知识)
 
 
 
@@ -311,7 +312,7 @@ v3 以后会 slot 废弃
 - 新语法
 
 ```javascript
-// parent组件
+// 带slot的parent组件
 <div>
   <slot v-for="item in list" v-bind:rowdata="item">
   </slot>
@@ -533,6 +534,15 @@ const router = new VueRouter({
   mode: 'history',
 }); 
 ```
+
+### hash模式
+
+- URL 中 hash 值只是客户端的一种状态，也就是说当向服务器端发出请求时，hash 部分不会被发送；
+- hash 值的改变，都会在浏览器的访问历史中增加一个记录。因此我们能通过浏览器的回退、前进按钮控制hash 的切换；
+- 可以通过 a 标签，并设置 href 属性，当用户点击这个标签后，URL 的 hash 值会发生改变；或者使用  JavaScript 来对 loaction.hash 进行赋值，改变 URL 的 hash 值；
+- 我们可以使用 hashchange 事件来监听 hash 值的变化，从而对页面进行跳转（渲染）。
+
+
 
 3.生产环境nginx配置
 
@@ -1020,7 +1030,45 @@ export default {
 </script>
 ```
 
-## 其他技巧
+
+## SSR-Vue
+
+https://juejin.im/post/5cb6c36e6fb9a068af37aa35
+
+
+## 动画
+
+在进入/离开的过渡中，会有 6 个 class 切换。
+
+v-enter：定义进入过渡的开始状态。在元素被插入之前生效，在元素被插入之后的下一帧移除。
+
+v-enter-active：定义进入过渡生效时的状态。在整个进入过渡的阶段中应用，在元素被插入之前生效，在过渡/动画完成之后移除。这个类可以被用来定义进入过渡的过程时间，延迟和曲线函数。
+
+v-enter-to: 2.1.8版及以上 定义进入过渡的结束状态。在元素被插入之后下一帧生效 (与此同时 v-enter 被移除)，在过渡/动画完成之后移除。
+
+v-leave: 定义离开过渡的开始状态。在离开过渡被触发时立刻生效，下一帧被移除。
+
+v-leave-active：定义离开过渡生效时的状态。在整个离开过渡的阶段中应用，在离开过渡被触发时立刻生效，在过渡/动画完成之后移除。这个类可以被用来定义离开过渡的过程时间，延迟和曲线函数。
+
+v-leave-to: 2.1.8版及以上 定义离开过渡的结束状态。在离开过渡被触发之后下一帧生效 (与此同时 v-leave 被删除)，在过渡/动画完成之后移除。
+
+```css
+/* 隐藏样式 */
+.name-enter,.name-leave-to {
+  
+}
+/* 中间过度 */
+.name-enter-active, .name-leave-active{
+  transiton: all .5s;
+}
+/* 显示样式 */
+.name-enter-to,.name-leave{
+
+}
+```
+
+
+## 其他技巧知识
 
 ### img加载失败
 
@@ -1043,6 +1091,27 @@ export default{
 </script>
 ```
 
-## SSR-Vue
 
-https://juejin.im/post/5cb6c36e6fb9a068af37aa35
+### 数据双向绑定
+
+https://juejin.im/post/5d421bcf6fb9a06af23853f1
+
+
+
+- 监听data属性
+
+```js
+
+let val = 'tom'
+let person = {}
+Object.defineProperty(person,'name',{
+    get(){
+        console.log('name属性被读取了...');
+        return val;
+    },
+    set(newVal){
+        console.log('name属性被修改了...');
+        val = newVal;
+    }
+})
+```
