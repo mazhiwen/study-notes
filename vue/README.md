@@ -412,6 +412,8 @@ new Vue({
 
 ## 组件注册
 
+### 全局注册
+
 ```js
 Vue.component('anchored-heading', {
   // dom可以用template模版语法
@@ -433,6 +435,30 @@ Vue.component('anchored-heading', {
     }
   }
 })
+```
+
+### 局部注册
+
+```js
+const mycomponent = {
+  // Props 是可选的
+  props: {
+    // ...
+  },
+  // 为了弥补缺少的实例
+  // 提供第二个参数作为上下文
+  render: function (h, context) {
+    return (
+      <div>23232</div>
+    )
+  }
+}
+
+export default {
+  components:{
+    mycomponent
+  },
+}
 ```
 
 ## 渲染函数,render函数

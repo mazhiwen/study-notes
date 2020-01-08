@@ -3,6 +3,7 @@
 ## 目录
 
 - [box-shadow](#box-shadow)
+- [transition](#transition)
 
 ## 角度单位 \<angle>
 
