@@ -5,26 +5,22 @@
 git tag ：tag列表  
 git tag -a v1.0.3 -m "let关键"  :添加tag
 # 推送所有tag
-git push origin --tags 
+git push origin --tags
 git push origin [tagname]
 git tag -d v1.0.3 :删除本地tag
 git push origin :refs/tags/v1.0.2 :删除远程tag
 ```
 
-
 ### 分支
 
 删除远程分支 git push origin --delete <BranchName>
 
-
-
 ### 放弃更改
 
-1.放弃未commit文件 
+1.放弃未commit文件
 
 git checkout file
 git checkout .
-
 
 2.放弃已
 经commit文件
@@ -32,8 +28,7 @@ git checkout .
 git reset --hard HEAD : 将stage area中未提交的file回滚到之前的commit状态（这个指令可以解决你的问题）
 git checkout . && git clean -df
 
-
-git clean 
+git clean
 -d 删除未被添加到git的路径中的文件
 -f 强制运行
 -x 删除忽略文件已经对git来说 不识别的文件
@@ -44,9 +39,8 @@ git rm -r --cached .
 忽略大小写 windows git
 git config core.ignorecase false
 
-3. 放弃git add 
-git reset 
-
+3. 放弃git add
+git reset
 
 ### reset远程commit
 
@@ -69,18 +63,22 @@ IdentityFile ~/.ssh/id_rsa
 
 #github.com
 Host github.com
-IdentityFile ~/.ssh/github_mazhiwen 
+  HostName github.com
+  IdentityFile ~/.ssh/github_mazhiwen
 
 
+Host github.com
+  HostName ssh.github.com
+  User 81245995@qq.com
+  IdentityFile ~/.ssh/id_rsa_personal
+  Port 443
 
 
 ```
 
-
-
 ### stash
 
-git stash    加save 可以保存stash 加备注:git stash save "dd" 
+git stash    加save 可以保存stash 加备注:git stash save "dd"
 
 git stash pop  弹出最近保存，盏
 
@@ -92,6 +90,6 @@ git stash clear 清空list
 
 git stash show 查看差异
 
-
 ### 大小写
+
 git config core.ignorecase true  忽略大小写

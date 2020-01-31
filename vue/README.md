@@ -1,11 +1,11 @@
 
 # 关于vue的文档
 
-可参考:https://juejin.im/post/5d9d386fe51d45784d3f8637
+可参考:<https://juejin.im/post/5d9d386fe51d45784d3f8637>
 
 ## 目录
 
-- [vue插件开发](#vue插件开发)
+- [vue插件](#vue插件)
 - [VueCli](#VueCli)
 - [webpack,懒加载,代码分离](#webpack,懒加载,代码分离)
 - [el](#el)
@@ -33,19 +33,15 @@
 - [动画](#动画)
 - [其他技巧知识](#其他技巧知识)
 
-
-
-
 ## vue插件开发
 
 Vue 插件允许开发人员构建全局级别的功能并将其添加到 Vue。用于向程序添加可以全局访问的方法和属性、资源，选项，mixin 以及其他自定义 API
 
-https://www.imooc.com/article/19691
+<https://www.imooc.com/article/19691>
 
-https://juejin.im/post/5d3eb28cf265da03e71acd15
+<https://juejin.im/post/5d3eb28cf265da03e71acd15>
 
 ### Vue.extend
-
 
 ### install,Vue.use
 
@@ -100,26 +96,21 @@ new Vue({
 });
 ```
 
-
-
 ## VueCli
 
-https://cli.vuejs.org/zh/guide/
+<https://cli.vuejs.org/zh/guide/>
 
 ## webpack,懒加载,代码分离
 
-https://alexjoverm.github.io/2017/07/16/Lazy-load-in-Vue-using-Webpack-s-code-splitting/
-
+<https://alexjoverm.github.io/2017/07/16/Lazy-load-in-Vue-using-Webpack-s-code-splitting/>
 
 ## el
 
 this.$el 指当前挂载的组件，mounted才有，created没有
 
-
 ## 组件通信
 
-
-https://segmentfault.com/a/1190000019208626?utm_source=tag-newest
+<https://segmentfault.com/a/1190000019208626?utm_source=tag-newest>
 
 1. vuex
 全局
@@ -146,8 +137,8 @@ Vue.component('base-checkbox', {
     >
   `
 })
-<base-checkbox 
-  v-model="lovingVue" 
+<base-checkbox
+  v-model="lovingVue"
   @change=""
 >
 </base-checkbox>
@@ -211,7 +202,6 @@ var Child = {
 5. props  $emit  @on  
 是响应式的,父子传递prop和event
 
-
 6. $attrs和$listeners  
 适用于第三方复杂组件构建，a -> b -> c 深层次传递prop 和 event  
 简单来说：$attrs与$listeners 是两个对象，$attrs 里存放的是父组件中绑定的非 Props 属性，$listeners里存放的是父组件中绑定的非原生事件。
@@ -268,6 +258,7 @@ props:{
   }
 }
 ```
+
 ## 组合
 
 ### mixin
@@ -275,8 +266,6 @@ props:{
 minxin适合有公用 类似react hoc，可以抽离template 和js 的还是抽离成组件比较合适
 
 如果你要在 mixin 中定义生命周期 hook，那么它在执行时将优先于组件自己的 hook 。
-
-
 
 ## 样式
 
@@ -300,14 +289,12 @@ data: {
 }
 ```
 
-
-## slot 
+## slot
 
 v2.6.0 以后引入v-slot
 v3 以后会 slot 废弃
 
 ### slot-scope  
-
 
 - 新语法
 
@@ -322,7 +309,7 @@ v3 以后会 slot 废弃
 // default是slot 具名可以是其他
     <template v-slot:default="slotProps">
       <child :data="slotProps.rowData">
-      
+
       </child>
     </template>
   </parent>
@@ -332,7 +319,6 @@ v3 以后会 slot 废弃
 
 slot 的作用域：
 父组件的作用域 和 slot的作用域是独立的。
-
 
 ### 语法用法
 
@@ -354,8 +340,6 @@ slot 的作用域：
 
 ```
 
-
-
 ## 模版语法
 
 ```html
@@ -368,6 +352,7 @@ slot 的作用域：
   </h2>
 </script>
 ```
+
 ### 缩写
 
 v-bind:class --- :class
@@ -399,7 +384,7 @@ new Vue({
   render: function(createElement) {
     return createElement('div', [
       createElement('h1', 'Fruit Basket'),
-      createElement('ol', this.fruits.map(function(fruit) { 
+      createElement('ol', this.fruits.map(function(fruit) {
         return createElement('li', fruit);
       }))
     ]);
@@ -407,8 +392,6 @@ new Vue({
 });
 
 ```
-
-
 
 ## 组件注册
 
@@ -472,6 +455,7 @@ render: function (createElement) {
   )
 }
 ```
+
 render没有提供v-model 对应的
 
 ### createElement
@@ -505,8 +489,6 @@ createElement(
 )
 ```
 
-
-
 ## 函数式组件
 
 它无状态 (没有响应式数据)，也没有实例 (没有 this 上下文)。
@@ -531,12 +513,7 @@ Vue.component('my-component', {
 </template>
 ```
 
-
-
-
 ## vue-router
-
-
 
 ### router-link
 
@@ -545,6 +522,7 @@ Vue.component('my-component', {
 ### history 模式
 
 1. webpack devconfig
+
 ```js
 devServer:{
   historyApiFallback: true,
@@ -555,10 +533,11 @@ output: {
 ```
 
 2. router实例
+
 ```js
 const router = new VueRouter({
   mode: 'history',
-}); 
+});
 ```
 
 ### hash模式
@@ -568,24 +547,16 @@ const router = new VueRouter({
 - 可以通过 a 标签，并设置 href 属性，当用户点击这个标签后，URL 的 hash 值会发生改变；或者使用  JavaScript 来对 loaction.hash 进行赋值，改变 URL 的 hash 值；
 - 我们可以使用 hashchange 事件来监听 hash 值的变化，从而对页面进行跳转（渲染）。
 
-
-
 3.生产环境nginx配置
-
-
 
 ## vue使用jsx
 
-
-
-
 ## vuex
-
 
 ### 语法
 
 dispatch(actions(commit)) ->
-commit(mutations(state))) -> view 
+commit(mutations(state))) -> view
 
 ```js
 
@@ -877,11 +848,9 @@ store.registerModule(['nested', 'myModule'], {
 // 之后就可以通过 store.state.myModule 和 store.state.nested.myModule 访问模块的状态。
 ```
 
-
 ### vuex同步localstorage
 
 vuex-persistedstate
-
 
 ## 虚拟DOM
 
@@ -889,14 +858,13 @@ vuex-persistedstate
 
 一旦计算出，就将其应用于实际的 DOM 树，这就提高了性能，这就是为什么基于虚拟 DOM 的框架（例如 Vue 和 React）如此突出的原因。
 
-
 ## 生命周期
 
 - 最适合从 API 调用中获取数据的生命周期hook：
 
 尽管这取决于组件的用途及，但是创建的生命周期 hook 内通常非常适合放置 API 调用。这时可以使用组件的数据和响应性功能，但是该组件尚未渲染。
 
-- updated hook： 
+- updated hook：
 
 在更新响应性数据并重新渲染虚拟 DOM 之后，将调用更新的 hook。它可以用于执行与 DOM 相关的操作，但是（默认情况下）不能保证子组件会被渲染，尽管也可以通过在更新函数中使用 this.$nextTick 来确保。
 
@@ -929,9 +897,6 @@ destroyed: 组件销毁后
 ### 加载渲染过程
 
 父 beforeCreate -> 父 created -> 父 beforeMount -> 子 beforeCreate -> 子 created -> 子 beforeMount -> 子 mounted -> 父 mounted
-
-
-
 
 ## 异步组件
 
@@ -1029,7 +994,7 @@ mounted(){
 // 设置那么House在组件模板内就可以递归使用了,不过需要注意的是，
 // 必须给一个条件来限制数量，否则会抛出错误: max stack size exceeded
 // 组件递归用来开发一些具体有未知层级关系的独立组件。比如：
-// 联级选择器和树形控件 
+// 联级选择器和树形控件
 
 <template>
   <div v-for="(item,index) in treeArr">
@@ -1056,11 +1021,9 @@ export default {
 </script>
 ```
 
-
 ## SSR-Vue
 
-https://juejin.im/post/5cb6c36e6fb9a068af37aa35
-
+<https://juejin.im/post/5cb6c36e6fb9a068af37aa35>
 
 ## 动画
 
@@ -1093,7 +1056,6 @@ v-leave-to: 2.1.8版及以上 定义离开过渡的结束状态。在离开过�
 }
 ```
 
-
 ## 其他技巧知识
 
 ### img加载失败
@@ -1117,27 +1079,40 @@ export default{
 </script>
 ```
 
-
 ### 数据双向绑定
 
-https://juejin.im/post/5d421bcf6fb9a06af23853f1
-
-
+<https://juejin.im/post/5d421bcf6fb9a06af23853f1>
 
 - 监听data属性
 
 ```js
 
-let val = 'tom'
-let person = {}
-Object.defineProperty(person,'name',{
-    get(){
-        console.log('name属性被读取了...');
-        return val;
-    },
-    set(newVal){
-        console.log('name属性被修改了...');
-        val = newVal;
+/**
+  * 循环遍历数据对象的每个属性
+  */
+function observable(obj) {
+    if (!obj || typeof obj !== 'object') {
+        return;
     }
-})
+    let keys = Object.keys(obj);
+    keys.forEach((key) => {
+        defineReactive(obj, key, obj[key])
+    })
+    return obj;
+}
+/**
+ * 将对象的属性用 Object.defineProperty() 进行设置
+ */
+function defineReactive(obj, key, val) {
+    Object.defineProperty(obj, key, {
+        get() {
+            console.log(`${key}属性被读取了...`);
+            return val;
+        },
+        set(newVal) {
+            console.log(`${key}属性被修改了...`);
+            val = newVal;
+        }
+    })
+}
 ```

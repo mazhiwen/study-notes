@@ -586,6 +586,16 @@ flex boxes (元素的display: flex或inline-flex)；
 
 ## media
 
+```css
+/* 321px 到 375px之间时的样式 */
+@media screen and (min-width:321px) and (max-width:375px){
+  html{
+    font-size:11px
+  }
+}
+
+```
+
 ### print
 
 ```css
