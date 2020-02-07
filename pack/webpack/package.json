@@ -33,7 +33,7 @@
     "webpack-merge": "^4.1.3"
   },
   "dependencies": {
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.13",
     "utility-mar": "^1.0.0"
   },
   "sideEffects": [
