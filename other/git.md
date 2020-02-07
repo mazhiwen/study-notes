@@ -53,6 +53,17 @@ $ git push origin HEAD:master --force
 
 ### 配置origin
 
+```
+①   cd ~/.ssh/    【如果没有对应的文件夹，则执行  mkdir  ./.ssh】
+
+②  git config --global user.name "xb12369"
+
+③  git config --global user.email "1234@qq.com"
+
+④  ssh-keygen -t rsa -C "81245995@qq.com"
+
+```
+
 ~/ssh/config文件:
 
 ```sh

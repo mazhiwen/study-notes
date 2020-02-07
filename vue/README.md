@@ -11,6 +11,7 @@
 - [el](#el)
 - [组件通信](#组件通信)
 - [props](#props)
+- [filters](#filters)
 - [组合](#组合)
 - [样式](#样式)
 - [slot](#slot)
@@ -31,6 +32,7 @@
 - [递归组件](#递归组件)
 - [SSR-Vue](#SSR-Vue)
 - [动画](#动画)
+- [事件](#事件)
 - [其他技巧知识](#其他技巧知识)
 
 ## vue插件开发
@@ -41,7 +43,35 @@ Vue 插件允许开发人员构建全局级别的功能并将其添加到 Vue。
 
 <https://juejin.im/post/5d3eb28cf265da03e71acd15>
 
-### Vue.extend
+### extend
+
+场景:vue 组件中有些需要将一些元素挂载到元素上,这个时候 extend 就起到作用了 是构造一个组件的语法器 写法:
+
+```js
+import DropMenu from './DropMenu.vue';
+const DropMenuConstructor = Vue.extend(DropMenu);
+```
+
+```js
+// 创建构造器
+var Profile = Vue.extend({
+  template: '<p>{{extendData}}</br>实例传入的数据为:{{propsExtend}}</p>',//template对应的标签最外层必须只有一个标签
+  data: function () {
+    return {
+      extendData: '这是extend扩展的数据',
+    }
+  },
+  props:['propsExtend']
+})
+
+// 创建的构造器可以挂载到元素上,也可以通过 components 或 Vue.component()注册使用
+// 挂载到一个元素上。可以通过propsData传参.
+new Profile({propsData:{propsExtend:'我是实例传入的数据'}}).$mount('#app-extend')
+
+// 通过 components 或 Vue.component()注册
+Vue.component('Profile',Profile)
+
+```
 
 ### install,Vue.use
 
@@ -257,6 +287,22 @@ props:{
     }
   }
 }
+```
+
+## filters
+
+```js
+// 局部注册
+filters: {
+  stampToYYMMDD: (value)=> {
+    // 处理逻辑
+  }
+}
+
+// 全局自动注册
+import * as custom from './common/filters/custom'
+Object.keys(custom).forEach(key => Vue.filter(key, custom[key]))
+
 ```
 
 ## 组合
@@ -540,6 +586,8 @@ const router = new VueRouter({
 });
 ```
 
+3. 生产环境nginx配置
+
 ### hash模式
 
 - URL 中 hash 值只是客户端的一种状态，也就是说当向服务器端发出请求时，hash 部分不会被发送；
@@ -547,7 +595,7 @@ const router = new VueRouter({
 - 可以通过 a 标签，并设置 href 属性，当用户点击这个标签后，URL 的 hash 值会发生改变；或者使用  JavaScript 来对 loaction.hash 进行赋值，改变 URL 的 hash 值；
 - 我们可以使用 hashchange 事件来监听 hash 值的变化，从而对页面进行跳转（渲染）。
 
-3.生产环境nginx配置
+### 缓存和动画
 
 ## vue使用jsx
 
@@ -1054,6 +1102,16 @@ v-leave-to: 2.1.8版及以上 定义离开过渡的结束状态。在离开过�
 .name-enter-to,.name-leave{
 
 }
+```
+
+## 事件
+
+```js
+.stop:阻止冒泡
+.prevent:阻止默认行为
+.self:仅绑定元素自身触发
+.once: 2.1.4 新增,只触发一次
+.passive: 2.3.0 新增,滚动事件的默认行为 (即滚动行为) 将会立即触发,不能和.prevent 一起使用
 ```
 
 ## 其他技巧知识
