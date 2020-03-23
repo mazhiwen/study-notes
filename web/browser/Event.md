@@ -1,14 +1,10 @@
 ## **event**
 
-MDN参考:https://developer.mozilla.org/zh-CN/docs/Web/Events
+MDN参考:<https://developer.mozilla.org/zh-CN/docs/Web/Events>
 
-https://developer.mozilla.org/en-US/docs/Web/API/Event
-
-
+<https://developer.mozilla.org/en-US/docs/Web/API/Event>
 
 浏览器中, js引擎线程会循环从 任务队列 中读取事件并且执行, 这种运行机制称作 Event Loop (事件循环).
-
-
 
 ### 事件冒泡
 
@@ -71,29 +67,27 @@ mouseout：指针移出元素，或者移到它的子元素上。（会冒泡）
 mouseenter: 只有鼠标穿过绑定元素，才会触发mouseenter，且子元素不冒泡
 mouseleave: 指针移出元素范围外。（不冒泡）
 
+mousedown: 在元素上按下任意鼠标按钮。
+mouseup: 在元素上释放任意鼠标按键。
+mousemove: 指针在元素内移动时持续触发。
+
 #### MouseEvent
 
-https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/
+<https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/>
 
 - MouseEvent.clientX
 
 它提供事件发生时的应用客户端区域的水平坐标 (与页面坐标不同)
 
-
 ### 键盘按键
 
 #### keyDown
 
-https://developer.mozilla.org/zh-CN/docs/Web/API/KeyboardEvent
+<https://developer.mozilla.org/zh-CN/docs/Web/API/KeyboardEvent>
 
 KeyboardEvent.keycode大全
 
-https://www.cnblogs.com/daysme/p/6272570.html
-
-
-
-
-
+<https://www.cnblogs.com/daysme/p/6272570.html>
 
 ### 焦点事件
 
