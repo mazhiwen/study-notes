@@ -147,14 +147,14 @@ var newArray = array.map(function callback(currentValue, index, array) {
 })
 ```
 
-## Array.forEach() *******************/
+## array.forEach() *******************/
 
 // 为每个数组元素执行callback函数 没有返回值
 // 不修改原数组
 array.forEach(function callback(currentValue, index, array) {  
 })
 
-## Array.every()*******************/
+## array.every()*******************/
 
 // 为数组中的每个元素执行一次 callback 函数
 // 直到它找到一个使 callback 返回 false（表示可转换为布尔值 false 的值）的元素,否则返回true
@@ -163,7 +163,7 @@ var bool=array.every(function callback(currentValue, index, array){
     return currentValue>0;
 });
 
-## Array.some()*******************/
+## array.some()*******************/
 
 // 测试数组中的某些元素是否通过由提供的函数实现的测试
 [1, 2, 3, 4, 5].some(function(currentValue, index, array) {
@@ -172,15 +172,21 @@ var bool=array.every(function callback(currentValue, index, array){
 });
 //只要有某些通过函数测试返回true 则结果为true
 
-## Array.filter()*******************/
+## array.filter()
 
-//返回通过测试callback 的新数组
-//不修改原数组
+返回通过测试callback 的新数组
+
+不修改原数组
+
+用来测试数组的每个元素的函数。返回 true 表示该元素通过测试，保留该元素，false 则不保留。它接受以下三个参数：
+
+```js
 var newArray = array.filter(function callback(currentValue, index, array){
     return currentValue>0;
 });
+```
 
-## Array.reduce()*******************/
+## array.reduce()*******************/
 
 //array从左到右执行callback
 // 返回最终return
@@ -194,7 +200,7 @@ array.reduce(
     initialValue
 );
 
-## Array.slice*******************/
+## array.slice*******************/
 
 //slice() 方法返回一个从开始到结束（不包括结束）选择的数组的一部分浅拷贝到一个新数组对象。
 //原始数组不会被修改。

@@ -6,7 +6,7 @@
 
 ```javascript
 var a=2;
-//js编译阶段，先找到所有声明. var a; 
+//js编译阶段，先找到所有声明. var a;
 //再进行执行阶段 a=2;
 
 //函数优先变量提升 ,如 function foo(){}
@@ -19,35 +19,32 @@ foo(); // 1
 foo = function() { console. log( 2 ); };
 ```
 
-
 ## 技巧 优化
 
 数据初始化null
 if 提升到外层
 
-
 ## 运算规则
 
 从右到左
 
-
 ## 作用域
 
-
-* 块级作用域:    
+* 块级作用域:
   with，try/catch，let 没有给for if 等划分块级作用域  。
+
   ```javascript
   //函数作用域中 i 会再全局定义
   //而块级作用域下i不会全局定义
-  for (var i= 0; i< 10; i++) { 
-    console. log( i ); 
+  for (var i= 0; i< 10; i++) {
+    console. log( i );
   }
   ```
 
 * 函数作用域:  
   含义是指，属于这个函数的全部变量都可以在整个函数的范围内使用及复用  
-  （事实上在嵌套的作用域中也可以使用）。例如：（var） 
-   
+  （事实上在嵌套的作用域中也可以使用）。例如：（var）
+
   这种设计方案是非常有用的，能充分利用JavaScript变量可以根据需要改变值类型的“动态”特性。  
   在任 意 代码 片段 外部 添加 包装 函数， 可以 将 内部 的 变量 和 函数 定义“ 隐藏” 起来，  
   外部 作用域 无法 访问 包装 函数 内部 的 任何 内容。  
@@ -55,7 +52,7 @@ if 提升到外层
 
     ```javascript
     (function foo(){ // <-- 添加 这 一行  //不行。 foo 变量 名 被 隐藏 在 自身 中， 不会 非必要 地 污染 外部 作用域。
-      var a = 3; 
+      var a = 3;
       console. log( a ); // 3
     })(); // <-- 以及 这 一行
     ```
@@ -63,21 +60,21 @@ if 提升到外层
 * 词法 作用域: 是由 你在 写 代码 时 将 变量 和 块 作用域 写在 哪里 来 决定 的
   无论 函数 在哪里 被 调用， 也 无论 它 如何 被 调用， 它的 词法 作用域 都 只 由 函数 被 声明 时所处 的 位置 决定。
   编译时，而非运行时
+
   ```javascript
-  function foo() { 
-    console. log( a ); // 2 
-  } 
-  function bar() { 
-    var a = 3; foo(); 
-  } 
-  var a = 2; 
+  function foo() {
+    console. log( a ); // 2
+  }
+  function bar() {
+    var a = 3; foo();
+  }
+  var a = 2;
   bar();
   ```
 
 * 动态作用域: 动态 作用域 并不 关心 函数 和 作用域 是 如何 声明 以及 在何处 声明 的， 只 关心 它们 从何 处 调用。 换句话说， 作用域 链 是 基于 调用 栈 的， 而 不是 代码 中的 作用域 嵌套。  
  需要 明确 的 是， 事实上 JavaScript 并不 具有 动态 作用域。 它 只有 词法 作用域， 简单 明了。 但是 this 机制 某种程度 上 很像 动态 作用域。  
  主要 区别： 词法 作用域 是在 写 代码 或者说 定义 时 确定 的， 而 动态 作用域 是在 运行时 确定 的。（ this 也是！） 词法 作用域 关注 函数 在何处 声明， 而 动态 作用域 关注 函数 从何 处 调用。
-
 
 ## **in 运算符**
 
@@ -103,7 +100,6 @@ var mycar = {make: "Honda", model: "Accord", year: 1998};
 "model" in mycar // 返回true
 
 ```
-
 
 ## **简单基本类型 7种**
 
@@ -163,10 +159,9 @@ typeof function(){} === 'function';
 
 ## instanceof
 
-// 检测原型 
+// 检测原型
 
 ## 深拷贝 浅拷贝
-
 
 ### 深拷贝
 
@@ -215,14 +210,12 @@ function deepCopy(obj) {
 
 1.引用类型
 存储：
-栈：name：指针[指向堆值] 
+栈：name：指针[指向堆值]
 堆[指针]：value
 2.基本类型
 存储：
 栈：name：value
-https://blog.csdn.net/flyingpig2016/article/details/52895620
-
-
+<https://blog.csdn.net/flyingpig2016/article/details/52895620>
 
 ## 内存泄漏
 
@@ -230,16 +223,7 @@ https://blog.csdn.net/flyingpig2016/article/details/52895620
 
 检测:内存持续增多，存在内存泄漏；内存平稳，不存在内存泄漏
 
-(https://segmentfault.com/a/1190000008901861)
-
-
-
-
-
-
-
-
-
+(<https://segmentfault.com/a/1190000008901861)>
 
 ## js中的堆 和 栈
 
@@ -247,136 +231,130 @@ https://blog.csdn.net/flyingpig2016/article/details/52895620
 堆：队列优先,先进先出；由操作系统自动分配释放 ，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈。  
 栈：先进后出；动态分配的空间 一般由程序员分配释放， 若程序员不释放，程序结束时可能由OS回收，分配方式倒是类似于链 表。  
 
-
-
 ## event
 
 input  焦点keyup
 
 body监听 keyup? 回车？
 
-
 eventloop
 
-https://mp.weixin.qq.com/s/nJsM05Yp50HDH1hqEen2eQ
+<https://mp.weixin.qq.com/s/nJsM05Yp50HDH1hqEen2eQ>
 
 ## cookie
 
-
 ## node编译js
+
 babel
-
-
-
 
 ## 闭包
 
 定义：当函数可以记住并访问所在的词法作用域时，就产生了闭包，即使函数是在当前词法作用域外执行  
 
 ```javascript
-function foo() { 
-  var a = 2; 
-  function bar() { 
-    console. log( a ); 
-  } 
-  return bar; 
-} 
-var baz = foo(); 
+function foo() {
+  var a = 2;
+  function bar() {
+    console. log( a );
+  }
+  return bar;
+}
+var baz = foo();
 baz(); // 2 ———— 朋友， 这 就是 闭 包 的 效果。
 
 ```
+
 没有常规执行foo的垃圾回收机制,  
 foo内的作用域依然存在，可以在baz中调用,  
 闭包阻止了垃圾回收  
 回调函数也是闭包  
 个人总结function包住变量 的妙用
- 
+
 * 闭包与循环
 
 ```javascript
 //错误1
-for (var i= 1; i<= 5; i++) { 
-  setTimeout( function timer() { 
-    console. log( i ); 
-  }, i* 1000 ); 
+for (var i= 1; i<= 5; i++) {
+  setTimeout( function timer() {
+    console. log( i );
+  }, i* 1000 );
 }
 //错误改进2  iife
-for (var i= 1; i<= 5; i++) { 
-  (function() { 
-    setTimeout( function timer() { 
-      console. log( i ); 
-    }, i* 1000 ); 
-  })(); 
+for (var i= 1; i<= 5; i++) {
+  (function() {
+    setTimeout( function timer() {
+      console. log( i );
+    }, i* 1000 );
+  })();
 }
 //正确
-for (var i= 1; i<= 5; i++) { 
-  (function() { 
-    var j = i; 
-    setTimeout( function timer() { 
-      console. log( j ); 
-    }, j* 1000 ); 
-  })(); 
+for (var i= 1; i<= 5; i++) {
+  (function() {
+    var j = i;
+    setTimeout( function timer() {
+      console. log( j );
+    }, j* 1000 );
+  })();
 }
 //改进
-for (var i= 1; i<= 5; i++) { 
-  (function( j) { 
-    setTimeout( function timer() { 
-      console. log( j ); 
-    }, j* 1000 ); 
-  })( i ); 
+for (var i= 1; i<= 5; i++) {
+  (function( j) {
+    setTimeout( function timer() {
+      console. log( j );
+    }, j* 1000 );
+  })( i );
 }
 //新用法
-for (var i= 1; i<= 5; i++) { 
-  let j = i; // 是的， 闭 包 的 块 作用域！ 
-  setTimeout( function timer() { 
-    console. log( j ); 
-  }, j* 1000 ); 
+for (var i= 1; i<= 5; i++) {
+  let j = i; // 是的， 闭 包 的 块 作用域！
+  setTimeout( function timer() {
+    console. log( j );
+  }, j* 1000 );
 }
 
 
 ```
-
 
 ## this
 
 this 提供 了 一种 更 优雅 的 方式 来 隐式“ 传递” 一个 对象 引用， 因此 可以 将 API 设计 得 更加 简洁 并且 易于 复 用。 随着 你的 使用 模式 越来越 复杂， 显 式 传递 上下文 对象 会 让 代码 变得 越来越 混乱， 使用 this 则 不会 这样。 当 我们 介绍 对象 和 原型 时， 你就 会 明白 函数 可以 自动 引用 合适 的 上下文 对象 有多 重要。
 
 ```javascript
-function identify() { 
-  return this. name. toUpperCase(); 
-} 
+function identify() {
+  return this. name. toUpperCase();
+}
 function speak() {
-   var greeting = "Hello, I' m " + identify. call( this ); 
-   console. log( greeting ); 
-} 
-var me = { name: "Kyle" }; 
-var you = { name: "Reader" }; 
-identify. call( me ); // KYLE 
-identify. call( you ); // READER 
-speak. call( me ); // Hello, 我是 KYLE 
+   var greeting = "Hello, I' m " + identify. call( this );
+   console. log( greeting );
+}
+var me = { name: "Kyle" };
+var you = { name: "Reader" };
+identify. call( me ); // KYLE
+identify. call( you ); // READER
+speak. call( me ); // Hello, 我是 KYLE
 speak. call( you ); // Hello, 我是 READER
 ```
 
 * this的用法：指向自身
 
 ```javascript
-function foo( num) { 
-  console. log( "foo: " + num ); // 记录 foo 被 调用 的 次数 
-  this. count++; 
-} 
-var data = { count: 0 }; 
-var i; 
-for (i= 0; i< 10; i++) { 
-  if (i > 5) { 
-    foo( i ); 
-  } 
-} 
-// foo: 6 
-// foo: 7 
-// foo: 8 
-// foo: 9 
-// foo 被 调用 了 多少 次？ 
-console. log( data. count ); 
+function foo( num) {
+  console. log( "foo: " + num ); // 记录 foo 被 调用 的 次数
+  this. count++;
+}
+var data = { count: 0 };
+var i;
+for (i= 0; i< 10; i++) {
+  if (i > 5) {
+    foo( i );
+  }
+}
+// foo: 6
+// foo: 7
+// foo: 8
+// foo: 9
+// foo 被 调用 了 多少 次？
+console. log( data. count );
 // 0
 //并不是预期结果
 
@@ -384,24 +362,24 @@ console. log( data. count );
 ///////////////优化后
 
 function foo( num) {
-   console. log( "foo: " + num ); // 记录 foo 被 调用 的 次数 
-   // 注意， 在 当前 的 调用 方式 下（ 参见 下方 代码）， this 确实 指向 foo 
-   this. count++; 
-} 
-foo. count = 0; 
-var i; 
-for (i= 0; i< 10; i++) { 
-  if (i > 5) { 
-    // 使用 call(..) 可以 确保 this 指向 函数 对象 foo 本身 
-    foo. call( foo, i ); 
-  } 
+   console. log( "foo: " + num ); // 记录 foo 被 调用 的 次数
+   // 注意， 在 当前 的 调用 方式 下（ 参见 下方 代码）， this 确实 指向 foo
+   this. count++;
 }
-// foo: 6 
-// foo: 7 
-// foo: 8 
-// foo: 9 
-// foo 被 调用 了 多少 次？ 
-console. log( foo. count ); 
+foo. count = 0;
+var i;
+for (i= 0; i< 10; i++) {
+  if (i > 5) {
+    // 使用 call(..) 可以 确保 this 指向 函数 对象 foo 本身
+    foo. call( foo, i );
+  }
+}
+// foo: 6
+// foo: 7
+// foo: 8
+// foo: 9
+// foo 被 调用 了 多少 次？
+console. log( foo. count );
 // 4
 
 ```
@@ -415,53 +393,61 @@ this 是在 运行时 进行 绑 定的， 并不 是在 编写 时 绑 定， �
     默认绑定：function声明引用默认global  
 
     ```javascript
-    function foo() { 
-      console. log( this. a ); 
-    } 
-    var a = 2; 
+    function foo() {
+      console. log( this. a );
+    }
+    var a = 2;
     foo(); // 2
     ```
+
     隐式绑定：
+
     ```javascript
     //赋值引用
-    function foo() { 
-      console. log( this. a ); 
-    } 
-    var obj = { 
-      a: 2, 
-      foo: foo 
-    }; 
+    function foo() {
+      console. log( this. a );
+    }
+    var obj = {
+      a: 2,
+      foo: foo
+    };
     obj. foo(); // 2
     ```  
+
     显式绑定：  
     call,apply,硬绑定(Function.prototype.bind)  
     new绑定：
+
     ```javascript
-    function foo( a) { 
-      this. a = a; 
-    } 
-    var bar = new foo( 2); 
+    function foo( a) {
+      this. a = a;
+    }
+    var bar = new foo( 2);
     console. log( bar. a ); // 2
     ```  
+
 3. 绑定优先级,判定规则
 
     new>显示绑定>隐式绑定>默认规则  
 
 4. 绑定null 列外
+
     ```javascript
     function foo( a, b) { console. log( "a:" + a + ", b:" + b ); } // 把 数组“ 展开” 成 参数
-    foo. apply( null, [2, 3] ); // a: 2, b: 3 
-    // 使用 bind(..) 进行 柯 里 化 
-    var bar = foo. bind( null, 2 ); 
+    foo. apply( null, [2, 3] ); // a: 2, b: 3
+    // 使用 bind(..) 进行 柯 里 化
+    var bar = foo. bind( null, 2 );
     bar( 3 ); // a: 2, b: 3
     ```
+
     更安全的做法，无this的o
+
     ```javascript
-    function foo( a, b) { console. log( "a:" + a + ", b:" + b ); } // 我们 的 DMZ 空 对象 
-    var ø = Object. create( null ); // 把 数组 展开 成 参数 
-    foo. apply( ø, [2, 3] ); // a: 2, b: 3 
-    // 使用 bind(..) 进行 柯 里 化 
-    var bar = foo. bind( ø, 2 ); 
+    function foo( a, b) { console. log( "a:" + a + ", b:" + b ); } // 我们 的 DMZ 空 对象
+    var ø = Object. create( null ); // 把 数组 展开 成 参数
+    foo. apply( ø, [2, 3] ); // a: 2, b: 3
+    // 使用 bind(..) 进行 柯 里 化
+    var bar = foo. bind( ø, 2 );
     bar( 3 ); // a: 2, b: 3
     ```
 
@@ -469,25 +455,20 @@ this 是在 运行时 进行 绑 定的， 并不 是在 编写 时 绑 定， �
 
     ```javascript
     //常见在赋值时发生
-    function foo() { 
-      console. log( this. a ); 
-    } 
-    var a = 2; 
-    var o = { 
-      a: 3, foo: foo 
-    }; 
-    var p = { a: 4 }; 
-    o. foo(); // 3 
+    function foo() {
+      console. log( this. a );
+    }
+    var a = 2;
+    var o = {
+      a: 3, foo: foo
+    };
+    var p = { a: 4 };
+    o. foo(); // 3
     (p. foo = o. foo)(); // 2
     ```
+
     赋值 表达式 p. foo = o. foo 的 返回 值 是 目标 函数 的 引用， 因此 调用 位置 是 foo() 而 不是 p. foo() 或者 o. foo()。 根据 我们 之前 说过 的， 这里 会 应用 默认 绑 定。
 
-
-
-
-
-
- 
 ## Math
 
 ### .ceil
@@ -516,7 +497,6 @@ console.log(Math.ceil(7.004));
 
 Math.min([value1[,value2, ...]])  
 
-
 ### .pow
 
 求幂
@@ -529,16 +509,34 @@ x ** y
 
 ## Error
 
-
 ```javascript
 throw new Error();
 ```
 
-
 ## symbol
-
-
 
 ## Reflect
 
 js内置对象，提供拦截javascript 操作的方法
+
+## typed arrays
+
+类型数组:
+
+JavaScript类型化数组是一种类似数组的对象，并提供了一种用于访问原始二进制数据的机制。 正如你可能已经知道，Array 存储的对象能动态增多和减少，并且可以存储任何JavaScript值。JavaScript引擎会做一些内部优化，以便对数组的操作可以很快。然而，随着Web应用程序变得越来越强大，尤其一些新增加的功能例如：音频视频编辑，访问WebSockets的原始数据等，很明显有些时候如果使用JavaScript代码可以快速方便地通过类型化数组来操作原始的二进制数据将会非常有帮助。
+
+### ArrayBuffer
+
+ArrayBuffer 是一种数据类型，用来表示一个通用的、固定长度的二进制数据缓冲区。你不能直接操纵一个ArrayBuffer中的内容；你需要创建一个类型化数组的视图或一个描述缓冲数据格式的DataView，使用它们来读写缓冲区中的内容.
+
+### 类型数组视图
+
+类型化数组视图具有自描述性的名字和所有常用的数值类型像Int8，Uint32，Float64 等等。有一种特殊类型的数组Uint8ClampedArray。它仅操作0到255之间的数值。例如，这对于Canvas数据处理非常有用。
+
+## 安全随机
+
+```js
+const array = new Uint32Array(2);
+window.crypto.getRandomValues(array);
+return array.join("");
+```

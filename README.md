@@ -1,16 +1,16 @@
 
-# 学习，测试文件
+# 学习笔记，知识整理
 
-web前端所有的测试项目,js,html,css,框架等  
-换行    
-
-这个一个中标题
-----
-***
-## **js**
-[git地址](https://github.com/mazhiwen/study-notes/tree/master/js) 
-* 原型
-* es2015
-***
-## **webpack**
-[webpack](https://github.com/mazhiwen/study-notes/tree/master/webpack)
+<!-- *** -->
+- [web](https://github.com/mazhiwen/study-notes/tree/master/web)
+- [JavaScript](https://github.com/mazhiwen/study-notes/tree/master/JavaScript)
+- [html](https://github.com/mazhiwen/study-notes/tree/master/html)
+- [css](https://github.com/mazhiwen/study-notes/tree/master/css)
+- [React](https://github.com/mazhiwen/study-notes/tree/master/React)
+- [vue](https://github.com/mazhiwen/study-notes/tree/master/vue)
+- [编译打包](https://github.com/mazhiwen/study-notes/tree/master/pack)
+- [移动端](https://github.com/mazhiwen/study-notes/tree/master/mobile)
+- [node](https://github.com/mazhiwen/study-notes/tree/master/node)
+- [linux](https://github.com/mazhiwen/study-notes/tree/master/linux)
+- [其他](https://github.com/mazhiwen/study-notes/tree/master/other)
+- [学习资料](https://github.com/mazhiwen/study-notes/tree/master/StudyResource)

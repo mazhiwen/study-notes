@@ -3,26 +3,17 @@ javascript引擎线程
 浏览器事件触发线程
 HTTP请求线程
 
-
-
-
 ## http
 
 ### 1.1
 
-
-
 ### 2.0
-
 
 ### https
 
-
-
 ## **SessionStorage, LocalStorage, Cookie**
 
-参考：https://harttle.land/2014/10/01/http.html#header-5
-
+参考：<https://harttle.land/2014/10/01/http.html#header-5>
 
 ## URL
 
@@ -35,7 +26,7 @@ url = new URL(url, [base])
 
 属性
 
-### origin:
+### origin
 
 ### host
 
@@ -53,12 +44,7 @@ var result = url.pathname; // Returns:"/en-US/docs/Web/API/URL/pathname"
 
 同URL对象
 
-
-
-
-
 ## window
-
 
 ### **window.postMessage**
 
@@ -91,7 +77,6 @@ window.addEventListener("message", receiveMessage, false);
 
 ```
 
-
 ```js
 // 父页面发送
 window.onload = () => {
@@ -111,4 +96,14 @@ window.addEventListener('message',(event)=>{
   console.log(event);
 });
 
+```
+
+## RandomSource
+
+代表密码学安全随机数的来源
+
+```js
+// 获取
+Window.crypto.getRandomValues()
+//使用密码学可靠的随机值填充传递过来的 ArrayBufferView。
 ```
