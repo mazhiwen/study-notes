@@ -1,36 +1,13 @@
-# 目录概览
+# 目录
 
-## [数据结构与算法](./DataStructuresAndAlgorithms/README.md)
-
-## 高级函数
-
-## 高级对象
-
-## Ajax
-
-## Array
-
-## javascript基本
-
-## 跨域
-
-## Web攻击
-
-## es2015
-
-## 迭代
-
-## 继承，原型链
-
-## javascript性能
-
-## 正则表达式
-
-
-
-
-
-
-
-
-
+- [基本知识](https://github.com/mazhiwen/study-notes/tree/master/JavaScript/basic.md)
+- [设计模式](https://github.com/mazhiwen/study-notes/tree/master/JavaScript/designPatterns.md)
+- [Array Object](https://github.com/mazhiwen/study-notes/tree/master/JavaScript/Array-Object.md)
+- [String](https://github.com/mazhiwen/study-notes/tree/master/JavaScript/String.md)
+- [Function](https://github.com/mazhiwen/study-notes/tree/master/JavaScript/Function.md)
+- [富文本编辑器开发原理](https://github.com/mazhiwen/study-notes/tree/master/JavaScript/editor.md)
+- [ECMAScript规范](https://github.com/mazhiwen/study-notes/tree/master/JavaScript/es.md)
+- [面向对象](https://github.com/mazhiwen/study-notes/tree/master/JavaScript/OOinJS.md)
+- [性能](https://github.com/mazhiwen/study-notes/tree/master/JavaScript/performance.md)
+- [TypeScript](https://github.com/mazhiwen/study-notes/tree/master/JavaScript/TypeScript.md)
+- [JSX](https://github.com/mazhiwen/study-notes/tree/master/JavaScript/JSX.md)

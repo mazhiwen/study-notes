@@ -1,8 +1,9 @@
-es2015 es6
 
-http://es6.ruanyifeng.com/
+## es2015 es6
 
-## module : import export default
+<http://es6.ruanyifeng.com/>
+
+### module : import export default
 
 ```javascript
 // 正常写法:
@@ -14,7 +15,7 @@ export let name1 = …, name2 = …, …, nameN; // also var, const
 export function FunctionName() {...}
 export class ClassName {...}
 // import
-import {firstName, lastName, year} from 
+import {firstName, lastName, year} from
 import { lastName as surname } from
 import * as name from//name.firstName name.lastName
 ```
@@ -29,18 +30,14 @@ export default class {}
 
 // 不能使用var，let或const用于导出默认值export default。
 //import
-import customName from 
+import customName from
 ```
 
+### **Promise**
 
+<http://es6.ruanyifeng.com/#docs/promise>
 
-
-## **Promise** 
-
-
-http://es6.ruanyifeng.com/#docs/promise
-
-### promise新建后会立即执行
+#### promise新建后会立即执行
 
 ```js
 
@@ -62,8 +59,7 @@ console.log('Hi!');
 
 ```
 
-
-### Promise.prototype.then()
+#### Promise.prototype.then()
 
 - then方法返回的是一个新的Promise实例（注意，不是原来那个Promise实例）
 
@@ -77,7 +73,7 @@ getJSON("/posts.json").then(function(json) {
 
 - 上面的代码使用then方法，依次指定了两个回调函数。第一个回调函数完成以后，会将返回结果作为参数，传入第二个回调函数。
 
-### Promise.resolve()
+#### Promise.resolve()
 
 有时需要将现有对象转为 Promise 对象，Promise.resolve方法就起到这个作用。
 
@@ -91,7 +87,7 @@ Promise.resolve('foo')
 new Promise(resolve => resolve('foo'))
 ```
 
-### Promise.reject()
+#### Promise.reject()
 
 Promise.reject(reason)方法也会返回一个新的 Promise 实例，该实例的状态为rejected。
 
@@ -106,7 +102,7 @@ p.then(null, function (s) {
 // 出错了
 ```
 
-### 实现mergePromise
+#### 实现mergePromise
 
 ```js
 
@@ -149,14 +145,13 @@ mergePromise([ajax1, ajax2, ajax3]).then(data => {
 });
 ```
 
-## set
+### set
 
 ```
 const a = new Set();
 a.add(2)
 a.delete();
 ```
-
 
 Set.prototype.keys()：返回键名的遍历器
 
@@ -168,12 +163,30 @@ Set.prototype.forEach()：使用回调函数遍历每个成员
 
 Set.prototype.delete(value)：删除某个值，返回一个布尔值，表示删除是否成功。
 
+### map
 
-## map
-
-
-
-
-## class 
+### class
 
 新的 数据类型class 区别与javaclass定义，class在js类似数据类型，可以在function 内定义
+
+## es2016 es7
+
+1. Array.prototype.includes
+
+2. Exponentiation Operator(求幂运算)
+
+## es2017 es8
+
+```js
+/**************** async/await ****************/
+//babel 转换  node8支持
+//await挂起当前函数，将后续语句加入到 event loop 循环中
+async function asyncCall() {
+  const v1 = await asyncFunc();
+  const v2 = await asyncFunc(v1);
+  const v3 = await asyncFunc(v2);
+  return v3;
+}
+
+1.Object.values/Object.entries
+```
