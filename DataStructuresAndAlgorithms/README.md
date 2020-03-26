@@ -1,3 +1,7 @@
+# 数据结构与算法
+
+javascript描述
+
 ## 目录
 
 - [常用算法](#常用算法)
@@ -15,11 +19,12 @@
 - [查找算法](#查找算法)
 - [高级算法](#高级算法)
 
-
+***
 
 ## 常用算法
 
-###  数组去重 
+### 数组去重
+
 ```javascript
 let arr = [1,2,1,2,3,5,4,5,3,4,4,4,4];
 let result = arr.sort().reduce((init, current)=>{
@@ -31,10 +36,11 @@ let result = arr.sort().reduce((init, current)=>{
 console.log(result); //[1,2,3,4,5]
 ```
 
-###  计算数组中每个元素出现的次数 
+### 计算数组中每个元素出现的次数
+
 ```javascript
 var names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice'];
-var countedNames = names.reduce(function (allNames, name) { 
+var countedNames = names.reduce(function (allNames, name) {
   if (name in allNames) {
     allNames[name]++;
   }
@@ -51,118 +57,117 @@ var countedNames = names.reduce(function (allNames, name) {
 
 ![数据结构](./760432-20161005131748739-688884364.png)
 
+## 列表
 
-
-
-##  列表 
 [元素,元素,...,元素]
+
 ```javascript
 // 一组有序的数据 ,描述前后位置(front,end)
-function List() { 
-  this. listSize = 0; 
-  this. pos = 0; 
-  this. dataStore = []; //初始化 一个 空 数组 来 保存 列表 元素 
-  this. clear = clear; 
-  this. find = find; 
-  this. toString = toString; 
-  this. insert = insert; 
-  this. append = append; 
-  this. remove = remove; 
-  this. front = front; 
-  this. end = end; 
-  this. prev = prev; 
-  this. next = next; 
-  this. length = length; 
-  this. currPos = currPos; 
-  this. moveTo = moveTo; 
-  this. getElement = getElement; 
-  this. contains = contains; 
+function List() {
+  this. listSize = 0;
+  this. pos = 0;
+  this. dataStore = []; //初始化 一个 空 数组 来 保存 列表 元素
+  this. clear = clear;
+  this. find = find;
+  this. toString = toString;
+  this. insert = insert;
+  this. append = append;
+  this. remove = remove;
+  this. front = front;
+  this. end = end;
+  this. prev = prev;
+  this. next = next;
+  this. length = length;
+  this. currPos = currPos;
+  this. moveTo = moveTo;
+  this. getElement = getElement;
+  this. contains = contains;
 }
 // 添加
-function append( element) { 
-  this. dataStore[ this. listSize++] = element; 
+function append( element) {
+  this. dataStore[ this. listSize++] = element;
 }
 // 查找索引
-function find( element) { 
-  for (var i = 0; i < this. dataStore. length; ++ i) { 
-    if (this. dataStore[ i] == element) { 
-      return i; 
-    } 
-  } 
-  return -1; 
+function find( element) {
+  for (var i = 0; i < this. dataStore. length; ++ i) {
+    if (this. dataStore[ i] == element) {
+      return i;
+    }
+  }
+  return -1;
 }
 //删除
-function remove( element) { 
-  var foundAt = this. find( element); 
-  if (foundAt > -1) { 
-    this. dataStore. splice( foundAt, 1); 
-    --this. listSize; 
-    return true; 
-  } 
-  return false; 
+function remove( element) {
+  var foundAt = this. find( element);
+  if (foundAt > -1) {
+    this. dataStore. splice( foundAt, 1);
+    --this. listSize;
+    return true;
+  }
+  return false;
 }
 //长度
-function length() { 
-  return this. listSize; 
+function length() {
+  return this. listSize;
 }
 //展示
-function toString() { 
-  return this. dataStore; 
+function toString() {
+  return this. dataStore;
 }
 // 插入
-function insert( element, after) { 
-  var insertPos = this. find( after); 
-  if (insertPos > -1) { 
-    this. dataStore. splice( insertPos+ 1, 0, element); 
-    ++ this. listSize; 
-    return true; 
-  } 
-  return false; 
+function insert( element, after) {
+  var insertPos = this. find( after);
+  if (insertPos > -1) {
+    this. dataStore. splice( insertPos+ 1, 0, element);
+    ++ this. listSize;
+    return true;
+  }
+  return false;
 }
 // 清空
-function clear() { 
-  delete this. dataStore; 
-  this. dataStore. length = 0; 
-  this. listSize = this. pos = 0; 
+function clear() {
+  delete this. dataStore;
+  this. dataStore. length = 0;
+  this. listSize = this. pos = 0;
 }
 // 判断是否有元素
-function contains( element) { 
-  for (var i = 0; i < this. dataStore. length; ++ i) { 
-    if (this. dataStore[ i] == element) { 
-      return true; 
-    } 
-  } 
-  return false; 
+function contains( element) {
+  for (var i = 0; i < this. dataStore. length; ++ i) {
+    if (this. dataStore[ i] == element) {
+      return true;
+    }
+  }
+  return false;
 }
 // 移动
-function front() { 
-  this. pos = 0; 
-} 
-function end() { 
-  this. pos = this. listSize- 1; 
-} 
-function prev() { 
-  if (this. pos > 0) { 
-    --this. pos; 
-  } 
-} 
-function next() { 
-  if (this. pos < this. listSize- 1) { 
-    ++ this. pos; 
-  } 
-} 
-function currPos() { 
-  return this. pos; 
-} 
-function moveTo( position) { 
-  this. pos = position; 
-} 
-function getElement() { 
-  return this. dataStore[ this. pos]; 
+function front() {
+  this. pos = 0;
+}
+function end() {
+  this. pos = this. listSize- 1;
+}
+function prev() {
+  if (this. pos > 0) {
+    --this. pos;
+  }
+}
+function next() {
+  if (this. pos < this. listSize- 1) {
+    ++ this. pos;
+  }
+}
+function currPos() {
+  return this. pos;
+}
+function moveTo( position) {
+  this. pos = position;
+}
+function getElement() {
+  return this. dataStore[ this. pos];
 }
 // 遍历
-for( names. front(); names. currPos() < names. length(); names. next()) { 
-  print( names. getElement()); 
+for( names. front(); names. currPos() < names. length(); names. next()) {
+  print( names. getElement());
 }
 ```
 
@@ -193,117 +198,123 @@ function LList() {
 }
 
 //查找节点
-function find( item) { 
-  var currNode = this. head; 
-  while (currNode. element != item) { 
-    currNode = currNode. next; 
-  } 
-  return currNode; 
+function find( item) {
+  var currNode = this. head;
+  while (currNode. element != item) {
+    currNode = currNode. next;
+  }
+  return currNode;
 }
 //插入
-function insert( newElement, item) { 
-  var newNode = new Node( newElement); 
-  var current = this. find( item); 
-  newNode. next = current. next; 
-  current. next = newNode; 
+function insert( newElement, item) {
+  var newNode = new Node( newElement);
+  var current = this. find( item);
+  newNode. next = current. next;
+  current. next = newNode;
 }
 //遍历展示
-function display() { 
-  var currNode = this. head; 
-  while (!(currNode. next == null)) { 
-    print( currNode. next. element); 
-    currNode = currNode. next; 
-  } 
+function display() {
+  var currNode = this. head;
+  while (!(currNode. next == null)) {
+    print( currNode. next. element);
+    currNode = currNode. next;
+  }
 }
 //找出上一个节点
-function findPrevious( item) { 
-  var currNode = this. head; 
-  while (!(currNode. next == null) && (currNode. next. element != item)) { 
-    currNode = currNode. next; 
-  } 
-  return currNode; 
+function findPrevious( item) {
+  var currNode = this. head;
+  while (!(currNode. next == null) && (currNode. next. element != item)) {
+    currNode = currNode. next;
+  }
+  return currNode;
 }
 //移除节点
-function remove( item) { 
-  var prevNode = this. findPrevious( item); 
-  if (!(prevNode. next == null)) { 
-    prevNode. next = prevNode. next. next; 
+function remove( item) {
+  var prevNode = this. findPrevious( item);
+  if (!(prevNode. next == null)) {
+    prevNode. next = prevNode. next. next;
   }
 }
 ```
+
 ### 2. 双向链表
+
 null<-Head-><-节点-><-节点->null
+
 ```javascript
-function Node( element) { 
-  this. element = element; 
-  this. next = null; 
-  this. previous = null; 
+function Node( element) {
+  this. element = element;
+  this. next = null;
+  this. previous = null;
 }
 //表示双向链表
-function LList() { 
-  this. head = new Node(" head"); 
+function LList() {
+  this. head = new Node(" head");
   this. find = find; //同单向链表
-  this. insert = insert; 
+  this. insert = insert;
   this. display = display; //同单向链表
   this. remove = remove;
-  this. findLast = findLast; 
-  this. dispReverse = dispReverse; 
+  this. findLast = findLast;
+  this. dispReverse = dispReverse;
 }
-function insert( newElement, item) { 
-  var newNode = new Node( newElement); 
-  var current = this. find( item); 
-  newNode. next = current. next; 
-  newNode. previous = current; 
-  current. next = newNode; 
+function insert( newElement, item) {
+  var newNode = new Node( newElement);
+  var current = this. find( item);
+  newNode. next = current. next;
+  newNode. previous = current;
+  current. next = newNode;
 }
-function remove( item) { 
-  var currNode = this. find( item); 
-  if (!(currNode. next == null)) { 
-    currNode. previous. next = currNode. next; 
-    currNode. next. previous = currNode. previous; 
-    currNode. next = null; 
-    currNode. previous = null; 
-  } 
+function remove( item) {
+  var currNode = this. find( item);
+  if (!(currNode. next == null)) {
+    currNode. previous. next = currNode. next;
+    currNode. next. previous = currNode. previous;
+    currNode. next = null;
+    currNode. previous = null;
+  }
 }
 //查找最后一个节点
-function findLast() { 
-  var currNode = this. head; 
-  while (!(currNode. next == null)) { 
-    currNode = currNode. next; 
-  } 
-  return currNode; 
+function findLast() {
+  var currNode = this. head;
+  while (!(currNode. next == null)) {
+    currNode = currNode. next;
+  }
+  return currNode;
 }
 //反序遍历显示链表
-function dispReverse() { 
-  var currNode = this. head; 
-  currNode = this. findLast(); 
-  while (!(currNode. previous == null)) { 
-    print( currNode. element); 
-    currNode = currNode. previous; 
-  } 
+function dispReverse() {
+  var currNode = this. head;
+  currNode = this. findLast();
+  while (!(currNode. previous == null)) {
+    print( currNode. element);
+    currNode = currNode. previous;
+  }
 }
 ```
+
 ### 3. 循环链表
+
 类似单向链表  
 在创建循环链表时，Head.next指向Head  
 Head->节点->节点->Head
+
 ```javascript
 //修改单向链表 为 循环链表
-function LList() { 
-  this. head = new Node(" head"); 
+function LList() {
+  this. head = new Node(" head");
   this. head. next = this. head; //双向 初始化
-  this. find = find; 
-  this. insert = insert; 
-  this. display = display; 
-  this. findPrevious = findPrevious; 
-  this. remove = remove; 
+  this. find = find;
+  this. insert = insert;
+  this. display = display;
+  this. findPrevious = findPrevious;
+  this. remove = remove;
 }
-function display() { 
-  var currNode = this. head; 
-  while (!(currNode. next == null) && !(currNode. next. element == "head")) { 
-    print( currNode. next. element); 
-    currNode = currNode. next; 
-  } 
+function display() {
+  var currNode = this. head;
+  while (!(currNode. next == null) && !(currNode. next. element == "head")) {
+    print( currNode. next. element);
+    currNode = currNode. next;
+  }
 }
 
 ```
@@ -315,44 +326,44 @@ function display() {
 ```javascript
 //基础用 Array，非Object
 //javascript 一切皆对象
-function Dictionary() { 
-  this. add = add; 
-  this. datastore = new Array(); 
-  this. find = find; 
-  this. remove = remove; 
+function Dictionary() {
+  this. add = add;
+  this. datastore = new Array();
+  this. find = find;
+  this. remove = remove;
   this. showAll = showAll;
-  this. count = count; 
+  this. count = count;
   this. clear = clear;  
-} 
-function add( key, value) { 
-  this. datastore[ key] = value; 
 }
-//根据key查找value 
-function find( key) { 
-  return this. datastore[ key]; 
-} 
-function remove( key) { 
-  delete this. datastore[ key]; 
+function add( key, value) {
+  this. datastore[ key] = value;
 }
-//遍历展示 
-function showAll() { 
+//根据key查找value
+function find( key) {
+  return this. datastore[ key];
+}
+function remove( key) {
+  delete this. datastore[ key];
+}
+//遍历展示
+function showAll() {
   //sort 对显示结果排序
-  for( var key of Object. keys( this. datastore).sort()) { 
-    console.log( key + " -> " + this. datastore[ key]); 
-  } 
+  for( var key of Object. keys( this. datastore).sort()) {
+    console.log( key + " -> " + this. datastore[ key]);
+  }
 }
 //获取个数 长度，length不可用
-function count() { 
-  var n = 0; 
-  for( var key of Object. keys( this. datastore)) { 
-    ++ n; 
-  } 
-  return n; 
+function count() {
+  var n = 0;
+  for( var key of Object. keys( this. datastore)) {
+    ++ n;
+  }
+  return n;
 }
-function clear() { 
-  for( var key of Object. keys( this. datastore)) { 
-    delete this. datastore[ key]; 
-  } 
+function clear() {
+  for( var key of Object. keys( this. datastore)) {
+    delete this. datastore[ key];
+  }
 }
 ```
 
@@ -370,35 +381,35 @@ function clear() {
 
 ```javascript
 //散列表
-function HashTable() { 
-  this. table = new Array( 137); 
-  this. simpleHash = simpleHash; 
+function HashTable() {
+  this. table = new Array( 137);
+  this. simpleHash = simpleHash;
   this. showDistro = showDistro;
-  this. put = put; 
-  this. get = get; 
+  this. put = put;
+  this. get = get;
 }
 //插入数据
-function put( data) { 
-  var pos = this. simpleHash( data); 
-  this. table[ pos] = data; 
-} 
+function put( data) {
+  var pos = this. simpleHash( data);
+  this. table[ pos] = data;
+}
 //散列函数 简单实现
 //key的ASCII码的值的和除以数组长度，取余
 function simpleHash( data) {  
-  var total = 0; 
-  for (var i = 0; i < data. length; ++ i) { 
-    total += data. charCodeAt( i); 
-  } 
-  return total % this. table. length; 
-} 
+  var total = 0;
+  for (var i = 0; i < data. length; ++ i) {
+    total += data. charCodeAt( i);
+  }
+  return total % this. table. length;
+}
 //显示数据
-function showDistro() { 
-  var n = 0; 
-  for (var i = 0; i < this. table. length; ++ i) { 
-    if (this. table[ i] != undefined) { 
-      print( i + ": " + this. table[ i]); 
-    } 
-  } 
+function showDistro() {
+  var n = 0;
+  for (var i = 0; i < this. table. length; ++ i) {
+    if (this. table[ i] != undefined) {
+      print( i + ": " + this. table[ i]);
+    }
+  }
 }
 ```
 
@@ -410,29 +421,29 @@ function showDistro() {
 ```javascript
 //霍纳算法 的散列函数 ，更好的散列函数
 //可替换以上simpleHash
-function betterHash( string) { 
-  const H = 37; 
-  var total = 0; 
-  for (var i = 0; i < string. length; ++ i) { 
-    total += H * total + string. charCodeAt( i); 
-  } 
-  total = total % this. table. length; 
-  if (total < 0) { 
-    total += this. table. length- 1; 
-  } 
-  return parseInt( total); 
+function betterHash( string) {
+  const H = 37;
+  var total = 0;
+  for (var i = 0; i < string. length; ++ i) {
+    total += H * total + string. charCodeAt( i);
+  }
+  total = total % this. table. length;
+  if (total < 0) {
+    total += this. table. length- 1;
+  }
+  return parseInt( total);
 }
 ```
 
 ```javascript
 //修改为存储键值对
 //修改put 存值 改为 存储键值对
-function put( key, data) { 
-  var pos = this. betterHash( key); 
-  this. table[ pos] = data; 
+function put( key, data) {
+  var pos = this. betterHash( key);
+  this. table[ pos] = data;
 }
-function get( key) { 
-  return this. table[ this. betterHash( key)]; 
+function get( key) {
+  return this. table[ this. betterHash( key)];
 }
 ```
 
@@ -448,53 +459,53 @@ function get( key) {
 ```javascript
 
 //将原散列表底层数组 改为 二维数组
-function buildChains() { 
-  for (var i = 0; i < this. table. length; ++ i) { 
-    this. table[ i] = new Array(); 
-  } 
+function buildChains() {
+  for (var i = 0; i < this. table. length; ++ i) {
+    this. table[ i] = new Array();
+  }
 }
 //只保存value 的put
 function put(){
 
 }
-function showDistro() { 
-  var n = 0; 
-  for (var i = 0; i < this. table. length; ++ i) { 
-    if (this. table[ i][ 0] != undefined) { 
-      print( i + ": " + this. table[ i]); 
-    } 
-  } 
+function showDistro() {
+  var n = 0;
+  for (var i = 0; i < this. table. length; ++ i) {
+    if (this. table[ i][ 0] != undefined) {
+      print( i + ": " + this. table[ i]);
+    }
+  }
 }
 
 //保存键值 二维数组内连续两个单元第一个保存key，第二个保存value
-function put( key, data) { 
-  var pos = this. betterHash( key); 
-  var index = 0; 
-  if (this. table[ pos][ index] == undefined) { 
-    this. table[ pos][ index] = key; 
-    this. table[ pos][ index+ 1] = data; 
-  } else { 
-    while (this. table[ pos][ index] != undefined) { 
-      ++ index; 
-    } 
-    this. table[ pos][ index] = key; 
-    this. table[ pos][ index+ 1] = data; 
-  } 
+function put( key, data) {
+  var pos = this. betterHash( key);
+  var index = 0;
+  if (this. table[ pos][ index] == undefined) {
+    this. table[ pos][ index] = key;
+    this. table[ pos][ index+ 1] = data;
+  } else {
+    while (this. table[ pos][ index] != undefined) {
+      ++ index;
+    }
+    this. table[ pos][ index] = key;
+    this. table[ pos][ index+ 1] = data;
+  }
 }
-function get( key) { 
-  var index = 0; 
-  var hash = this. betterHash( key); 
-  if (this. table[ pos][ index] = key) { 
-    return this. table[ pos][ index+ 1]; 
+function get( key) {
+  var index = 0;
+  var hash = this. betterHash( key);
+  if (this. table[ pos][ index] = key) {
+    return this. table[ pos][ index+ 1];
     index+= 2;
-  } 
-  else { 
-    while (this. table[ pos][ index] != key) { 
-      index += 2; 
-    } 
-    return this. table[ pos][ index+ 1]; 
-  } 
-  return undefined; 
+  }
+  else {
+    while (this. table[ pos][ index] != key) {
+      index += 2;
+    }
+    return this. table[ pos][ index+ 1];
+  }
+  return undefined;
 }
 ```
 
@@ -506,30 +517,30 @@ function get( key) {
 ```javascript
 //原table数组存key values数组存value
 this. values = [];
-function put( key, data) { 
-  var pos = this. betterHash( key); 
-  if (this. table[ pos] == undefined) { 
-    this. table[ pos] = key; 
-    this. values[ pos] = data; 
-  } else { 
-    while (this. table[ pos] != undefined) { 
-      pos++; 
-    } 
-    this. table[ pos] = key; 
-    this. values[ pos] = data; 
-  } 
+function put( key, data) {
+  var pos = this. betterHash( key);
+  if (this. table[ pos] == undefined) {
+    this. table[ pos] = key;
+    this. values[ pos] = data;
+  } else {
+    while (this. table[ pos] != undefined) {
+      pos++;
+    }
+    this. table[ pos] = key;
+    this. values[ pos] = data;
+  }
 }
-function get( key) { 
-  var hash = -1; 
-  hash = this. betterHash( key); 
-  if (hash > -1) { 
-    for (var i = hash; this. table[ hash] != undefined; i++) { 
-      if (this. table[ hash] == key) { 
-        return this. values[ hash]; 
-      } 
-    } 
-  } 
-  return undefined; 
+function get( key) {
+  var hash = -1;
+  hash = this. betterHash( key);
+  if (hash > -1) {
+    for (var i = hash; this. table[ hash] != undefined; i++) {
+      if (this. table[ hash] == key) {
+        return this. values[ hash];
+      }
+    }
+  }
+  return undefined;
 }
 ```
 
@@ -614,7 +625,7 @@ bst.insert(37);
 bst.insert(3);
 bst.insert(99);
 bst.insert(22);
-//      23    
+//      23
 //  16        45
 //3   22   37     99
 ```
@@ -677,15 +688,15 @@ function getMax() {
 //给定值
 function find( data) {
   var current = this. root;
-  while (current != null) { 
-    if (current. data == data) { 
+  while (current != null) {
+    if (current. data == data) {
       return current;
     } else if (data < current. data) {
       current = current. left;
     } else {
       current = current. right;
     }
-  } 
+  }
   return null;
 }
 ```
@@ -693,11 +704,11 @@ function find( data) {
 ### 3. 删除二叉查找树节点
 
 ```javascript
-function remove( data) { 
+function remove( data) {
   root = removeNode( this. root, data);
 }
 function removeNode( node, data) {
-  if (node == null) { 
+  if (node == null) {
     return null;
   }
   if (data == node. data) {
@@ -712,11 +723,11 @@ function removeNode( node, data) {
     var tempNode = getSmallest( node. right);
     node. data = tempNode. data;
     node. right = removeNode( node. right, tempNode. data);
-    return node; 
-  } else if (data < node. data) { 
+    return node;
+  } else if (data < node. data) {
     node. left = removeNode( node. left, data);
-    return node; 
-  } else { 
+    return node;
+  } else {
     node. right = removeNode( node. right, data);
     return node;
   }
@@ -1005,7 +1016,6 @@ function insertionSort() {
 类似插入排序，但首先比较最远的元素，而不是相邻元素  
 外 循环 控制 ***间隔 序列*** 的 移动。 也就是说， 算法 在 第一次 处理 数据 集 时， 会 检查 所有 间隔 为 5 的 元素。 下一 次 遍历 会 检查 所有 间隔 为 3 的 元素。 最后 一次 则 会对 间隔 为 1 的 元素， 也就是 相邻 元素 执行 标准 插入 排序。 在 开始 做 最后 一次 处理 时， 大部分 元素 都将 在 正确 的 位置， 算法 就 不必 对 很多 元素 进行 交换。 这 就是 希 尔 排序 比 插入 排序 更 高效 的 地方。
 
-
 ```javascript
 //硬编码间隔序列
 //设置间隔序列
@@ -1064,7 +1074,7 @@ function mergeSort( arr) {
     while (right + step <= arr. length) {
       mergeArrays( arr, left, left+ step, right, right+ step);
       left = right + step; right = left + step;
-    } 
+    }
     if (right < arr. length) {
       mergeArrays( arr, left, left+ step, right, arr. length);
     }
@@ -1159,10 +1169,10 @@ function seqSearch( arr, data) {
 
 最小值:  
 
-1. 将 数组 第一个 元素 赋值 给 一个 变量， 把这 个 变量 作为 最小值。 
-2. 开始 遍历 数组， 从 第二个 元素 开始 依次 同 当前 最小值 进行 比较。 
-3. 如果 当前 元素 数值 小于 当前 最小值， 则 将 当前 元素 设为 新的 最小值。 
-4. 移动 到下 一个 元素， 并且 重复 步骤 3。 
+1. 将 数组 第一个 元素 赋值 给 一个 变量， 把这 个 变量 作为 最小值。
+2. 开始 遍历 数组， 从 第二个 元素 开始 依次 同 当前 最小值 进行 比较。
+3. 如果 当前 元素 数值 小于 当前 最小值， 则 将 当前 元素 设为 新的 最小值。
+4. 移动 到下 一个 元素， 并且 重复 步骤 3。
 5. 当 程序 结束 时， 这个 变量 中 存储 的 就是 最小值。
 
 ```javascript

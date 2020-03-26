@@ -1,4 +1,7 @@
+
 # 目录
+
+JavaScript的知识
 
 - [基本知识](https://github.com/mazhiwen/study-notes/tree/master/JavaScript/basic.md)
 - [设计模式](https://github.com/mazhiwen/study-notes/tree/master/JavaScript/designPatterns.md)

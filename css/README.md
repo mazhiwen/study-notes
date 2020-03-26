@@ -1,18 +1,45 @@
-# css相关
+# css
 
 ## 目录
 
 - [box-shadow](#box-shadow)
 - [transition](#transition)
+- [transform](#transform)
+- [角度单位](#角度单位)
+- [距离尺寸单位](#距离尺寸单位)
+- [position](#position)
+- [white-space](#white-space)
+- [word-break](#word-break)
+- [animation](#animation)
+- [flex布局](#flex布局)
+- [选择器](#选择器)
+- [行内元素和块元素](#行内元素和块元素)
+- [0.5px的边](#0.5px的边)
+- [不定高的DIV居中](#不定高的DIV居中)
+- [清除浮动](#清除浮动)
+- [三栏布局](#三栏布局)
+- [左边定宽-右边自适应](#左边定宽-右边自适应)
+- [BFC](#BFC)
+- [media](#media)
+- [initial等](#initial等)
+- [background](#background)
+- [文字溢出](#文字溢出)
+- [等宽字体](#等宽字体)
 
-## 角度单位 \<angle>
+***
+
+## 角度单位
+
+\<angle>
 
 deg :度 360deg  
 grad :百分度 400grad  
 rad :弧度 2π  
 turn :1turn  
 
-## 距离尺寸单位 \<length>
+## 距离尺寸单位
+
+\<length>
 
 形式：\<number> + 长度单位（px，em，pt，in，mm，...）  
 
@@ -64,23 +91,21 @@ white-space: pre-line;
 
 ## transition
 
-- transition: 
+- transition:
 
 property duration timing-function delay;  
 
 transition:width 2s;  
 
-
 - transition-property:
 
 规定设置过渡效果的 CSS 属性的名称。
 
-- transition-duration	
+- transition-duration
 
 规定完成过渡效果需要多少秒或毫秒:5s
 
-
-- transition-timing-function	
+- transition-timing-function
 
 规定速度效果的速度曲线:
 
@@ -88,16 +113,13 @@ linear:规定以相同速度开始至结束的过渡效果（等于 cubic-bezier
 
 ease:规定慢速开始，然后变快，然后慢速结束的过渡效果（cubic-bezier(0.25,0.1,0.25,1)）。
 
-ease-in	:规定以慢速开始的过渡效果（等于 cubic-bezier(0.42,0,1,1)）。
+ease-in :规定以慢速开始的过渡效果（等于 cubic-bezier(0.42,0,1,1)）。
 
-ease-out	:规定以慢速结束的过渡效果（等于 cubic-bezier(0,0,0.58,1)）。
+ease-out :规定以慢速结束的过渡效果（等于 cubic-bezier(0,0,0.58,1)）。
 
-ease-in-out	:规定以慢速开始和结束的过渡效果（等于 cubic-bezier(0.42,0,0.58,1)）。
+ease-in-out :规定以慢速开始和结束的过渡效果（等于 cubic-bezier(0.42,0,0.58,1)）。
 
-
-
-- transition-delay	定义过渡效果何时开始。  
-
+- transition-delay 定义过渡效果何时开始。  
 
 ## animation
 
@@ -105,6 +127,7 @@ ease-in-out	:规定以慢速开始和结束的过渡效果（等于 cubic-bezier
 
 只对 block 级元素生效！
 不占用文档流
+
 ```css
 /*****************matrix(矩阵)
 https://www.cnblogs.com/Ivy-s/p/6786622.html
@@ -155,13 +178,12 @@ transform:  translateY(ty)
 ## box-shadow
 
 box-shadow: h-shadow v-shadow blur spread color inset;
-h-shadow	必需。水平阴影的位置。允许负值。  
-v-shadow	必需。垂直阴影的位置。允许负值。 	
-blur	可选。模糊距离。	 
-spread	可选。阴影的尺寸。  
-color	可选。阴影的颜色。请参阅 CSS 颜色值。  
-inset	可选。将外部阴影 (outset) 改为内部阴影。  
-
+h-shadow 必需。水平阴影的位置。允许负值。  
+v-shadow 必需。垂直阴影的位置。允许负值。  
+blur 可选。模糊距离。  
+spread 可选。阴影的尺寸。  
+color 可选。阴影的颜色。请参阅 CSS 颜色值。  
+inset 可选。将外部阴影 (outset) 改为内部阴影。  
 
 ## flex布局
 
@@ -171,11 +193,11 @@ inset	可选。将外部阴影 (outset) 改为内部阴影。
 
 flex容器:display:flex;  
 
-### 盒子属性:
+### 盒子属性
 
 - flex-direction: row;更改 flex 元素的排列方向;  
 
-- flex-wrap:[wrap | nowrap] 换行策略，是否自动换行，是否超出缩放，溢出; 
+- flex-wrap:[wrap | nowrap] 换行策略，是否自动换行，是否超出缩放，溢出;
 
 ```html
 <h4>This is an example for flex-wrap:wrap </h4>
@@ -237,8 +259,8 @@ flex容器:display:flex;
   flex-wrap: wrap-reverse;
 }
 ```
-![wrap_demo](./flex_wrap.jpeg)
 
+![wrap_demo](./flex_wrap.jpeg)
 
 - flex-flow :flex-direction flex-wrap; 简写;  
 
@@ -250,8 +272,7 @@ flex容器:display:flex;
 
 ### 子元素属性: flex item  
 
-https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex
-
+<https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex>
 
 - order:
 
@@ -265,11 +286,11 @@ flex-grow flex-shrink flex-basis;简写;规定了弹性元素如何伸长或缩�
 
 布局空白的基准值  指定了 flex 元素在主轴方向上的初始大小
 
-- flex-grow: 
+- flex-grow:
 
 [number] ;定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。
 
-- flex-shrink: 
+- flex-shrink:
 
 [number] ;flex 元素的收缩规则,flex 元素仅在默认宽度之和大于容器的时候才会发生收缩，其收缩的大小是依据 flex-shrink 的值;
 
@@ -284,8 +305,6 @@ overflow:hidden;
 flex:auto;
 width:0;
 ```
-
-
 
 ## 选择器
 
@@ -487,14 +506,16 @@ CSS相邻相邻兄弟选择器（h1+p, 带加号+）
 
 ```
 
-## 左边定宽，右边自适应
+## 左边定宽-右边自适应
 
 方案一：左边设置浮动，右边宽度设置100% .left{float:left} .right:{width:100%}  
 方案二：左设置浮动，右用cacl去补宽度计算 .left{float:left} .right:{width:cacl(100vw-200px}  
 方案三：父容器设置display：flex right部分是设置flex：1  
 方案四：右边div套个包裹、并前置、左及包裹 双浮动  
 
-## BFC (Block Formatting Context)
+## BFC
+
+(Block Formatting Context)
 
 ***定义：*** 块级格式化上下文，它是指一个独立的块级渲染区域，只有Block-level Box参与，该区域拥有一套渲染规则来约束块级盒子的布局，且与区域外部无关。  
 
@@ -579,7 +600,7 @@ flex boxes (元素的display: flex或inline-flex)；
   width: 200px;
   height: 200px;
   background-color: skyblue;
-  overflow: hidden; 
+  overflow: hidden;
   /*或者 float: left;*/
 }
 ```
@@ -604,15 +625,14 @@ flex boxes (元素的display: flex或inline-flex)；
 }
 
 ```
+
 position,float 会导致打印位置错乱.
 
+## initial等
 
-
-## initial,inherit,unset 
+initial,inherit,unset
 
 initial 关键字可用于任何 HTML 元素上的任何 CSS 属性。
-
-
 
 ## background
 
@@ -624,14 +644,14 @@ url('../../static/images/home_logo.png') no-repeat center left / auto 80% ;
 
 percentage|cover|contain|length
 
+## 文字溢出
 
-
-
-## 文字溢出 省略号 ...
+省略号
 
 ```html
 <p></p>
 ```
+
 ```css
 p{
   width:100px;
@@ -641,7 +661,8 @@ p{
 }
 ```
 
+## 等宽字体
 
-## 比例字体&等宽字体
+比例字体
 
-https://cloud.tencent.com/developer/article/1009289
+<https://cloud.tencent.com/developer/article/1009289>

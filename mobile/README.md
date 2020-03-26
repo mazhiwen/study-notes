@@ -1,10 +1,12 @@
 # 移动端知识点
 
-相关知识
+移动端的一些技巧
 
-http://caibaojian.com/mobile-knowledge.html
+## 目录
 
-### 移动端的一些技巧
+***
+
+<http://caibaojian.com/mobile-knowledge.html>
 
 #### viewport模版
 
@@ -30,7 +32,6 @@ http://caibaojian.com/mobile-knowledge.html
 
 </html>
 ```
-
 
 #### font-family
 
@@ -83,7 +84,7 @@ changedTouches：最近一次触发该事件的手指信息
 
 touchend时，touches与targetTouches信息会被删除，changedTouches保存的最后一次的信息，最好用于计算手指信息
 
-参考：https://developer.mozilla.org/en-US/docs/web/API/TouchEvent
+参考：<https://developer.mozilla.org/en-US/docs/web/API/TouchEvent>
 
 - 触摸事件的响应顺序
 
@@ -97,7 +98,7 @@ onclick
 
 - 移动端click屏幕产生200-300 ms的延迟响应
 
-300ms是ios双击，第一次距离第二次的事件间隔 
+300ms是ios双击，第一次距离第二次的事件间隔
 
 解决方案：
 
@@ -132,6 +133,7 @@ a,button,input,textarea{
 -webkit-user-modify:read-write-plaintext-only;
 }
 ```
+
 对于按钮类还有个办法，不使用a或者input标签，直接用div标签
 
 - winphone系统a、input标签被点击时产生的半透明灰色背景怎么去掉
@@ -451,6 +453,3 @@ slip.js
 iSlider.js
 
 fullpage.js
-
-
-
