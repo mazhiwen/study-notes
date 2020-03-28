@@ -1,5 +1,7 @@
 # String 的方法
 
+***
+
 ### str.slice
 
 提取一个字符串的一部分，并返回一新的字符串。
@@ -17,7 +19,15 @@ var str2 = str1.slice(4, -2);
 console.log(str2); // OUTPUT: morning is upon u
 ```
 
+### str.split
+
+不会改变原字符
+
+split() 方法使用指定的分隔符字符串将一个String对象分割成子字符串数组，以一个指定的分割字串来决定每个拆分的位置。
+
 ### str.substring
+
+不会改变原字符
 
 substring(start, stop) 方法用于提取字符串中介于两个指定下标之间的字符。
 
