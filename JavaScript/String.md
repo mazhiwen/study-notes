@@ -2,7 +2,7 @@
 
 ***
 
-### str.slice
+### slice
 
 提取一个字符串的一部分，并返回一新的字符串。
 
@@ -19,19 +19,19 @@ var str2 = str1.slice(4, -2);
 console.log(str2); // OUTPUT: morning is upon u
 ```
 
-### str.split
+### split
 
 不会改变原字符
 
 split() 方法使用指定的分隔符字符串将一个String对象分割成子字符串数组，以一个指定的分割字串来决定每个拆分的位置。
 
-### str.substring
+### substring
 
 不会改变原字符
 
 substring(start, stop) 方法用于提取字符串中介于两个指定下标之间的字符。
 
-### str.trim
+### trim
 
 trim() 方法并不影响原字符串本身，它返回的是一个新的字符串
 
@@ -40,11 +40,11 @@ var orig = '   foo  ';
 console.log(orig.trim()); // 'foo'
 ```
 
-### str.replace
+### replace
 
 // str.replace(regexp|substr, newSubStr|function)
 
-### str.search(regexp)
+### search(regexp | str)
 
 str.search()
 
@@ -60,7 +60,7 @@ console.log(str.search(re)); // returns 4, which is the index of the first capit
 console.log(str.search(re2)); // returns -1 cannot find '.' dot punctuation
 ```
 
-### str.match
+### match
 
 方法检索返回一个字符串匹配正则表达式的的结果。
 
