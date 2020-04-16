@@ -1,11 +1,8 @@
-https://www.cnblogs.com/fengff/p/8892590.html
-
-
-
-
+<https://www.cnblogs.com/fengff/p/8892590.html>
 
 ## mac安装
-https://www.jianshu.com/p/2892102438f5
+<https://www.jianshu.com/p/2892102438f5>
+
 ```sh
 
 brew install nginx  
@@ -30,9 +27,12 @@ server{
   server_name localhost;
   root /Users/reborn/programs/react-web/build;
   index index.html;
+  location / {
+    try_files $uri $uri/  /index.html;
+  }
 }
 #在终端打开finder目录
-open /usr/ 
+open /usr/
 
 #查看nginx配置有木有生效
 nginx -t
@@ -47,10 +47,7 @@ brew services stop nginx
 https://www.cnblogs.com/rickzhai/p/7896432.html
 ```
 
-
-
 ## nginx启动检查
-
 
 检查
 /www/server/nginx/sbin/ ./nginx -t

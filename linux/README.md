@@ -16,22 +16,38 @@ example可以是正则，如
 
 1、从服务器上下载文件
 
+```sh
 scp root@39.107.80.119:/var/www/test.js
+```
 
 把192.168.0.101上的/var/www/test.js 的文件下载到/var/www/local_dir（本地目录）
 
 2、上传本地文件到服务器
 
-scp -P 1688 ./www.mazhiwen.com.conf root@voidm.com:/www/server/nginx/conf/servers
+```sh
+scp -P 1688 test.js root@139.199.35.182:/usr/share/nginx/mazhiwen/
+
+```
 
 把本机/var/www/目录下的test.js文件上传到192.168.0.101这台服务器上的/var/www/目录中
 
 3、从服务器下载整个目录
 
+```sh
 scp -r root@39.107.80.119:/var/www/test  /var/www/  
+```
 
 4、上传目录到服务器
+
+```
 scp -r test  root@39.107.80.119:/var/www/   把当前目录下的test目录上传到服务器的/var/www/ 目录
+
+
+# 不包括当前目录
+scp -P 1688 -r dist/* root@139.199.35.182:/usr/share/nginx/mazhiwen/
+# 包括当前目录
+scp -P 1688 -r dist root@139.199.35.182:/usr/share/nginx/mazhiwen/
+```
 
 #### sz rz
 
