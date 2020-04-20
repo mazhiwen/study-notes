@@ -10,7 +10,7 @@ input  焦点keyup
 
 body监听 keyup? 回车？
 
-## 1. Event Loop
+## Event Loop
 
 <http://www.ruanyifeng.com/blog/2014/10/event-loop.html>
 <https://mp.weixin.qq.com/s/nJsM05Yp50HDH1hqEen2eQ>
@@ -30,9 +30,9 @@ body监听 keyup? 回车？
 
 - 主线程从"任务队列"中读取事件，这个过程是循环不断的，所以整个的这种运行机制又称为Event Loop（事件循环）。
 
-## 2. 事件流
+## 事件流
 
-### 2.1 事件冒泡
+### 事件冒泡
 
 事件冒泡(event bubbling)的概念：
 
@@ -50,7 +50,7 @@ body监听 keyup? 回车？
 -->
 ```
 
-### 2.2 事件捕获
+### 事件捕获
 
 (event capturing）。事件捕获的思想是不太具体的节点应该更早接收到事件，而最具体的节点应该最后接收到事件。事件捕获的用意在于在事件到达预定目标之前捕获它。
 
@@ -63,7 +63,7 @@ body监听 keyup? 回车？
 
 > 一般建议使用冒泡，特殊时使用捕获
 
-### 2.3 事件流
+### 事件流
 
 事件流包括3个阶段: 事件捕获阶段 > 处于目标阶段 > 事件冒泡阶段
 
@@ -76,14 +76,13 @@ body监听 keyup? 回车？
  -->
 ```
 
-## 3. 事件处理程序
+## 事件处理程序
 
 addEventListener
 
-addEventListener(事件名称,事件处理程序的函数,布尔值)
+addEventListener(事件名称,事件处理程序的函数, useCapture)
 
-布尔值: true表示在捕获阶段调用事件处理程序
-false表示在冒泡阶段调用事件处理程序
+useCapture (布尔值):true表示在捕获阶段调用事件处理程序,false表示在冒泡阶段调用事件处理程序
 
 addEventListener多个时会按照添加它们的顺序触发。
 
@@ -91,13 +90,58 @@ addEventListener多个时会按照添加它们的顺序触发。
 
 通过 addEventListener 添加的匿名函数将无法删除
 
-## 3. event 事件对象
+默认会冒泡
+
+## Event 事件对象
+
+参考《JavaScript高级程序设计》
 
 在触发DOM上的某个事情时，会产生一个事件对象event。
 
+### cancelable
 
+表明该事件是否可以被取消, true时才能被preventDefault();
 
-## 4. drag 拖动
+### preventDefault()
+
+### stopPropagation()
+
+立即停止事件在DOM层次中的传播，取消进一步的事件捕获或冒泡
+
+## 事件类型
+
+### UI事件
+
+不一定与用户操作有关的事件。
+
+- load: 当页面完全加载后在window上触发；或者图像加载完在\<img>元素触发；或者嵌入元素\<object>
+- error: window img object
+- resize: window或框架，大小变化时
+
+### 焦点事件
+
+页面获得或失去焦点时触发，(document.hasFocus(), document.activeElement)
+
+- blur 不会冒泡
+- focus 不会冒泡
+- focusin 会冒泡
+- focusout 会冒泡
+
+### 鼠标与滚轮
+
+### 键盘与文本
+
+### 复合
+
+### 变动
+
+### HTML5
+
+### 设备
+
+### 触摸与手势
+
+## drag 拖动
 
 需要draggable = "true"
 
@@ -140,7 +184,7 @@ document.addEventListener("drop", function( event ) {
 }, false);
 ```
 
-## 5. mouse 鼠标
+## mouse 鼠标
 
 ### mouse事件type
 
@@ -162,7 +206,7 @@ mousemove: 指针在元素内移动时持续触发。
 
 它提供事件发生时的应用客户端区域的水平坐标 (与页面坐标不同)
 
-## 6. 键盘按键
+## 键盘按键
 
 ### keyDown
 
@@ -172,7 +216,7 @@ KeyboardEvent.keycode大全
 
 <https://www.cnblogs.com/daysme/p/6272570.html>
 
-## 7. 焦点事件
+## 焦点事件
 
 focus:获得焦点(不冒泡)
 
