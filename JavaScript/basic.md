@@ -1,5 +1,28 @@
 # javascript基础知识点
 
+- [变量提升](#变量提升)
+- [技巧](#技巧)
+- [运算规则](#运算规则)
+- [作用域](#作用域)
+- [in运算符](#in运算符)
+- [7种简单基本类型](#7种简单基本类型)
+- [类型检测](#类型检测)
+- [typeof](#typeof)
+- [instanceof](#instanceof)
+- [深浅拷贝](#深浅拷贝)
+- [Event Loop](#Event&nbsp;Loop)
+- [内存管理](#内存管理)
+- [定时器](#定时器)
+- [cookie](#cookie)
+- [闭包](#闭包)
+- [this](#this)
+- [Math](#Math)
+- [Error](#Error)
+- [symbol](#symbol)
+- [Reflect](#Reflect)
+- [typed&nbsp;arrays](#typed&nbsp;arrays)
+- [安全随机](#安全随机)
+
 ## 变量提升
 
 //声明（变量，函数等）提升， 赋值不提升
@@ -19,7 +42,7 @@ foo(); // 1
 foo = function() { console. log( 2 ); };
 ```
 
-## 技巧 优化
+## 技巧
 
 数据初始化null
 if 提升到外层
@@ -76,7 +99,7 @@ if 提升到外层
  需要 明确 的 是， 事实上 JavaScript 并不 具有 动态 作用域。 它 只有 词法 作用域， 简单 明了。 但是 this 机制 某种程度 上 很像 动态 作用域。  
  主要 区别： 词法 作用域 是在 写 代码 或者说 定义 时 确定 的， 而 动态 作用域 是在 运行时 确定 的。（ this 也是！） 词法 作用域 关注 函数 在何处 声明， 而 动态 作用域 关注 函数 从何 处 调用。
 
-## **in 运算符**
+## in运算符
 
 如果指定的属性在指定的对象或其原型链中，则in 运算符返回true。
 
@@ -101,7 +124,7 @@ var mycar = {make: "Honda", model: "Accord", year: 1998};
 
 ```
 
-## **简单基本类型 7种**
+## 7种简单基本类型
 
 简单基本类型本身不是对象
 boolean  
@@ -112,7 +135,7 @@ string 区别于String内置对象，是字面量，不同的类型
 Symbol  
 Object(new生成的,如：Array,Date,Function,RegExp等)
 
-## 类型检测 判断
+## 类型检测
 
 ```javascript
 //常规检测
@@ -161,7 +184,7 @@ typeof function(){} === 'function';
 
 // 检测原型
 
-## 深拷贝 浅拷贝
+## 深浅拷贝
 
 ### 深拷贝
 
@@ -217,6 +240,81 @@ function deepCopy(obj) {
 栈：name：value
 <https://blog.csdn.net/flyingpig2016/article/details/52895620>
 
+## Event Loop
+
+<http://www.ruanyifeng.com/blog/2014/10/event-loop.html>
+<https://mp.weixin.qq.com/s/nJsM05Yp50HDH1hqEen2eQ>
+<https://zhuanlan.zhihu.com/p/72507900>
+
+- 以JavaScript语言为例，它是一种单线程语言
+
+- HTML5提出Web Worker标准，允许JavaScript脚本创建多个线程，但是子线程完全受主线程控制，且不得操作DOM。所以，这个新标准并没有改变JavaScript单线程的本质。
+
+- 没有Event loop时，常规是"同步模式"（synchronous I/O）或"堵塞模式"（blocking I/O）
+
+- "Event Loop是一个程序结构，用于等待和发送消息和事件。（a programming construct that waits for and dispatches events or messages in a program.）"
+
+- 有Event loop，可以实现异步模式"（asynchronous I/O）或"非堵塞模式"（non-blocking mode）
+
+- 于是，所有任务可以分成两种，一种是同步任务（synchronous），另一种是异步任务（asynchronous）。同步任务指的是，在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务；异步任务指的是，不进入主线程、而进入"任务队列"（task queue）的任务，只有"任务队列"通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行。
+
+- 主线程从"任务队列"中读取事件，这个过程是循环不断的，所以整个的这种运行机制又称为Event Loop（事件循环）。
+
+### 主线程执行栈 和 任务队列
+
+（1）所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）。
+
+（2）主线程之外，还存在一个"任务队列"（task queue）。只要异步任务有了运行结果，就在"任务队列"之中放置一个事件。
+
+（3）一旦"执行栈"中的所有同步任务执行完毕，系统就会读取"任务队列"，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。
+
+（4）主线程不断重复上面的第三步。
+
+### 任务队列
+
+"任务队列"是一个事件的队列（也可以理解成消息的队列），IO设备完成一项任务，就在"任务队列"中添加一个事件，表示相关的异步任务可以进入"执行栈"了。主线程读取"任务队列"，就是读取里面有哪些事件。
+
+"任务队列"中的事件，除了IO设备的事件以外，还包括一些用户产生的事件（比如鼠标点击、页面滚动等等）。只要指定过回调函数，这些事件发生时就会进入"任务队列"，等待主线程读取。
+
+所谓"回调函数"（callback），就是那些会被主线程挂起来的代码。异步任务必须指定回调函数，当主线程开始执行异步任务，就是执行对应的回调函数。
+
+"任务队列"是一个先进先出的数据结构，排在前面的事件，优先被主线程读取。主线程的读取过程基本上是自动的，只要执行栈一清空，"任务队列"上第一位的事件就自动进入主线程。但是，由于存在后文提到的"定时器"功能，主线程首先要检查一下执行时间，某些事件只有到了规定的时间，才能返回主线程。
+
+### 宏任务 微任务
+
+<https://zhuanlan.zhihu.com/p/72507900>
+
+宏任务包括：script(整体代码)，I/O， setTimeout，setInterval，requestAnimationFrame，setImmediate。
+
+其中setImmediate只存在于Node中，requestAnimationFrame只存在于浏览器中。
+
+微任务包括： Promise，Object.observe(已废弃)，MutationObserver(html5新特性)，process.nextTick。
+
+其中process.nextTick只存在于Node中，MutationObserver只存在于浏览器中。
+
+```js
+setTimeout(function() {
+ console.log('a')
+});
+
+new Promise(function(resolve) {
+ console.log('b');
+
+ for(var i =0; i <10000; i++) {
+  i ==99 && resolve();
+ }
+}).then(function() {
+ console.log('c')
+});
+
+console.log('d');
+
+// b
+// d
+// c
+// a
+```
+
 ## 内存管理
 
 ### 内存
@@ -262,26 +360,6 @@ function deepCopy(obj) {
 
 闭包是最容易产生内存问题的，
 
-### 主线程执行栈 和 任务队列
-
-（1）所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）。
-
-（2）主线程之外，还存在一个"任务队列"（task queue）。只要异步任务有了运行结果，就在"任务队列"之中放置一个事件。
-
-（3）一旦"执行栈"中的所有同步任务执行完毕，系统就会读取"任务队列"，看看里面有哪些事件。那些对应的异步任务，于是结束等待状态，进入执行栈，开始执行。
-
-（4）主线程不断重复上面的第三步。
-
-### 任务队列
-
-"任务队列"是一个事件的队列（也可以理解成消息的队列），IO设备完成一项任务，就在"任务队列"中添加一个事件，表示相关的异步任务可以进入"执行栈"了。主线程读取"任务队列"，就是读取里面有哪些事件。
-
-"任务队列"中的事件，除了IO设备的事件以外，还包括一些用户产生的事件（比如鼠标点击、页面滚动等等）。只要指定过回调函数，这些事件发生时就会进入"任务队列"，等待主线程读取。
-
-所谓"回调函数"（callback），就是那些会被主线程挂起来的代码。异步任务必须指定回调函数，当主线程开始执行异步任务，就是执行对应的回调函数。
-
-"任务队列"是一个先进先出的数据结构，排在前面的事件，优先被主线程读取。主线程的读取过程基本上是自动的，只要执行栈一清空，"任务队列"上第一位的事件就自动进入主线程。但是，由于存在后文提到的"定时器"功能，主线程首先要检查一下执行时间，某些事件只有到了规定的时间，才能返回主线程。
-
 ### 定时器
 
 ```js
@@ -299,10 +377,6 @@ console.log(2);
 ```
 
 ## cookie
-
-## node编译js
-
-babel
 
 ## 闭包
 

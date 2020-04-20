@@ -1,4 +1,4 @@
-# **event**
+# Event
 
 MDN参考:<https://developer.mozilla.org/zh-CN/docs/Web/Events>
 
@@ -9,26 +9,6 @@ MDN参考:<https://developer.mozilla.org/zh-CN/docs/Web/Events>
 input  焦点keyup
 
 body监听 keyup? 回车？
-
-## Event Loop
-
-<http://www.ruanyifeng.com/blog/2014/10/event-loop.html>
-<https://mp.weixin.qq.com/s/nJsM05Yp50HDH1hqEen2eQ>
-<https://zhuanlan.zhihu.com/p/72507900>
-
-- 以JavaScript语言为例，它是一种单线程语言
-
-- HTML5提出Web Worker标准，允许JavaScript脚本创建多个线程，但是子线程完全受主线程控制，且不得操作DOM。所以，这个新标准并没有改变JavaScript单线程的本质。
-
-- 没有Event loop时，常规是"同步模式"（synchronous I/O）或"堵塞模式"（blocking I/O）
-
-- "Event Loop是一个程序结构，用于等待和发送消息和事件。（a programming construct that waits for and dispatches events or messages in a program.）"
-
-- 有Event loop，可以实现异步模式"（asynchronous I/O）或"非堵塞模式"（non-blocking mode）
-
-- 于是，所有任务可以分成两种，一种是同步任务（synchronous），另一种是异步任务（asynchronous）。同步任务指的是，在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行后一个任务；异步任务指的是，不进入主线程、而进入"任务队列"（task queue）的任务，只有"任务队列"通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行。
-
-- 主线程从"任务队列"中读取事件，这个过程是循环不断的，所以整个的这种运行机制又称为Event Loop（事件循环）。
 
 ## 事件流
 
@@ -94,7 +74,7 @@ addEventListener多个时会按照添加它们的顺序触发。
 
 ## Event 事件对象
 
-参考《JavaScript高级程序设计》
+参考《JavaScript高级程序设计
 
 在触发DOM上的某个事情时，会产生一个事件对象event。
 
