@@ -1,6 +1,8 @@
 
 # 目录
 
+官方文档: <https://www.ecma-international.org/ecma-262/6.0/>
+
 JavaScript的知识
 
 - [基本知识](https://github.com/mazhiwen/study-notes/tree/master/JavaScript/basic.md)
