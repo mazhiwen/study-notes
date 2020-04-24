@@ -13,6 +13,6 @@ JavaScript的知识
 - [富文本编辑器开发原理](https://github.com/mazhiwen/study-notes/tree/master/JavaScript/editor.md)
 - [ECMAScript规范](https://github.com/mazhiwen/study-notes/tree/master/JavaScript/es.md)
 - [面向对象](https://github.com/mazhiwen/study-notes/tree/master/JavaScript/OOinJS.md)
-- [性能](https://github.com/mazhiwen/study-notes/tree/master/JavaScript/performance.md)
+- [JS性能](https://github.com/mazhiwen/study-notes/tree/master/JavaScript/performance.md)
 - [TypeScript](https://github.com/mazhiwen/study-notes/tree/master/JavaScript/TypeScript.md)
 - [JSX](https://github.com/mazhiwen/study-notes/tree/master/JavaScript/JSX.md)
