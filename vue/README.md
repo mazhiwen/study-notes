@@ -1139,7 +1139,7 @@ export default{
 </script>
 ```
 
-### 数据双向绑定
+## 数据双向绑定
 
 <https://juejin.im/post/5d421bcf6fb9a06af23853f1>
 
@@ -1176,3 +1176,5 @@ function defineReactive(obj, key, val) {
     })
 }
 ```
+
+## nextTick 原理
