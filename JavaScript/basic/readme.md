@@ -733,21 +733,42 @@ return array.join("");
 
 ### CORS
 
+(Cross-Origin Resource Sharing) 跨域资源共享
+
 <https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS>
 
-(Cross-Origin Resource Sharing)  
-跨域浏览器加origin请求头
+整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。
+
+因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。
 
 * 简单请求
 
-method:GET, HEAD, POST  
+只要同时满足以下两大条件，就属于简单请求。
+
+**method:**
+
+GET, HEAD, POST
+
+**HTTP的头信息不超出以下几种字段:**
+
 Content-Type:application/x-www-form-urlencoded , multipart/form-data ,  text/plain
+
+Accept
+
+Accept-Language
+
+Content-Language
+
+Last-Event-ID
+
+对于简单请求，浏览器自动加origin请求头
 
 ```javascript
 //js
-Origin:''
+Origin: http://api.bob.com
+
 //server
-Access-Control-Allow-Origin: *
+Access-Control-Allow-Origin: * //或者值http://api.bob.com
 Access-Control-Allow-Methods:'GET'
 ```
 

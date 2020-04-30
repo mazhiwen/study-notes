@@ -20,3 +20,10 @@ href:根据web服务的绝对地址
 ## HTML元素集
 
 <https://developer.mozilla.org/zh-CN/docs/Web/HTML/Element/>
+
+## 响应式布局
+
+- 媒体查询:css媒体查询根据尺寸来定义不同样式，比如600/900/1200/1600
+- 百分比
+- rem:rem是根据html的根元素来决定元素大小的，在自适应布局中应用非常广泛。
+- 视窗(vw/vh):c3中新增视窗，1vw代表1%的宽度，通常结合rem一起使用。

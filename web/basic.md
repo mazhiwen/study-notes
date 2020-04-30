@@ -107,3 +107,8 @@ window.addEventListener('message',(event)=>{
 Window.crypto.getRandomValues()
 //使用密码学可靠的随机值填充传递过来的 ArrayBufferView。
 ```
+
+
+## 
+
+
