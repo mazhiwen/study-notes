@@ -735,6 +735,8 @@ return array.join("");
 
 (Cross-Origin Resource Sharing) 跨域资源共享
 
+<http://www.ruanyifeng.com/blog/2016/04/cors.html>
+
 <https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS>
 
 整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。
@@ -761,7 +763,7 @@ Content-Language
 
 Last-Event-ID
 
-对于简单请求，浏览器自动加origin请求头
+**对于简单请求，浏览器自动加origin请求头**
 
 ```javascript
 //js
@@ -770,7 +772,24 @@ Origin: http://api.bob.com
 //server
 Access-Control-Allow-Origin: * //或者值http://api.bob.com
 Access-Control-Allow-Methods:'GET'
+Access-Control-Allow-Credentials: true // cookie
+Access-Control-Expose-Headers: FooBar // 暴露的返回头
+Content-Type: text/html; charset=utf-8
 ```
+
+**发送cookie**
+
+CORS请求默认不发送Cookie和HTTP认证信息
+
+```
+//服务器配置:
+Access-Control-Allow-Credentials: true
+//js：
+var xhr = new XMLHttpRequest();
+xhr.withCredentials = true;
+```
+
+需要注意的是，如果要发送Cookie，Access-Control-Allow-Origin就不能设为星号，必须指定明确的、与请求网页一致的域名。同时，Cookie依然遵循同源政策，只有用服务器域名设置的Cookie才会上传，其他域名的Cookie并不会上传，且（跨源）原网页代码中的document.cookie也无法读取服务器域名下的Cookie。
 
 * 非简单请求
 
@@ -778,32 +797,26 @@ method：不是简单请求中的一种
 Content-Type：不是简单请求中的一种  
 浏览器先发送option， Preflighted requests请求
 
+服务器收到"预检"请求以后，检查了Origin、Access-Control-Request-Method和Access-Control-Request-Headers字段以后，确认允许跨源请求，就可以做出回应。
+
 ```javascript
-//js
+//请求：js
 OPTIONS
 Access-Control-Request-Method: POST
 Access-Control-Request-Headers: content-type
 Origin: http://localhost:8080
 
-//server
+//响应：server
 Access-Control-Allow-Origin: http://localhost:8080
 Access-Control-Allow-Headers: Content-Type
 Access-Control-Allow-Methods: GET, POST, PUT, DELETE
 Content-Type: text/html
 ```
 
-cookie
-
-```javascript
-//启用cookie
-xhr.withCredentials = true;
-//server
-Access-Control-Allow-Credentials: true
-```
-
 ### JSONP
 
-GET  
+**JSONP只支持GET请求**
+
 js 文件不受浏览器同源策略的影响，所以通过 Script 便签可以进行跨域的请求
 
 - 前端
