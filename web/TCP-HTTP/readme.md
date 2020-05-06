@@ -60,7 +60,6 @@ ack ：（确认号），acknowledgement number
 
 防止其中一方停止发送后，另一方持续等待。
 
-
 ## 二。 HTTP
 
 <https://developer.mozilla.org/zh-CN/docs/Web/HTTP>
