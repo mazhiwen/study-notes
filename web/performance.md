@@ -5,6 +5,7 @@
 
 目录：
 
+- [首屏性能](#首屏性能)
 - [CDN](#CDN)
 - [带宽和延迟](#带宽和延迟)
 - [TCP](#TCP)
@@ -20,6 +21,13 @@
 - [服务器发送事件](#服务器发送事件（SSE）)
 - [WebSocket](#WebSocket)
 - [WebRTC](#WebRTC)
+
+## 首屏性能
+
+首屏性能
+
+https://mp.weixin.qq.com/s/8f4f1TulKxkGpEHSd2yZ_w
+
 
 ## CDN
 

@@ -1,6 +1,9 @@
 <https://www.cnblogs.com/fengff/p/8892590.html>
 
+<https://juejin.im/post/5e1aea9e6fb9a02fc160a2cc>
+
 ## mac安装
+
 <https://www.jianshu.com/p/2892102438f5>
 
 ```sh

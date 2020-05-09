@@ -1,5 +1,8 @@
+# linux
 
 ## 命令
+
+https://man.linuxde.net/tar
 
 ### 查找文件 find
 
@@ -96,3 +99,5 @@ mv ./build ../
 ### 文件 文件夹
 
 touch file 新建文件
+
+### tar
