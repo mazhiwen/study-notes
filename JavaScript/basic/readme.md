@@ -24,6 +24,7 @@
 - [安全随机](#安全随机)
 - [跨域](#跨域)
 - [Service worker](Service&nbsp;worker)
+- []()
 
 ## 变量提升
 
@@ -991,3 +992,7 @@ JWT 作为一个令牌（token），有些场合可能会放到 URL（比如 api
 ### OAuth 2.0
 
 <http://www.ruanyifeng.com/blog/2019/04/oauth-grant-types.html>
+
+### css和js添加顺序
+
+<https://juejin.im/post/59c60691518825396f4f71a1>
