@@ -2,7 +2,7 @@
 
 ## 命令
 
-https://man.linuxde.net/tar
+<https://man.linuxde.net/tar>
 
 ### 查找文件 find
 

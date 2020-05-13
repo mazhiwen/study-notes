@@ -1,6 +1,10 @@
+# nginx
+
 <https://www.cnblogs.com/fengff/p/8892590.html>
 
 <https://juejin.im/post/5e1aea9e6fb9a02fc160a2cc>
+
+<https://juejin.im/post/5bacbd395188255c8d0fd4b2>
 
 ## mac安装
 
@@ -58,3 +62,19 @@ https://www.cnblogs.com/rickzhai/p/7896432.html
 重启
 sbin目录下
 ./nginx -s reload
+
+## 正向代理与反向代理
+
+**正向代理：**
+
+代理用户的行为
+
+1. 正向代理，我们的角色是 被代理者
+2. 正向代理，我们不对外提供服务，反而是对外消费服务，属于消费者
+
+**反向代理：**
+
+代理服务器的行为
+
+1. 反向代理，我们的角色是 局域网 web服务
+2. 反向代理，我们对外提供服务，属于服务提供者
