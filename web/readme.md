@@ -8,6 +8,7 @@
 - [资源文件](https://github.com/mazhiwen/study-notes/tree/master/web/StaticFile.md)
 - [TCP/IP-HTTP](./TCP-HTTP/)
 - [web性能](./performance.md)
-- [浏览器](./browser.md)
+- [浏览器](./browser)
 - [浏览器存储](./storage.md)
 - [跨域攻击](./cyber-attack.md)
+- [nginx](./nginx)
