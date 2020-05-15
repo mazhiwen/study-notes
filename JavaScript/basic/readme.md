@@ -25,7 +25,6 @@
 - [跨域](#跨域)
 - [Service worker](#Service&nbsp;worker)
 
-
 ## 变量提升
 
 //声明（变量，函数等）提升， 赋值不提升
@@ -782,7 +781,7 @@ Content-Type: text/html; charset=utf-8
 
 CORS请求默认不发送Cookie和HTTP认证信息
 
-```
+```js
 //服务器配置:
 Access-Control-Allow-Credentials: true
 //js：
