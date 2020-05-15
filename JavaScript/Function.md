@@ -24,9 +24,6 @@ var fn = function (x, y) {
   }
 )();
 
-
-
-
 //**************** 作用域安全的构造函数 ****************/
 //不用new，直接调用构造函数时会改变this为window，以下修正
 function Polygon(sides) {
@@ -51,9 +48,6 @@ function Rectangle(width, height) {
 }
 Rectangle.prototype = new Polygon();
 var rect = new Rectangle(5, 10);
-
-
-
 
 //**************** 惰性载入 ****************/
 //惰性 载入 表示 函数 执行 的 分支 仅 会 发生 一次。
@@ -81,10 +75,9 @@ var createXHR = (function () {
   }
 })();
 
+## 函数绑定
 
-
-
-//**************** 函数绑定 ****************/
+```js
 //this指向丢失
 var handler = {
   message: "Event handled",
@@ -100,7 +93,7 @@ EventUtil.addHandler(btn, "click", function (event) {
 });
 //bind函数
 function bind(fn, context) {
-  //创建闭包 
+  //创建闭包
   return function () {
     return fn.apply(context, arguments);
   };
@@ -109,12 +102,13 @@ function bind(fn, context) {
 EventUtil.addHandler(btn, "click", bind(handler.handleClick, handler));
 //es5 提供原生bind方法
 EventUtil.addHandler(btn, "click", handler.handleClick.bind(handler));
+```
 
+## call apply
 
+语法是直接执行函数
 
-
-
-//**************** call apply****************/
+```js
 //Function.prototype.call
 // 返回调用有指定this值和参数的函数的结果。
 //把fun内的this指向thisArg;
@@ -124,14 +118,13 @@ fun.call(thisArg, arg1, arg2, argn);
 // 而apply()方法接受的是一个包含多个参数的数组。
 //Function.prototype.apply
 fun.apply(thisArg, [argsArray])
+```
 
+## bind
 
+bind返回的是一个改变this的函数
 
-
-
-
-
-//****************** bind*******************/
+```js
 //语法: function.bind(thisArg[, arg1[, arg2[, ...]]])
 var module = {
   x: 42,
@@ -145,12 +138,11 @@ console.log(unboundGetX()); // The function gets invoked at the global scope
 var boundGetX = unboundGetX.bind(module);
 console.log(boundGetX());
 // expected output: 42
+```
 
+## 函数柯里化
 
-
-
-
-//**************** 函数柯里化 ****************/
+```js
 //下一个函数的参数是上一个函数的结果
 //且函数体内运行逻辑相同
 //一个函数 多个参数
@@ -170,7 +162,7 @@ function curry(fn) {
   var args = Array.prototype.slice.call(arguments, 1); //外函数arguments
   //返回柯里化
   return function () {
-    var innerArgs = Array.prototype.slice.call(arguments); //内函数arguments 
+    var innerArgs = Array.prototype.slice.call(arguments); //内函数arguments
     var finalArgs = args.concat(innerArgs);
     return fn.apply(null, finalArgs);
   };
@@ -214,22 +206,13 @@ countMoney(4)
 console.log(countMoney())
 // 你还可以装逼地进行花式统计，结果同样是10
 countMoney(1)(2)(3)(4)()
-
-
-
-
-
+```
 
 //**************** arguments ****************/
 function test() {
   console.log(arguments);
 }
 test(1, 2);
-
-
-
-
-
 
 //**************** 偏函数 ****************/
 // bind()的另一个最简单的用法是使一个函数拥有预设的初始参数。
@@ -256,6 +239,6 @@ var list2 = leadingThirtysevenList();
 var list3 = leadingThirtysevenList(1, 2, 3);
 // [37, 1, 2, 3]
 var result2 = addThirtySeven(5);
-// 37 + 5 = 42 
+// 37 + 5 = 42
 var result3 = addThirtySeven(5, 10);
 // 37 + 5 = 42 ，第二个参数被忽略

@@ -44,6 +44,33 @@ console.log(orig.trim()); // 'foo'
 
 // str.replace(regexp|substr, newSubStr|function)
 
+#### newSubStr参数
+
+$$ 插入一个 "$"。
+$& 插入匹配的子串。
+$` 插入当前匹配的子串左边的内容。
+$' 插入当前匹配的子串右边的内容。
+$n
+假如第一个参数是 RegExp对象，并且 n 是个小于100的非负整数，那么插入第 n 个括号匹配的字符串。提示：索引是从1开始
+```js
+var re = /(\w+)\s(\w+)/;
+var str = "John Smith";
+var newstr = str.replace(re, "$2, $1");
+// Smith, John
+console.log(newstr);
+```
+
+#### function参数
+
+```js
+function replacer(match, p1, p2, p3, offset, string) {
+  // p1 is nondigits, p2 digits, and p3 non-alphanumerics
+  return [p1, p2, p3].join(' - ');
+}
+var newString = 'abc12345#$*%'.replace(/([^\d]*)(\d*)([^\w]*)/, replacer);
+console.log(newString);  // abc - 12345 - #$*%
+```
+
 ### search(regexp | str)
 
 str.search()
@@ -97,4 +124,15 @@ console.log(found);
 // [23]
 '多少啊23ds'.match(/(\D+)/g);
 // [多少啊，ds]
+```
+
+```js
+var str = '123sdfsdf456sdffs789'
+var numArr = str.match(/\d+/g)
+
+console.log(numArr)  // => ["123", "456", "789"]
+
+// 也可以把拼接起来
+console.log(+numArr.join('')) // => 123456789
+
 ```
