@@ -25,6 +25,9 @@
 - [background](#background)
 - [文字溢出](#文字溢出)
 - [等宽字体](#等宽字体)
+- [垂直居中](#垂直居中)
+- [margin](#margin)
+- [vertical-align](#vertical-align)
 
 ***
 
@@ -781,3 +784,165 @@ p{
 比例字体
 
 <https://cloud.tencent.com/developer/article/1009289>
+
+## 垂直居中
+
+1. 使用绝对定位和负外边距对块级元素进行垂直居中
+
+必须提前知道被居中块级元素的尺寸
+
+```css
+#box {
+    width: 300px;
+    height: 300px;
+    background: #ddd;
+    position: relative;
+}
+#child {
+    width: 150px;
+    height: 100px;
+    background: orange;
+    position: absolute;
+    top: 50%;
+    margin: -50px 0 0 0;
+    line-height: 100px;
+}
+```
+
+2. 使用绝对定位和transform
+
+不必提前知道被居中元素的尺寸
+
+```css
+#box {
+    width: 300px;
+    height: 300px;
+    background: #ddd;
+    position: relative;
+}
+#child {
+    background: #93BC49;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+```
+
+3. 使用绝对定位和负外边距
+
+```css
+#box {
+    width: 300px;
+    height: 300px;
+    background: #ddd;
+    position: relative;
+}
+#child {
+　　width: 50%;
+    height: 30%;
+    background: pink;
+    position: absolute;
+    top: 50%;
+    margin: -15% 0 0 0;
+}
+```
+
+4. 绝对定位结合margin: auto
+
+把要垂直居中的元素相对于父元素绝对定位，top和bottom设为相等的值，我这里设成了0，当然你也可以设为99999px或者-99999px无论什么，只要两者相等就行，这一步做完之后再将要居中元素的margin设为auto，这样便可以实现垂直居中了。
+　　被居中元素的宽高也可以不设置，但不设置的话就必须是图片这种自身就包含尺寸的元素，否则无法实现。
+
+```css
+#box {
+    width: 300px;
+    height: 300px;
+    background: #ddd;
+    position: relative;
+}
+#child {
+    width: 200px;
+    height: 100px;
+    background: #A1CCFE;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    line-height: 100px;
+}
+```
+
+5. 使用padding
+
+```css
+#box {
+    width: 300px;
+    background: #ddd;
+    padding: 100px 0;
+}
+#child {
+    width: 200px;
+    height: 100px;
+    background: #F7A750;
+    line-height: 50px;
+}
+```
+
+7. flex
+
+```css
+#box {
+  width: 300px;
+  height: 300px;
+  background: #ddd;
+  display: flex;
+  align-items: center;
+}
+```
+
+10. line-height 和 vertical-align
+
+```css
+#box{
+    width: 300px;
+    height: 300px;
+    background: #ddd;
+    line-height: 300px;
+}
+#box img {
+    vertical-align: middle;
+}
+```
+
+11. display 和 vertical-align
+
+```css
+#box {
+    width: 300px;
+    height: 300px;
+    background: #ddd;
+    display: table;
+}
+#child {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+```
+
+## margin
+
+auto : 浏览器计算外边距
+
+length : 规定以具体单位计的外边距值，比如像素、厘米等。默认值是 0px
+
+% : 规定基于父元素的宽度的百分比的外边距
+
+inherit : 规定应该从父元素继承外边距
+
+## vertical-align
+
+<https://segmentfault.com/a/1190000015366749>
+
+指定行内元素（inline）或表格单元格（table-cell）元素的垂直对齐方式
+
+对于块级元素，vertical-align是不起作用的
