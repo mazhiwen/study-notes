@@ -3,7 +3,7 @@
 目录：
 
 - [devtools](#devtools)
-- [link和script顺序](#link和script顺序)
+- [link和script阻塞渲染](#link和script阻塞渲染)
 - [缓存](#缓存)
 - [重绘（Repaint）和回流（Reflow）](#重绘（Repaint）和回流（Reflow）)
 
@@ -30,7 +30,7 @@ Performance
 
 ![](./640.webp)
 
-## link和script顺序
+## link和script阻塞渲染
 
 <https://juejin.im/post/59c60691518825396f4f71a1>
 
@@ -174,4 +174,63 @@ Cache-Control: max-age=31536000
 定位或者浮动
 盒模型
 
-**减少重绘和回流**
+**减少重绘和回流:**
+
+- 使用 transform 替代 top
+
+```js
+setTimeout(() => {
+  // 引起回流
+  document.querySelector('.test').style.top = '100px'
+}, 1000)
+```
+
+- 使用 visibility 替换 display: none ，因为前者只会引起重绘，后者会引发回流（改变了布局）
+
+- 不要把节点的属性值放在一个循环里当成循环里的变量
+
+```js
+for(let i = 0; i < 1000; i++) {
+    // 获取 offsetTop 会导致回流，因为需要去获取正确的值
+    console.log(document.querySelector('.test').style.offsetTop)
+}
+```
+
+- 不要使用 table 布局，可能很小的一个小改动会造成整个 table 的重新布局
+
+- 动画实现的速度的选择，动画速度越快，回流次数越多，也可以选择使用 requestAnimationFrame
+
+- CSS 选择符从右往左匹配查找，避免节点层级过多：
+
+CSS选择器的读取顺序是从右向左
+
+- 将频繁重绘或者回流的节点设置为图层，图层能够阻止该节点的渲染行为影响别的节点。比如对于 video 标签来说，浏览器会自动将该节点变为图层。
+
+  - will-change： will-change属性可以提前通知浏览器我们要对元素做什么动画，这样浏览器可以提前准备合适的优化设置。这样可以避免对页面响应速度有重要影响的昂贵成本。元素可以更快的被改变，渲染的也更快，这样页面可以快速更新，表现的更加流畅。
+  - video、iframe 标签
+
+## requestAnimationFrame
+
+<https://blog.csdn.net/vhwfr2u02q/article/details/79492303>
+
+与setTimeout相比，requestAnimationFrame最大的优势是由系统来决定回调函数的执行时机。具体一点讲，如果屏幕刷新率是60Hz,那么回调函数就每16.7ms被执行一次，如果刷新率是75Hz，那么这个时间间隔就变成了1000/75=13.3ms，换句话说就是，requestAnimationFrame的步伐跟着系统的刷新步伐走。它能保证回调函数在屏幕每一次的刷新间隔中只被执行一次，这样就不会引起丢帧现象，也不会导致动画出现卡顿的问题。
+
+```js
+var progress = 0;
+//回调函数
+function render() {
+    progress += 1; //修改图像的位置
+    if (progress < 100) {
+    //在动画没有结束前，递归渲染
+    window.requestAnimationFrame(render);
+  }
+}
+//第一帧渲染
+window.requestAnimationFrame(render);
+```
+
+**优点：**
+
+cpu节能：当页面处理未激活的状态下，该页面的屏幕刷新任务也会被系统暂停
+
+函数节流：使用requestAnimationFrame可保证每个刷新间隔内，函数只被执行一次，这样既能保证流畅性，也能更好的节省函数执行的开销。一个刷新间隔内函数执行多次时没有意义的，因为显示器每16.7ms刷新一次，多次绘制并不会在屏幕上体现出来。
