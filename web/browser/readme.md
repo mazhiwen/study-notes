@@ -1,5 +1,17 @@
 # 浏览器
 
+目录：
+
+- [devtools](#devtools)
+- [link和script顺序](#link和script顺序)
+- [缓存](#缓存)
+- [重绘（Repaint）和回流（Reflow）](#重绘（Repaint）和回流（Reflow）)
+
+参考：
+<https://juejin.im/book/5bdc715fe51d454e755f75ef/section/5bdc7207f265da613c09425d>
+
+***
+
 ## devtools
 
 Performance
@@ -22,21 +34,21 @@ Performance
 
 <https://juejin.im/post/59c60691518825396f4f71a1>
 
-**CSS 不会阻塞 DOM 的解析**
+### CSS 不会阻塞 DOM 的解析
 
 这里简单说一下，浏览器是解析DOM生成DOM Tree，结合CSS生成的CSS Tree，最终组成render tree，再渲染页面。由此可见，在此过程中CSS完全无法影响DOM Tree，因而无需阻塞DOM解析。然而，DOM Tree和CSS Tree会组合成render tree，那CSS会不会页面阻塞渲染呢？
 
-**结论**
+### 结论
 
 - CSS 不会阻塞 DOM 的解析，但会阻塞 DOM 渲染。
 - JS 阻塞 DOM 解析，但浏览器会"偷看"DOM，预先下载相关资源。
 - 浏览器遇到 \<script>且没有defer或async属性的 标签时，会触发页面渲染，因而如果前面CSS资源尚未加载完毕时，浏览器会等待它加载完毕在执行脚本。
 
-**加载**
+### 加载
 
 <https://zhuanlan.zhihu.com/p/29418126>
 
-**defer与async**
+### defer与async
 
 defer 与相比普通 script，有两点区别：载入 JavaScript 文件时不阻塞 HTML 的解析，执行阶段被放到 HTML 标签解析完成之后。
 
@@ -143,3 +155,23 @@ Cache-Control: no-cache
 ```sh
 Cache-Control: max-age=31536000
 ```
+
+## 重绘（Repaint）和回流（Reflow）
+
+重绘和回流会在我们设置节点样式时频繁出现，同时也会很大程度上影响性能。
+
+重绘是当节点需要更改外观而不会影响布局的，比如改变 color 就叫称为重绘
+
+回流是布局或者几何属性需要改变就称为回流。
+
+回流必定会发生重绘，重绘不一定会引发回流。回流所需的成本比重绘高的多，改变父节点里的子节点很可能会导致父节点的一系列回流。
+
+**以下几个动作可能会导致性能问题：**
+改变 window 大小
+改变字体
+添加或删除样式
+文字改变
+定位或者浮动
+盒模型
+
+**减少重绘和回流**
