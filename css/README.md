@@ -177,17 +177,23 @@ var defaultFontSize = adapt(640, 100);
 
 CSS position属性用于指定一个元素在文档中的定位方式。top，right，bottom 和 left 属性则决定了该元素的最终位置。
 
-值：
+```
+absolute
+生成绝对定位的元素，相对于值不为static的第一个父元素的paddingbox进行定位，也可以理解为离自己这一级元素最近的
+一级position设置为absolute或者relative的父元素的paddingbox的左上角为原点的。
 
-- static
+fixed（老IE不支持）
+生成绝对定位的元素，相对于浏览器窗口进行定位。
 
-该关键字指定元素使用正常的布局行为，即元素在文档常规流中当前的布局位置。此时 top, right, bottom, left 和 z-index 属性无效。
+relative
+生成相对定位的元素，相对于其元素本身所在正常位置进行定位。
 
-- relative
+static
+默认值。没有定位，元素出现在正常的流中（忽略top,bottom,left,right,z-index声明）。
 
-- absolute
-
-- fixed
+inherit
+规定从父元素继承position属性的值。
+```
 
 ## white-space
 
@@ -426,26 +432,36 @@ width:0;
 
 ## 选择器
 
-基本的：
+```
+（1）id选择器（#myid）
+（2）类选择器（.myclassname）
+（3）标签选择器（div,h1,p）
+（4）后代选择器（h1p）
+（5）相邻后代选择器（子）选择器（ul>li）
+（6）兄弟选择器（li~a）
+（7）相邻兄弟选择器（li+a）
+（8）属性选择器（a[rel="external"]）
+（9）伪类选择器（a:hover,li:nth-child）
+（10）伪元素选择器（::before、::after）
+（11）通配符选择器（*）
+```  
 
-id选择器（id="name"）  
-类选择器（class="head"）  
-标签选择器（body, div, ul, li）  
-全局选择器（*）  
+**优先级：**
+!important > 行内样式 > ID选择器 > 类选择器 > 标签 > 通配符 > 继承 > 浏览器默认属性
 
-复杂的：
-
-组合选择器（.head .head_logo）  
-后代选择器 （#head .nav ul li 从父集到子孙集）  
-群组选择器 (div, span, img {color:Red} 具有相同样式的标签分组显示)  
-继承选择器  
-伪类选择器（链接样式，a元素的伪类）  
-子选择器（div>p, 带大于号>）  
-CSS相邻相邻兄弟选择器（h1+p, 带加号+）  
-
-优先级：  
-!important > 行内样式 > ID选择器 > 类选择器 > 标签 > 通配符 > 继承 > 浏览器默认属性  
 后写的会覆盖先写的
+
+```
+判断优先级时，首先我们会判断一条属性声明是否有权重，也就是是否在声明后面加上了!important。一条声明如果加上了权重，
+那么它的优先级就是最高的，前提是它之后不再出现相同权重的声明。如果权重相同，我们则需要去比较匹配规则的特殊性。
+
+一条匹配规则一般由多个选择器组成，一条规则的特殊性由组成它的选择器的特殊性累加而成。选择器的特殊性可以分为四个等级，
+第一个等级是行内样式，为1000，第二个等级是id选择器，为0100，第三个等级是类选择器、伪类选择器和属性选择器，为0010，
+第四个等级是元素选择器和伪元素选择器，为0001。规则中每出现一个选择器，就将它的特殊性进行叠加，这个叠加只限于对应的等
+级的叠加，不会产生进位。选择器特殊性值的比较是从左向右排序的，也就是说以1开头的特殊性值比所有以0开头的特殊性值要大。
+比如说特殊性值为1000的的规则优先级就要比特殊性值为0999的规则高。如果两个规则的特殊性值相等的时候，那么就会根据它们引
+入的顺序，后出现的规则的优先级最高。
+```
 
 ## 行内元素和块元素
 
@@ -787,7 +803,7 @@ p{
 
 ## 垂直居中
 
-1. 使用绝对定位和负外边距对块级元素进行垂直居中
+1. 使用绝对定位和负外边距对块级元素进行垂直居中 （margin: -50px 0 0 0;）
 
 必须提前知道被居中块级元素的尺寸
 
@@ -809,7 +825,7 @@ p{
 }
 ```
 
-2. 使用绝对定位和transform
+2. 使用绝对定位和transform，（transform: translate(0, -50%)）
 
 不必提前知道被居中元素的尺寸
 
@@ -847,10 +863,11 @@ p{
 }
 ```
 
-4. 绝对定位结合margin: auto
+4. 绝对定位结合margin: auto，top和bottom设为相等的值
 
 把要垂直居中的元素相对于父元素绝对定位，top和bottom设为相等的值，我这里设成了0，当然你也可以设为99999px或者-99999px无论什么，只要两者相等就行，这一步做完之后再将要居中元素的margin设为auto，这样便可以实现垂直居中了。
-　　被居中元素的宽高也可以不设置，但不设置的话就必须是图片这种自身就包含尺寸的元素，否则无法实现。
+
+被居中元素的宽高也可以不设置，但不设置的话就必须是图片这种自身就包含尺寸的元素，否则无法实现。
 
 ```css
 #box {
@@ -875,15 +892,15 @@ p{
 
 ```css
 #box {
-    width: 300px;
-    background: #ddd;
-    padding: 100px 0;
+  width: 300px;
+  background: #ddd;
+  padding: 100px 0;
 }
 #child {
-    width: 200px;
-    height: 100px;
-    background: #F7A750;
-    line-height: 50px;
+  width: 200px;
+  height: 100px;
+  background: #F7A750;
+  line-height: 50px;
 }
 ```
 
@@ -899,32 +916,32 @@ p{
 }
 ```
 
-10. line-height 和 vertical-align
+10. line-height = height 和 vertical-align
 
 ```css
 #box{
-    width: 300px;
-    height: 300px;
-    background: #ddd;
-    line-height: 300px;
+  width: 300px;
+  height: 300px;
+  background: #ddd;
+  line-height: 300px;
 }
 #box img {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 ```
 
-11. display 和 vertical-align
+11. display: table-cell 和 vertical-align
 
 ```css
 #box {
-    width: 300px;
-    height: 300px;
-    background: #ddd;
-    display: table;
+  width: 300px;
+  height: 300px;
+  background: #ddd;
+  display: table;
 }
 #child {
-    display: table-cell;
-    vertical-align: middle;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 ```
@@ -946,3 +963,61 @@ inherit : 规定应该从父元素继承外边距
 指定行内元素（inline）或表格单元格（table-cell）元素的垂直对齐方式
 
 对于块级元素，vertical-align是不起作用的
+
+## cssreset和normalize.css
+
+css reset 是最早的一种解决浏览器间样式不兼容问题的方案，它的基本思想是将浏览器的所有样式都重置掉，从而达到所有浏览器样式保持一致的效果。但是使用这种方法，可能会带来一些性能上的问题，并且对于一些元素的不必要的样式的重置，其实反而会造成画蛇添足的效果。
+
+后面出现一种更好的解决浏览器间样式不兼容的方法，就是 normalize.css ，它的思想是尽量的保留浏览器自带的样式，通过在原有的样式的基础上进行调整，来保持各个浏览器间的样式表现一致。相对与 css reset，normalize.css 的方法保留了有价值的默认值，并且修复了一些浏览器的 bug，而且使用 normalize.css 不会造成元素复杂的继承链。
+
+## 浏览器css前缀
+
+```
+mozilla 内核 （firefox,flock 等）    -moz
+webkit  内核 （safari,chrome 等）   -webkit
+opera   内核 （opera 浏览器）        -o
+trident 内核 （ie 浏览器）           -ms
+```
+
+## 属性继承
+
+```
+每一个属性在定义中都给出了这个属性是否具有继承性，一个具有继承性的属性会在没有指定值的时候，会使用父元素的同属性的值
+来作为自己的值。
+
+一般具有继承性的属性有，字体相关的属性，font-size和font-weight等。文本相关的属性，color和text-align等。
+表格的一些布局属性、列表属性如list-style等。还有光标属性cursor、元素可见性visibility。
+
+当一个属性不是继承属性的时候，我们也可以通过将它的值设置为inherit来使它从父元素那获取同名的属性值来继承。
+```
+
+## css实现三角形
+
+```
+采用的是相邻边框连接处的均分原理。
+将元素的宽高设为0，只设置border
+把任意三条边隐藏掉（颜色设为transparent），剩下的就是一个三角形。
+```
+
+```css
+#demo {
+  width: 0;
+  height: 0;
+  border-width: 20px;
+  border-style: solid;
+  border-color: transparenttransparentredtransparent;
+}
+```
+
+## 多列等高布局
+
+```
+（1）利用padding-bottom|margin-bottom正负值相抵，不会影响页面布局的特点。设置父容器设置超出隐藏（overflow:
+hidden），这样父容器的高度就还是它里面的列没有设定padding-bottom时的高度，当它里面的任一列高度增加了，则
+父容器的高度被撑到里面最高那列的高度，其他比这列矮的列会用它们的padding-bottom补偿这部分高度差。
+
+（2）利用table-cell所有单元格高度都相等的特性，来实现多列等高。
+
+（3）利用flex布局中项目align-items属性默认为stretch，如果项目未设置高度或设为auto，将占满整个容器的高度
+的特性，来实现多列等高。
+```
