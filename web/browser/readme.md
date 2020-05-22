@@ -2,15 +2,26 @@
 
 目录：
 
+- [浏览器渲染](#浏览器渲染)
 - [devtools](#devtools)
+- [从输入URL后前端的知识](#从输入URL后前端的知识)
 - [link和script阻塞渲染](#link和script阻塞渲染)
 - [缓存](#缓存)
 - [重绘（Repaint）和回流（Reflow）](#重绘（Repaint）和回流（Reflow）)
+- [requestAnimationFrame](#requestAnimationFrame)
+- [DOMContentLoaded事件和Load事件的区别](#DOMContentLoaded事件和Load事件的区别)
 
 参考：
 <https://juejin.im/book/5bdc715fe51d454e755f75ef/section/5bdc7207f265da613c09425d>
 
 ***
+
+## 浏览器渲染
+
+1. 浏览器使用流式布局模型 (Flow Based Layout)。
+2. 浏览器会把HTML解析成DOM，把CSS解析成CSSOM，DOM和CSSOM合并就产生了Render Tree。
+3. 有了RenderTree，我们就知道了所有节点的样式，然后计算他们在页面上的大小和位置，最后把节点绘制到页面上。
+4. 由于浏览器使用流式布局，对Render Tree的计算通常只需要遍历一次就可以完成，但table及其内部元素除外，他们可能需要多次计算，通常要花3倍于同等元素的时间，这也是为什么要避免使用table布局的原因之一。
 
 ## devtools
 
@@ -158,6 +169,12 @@ Cache-Control: max-age=31536000
 
 ## 重绘（Repaint）和回流（Reflow）
 
+<https://juejin.im/post/5a9923e9518825558251c96a>
+
+重绘: 当渲染树中的一些元素需要更新属性，而这些属性只是影响元素的外观、风格，而不会影响布局的操作，比如 background-color，我们将这样的操作称为重绘。
+
+回流：当渲染树中的一部分（或全部）因为元素的规模尺寸、布局、隐藏等改变而需要重新构建的操作，会影响到布局的操作，这样的操作我们称为回流。
+
 重绘和回流会在我们设置节点样式时频繁出现，同时也会很大程度上影响性能。
 
 重绘是当节点需要更改外观而不会影响布局的，比如改变 color 就叫称为重绘
@@ -166,15 +183,19 @@ Cache-Control: max-age=31536000
 
 回流必定会发生重绘，重绘不一定会引发回流。回流所需的成本比重绘高的多，改变父节点里的子节点很可能会导致父节点的一系列回流。
 
-**以下几个动作可能会导致性能问题：**
-改变 window 大小
-改变字体
-添加或删除样式
-文字改变
-定位或者浮动
-盒模型
+### 以下几个动作可能会导致性能问题
 
-**减少重绘和回流:**
+（1）添加或者删除可见的 DOM 元素；
+（2）元素尺寸改变——边距、填充、边框、宽度和高度
+（3）内容变化，比如用户在 input 框中输入文字
+（4）浏览器窗口尺寸改变——resize事件发生时
+（5）计算 offsetWidth 和 offsetHeight 属性
+（6）设置 style 属性的值
+（7）当你修改网页的默认字体时。
+
+### 减少重绘和回流
+
+**CSS:**
 
 - 使用 transform 替代 top
 
@@ -185,7 +206,15 @@ setTimeout(() => {
 }, 1000)
 ```
 
-- 使用 visibility 替换 display: none ，因为前者只会引起重绘，后者会引发回流（改变了布局）
+- 不要使用 table 布局，可能很小的一个小改动会造成整个 table 的重新布局
+
+- 将动画效果应用到position属性为absolute或fixed的元素上。
+
+- 避免使用CSS表达式（例如：calc()）。
+
+- 避免设置多层内联样式。CSS 选择符从右往左匹配查找，避免节点层级过多
+
+**JavaScript:**
 
 - 不要把节点的属性值放在一个循环里当成循环里的变量
 
@@ -196,18 +225,20 @@ for(let i = 0; i < 1000; i++) {
 }
 ```
 
-- 不要使用 table 布局，可能很小的一个小改动会造成整个 table 的重新布局
+- 使用 visibility 替换 display: none ，因为前者只会引起重绘，后者会引发回流（改变了布局）。也可以先为元素设置display: none，操作结束后再把它显示出来。因为在display属性为none的元素上进行的DOM操作不会引发回流和重绘。
 
 - 动画实现的速度的选择，动画速度越快，回流次数越多，也可以选择使用 requestAnimationFrame
-
-- CSS 选择符从右往左匹配查找，避免节点层级过多：
-
-CSS选择器的读取顺序是从右向左
 
 - 将频繁重绘或者回流的节点设置为图层，图层能够阻止该节点的渲染行为影响别的节点。比如对于 video 标签来说，浏览器会自动将该节点变为图层。
 
   - will-change： will-change属性可以提前通知浏览器我们要对元素做什么动画，这样浏览器可以提前准备合适的优化设置。这样可以避免对页面响应速度有重要影响的昂贵成本。元素可以更快的被改变，渲染的也更快，这样页面可以快速更新，表现的更加流畅。
   - video、iframe 标签
+
+- 避免频繁操作DOM，创建一个documentFragment，在它上面应用所有DOM操作，最后再把它添加到文档中。
+
+- 不要一条一条地修改 DOM 的样式。与其这样，还不如预先定义好 css 的 class，然后修改 DOM 的 className。
+
+- 对具有复杂动画的元素使用绝对定位，使它脱离文档流，否则会引起父元素及后续元素频繁回流。
 
 ## requestAnimationFrame
 
@@ -234,3 +265,26 @@ window.requestAnimationFrame(render);
 cpu节能：当页面处理未激活的状态下，该页面的屏幕刷新任务也会被系统暂停
 
 函数节流：使用requestAnimationFrame可保证每个刷新间隔内，函数只被执行一次，这样既能保证流畅性，也能更好的节省函数执行的开销。一个刷新间隔内函数执行多次时没有意义的，因为显示器每16.7ms刷新一次，多次绘制并不会在屏幕上体现出来。
+
+## DOMContentLoaded 事件和 Load 事件的区别
+
+当初始的 HTML 文档被完全加载和解析完成之后，DOMContentLoaded 事件被触发，而无需等待样式表、图像和子框架的加载完成。
+
+Load 事件是当所有资源加载完成后触发的。
+
+```js
+// 不兼容老的浏览器，兼容写法见[jQuery中ready与load事件](http://www.imooc.com/code/3253)，或用jQuery
+document.addEventListener("DOMContentLoaded", function() {
+   // ...代码...
+}, false);
+
+window.addEventListener("load", function() {
+    // ...代码...
+}, false);
+```
+
+## Canvas和SVG有什么区别
+
+Canvas 是一种通过 JavaScript 来绘制 2D 图形的方法。Canvas 是逐像素来进行渲染的，因此当我们对 Canvas 进行缩放时，会出现锯齿或者失真的情况。
+
+SVG 是一种使用 XML 描述 2D 图形的语言。SVG 基于 XML，这意味着 SVG DOM 中的每个元素都是可用的。我们可以为某个元素附加 JavaScript 事件监听函数。并且 SVG 保存的是图形的绘制方法，因此当 SVG 图形缩放时并不会失真。
