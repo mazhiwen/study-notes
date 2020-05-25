@@ -664,6 +664,14 @@ console.log(Math.ceil(7.004));
 // expected output: 7
 ```
 
+### .random
+
+函数返回一个浮点,  伪随机数在范围从0到小于1
+
+```js
+
+```
+
 ### .max
 
 ### .min

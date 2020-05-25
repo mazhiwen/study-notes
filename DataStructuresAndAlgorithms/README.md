@@ -63,7 +63,6 @@ var countedNames = names.reduce(function (allNames, name) {
 
 先进后出的原则存储数据
 
-
 ## 列表
 
 [元素,元素,...,元素]
@@ -1123,31 +1122,56 @@ function mergeArrays( arr, startLeft, stopLeft, startRight, stopRight) {
 
 这个 算法 首先 要在 列表 中选 择一 个 元素 作为 基准 值（ pivot）。 数据 排序 围绕 基准 值 进行， 将 列表 中小 于 基准 值 的 元素 移到 数组 的 底部， 将 大于 基准 值 的 元素 移到 数组 的 顶部。  
 处理大型数据集合时性能快  
-***算法步骤:***
+**算法步骤:**
 
 1. 选择 一个 基准 元素， 将 列表 分隔 成 两个 子 序列；
 2. 对列 表 重新 排序， 将 所有 小于 基准 值 的 元素 放在 基准 值 的 前面， 所有 大于 基准 值 的 元素 放在 基准 值 的 后面；  
 3. 分别 对 较小 元素 的 子 序列 和 较大 元素 的 子 序列 重复 步骤 1 和 2。  
 
-```javascript
-function qSort( list) {
-  if (list. length == 0) {
-    return [];
-  }
-  var lesser = [];
-  var greater = [];
-  var pivot = list[ 0];
-  for (var i = 1; i < list. length; i++) {
-    if (list[ i] < pivot) {
-      lesser. push( list[ i]);
-    } else {
-      greater. push( list[ i]);
+```js
+const quickSort = (array) => {
+  const sort = (arr, left = 0, right = arr.length - 1) => {
+    if (left >= right) {//如果左边的索引大于等于右边的索引说明整理完毕
+      return;
+    };
+    let i = left;
+    let j = right;
+    const baseVal = arr[j]; // 取无序数组最后一个数为基准值
+    while (i < j) {//把所有比基准值 小的数放在左边 大的数放在右边
+      while (i < j && arr[i] <= baseVal) { //找到一个比基准值大的数交换
+        i++;
+      }
+      arr[j] = arr[i]; // 将较大的值放在右边 如果没有比基准值大的数就是将自己赋值给自己（i 等于 j）
+      while (i < j && arr[j] >= baseVal) { //找到一个比基准值小的数交换
+        j--;
+      }
+      arr[i] = arr[j]; // 将较小的值放在左边如果没有找到比基准值小的数就是将自己赋值给自己（i 等于 j）
     }
+    arr[j] = baseVal; // 将基准值放至中央位置完成一次循环（这时候 j 等于 i ）
+    sort(arr, left, j-1); // 将左边的无序数组重复上面的操作
+    sort(arr, j+1, right); // 将右边的无序数组重复上面的操作
   }
-  return qSort( lesser). concat( pivot, qSort( greater));
+  const newArr = array.concat(); // 为了保证这个函数是纯函数拷贝一次数组
+  sort(newArr);
+  return newArr;
 }
 
+/////////// 测试
+let arrs = [];
+let i = 1000000;
+while( i >= 0){
+  arrs[i] = Math.ceil(Math.random() * 1000000);
+  i--;
+}
+const start = new Date().getTime();
+console.log('开始时间:'+start);
+qSort(arrs);
+console.log('花费时间:'+new Date().getTime() - start);
 ```
+
+**时间复杂度**
+
+<https://www.cnblogs.com/fengty90/p/3768827.html>
 
 ## 查找算法
 
