@@ -2,7 +2,7 @@
 
 ***
 
-### str.slice
+### slice
 
 提取一个字符串的一部分，并返回一新的字符串。
 
@@ -19,19 +19,19 @@ var str2 = str1.slice(4, -2);
 console.log(str2); // OUTPUT: morning is upon u
 ```
 
-### str.split
+### split
 
 不会改变原字符
 
 split() 方法使用指定的分隔符字符串将一个String对象分割成子字符串数组，以一个指定的分割字串来决定每个拆分的位置。
 
-### str.substring
+### substring
 
 不会改变原字符
 
 substring(start, stop) 方法用于提取字符串中介于两个指定下标之间的字符。
 
-### str.trim
+### trim
 
 trim() 方法并不影响原字符串本身，它返回的是一个新的字符串
 
@@ -40,11 +40,38 @@ var orig = '   foo  ';
 console.log(orig.trim()); // 'foo'
 ```
 
-### str.replace
+### replace
 
 // str.replace(regexp|substr, newSubStr|function)
 
-### str.search(regexp)
+#### newSubStr参数
+
+$$ 插入一个 "$"。
+$& 插入匹配的子串。
+$` 插入当前匹配的子串左边的内容。
+$' 插入当前匹配的子串右边的内容。
+$n
+假如第一个参数是 RegExp对象，并且 n 是个小于100的非负整数，那么插入第 n 个括号匹配的字符串。提示：索引是从1开始
+```js
+var re = /(\w+)\s(\w+)/;
+var str = "John Smith";
+var newstr = str.replace(re, "$2, $1");
+// Smith, John
+console.log(newstr);
+```
+
+#### function参数
+
+```js
+function replacer(match, p1, p2, p3, offset, string) {
+  // p1 is nondigits, p2 digits, and p3 non-alphanumerics
+  return [p1, p2, p3].join(' - ');
+}
+var newString = 'abc12345#$*%'.replace(/([^\d]*)(\d*)([^\w]*)/, replacer);
+console.log(newString);  // abc - 12345 - #$*%
+```
+
+### search(regexp | str)
 
 str.search()
 
@@ -60,7 +87,7 @@ console.log(str.search(re)); // returns 4, which is the index of the first capit
 console.log(str.search(re2)); // returns -1 cannot find '.' dot punctuation
 ```
 
-### str.match
+### match
 
 方法检索返回一个字符串匹配正则表达式的的结果。
 
@@ -97,4 +124,15 @@ console.log(found);
 // [23]
 '多少啊23ds'.match(/(\D+)/g);
 // [多少啊，ds]
+```
+
+```js
+var str = '123sdfsdf456sdffs789'
+var numArr = str.match(/\d+/g)
+
+console.log(numArr)  // => ["123", "456", "789"]
+
+// 也可以把拼接起来
+console.log(+numArr.join('')) // => 123456789
+
 ```

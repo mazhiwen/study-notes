@@ -1,35 +1,32 @@
-## Node
+# DOM标准
 
+官方文档:
+
+<https://dom.spec.whatwg.org/>
+
+## Node
 
 ### NodeList
 
-https://developer.mozilla.org/zh-CN/docs/Web/API/NodeList/item
-
+<https://developer.mozilla.org/zh-CN/docs/Web/API/NodeList/item>
 
 ## document
 
 ### createElement
 
-https://developer.mozilla.org/zh-CN/docs/Web/API/Document/createElement
+<https://developer.mozilla.org/zh-CN/docs/Web/API/Document/createElement>
 
 返回ELement
 
-
 ## Element
 
-https://developer.mozilla.org/zh-CN/docs/Web/API/Element
+<https://developer.mozilla.org/zh-CN/docs/Web/API/Element>
 
 > Element 是一个通用性非常强的基类，所有 Document 对象下的对象都继承自它。这个接口描述了所有相同种类的元素所普遍具有的方法和属性。一些接口继承自 Element 并且增加了一些额外功能的接口描述了具体的行为。例如， HTMLElement 接口是所有 HTML 元素的基本接口，而 SVGElement 接口是所有 SVG 元素的基础。大多数功能是在这个类的更深层级（hierarchy）的接口中被进一步制定的。
 
-
 ### 方法API
 
-
-
 ### 属性
-
-
-
 
 ### HTMLElement
 
@@ -68,8 +65,8 @@ div style="width: 300px; border-color:blue;
 
 <script>
   var box = document.getElementById("box");
-  var long = document.getElementById("long"); 
-  // 
+  var long = document.getElementById("long");
+  //
   // long.offsetLeft这个值就是span的offsetLeft.
   // long.offsetParent 返回的是body（在chrome浏览器中测试）
   // 如果id为long的span元素的父元素div，设置了position属性值，只要不为static,那么long.offsetParent就是div
@@ -78,7 +75,7 @@ div style="width: 300px; border-color:blue;
   box.style.top = long.offsetTop + document.body.scrollTop + "px";
   box.style.width = long.offsetWidth + "px";
   box.style.height = long.offsetHeight + "px";
-</script> 
+</script>
 ```
 
 - 元素本身 包括元素内部滚动 只读
@@ -94,7 +91,6 @@ offsetWidth: 获得对象的可视区域的宽度，包括边框
 clientHeight: 获得对象边框内部分的高度
 
 clientWidth: 获得对象边框内部分的宽度
-
 
 - 元素本身 只读
 
@@ -116,16 +112,15 @@ element.getBoundingClientRect()
 
 ![](./getboundingclientrect.jpg)
 
-https://www.jianshu.com/p/824eb6f9dda4
-
+<https://www.jianshu.com/p/824eb6f9dda4>
 
 - left
 
-- right 
+- right
 
 - top
 
-- bottom 
+- bottom
 
 - width
 

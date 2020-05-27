@@ -1,20 +1,24 @@
-# 一些学习书籍
+# 学习资料
 
-https://github.com/justjavac/free-programming-books-zh_CN
+## 网站
 
-https://juejin.im/post/5c7129b0f265da2d9710f7ca
+<http://www.ruanyifeng.com/blog/javascript/>
 
+## 书籍
 
-学习指南: https://shenbao.github.io/2017/04/22/justjavac-live/
+<https://github.com/justjavac/free-programming-books-zh_CN>
 
-## css
+<https://juejin.im/post/5c7129b0f265da2d9710f7ca>
+
+学习指南: <https://shenbao.github.io/2017/04/22/justjavac-live/>
+
+### css
 
 CSS 揭秘
 
 《图解CSS》
 
-
-## JavaScript
+### JavaScript
 
 JavaScript 语言精粹
 
@@ -32,7 +36,7 @@ JavaScript 正则表达书迷你书 (第 1 版)
 
 《深入理解ES6》
 
-## 框架
+### 框架
 
 《Vue.js权威指南》
 
@@ -50,15 +54,13 @@ React状态管理与同构实战
 
 Vue 组件精讲
 
-
-
-## 后端
+### 后端
 
 《MongoDB权威指南》
 
 《MongoDB实战》
 
-## 网络与性能优化相关书籍
+### 网络与性能优化相关书籍
 
 《HTTP权威指南》
 
@@ -66,7 +68,7 @@ Vue 组件精讲
 
 《Web性能权威指南》
 
-## 算法
+### 算法
 
 JS数据结构与算法
 
@@ -76,7 +78,7 @@ JS数据结构与算法
 
 程序员代码面试指南：IT名企算法与数据结构题目最优解
 
-## linux
+### linux
 
 鸟哥的Linux私房菜之基础学习篇
 
@@ -92,17 +94,15 @@ Nginx 核心知识 100 讲
 
 深入理解 Nginx；模块开发与架构解析
 
-
-
-## 设计模式
+### 设计模式
 
 nodejs设计模式
 
-## 底层知识
+### 底层知识
 
 WebKit 技术内幕
 
-## 图形编程
+### 图形编程
 
 HTTML5 Canvas 核心技术
 
@@ -112,17 +112,8 @@ WebGL 编程指南
 
 OpenGL超级宝典 第5版
 
-## 其他
+### 其他
 
 跨平台桌面应用开发：基于 Electron 与 NW.js
 
 Web 安全开发指南
-
-
-
-
-
-
-
-
-
