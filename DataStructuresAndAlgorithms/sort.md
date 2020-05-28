@@ -197,6 +197,28 @@ function mergeArrays( arr, startLeft, stopLeft, startRight, stopRight) {
 2. 对列 表 重新 排序， 将 所有 小于 基准 值 的 元素 放在 基准 值 的 前面， 所有 大于 基准 值 的 元素 放在 基准 值 的 后面；  
 3. 分别 对 较小 元素 的 子 序列 和 较大 元素 的 子 序列 重复 步骤 1 和 2。  
 
+**伪代码逻辑**
+
+```
+QUICKSORT(A,p,r)
+  if p<r
+    q = PARTITION(A,p,r)
+    QUICKSORT(A,p,q-1)
+    QUICKSORT(A,q+1,r)
+
+PARTITION(A,p,r)
+  x = A[r]
+  i = p-1
+  for j = p to r-1
+    if A[j]<=x
+      i = i + 1
+      exchange A[i] with A[j]
+  exchange A[i] with A[j]
+  return i+1
+```
+
+**js实现**
+
 ```js
 const quickSort = (array) => {
   const sort = (arr, left = 0, right = arr.length - 1) => {
