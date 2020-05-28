@@ -1,4 +1,10 @@
-//**************** 匿名函数 立即执行函数 IIFE****************/
+# function
+
+***
+
+## 匿名函数 立即执行函数 IIFE
+
+```js
 //function后面没有定义名称
 //匿名函数调用
 //调用一,必须要实现赋值
@@ -23,8 +29,11 @@ var fn = function (x, y) {
 
   }
 )();
+```
 
-//**************** 作用域安全的构造函数 ****************/
+## 作用域安全的构造函数
+
+```js
 //不用new，直接调用构造函数时会改变this为window，以下修正
 function Polygon(sides) {
   if (this instanceof Polygon) {
@@ -48,8 +57,11 @@ function Rectangle(width, height) {
 }
 Rectangle.prototype = new Polygon();
 var rect = new Rectangle(5, 10);
+```
 
-//**************** 惰性载入 ****************/
+## 惰性载入
+
+```js
 //惰性 载入 表示 函数 执行 的 分支 仅 会 发生 一次。
 //方法一：重写
 function createXHR() {
@@ -74,6 +86,7 @@ var createXHR = (function () {
     return function () {};
   }
 })();
+```
 
 ## 函数绑定
 
@@ -208,13 +221,18 @@ console.log(countMoney())
 countMoney(1)(2)(3)(4)()
 ```
 
-//**************** arguments ****************/
+## arguments
+
+```js
 function test() {
   console.log(arguments);
 }
 test(1, 2);
+```
 
-//**************** 偏函数 ****************/
+## 偏函数
+
+```js
 // bind()的另一个最简单的用法是使一个函数拥有预设的初始参数。
 // 只要将这些参数（如果有的话）作为bind()的参数写在this后面。
 // 当绑定函数被调用时，这些参数会被插入到目标函数的参数列表的开始位置，
@@ -242,3 +260,4 @@ var result2 = addThirtySeven(5);
 // 37 + 5 = 42
 var result3 = addThirtySeven(5, 10);
 // 37 + 5 = 42 ，第二个参数被忽略
+```

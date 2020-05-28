@@ -4,6 +4,8 @@
 
 本文档性能文档，也有对tcp/http的介绍 [性能文档](../performance.md#TCP)
 
+***
+
 ## 一。 TCP/IP
 
 - 通常使用的网络是在TCP/IP协议族的基础上运作的，而HTTP属于它内部的一个子集。
@@ -38,7 +40,7 @@ DNS服务是和HTTP协议一样位于应用层的协议，它提供域名到IP�
 
 - URL是URI的子集
 
-### TCP三次握手
+**TCP三次握手**
 
 - 确保数据能到达目标，TCP协议采用了三次握手策略 :
 
@@ -70,7 +72,7 @@ HTTP是不保存状态的协议。每当有新的请求发生时，就会有对�
 
 HTTP1.1有了cookie，就可以管理状态了。
 
-### 支持的方法
+**支持的方法**
 
 GET：获取资源
 
@@ -86,7 +88,7 @@ OPTIONS：询问支持的方法
 
 TRACE：追踪路径
 
-### 持久连接节省通信量
+**持久连接节省通信量**
 
 HTTP协议的初始版本中，每进行一次HTTP通信就要断开一次TCP连接。
 
@@ -98,19 +100,19 @@ HTTP协议的初始版本中，每进行一次HTTP通信就要断开一次TCP连
 
 在HTTP1.1中，所有连接默认都是持久连接。
 
-### 管线化
+**管线化**
 
 管线化技术，不用等待响应亦可直接发送下一个请求。
 同事并行发送多个请求，不需要一个接一个等待响应。
 
-### cookie
+**cookie**
 
 Cookie会根据从服务端发送的响应报文内的一个叫做Set-Cookie的首部信息字段，通知客户端保存Cookie。
 下次客户端再往该服务器发送请求时，客户端会自动在请求报文中加入cookie值后发送出去。
 
-### HTTP0.9
+**HTTP0.9**
 
-**最初的HTTP建议**
+最初的HTTP建议:
 
 - 几个宏观的设计目标：  
 
@@ -126,7 +128,7 @@ Cookie会根据从服务端发送的响应报文内的一个叫做Set-Cookie的�
 服务器响应的是一种超文本标记语言（HTML）  
 连接在文档传输完毕后断开  
 
-### HTTP1.0
+**HTTP1.0**
 
 - 关键变化：
 
@@ -138,18 +140,18 @@ Cookie会根据从服务端发送的响应报文内的一个叫做Set-Cookie的�
 
 > 事实上，HTTP中的 HTT（超文本传输）在协议出现后不久就用词不当了。在实践中，HTTP迅速发展为超媒体传输协议。
 
-### HTTP1.1
+**HTTP1.1**
 
 > HTTP1.1改变了HTTP协议的语义，默认使用持久连接。除非明确告知（connection:close 首部），否则服务器会保持连接打开。  
 移植到1.0上，通过Connection:Keep-Alive 首部启用。如果是1.1不需要这个头部。
 > 厘清了之前版本中很多有歧义的地方，而且还加入了很多重要的性能优化：持久连接，分块编码传输，字节范围请求，增强的缓存机制，传输编码及请求管道。
 
-### HTTP2.0
+**HTTP2.0**
 
 > 改进传输性能,实现低延迟和高吞吐量。
 > 现有的网站和应用，无需做任何更改都可以在HTTP2.0上跑起来
 
-### 状态码
+**状态码**
 
 - 1xx（信息）
 
@@ -197,19 +199,19 @@ Cookie会根据从服务端发送的响应报文内的一个叫做Set-Cookie的�
 
 503: Service Unavailable。服务器停机中，无法处理请求。
 
-### header
+**header**
 
-**请求**
+- 请求
 
-- withCredentials
+> withCredentials
 
 withCredentials设置为true，可以向服务器发送cookies
 
-**响应**
+- 响应
 
-- Access-Control-Allow-Origin
+1. Access-Control-Allow-Origin
 
-- Access-Control-Expose-Headers
+2. Access-Control-Expose-Headers
 
 在跨域访问时，XMLHttpRequest对象的getResponseHeader()方法只能拿到一些最基本的响应头，Cache-Control、Content-Language、Content-Type、Expires、Last-Modified、Pragma，如果要访问其他头，则需要服务器设置本响应头。
 
@@ -217,7 +219,7 @@ withCredentials设置为true，可以向服务器发送cookies
 Access-Control-Expose-Headers: X-My-Custom-Header, X-Another-Custom-Header
 ```
 
-- Access-Control-Max-Age
+3. Access-Control-Max-Age
 
 Access-Control-Max-Age 头指定了preflight请求的结果能够被缓存多久，请参考本文在前面提到的preflight例子。
 
@@ -225,11 +227,11 @@ Access-Control-Max-Age 头指定了preflight请求的结果能够被缓存多久
 Access-Control-Max-Age: <delta-seconds>
 ```
 
-- Access-Control-Allow-Methods
+4. Access-Control-Allow-Methods
 
 Access-Control-Allow-Methods 首部字段用于预检请求的响应。其指明了实际请求所允许使用的 HTTP 方法。
 
-- Access-Control-Allow-Headers
+5. Access-Control-Allow-Headers
 
 Access-Control-Allow-Headers 首部字段用于预检请求的响应。其指明了实际请求中允许携带的首部字段。
 
@@ -239,7 +241,7 @@ Access-Control-Allow-Headers 首部字段用于预检请求的响应。其指明
 
 <http://www.ruanyifeng.com/blog/2016/08/migrate-from-http-to-https.html>
 
-### 概念
+**概念**
 
 - 窃听收听解析数据包：抓包（Packet Capture）或嗅探器（Sniffer）工具
 
@@ -247,39 +249,39 @@ Access-Control-Allow-Headers 首部字段用于预检请求的响应。其指明
 
 - SSL组合HTTP被称为HTTPS
 
-- HTTP的缺点
+- HTTP的缺点:
 
-通信使用明文（不加密），内容可能会被窃听。
+  通信使用明文（不加密），内容可能会被窃听。
 
-不验证通信方的身份，因此有可能遭遇伪装。
+  不验证通信方的身份，因此有可能遭遇伪装。
 
-无法证明报文的完整性，所以有可能已遭篡改。
+  无法证明报文的完整性，所以有可能已遭篡改。
 
-- HTTP不论是谁发送来的请求都会返回响应，因此不确认通信方，会存在以下隐患
+- HTTP不论是谁发送来的请求都会返回响应，因此不确认通信方，会存在以下隐患:
 
-1. 无法确定请求发送至目标的web服务器是否是按真实意图返回响应的那台服务器。有可能是已伪装的web服务器。
+  1. 无法确定请求发送至目标的web服务器是否是按真实意图返回响应的那台服务器。有可能是已伪装的web服务器。
 
-1. 无法确定响应返回到的客户端是否是按真实意图接收响应的那个客户端。有可能是已伪装的客户端。
+  1. 无法确定响应返回到的客户端是否是按真实意图接收响应的那个客户端。有可能是已伪装的客户端。
 
-1. 无法确定对方是否具备访问权限。
+  1. 无法确定对方是否具备访问权限。
 
-1. 无法确定请求来自何方，出自何手
+  1. 无法确定请求来自何方，出自何手
 
-1. 即时是无意义的请求也会照单全收，无法阻止海量请求下的Dos攻击（Denial of Service，拒绝服务攻击）
+  1. 即时是无意义的请求也会照单全收，无法阻止海量请求下的Dos攻击（Denial of Service，拒绝服务攻击）
 
 - 请求和响应在传输途中，遭攻击者拦截并篡改内容的攻击称为中间人攻击（Man-in-the-Middle attack，MITM）
 
-- HTTP + 加密 + 认证 + 完整性保护 = HTTPS
+- HTTPS = HTTP + 加密 + 认证 + 完整性保护
 
-HTTPS不是一种新协议，只是HTTP通信接口部分用SSL和TSL协议代替
+- HTTPS不是一种新协议，只是HTTP通信接口部分用SSL和TSL协议代替
 
-通常HTTP直接和TCP通信，当使用SSL时，变成先和SSL通信，SSL再和TCP通信。
+- 通常HTTP直接和TCP通信，当使用SSL时，变成先和SSL通信，SSL再和TCP通信。
 
-### HTTPS的通信步骤
+**HTTPS的通信步骤**
 
 <http://www.ruanyifeng.com/blog/2014/09/illustration-ssl.html>
 
-**版本1**
+- 版本1
 
 第一步，爱丽丝给出协议版本号、一个客户端生成的随机数（Client random），以及客户端支持的加密方法。
 
@@ -291,13 +293,13 @@ HTTPS不是一种新协议，只是HTTP通信接口部分用SSL和TSL协议代�
 
 第五步，爱丽丝和鲍勃根据约定的加密方法，使用前面的三个随机数，生成"对话密钥"（session key），用来加密接下来的整个对话过程。
 
-**版本2**
+- 版本2
 
-- 第一次：
+1. 第一次：
 
 步骤1：客户端通过发送ClientHello报文开始SSL通信。报文中包含客户端支持的SSL的指定版本、加密组件（CipherSuite）列表（所使用的加密算法及密钥长度等）。
 
-- 第二次：
+2. 第二次：
 
 步骤2：服务器可进行SSL通信时，会以ServerHello报文作为应答。和客户端一样，在报文中包含SSL版本以及加密组件。服务器的加密组件内容是从接收到的客户端加密组件内筛选出来的。
 
@@ -305,7 +307,7 @@ HTTPS不是一种新协议，只是HTTP通信接口部分用SSL和TSL协议代�
 
 步骤4：最后服务器发送ServerHelloDone报文通知客户端，最初阶段的SSL握手协商部分结束。
 
-- 第三次：
+2. 第三次：
 
 步骤5：SSL第一次握手结束之后，客户端以ClientKeyExchange报文作为回应。报文中包含通信加密中使用的一种被称为Premastersecret的随机密码串。该报文已用步骤3中的公开密钥进行加密。
 
@@ -313,25 +315,25 @@ HTTPS不是一种新协议，只是HTTP通信接口部分用SSL和TSL协议代�
 
 步骤7：客户端发送Finished报文。该报文包含连接至今全部报文的整体校验值。这次握手协商是否能够成功，要以服务器是否能够正确解密该报文作为判定标准。
 
-- 第四次：
+3. 第四次：
 
 步骤8：服务器同样发送ChangeCipherSpec报文。
 
 步骤9：服务器同样发送Finished报文。
 
-- 第五次：
+4. 第五次：
 
 步骤10：服务器和客户端的Finished报文交换完毕之后，SSL连接就算建立完成。当然，通信会受到SSL的保护。从此处开始进行应用层协议的通信，即发送HTTP请求。
 
-- 第六次：
+5. 第六次：
 
 步骤11：应用层协议通信，即发送HTTP响应。
 
-- 第七次：
+6. 第七次：
 
 步骤12：最后由客户端断开连接。断开连接时，发送close_notify报文。上图做了一些省略，这步之后再发送TCPFIN报文来关闭与TCP的通信。
 
-### 公开密钥加密（Public-key cryptography）
+**公开密钥加密（Public-key cryptography）**
 
 SSL采用公开密钥加密的加密处理方式。
 
@@ -347,7 +349,7 @@ A使用私钥对密文进行解密。
 
 数字证书认证机构（CA，Certificate Authority）颁发公钥证书
 
-### HTTPS慢
+**HTTPS慢**
 
 - HTTPS要比HTTP慢2-100倍
 
@@ -357,9 +359,9 @@ SSL的慢分两种：
 
 1. 一种是大量消耗CPU，内存资源：SSL必须加密解密处理。
 
-### 知识点
+## 知识点
 
-#### POST和GET的区别，列举一下
+**POST和GET的区别，列举一下**
 
 > ????此条有问题，应该是url传参和data传参区别：
 

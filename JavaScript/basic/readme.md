@@ -233,19 +233,25 @@ function deepCopy(obj) {
 
 ### 数据类型存储方式
 
+```
 1.引用类型
 存储：
 栈：name：指针[指向堆值]
 堆[指针]：value
+
 2.基本类型
 存储：
 栈：name：value
+```
+
 <https://blog.csdn.net/flyingpig2016/article/details/52895620>
 
 ## Event Loop
 
 <http://www.ruanyifeng.com/blog/2014/10/event-loop.html>
+
 <https://mp.weixin.qq.com/s/nJsM05Yp50HDH1hqEen2eQ>
+
 <https://zhuanlan.zhihu.com/p/72507900>
 
 - JavaScript是一种单线程语言
@@ -327,11 +333,11 @@ console.log('d');
 
 ## 内存管理
 
-### 内存
+**内存**
 
 <https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Memory_Management>
 
-### 内存泄漏
+**内存泄漏**
 
 指由于疏忽或错误造成程序未能释放已经不再使用的内存的情况。内存泄漏并非指内存在物理上的消失，而是应用程序分配某段内存后，由于设计错误，失去了对该段内存的控制，因而造成了内存的浪费。  
 
@@ -339,7 +345,7 @@ console.log('d');
 
 (<https://segmentfault.com/a/1190000008901861)>
 
-### js中的堆和栈
+**js中的堆和栈**
 
 <https://www.cnblogs.com/heioray/p/9487093.html>
 <https://blog.csdn.net/GUANTINA/article/details/81533605>
@@ -350,15 +356,17 @@ console.log('d');
 
 而堆内存主要负责像对象Object这种变量类型的存储，如下图
 
-在计算机领域中，堆栈是两种数据结构，它们只能在一端(称为栈顶(top))对数据项进行插入和删除。  
+在计算机领域中，堆栈是两种数据结构，它们只能在一端(称为栈顶(top))对数据项进行插入和删除。
+
 堆：队列优先,先进先出；由操作系统自动分配释放 ，存放函数的参数值，局部变量的值等。其操作方式类似于数据结构中的栈。  
+
 栈：先进后出；动态分配的空间 一般由程序员分配释放， 若程序员不释放，程序结束时可能由OS回收，分配方式倒是类似于链 表。
 
-### 垃圾回收
+**垃圾回收**
 
 <https://www.cnblogs.com/dolphinX/p/3348468.html>
 
-### 内存优化
+**内存优化**
 
 就全局变量而言，JavaScript不能确定它在后面不能够被用到，所以它会从声明之后就一直存在于内存中，直至手动释放或者关闭页面/浏览器，这就导致了某些不必要的内存消耗。我们可以进行以下的优化。
 
@@ -370,7 +378,7 @@ console.log('d');
 
 闭包是最容易产生内存问题的，
 
-### setTimeout定时器
+**setTimeout定时器**
 
 ```js
 console.log(1);
@@ -729,7 +737,7 @@ return array.join("");
 <https://segmentfault.com/a/1190000011145364>  
 <https://www.zhihu.com/topic/19612046/top-answers>
 
-***同源策略*** :
+**同源策略：**
 
 协议+端口号+域名要相同
 
@@ -737,9 +745,9 @@ return array.join("");
 2. DOM 和 Js对象无法获得  
 3. AJAX 请求不能发送  
 
-***方法*** :
+方法:
 
-### CORS
+### 1. CORS
 
 (Cross-Origin Resource Sharing) 跨域资源共享
 
@@ -751,15 +759,15 @@ return array.join("");
 
 因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。
 
-* 简单请求
+**简单请求:**
 
 只要同时满足以下两大条件，就属于简单请求。
 
-**method:**
+- method:
 
 GET, HEAD, POST
 
-**HTTP的头信息不超出以下几种字段:**
+- HTTP的头信息不超出以下几种字段:
 
 Content-Type:application/x-www-form-urlencoded , multipart/form-data ,  text/plain
 
@@ -771,7 +779,7 @@ Content-Language
 
 Last-Event-ID
 
-**对于简单请求，浏览器自动加origin请求头**
+- 对于简单请求，浏览器自动加origin请求头
 
 ```javascript
 //js
@@ -785,7 +793,7 @@ Access-Control-Expose-Headers: FooBar // 暴露的返回头
 Content-Type: text/html; charset=utf-8
 ```
 
-**发送cookie**
+- 发送cookie
 
 CORS请求默认不发送Cookie和HTTP认证信息
 
@@ -799,7 +807,7 @@ xhr.withCredentials = true;
 
 需要注意的是，如果要发送Cookie，Access-Control-Allow-Origin就不能设为星号，必须指定明确的、与请求网页一致的域名。同时，Cookie依然遵循同源政策，只有用服务器域名设置的Cookie才会上传，其他域名的Cookie并不会上传，且（跨源）原网页代码中的document.cookie也无法读取服务器域名下的Cookie。
 
-* 非简单请求
+**非简单请求**
 
 method：不是简单请求中的一种  
 Content-Type：不是简单请求中的一种  
@@ -821,7 +829,7 @@ Access-Control-Allow-Methods: GET, POST, PUT, DELETE
 Content-Type: text/html
 ```
 
-### JSONP
+### 2. JSONP
 
 **JSONP只支持GET请求**
 
@@ -864,13 +872,13 @@ onBack({"status": true, "user": "admin"})
 它支持 GET 请求而不支持 POST 等其它类行的 HTTP 请求。  
 它只支持跨域 HTTP 请求这种情况，不能解决不同域的两个页面或 iframe 之间进行数据通信的问题
 
-### document.domain
+### 3. document.domain
 
 该方式只能用于二级域名相同的情况下，比如 a.test.com 和 b.test.com 适用于该方式。
 
 只需要给页面添加 document.domain = 'test.com' 表示二级域名都相同就可以实现跨域
 
-### 代理
+### 4. 代理
 
 ```sh
 server{
@@ -906,7 +914,7 @@ server {
 }
 ```
 
-### iframe form   待定
+### 5. iframe form   待定
 
 没有返回值
 创建form，提交到后端地址 ， 添加到创建的iframe ，submit form

@@ -4,7 +4,7 @@ MDN参考:<https://developer.mozilla.org/zh-CN/docs/Web/Events>
 
 <https://developer.mozilla.org/en-US/docs/Web/API/Event>
 
-浏览器中, js引擎线程会循环从 任务队列 中读取事件并且执行, 这种运行机制称作 Event Loop (事件循环).
+***
 
 input  焦点keyup
 
@@ -12,7 +12,7 @@ body监听 keyup? 回车？
 
 ## 事件流
 
-### 事件冒泡
+**事件冒泡**
 
 事件冒泡(event bubbling)的概念：
 
@@ -30,7 +30,7 @@ body监听 keyup? 回车？
 -->
 ```
 
-### 事件捕获
+**事件捕获**
 
 (event capturing）。事件捕获的思想是不太具体的节点应该更早接收到事件，而最具体的节点应该最后接收到事件。事件捕获的用意在于在事件到达预定目标之前捕获它。
 
@@ -43,7 +43,7 @@ body监听 keyup? 回车？
 
 > 一般建议使用冒泡，特殊时使用捕获
 
-### 事件流
+**事件流**
 
 事件流包括3个阶段: 事件捕获阶段 > 处于目标阶段 > 事件冒泡阶段
 
@@ -78,19 +78,19 @@ addEventListener多个时会按照添加它们的顺序触发。
 
 在触发DOM上的某个事情时，会产生一个事件对象event。
 
-### cancelable
+**cancelable**
 
 表明该事件是否可以被取消, true时才能被preventDefault();
 
-### preventDefault()
+**preventDefault()**
 
-### stopPropagation()
+**stopPropagation()**
 
 立即停止事件在DOM层次中的传播，取消进一步的事件捕获或冒泡
 
 ## 事件类型
 
-### UI事件
+**UI事件**
 
 不一定与用户操作有关的事件。
 
@@ -98,7 +98,7 @@ addEventListener多个时会按照添加它们的顺序触发。
 - error: window img object
 - resize: window或框架，大小变化时
 
-### 焦点事件
+**焦点事件**
 
 页面获得或失去焦点时触发，(document.hasFocus(), document.activeElement)
 
@@ -107,19 +107,19 @@ addEventListener多个时会按照添加它们的顺序触发。
 - focusin 会冒泡
 - focusout 会冒泡
 
-### 鼠标与滚轮
+**鼠标与滚轮**
 
-### 键盘与文本
+**键盘与文本**
 
-### 复合
+**复合**
 
-### 变动
+**变动**
 
-### HTML5
+**HTML5**
 
-### 设备
+**设备**
 
-### 触摸与手势
+**触摸与手势**
 
 ## drag 拖动
 
@@ -166,7 +166,7 @@ document.addEventListener("drop", function( event ) {
 
 ## mouse 鼠标
 
-### mouse事件type
+**mouse事件type**
 
 mouseover: 在鼠标穿过元素和子元素的时候都会触发一次，并重新初始化mouse事件
 mouseout：指针移出元素，或者移到它的子元素上。（会冒泡），每个当前元素以及子元素移出都会触发
@@ -178,7 +178,7 @@ mousedown: 在元素上按下任意鼠标按钮。
 mouseup: 在元素上释放任意鼠标按键。
 mousemove: 指针在元素内移动时持续触发。
 
-### MouseEvent
+**MouseEvent**
 
 <https://developer.mozilla.org/zh-CN/docs/Web/API/MouseEvent/>
 
@@ -188,7 +188,7 @@ mousemove: 指针在元素内移动时持续触发。
 
 ## 键盘按键
 
-### keyDown
+**keyDown**
 
 <https://developer.mozilla.org/zh-CN/docs/Web/API/KeyboardEvent>
 
