@@ -183,7 +183,9 @@ function curry(fn) {
 //应用以上
 var curriedAdd = curry(add, 5); //参数为5的add柯里化
 curriedAdd(3); //8
+```
 
+```js
 //另外一种思路
 // countMoney为立即执行函数，返回的结果是另一个函数
 const countMoney = (function () {

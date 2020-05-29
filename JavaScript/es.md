@@ -3,7 +3,14 @@
 
 <http://es6.ruanyifeng.com/>
 
-### 1. module
+**默认参数**
+
+```js
+function fibonacci(current = 0, next = 1) {
+}
+```
+
+**module**
 
 : import export default
 
@@ -35,11 +42,11 @@ export default class {}
 import customName from
 ```
 
-### 2. Promise
+**Promise**
 
 <http://es6.ruanyifeng.com/#docs/promise>
 
-#### promise新建后会立即执行
+- promise新建后会立即执行
 
 ```js
 
@@ -61,7 +68,7 @@ console.log('Hi!');
 
 ```
 
-#### Promise.prototype.then()
+- Promise.prototype.then()
 
 - then方法返回的是一个新的Promise实例（注意，不是原来那个Promise实例）
 
@@ -75,7 +82,7 @@ getJSON("/posts.json").then(function(json) {
 
 - 上面的代码使用then方法，依次指定了两个回调函数。第一个回调函数完成以后，会将返回结果作为参数，传入第二个回调函数。
 
-#### Promise.resolve()
+- Promise.resolve()
 
 有时需要将现有对象转为 Promise 对象，Promise.resolve方法就起到这个作用。
 
@@ -89,7 +96,7 @@ Promise.resolve('foo')
 new Promise(resolve => resolve('foo'))
 ```
 
-#### Promise.reject()
+- Promise.reject()
 
 Promise.reject(reason)方法也会返回一个新的 Promise 实例，该实例的状态为rejected。
 
@@ -104,7 +111,7 @@ p.then(null, function (s) {
 // 出错了
 ```
 
-#### 实现mergePromise
+- 实现mergePromise
 
 ```js
 
@@ -147,7 +154,7 @@ mergePromise([ajax1, ajax2, ajax3]).then(data => {
 });
 ```
 
-### 3. generator
+**generator**
 
 一种异步编程解决方案
 
@@ -177,7 +184,7 @@ hw.next()
 
 ```
 
-### 4. set
+**set**
 
 ```
 const a = new Set();
@@ -195,9 +202,9 @@ Set.prototype.forEach()：使用回调函数遍历每个成员
 
 Set.prototype.delete(value)：删除某个值，返回一个布尔值，表示删除是否成功。
 
-### 5. map
+**map**
 
-### 6. class
+**class**
 
 新的 数据类型class 区别与javaclass定义，class在js类似数据类型，可以在function 内定义
 
