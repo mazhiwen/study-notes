@@ -2,6 +2,22 @@
 
 ***
 
+## function.length
+
+length 属性指明函数的形参个数。
+
+```js
+function func1() {}
+
+function func2(a, b) {}
+
+console.log(func1.length);
+// expected output: 0
+
+console.log(func2.length);
+// expected output: 2
+```
+
 ## 匿名函数 立即执行函数 IIFE
 
 ```js
@@ -155,21 +171,22 @@ console.log(boundGetX());
 
 ## 函数柯里化
 
+> 简单来说柯里化就是把一个多参函数转换成接受单参的一系列函数
+
+下一个函数的参数是上一个函数的结果
+
+且函数体内运行逻辑相同
+
+一个函数 多个参数
+
+内部函数 和 外部函数的 组合
+
+**实现一:**
+
 ```js
-//下一个函数的参数是上一个函数的结果
-//且函数体内运行逻辑相同
-//一个函数 多个参数
-//内部函数 和 外部函数的 组合
 function add(num1, num2) {
   return num1 + num2;
 }
-add(2, 3);
-
-function curriedAdd(num2) {
-  return add(5, num2);
-  //return add (add(2,3),num2);
-}
-curriedAdd(3);
 //柯里化
 function curry(fn) {
   var args = Array.prototype.slice.call(arguments, 1); //外函数arguments
@@ -184,6 +201,8 @@ function curry(fn) {
 var curriedAdd = curry(add, 5); //参数为5的add柯里化
 curriedAdd(3); //8
 ```
+
+**实现二:**
 
 ```js
 //另外一种思路
@@ -221,6 +240,28 @@ countMoney(4)
 console.log(countMoney())
 // 你还可以装逼地进行花式统计，结果同样是10
 countMoney(1)(2)(3)(4)()
+```
+
+**es6实现**
+
+```js
+let curry = (fn) => {
+  if (fn.length <= 1) return fn;
+
+  const generator = (args) => {
+    return args.length === fn.length ?
+    fn(...args)
+    : arg => generator([...args, arg])
+  };
+  
+  return generator([], fn.length);
+};
+
+
+let sum = (a, b, c) => a + b + c;
+let curriedSum = curry(sum);
+const res = curriedSum(1)(2)(3)
+console.log(res); // 6
 ```
 
 ## arguments

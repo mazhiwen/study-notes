@@ -1,4 +1,6 @@
-# 算法题(JS)
+# 算法题
+
+<https://github.com/sisterAn/JavaScript-Algorithms>
 
 <https://github.com/CavsZhouyou/Front-End-Interview-Notebook/blob/master/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95.md#7-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97>
 
@@ -95,3 +97,12 @@ function fibonacci(n) {
 .....
 
 <https://juejin.im/post/596837b75188250d781d1552>
+
+## 假设你有8个球，其中一个略微重一些，但是找出这个球的惟一方法是将两个球放在天平上对比。最少要称多少次才能找出这个较重的球
+
+最少两次可以称出。
+
+首先将 8 个球分为 3 组，其中两组为 3 个球，一组为 2 个球。
+
+第一次将两组三个的球进行比较，如果两边相等，则说明重的球在最后一组里。第二次将最后一组的球进行比较即可。如
+果两边不等，则说明重的球在较重的一边，第二次只需从这一组中随机取两球出来比较即可判断。
