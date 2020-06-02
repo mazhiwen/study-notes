@@ -1,6 +1,6 @@
 # css
 
-## 目录
+目录
 
 - [box-shadow](#box-shadow)
 - [transition](#transition)
@@ -15,10 +15,14 @@
 - [选择器](#选择器)
 - [行内元素和块元素](#行内元素和块元素)
 - [0.5px的边](#0.5px的边)
-- [不定高的DIV居中](#不定高的DIV居中)
 - [清除浮动](#清除浮动)
+- [overflow](#overflow)
+- [水平居中](#水平居中)
+- [垂直居中](#垂直居中)
 - [三栏布局](#三栏布局)
+- [两列固定-一列自适应](#两列固定-一列自适应)
 - [左边定宽-右边自适应](#左边定宽-右边自适应)
+- [全页面布局](#全页面布局)
 - [BFC](#BFC)
 - [media媒体查询](#media)
 - [initial等](#initial等)
@@ -28,6 +32,8 @@
 - [垂直居中](#垂直居中)
 - [margin](#margin)
 - [vertical-align](#vertical-align)
+
+布局相关:<https://segmentfault.com/a/1190000013565024?utm_source=channel-hottest#item-1>
 
 ***
 
@@ -489,29 +495,6 @@ width:0;
 }
 ```
 
-## 不定高的DIV居中
-
-```css
-/*1.flex*/
-
-/*2.table-cell*/
-
-/*3.transform*/
-.wrap{
-  position:relative;
-  background:gray;
-  height: 100px;
-}
-.test{
-  background: red;
-  width: 100px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%,-50%);
-}
-```
-
 ## 清除浮动
 
 1.给父级元素定义高度  
@@ -525,6 +508,74 @@ width:0;
   content:""; /* 生成内容为空  */
   display: block; /* 块级元素显示  */
   clear:both; /* 清除前面元素  */
+}
+```
+
+## overflow
+
+<https://juejin.im/post/581dcefbda2f60005df93b54>
+
+> overflow 属性指定了一个块容器元素在其内容溢出这个元素的时候，内容是否裁掉。
+
+**作用**
+
+- overflow 的值为非 visible 的时候可以生成新的 BFC （块级格式化上下文），常见的结果就是：消除浮动影响（清除子元素浮动引起的父元素对自元素忽略空间效果）、左侧固定右侧自适应（不需要指定 margin-left ）、margin 不再折叠等。
+
+- overflow:hidden 搭配 white-space:nowrap、text-overflow:ellipsis实现...效果。
+
+- overflow:hidden 可以让 1px（ scale(0.5) 这种）显示的更加精细。
+
+- overflow:hidden 可以解决移动端页面内容（一般文字内容相对多一点的时候效果更明显）会出现“进来左右方向缩小到一块”然后再变为正常布局的 bug ，这个 bug 会引起很明显的闪动效果。
+
+> float浮动的div会失去独霸一行的能力，也就是宽度自填充满。而overflow清除子元素对父元素的浮动影响后，父元素可以独霸一行。
+
+## 水平居中
+
+**inline-block text-align**
+
+**absolute transform**
+
+```css
+.parent {
+    position:relative;
+}
+.child {
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+}
+```
+
+**flex justify-content**
+
+## 垂直居中
+
+**table-cell vertical-align**
+
+```css
+.parent {
+  display:table-cell;
+  vertical-align:middle;
+}
+```
+
+**flex align-items**
+
+**absolute transform**
+
+```css
+.wrap{
+  position:relative;
+  background:gray;
+  height: 100px;
+}
+.test{
+  background: red;
+  width: 100px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
 }
 ```
 
@@ -635,25 +686,220 @@ width:0;
 </div>
 </body>
 </html>
+```
 
+## 两列固定-一列自适应
 
+```html
+<div class="left">
+  <p>left</p>
+</div>
+<div class="center">
+  <p>center</p>
+</div>
+<div class="right">
+  <p>right</p>
+  <p>right</p>
+</div>
+```
 
+> overflow: hidden 可以抵消受到同层级float元素的效果,并且自适应宽度
+
+```css
+.left,.center{
+    float: left;
+    margin-right: 20px;
+    outline: 1px solid red;
+}
+.right{
+  overflow: hidden;
+}
+.left p,.center p{
+    width: 100px;
+}
 ```
 
 ## 左边定宽-右边自适应
 
-方案一：左边设置浮动，右边宽度设置100% .left{float:left} .right:{width:100%}  
-方案二：左设置浮动，右用cacl去补宽度计算 .left{float:left} .right:{width:cacl(100vw-200px}  
-方案三：父容器设置display：flex right部分是设置flex：1  
-方案四：右边div套个包裹、并前置、左及包裹 双浮动  
+**float cacl**
+
+```css
+.left{
+  float:left;
+  width: 200px;
+  outline: 1px solid red;
+}
+.right{
+  width:calc(100% - 200px);
+  float:left;
+  outline: 1px solid red;
+}
+```
+
+**table table-cell**
+
+```css
+.container {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+.left, .right {
+  display: table-cell;
+  height: 600px;
+}
+.left {
+  width: 400px;
+  background-color: aqua;
+}
+.right {
+  background-color: blueviolet;
+}
+```
+
+**flex**
+
+```css
+.contain {
+  display: flex
+}
+.right {
+  flex: 1
+}
+```
+
+**float margin**
+
+```css
+.left {
+  width: 400px;
+  float: left;
+  border: 1px solid blue;
+}
+.right {
+  margin-left: 400px;
+  border: 1px solid red;
+}
+```
+
+> div块元素，自适应宽度
+
+```css
+/* 改进 */
+.left {
+  float:left;
+  width:100px;
+  position:relative;
+}
+.right-fix {
+  float:right;
+  width:100%;
+  margin-left:-100px;
+  outline: 1px solid red;
+}
+.right {
+  margin-left:120px;
+}
+
+```
+
+**float overflow**
+
+```css
+.left {
+  width: 400px;
+  float: left;
+  border: 1px solid blue;
+}
+.right {
+  overflow: hidden;
+  border: 1px solid red;
+}
+```
+
+## 全页面布局
+
+**absolute**
+
+```html
+<div class="parent">
+  <div class="top">
+    top
+  </div>
+  <div class="left">
+    left
+  </div>
+  <div class="right">
+    <div class="inner">
+      right
+    </div>
+  </div>
+  <div class="bottom">
+    bottom
+  </div>
+</div>
+```
+
+```css
+html,body,.parent{
+    margin:0;
+    height:100%;
+    overflow:hidden;
+}
+body{
+    color:white;
+}
+.top{
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    height:100px;
+    background:blue;
+}
+.left{
+    position:absolute;
+    left:0;
+    top:100px;
+    bottom:50px;
+    width:200px;
+    background:red;
+}
+.right{
+    position:absolute;
+    left:200px;
+    top:100px;
+    bottom:50px;
+    right:0;
+    background:pink;
+    overflow: auto;
+}
+.right .inner{
+    min-height: 1000px;
+}
+.bottom{
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:0;
+    height:50px;
+    background: black;
+}
+```
+
+> absolute时，设置top,bottom后，可以实现高度自适应
 
 ## BFC
 
 (Block Formatting Context)
 
-***定义：*** 块级格式化上下文，它是指一个独立的块级渲染区域，只有Block-level Box参与，该区域拥有一套渲染规则来约束块级盒子的布局，且与区域外部无关。  
+**定义：**
 
-***生成：***  满足下列CSS声明之一的元素便会生成BFC：  
+块级格式化上下文，它是指一个独立的块级渲染区域，只有Block-level Box参与，该区域拥有一套渲染规则来约束块级盒子的布局，且与区域外部无关。  
+
+**生成：**  
+
+满足下列CSS声明之一的元素便会生成BFC：  
 
 根元素或其它包含它的元素；  
 float的值不为none；  
@@ -662,13 +908,13 @@ position的值不为static；
 display的值为inline-block、table-cell、table-caption；  
 flex boxes (元素的display: flex或inline-flex)；  
 
-***用法：***  
+**用法：**
 
 * 给父元素设置overflow:hidden可以清除子元素的浮动
 
 ```html
 <div class="one">
-<div class="two">Hello World!</div>
+  <div class="two">Hello World!</div>
 </div>
 你好世界！
 ```
@@ -948,6 +1194,8 @@ p{
 
 ## margin
 
+**属性：**
+
 auto : 浏览器计算外边距
 
 length : 规定以具体单位计的外边距值，比如像素、厘米等。默认值是 0px
@@ -955,6 +1203,22 @@ length : 规定以具体单位计的外边距值，比如像素、厘米等。�
 % : 规定基于父元素的宽度的百分比的外边距
 
 inherit : 规定应该从父元素继承外边距
+
+**margin cllapse ，magin坍塌**
+
+- 相邻：相邻元素margin会重叠，取最大值  
+
+- 父子：子元素margin，会给父元素添加margin
+
+父子元素解决办法：
+
+1. 边框，当然可以设置边框为透明;
+
+2. 为父DIV添加 padding，或者至少添加padding-top;
+
+3. overflow:hidden
+
+解决效果：子元素的margin在父空间内撑开。不会影响父元素。
 
 ## vertical-align
 
