@@ -181,7 +181,7 @@ console.log(boundGetX());
 
 内部函数 和 外部函数的 组合
 
-**实现一:**
+**基本实现逻辑:**
 
 ```js
 function add(num1, num2) {
@@ -202,7 +202,7 @@ var curriedAdd = curry(add, 5); //参数为5的add柯里化
 curriedAdd(3); //8
 ```
 
-**实现二:**
+**立即执行函数 实现:**
 
 ```js
 //另外一种思路
@@ -210,7 +210,7 @@ curriedAdd(3); //8
 const countMoney = (function () {
   let money = 0
   let args = [] //闭包参数
-  const res = function () {
+  return function loop(){
     if (arguments.length === 0) {
       for (let i = 0; i < args.length; i++) {
         money += args[i]
@@ -218,12 +218,11 @@ const countMoney = (function () {
       console.log(money);
       return money
     } else {
-      // arguments 是个类数组来着，应该用展开符展开才能push进去
+      // arguments 是类数组，应该用展开符展开才能push进去
       args.push(...arguments)
-      return res //闭包函数
+      return loop //闭包函数,返回递归
     }
   }
-  return res
 })()
 // 注意：countMoney会立即执行上面，并且返回res 一个函数
 // 执行countMoney(1)时，相当于执行res(1)
@@ -240,6 +239,30 @@ countMoney(4)
 console.log(countMoney())
 // 你还可以装逼地进行花式统计，结果同样是10
 countMoney(1)(2)(3)(4)()
+```
+
+**柯里化工具函数 实现**
+
+```js
+function currying(fn){
+  var allArgs = [];
+  return function next(){
+    var args = [].slice.call(arguments);
+    if(args.length > 0){
+      allArgs = allArgs.concat(args);
+      return next;
+    }else{
+      return fn.apply(null, allArgs);
+    }
+  }
+}
+var add = currying(function(){
+  var sum = 0;
+  for(var i = 0; i < arguments.length; i++){
+    sum += arguments[i];
+  }
+  return sum;
+});
 ```
 
 **es6实现**
