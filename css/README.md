@@ -2,6 +2,7 @@
 
 目录
 
+- [visibility:hidden和display:none](#visibility:hidden和display:none)
 - [box-shadow](#box-shadow)
 - [transition](#transition)
 - [transform](#transform)
@@ -36,6 +37,10 @@
 布局相关:<https://segmentfault.com/a/1190000013565024?utm_source=channel-hottest#item-1>
 
 ***
+
+## visibility:hidden和display:none
+
+简单提一句，请注意 visibility: hidden 与 display: none 是不一样的。前者隐藏元素，但元素仍占据着布局空间（即将其渲染成一个空框），而后者 (display: none) 将元素从渲染树中完全移除，元素既不可见，也不是布局的组成部分。
 
 ## 角度单位
 
