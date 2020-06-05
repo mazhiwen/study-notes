@@ -2,6 +2,9 @@
 
 目录：
 
+- [存储](#存储)
+- [URL](#URL)
+- [window](#window)
 - [浏览器渲染](#浏览器渲染)
 - [devtools](#devtools)
 - [从输入URL后前端的知识](#从输入URL后前端的知识)
@@ -12,6 +15,9 @@
 - [DOMContentLoaded事件和Load事件的区别](#DOMContentLoaded事件和Load事件的区别)
 
 参考：
+
+Google开发者：<https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-tree-construction?hl=zh-cn>
+
 <https://juejin.im/book/5bdc715fe51d454e755f75ef/section/5bdc7207f265da613c09425d>
 
 ***
@@ -44,10 +50,6 @@ var url = new URL('https://developer.mozilla.org/en-US/docs/Web/API/URL/pathname
 
 var result = url.pathname; // Returns:"/en-US/docs/Web/API/URL/pathname"
 ```
-
-## Location对象
-
-同URL对象
 
 ## window
 
@@ -116,9 +118,9 @@ Performance
 
 <https://www.jianshu.com/p/d8795ff8e079>
 
-### pending
+**pending**
 
-### chrome性能工具
+**chrome性能工具**
 
 <https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/>
 
@@ -132,21 +134,21 @@ Performance
 
 <https://juejin.im/post/59c60691518825396f4f71a1>
 
-### CSS 不会阻塞 DOM 的解析
+**CSS不会阻塞DOM的解析**
 
 这里简单说一下，浏览器是解析DOM生成DOM Tree，结合CSS生成的CSS Tree，最终组成render tree，再渲染页面。由此可见，在此过程中CSS完全无法影响DOM Tree，因而无需阻塞DOM解析。然而，DOM Tree和CSS Tree会组合成render tree，那CSS会不会页面阻塞渲染呢？
 
-### 结论
+**结论**
 
 - CSS 不会阻塞 DOM 的解析，但会阻塞 DOM 渲染。
 - JS 阻塞 DOM 解析，但浏览器会"偷看"DOM，预先下载相关资源。
 - 浏览器遇到 \<script>且没有defer或async属性的 标签时，会触发页面渲染，因而如果前面CSS资源尚未加载完毕时，浏览器会等待它加载完毕在执行脚本。
 
-### 加载
+**加载**
 
 <https://zhuanlan.zhihu.com/p/29418126>
 
-### defer与async
+**defer与async**
 
 defer 与相比普通 script，有两点区别：载入 JavaScript 文件时不阻塞 HTML 的解析，执行阶段被放到 HTML 标签解析完成之后。
 
@@ -256,35 +258,49 @@ Cache-Control: max-age=31536000
 
 ## 重绘（Repaint）和回流（Reflow）
 
+<https://developers.google.com/web/fundamentals/performance/critical-rendering-path/render-tree-construction?hl=zh-cn>
+
 <https://juejin.im/post/5a9923e9518825558251c96a>
 
-重绘: 当渲染树中的一些元素需要更新属性，而这些属性只是影响元素的外观、风格，而不会影响布局的操作，比如 background-color，我们将这样的操作称为重绘。
+**重绘:**
 
-回流：当渲染树中的一部分（或全部）因为元素的规模尺寸、布局、隐藏等改变而需要重新构建的操作，会影响到布局的操作，这样的操作我们称为回流。
+重绘: 当页面中元素样式的改变并不影响它在文档流中的位置时（例如：color、background-color、visibility等），浏览器会将新样式赋予给元素并重新绘制它。
 
-重绘和回流会在我们设置节点样式时频繁出现，同时也会很大程度上影响性能。
+**回流:**
 
-重绘是当节点需要更改外观而不会影响布局的，比如改变 color 就叫称为重绘
+回流：当Render Tree中部分或全部元素的尺寸、结构、或某些属性发生改变时，浏览器重新渲染部分或全部文档的过程称为回流
 
-回流是布局或者几何属性需要改变就称为回流。
+引起回流的操作：
 
-回流必定会发生重绘，重绘不一定会引发回流。回流所需的成本比重绘高的多，改变父节点里的子节点很可能会导致父节点的一系列回流。
+```
+页面首次渲染
+浏览器窗口大小发生改变
+元素尺寸或位置发生改变
+元素内容变化（文字数量或图片大小等等）
+元素字体大小变化
+添加或者删除可见的DOM元素
+激活CSS伪类（例如：:hover）
 
-### 以下几个动作可能会导致性能问题
+clientWidth、clientHeight、clientTop、clientLeft
+offsetWidth、offsetHeight、offsetTop、offsetLeft
+scrollWidth、scrollHeight、scrollTop、scrollLeft
+scrollIntoView()、scrollIntoViewIfNeeded()
+getComputedStyle()
+getBoundingClientRect()
+scrollTo()
+```
 
-（1）添加或者删除可见的 DOM 元素；
-（2）元素尺寸改变——边距、填充、边框、宽度和高度
-（3）内容变化，比如用户在 input 框中输入文字
-（4）浏览器窗口尺寸改变——resize事件发生时
-（5）计算 offsetWidth 和 offsetHeight 属性
-（6）设置 style 属性的值
-（7）当你修改网页的默认字体时。
+**区别**
 
-### 减少重绘和回流
+回流必定会发生重绘，重绘不一定会引发回流。
 
-**CSS:**
+回流所需的成本比重绘高的多。
 
-- 使用 transform 替代 top
+**减少重绘和回流:**
+
+- CSS:
+
+1. 使用 transform 替代 top
 
 ```js
 setTimeout(() => {
@@ -293,17 +309,17 @@ setTimeout(() => {
 }, 1000)
 ```
 
-- 不要使用 table 布局，可能很小的一个小改动会造成整个 table 的重新布局
+2. 不要使用table布局
 
-- 将动画效果应用到position属性为absolute或fixed的元素上。
+3. 将动画效果应用到position属性为absolute或fixed的元素上。
 
-- 避免使用CSS表达式（例如：calc()）。
+4. 避免使用CSS表达式（例如：calc()）。
 
-- 避免设置多层内联样式。CSS 选择符从右往左匹配查找，避免节点层级过多
+5. 避免设置多层内联样式。CSS 选择符从右往左匹配查找，避免节点层级过多
 
-**JavaScript:**
+- JavaScript:
 
-- 不要把节点的属性值放在一个循环里当成循环里的变量
+1. 不要把节点的属性值放在一个循环里当成循环里的变量
 
 ```js
 for(let i = 0; i < 1000; i++) {
@@ -312,20 +328,21 @@ for(let i = 0; i < 1000; i++) {
 }
 ```
 
-- 使用 visibility 替换 display: none ，因为前者只会引起重绘，后者会引发回流（改变了布局）。也可以先为元素设置display: none，操作结束后再把它显示出来。因为在display属性为none的元素上进行的DOM操作不会引发回流和重绘。
+2. 使用 visibility 替换 display: none ，因为前者只会引起重绘，后者会引发回流（改变了布局）。也可以先为元素设置display: none，操作结束后再把它显示出来。因为在display属性为none的元素上进行的DOM操作不会引发回流和重绘。
 
-- 动画实现的速度的选择，动画速度越快，回流次数越多，也可以选择使用 requestAnimationFrame
+3. 动画实现的速度的选择，动画速度越快，回流次数越多，也可以选择使用 requestAnimationFrame
 
-- 将频繁重绘或者回流的节点设置为图层，图层能够阻止该节点的渲染行为影响别的节点。比如对于 video 标签来说，浏览器会自动将该节点变为图层。
+4. 将频繁重绘或者回流的节点设置为图层，图层能够阻止该节点的渲染行为影响别的节点。比如对于 video 标签来说，浏览器会自动将该节点变为图层。
 
-  - will-change： will-change属性可以提前通知浏览器我们要对元素做什么动画，这样浏览器可以提前准备合适的优化设置。这样可以避免对页面响应速度有重要影响的昂贵成本。元素可以更快的被改变，渲染的也更快，这样页面可以快速更新，表现的更加流畅。
-  - video、iframe 标签
+  will-change： will-change属性可以提前通知浏览器我们要对元素做什么动画，这样浏览器可以提前准备合适的优化设置。这样可以避免对页面响应速度有重要影响的昂贵成本。元素可以更快的被改变，渲染的也更快，这样页面可以快速更新，表现的更加流畅。
+  
+  video、iframe 标签
 
-- 避免频繁操作DOM，创建一个documentFragment，在它上面应用所有DOM操作，最后再把它添加到文档中。
+5. 避免频繁操作DOM，创建一个documentFragment，在它上面应用所有DOM操作，最后再把它添加到文档中。
 
-- 不要一条一条地修改 DOM 的样式。与其这样，还不如预先定义好 css 的 class，然后修改 DOM 的 className。
+6. 不要一条一条地修改 DOM 的样式。与其这样，还不如预先定义好 css 的 class，然后修改 DOM 的 className。
 
-- 对具有复杂动画的元素使用绝对定位，使它脱离文档流，否则会引起父元素及后续元素频繁回流。
+7. 对具有复杂动画的元素使用绝对定位，使它脱离文档流，否则会引起父元素及后续元素频繁回流。
 
 ## requestAnimationFrame
 

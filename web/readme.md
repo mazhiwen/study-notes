@@ -11,4 +11,5 @@
 - [浏览器存储](./storage.md)
 - [跨域攻击](./cyber-attack.md)
 - [nginx](./nginx)
+- [前端监控和埋点方案](./monitor.md)
 - [其他](https://github.com/mazhiwen/study-notes/tree/master/web/basic.md)
