@@ -455,7 +455,7 @@ setTimeout(loop, currentInterval)
 
 定义：当函数可以记住并访问所在的词法作用域时，就产生了闭包，即使函数是在当前词法作用域外执行  
 
-结合垃圾回收机制来了解
+**结合内存管理，垃圾回收机制来了解**
 
 ```javascript
 function foo() {
@@ -469,6 +469,8 @@ var baz = foo();
 baz(); // 2 ———— 朋友， 这 就是 闭 包 的 效果。
 
 ```
+  
+> 可以手动把闭包变量设置=null，可以实现回收变量;  
 
 没有常规执行foo的垃圾回收机制,  
 foo内的作用域依然存在，可以在baz中调用,  
@@ -476,7 +478,7 @@ foo内的作用域依然存在，可以在baz中调用,
 回调函数也是闭包  
 个人总结function包住变量 的妙用
 
-* 闭包与循环
+**闭包与循环**
 
 ```javascript
 //错误1
@@ -517,9 +519,71 @@ for (var i= 1; i<= 5; i++) {
     console. log( j );
   }, j* 1000 );
 }
+```
+
+**闭包的作用：**
+
+```js
+// 1. 封装变量
+var cache = {};
+var mult = function(){
+  var args = Array. prototype. join. call( arguments, ',' );
+  if ( cache[ args ] ){
+    return cache[ args ];
+  }
+  var a = 1;
+  for ( var i = 0, l = arguments. length; i < l; i++ ){
+    a = a * arguments[ i];
+  }
+  return cache[ args ] = a;
+};
+  alert ( mult( 1, 2, 3 ) ); // 输出： 6
+  alert ( mult( 1, 2, 3 ) ); // 输出： 6
+
+// 避免将cache变量和mult函数一起平行的暴露在全局作用域下
+// 把cache变量封闭在mult函数内
+// 可以优化为:
+var mult = (function(){
+  var cache = {};
+  return function(){
+    var args = Array. prototype. join. call( arguments, ',' );
+    if ( args in cache ){
+      return cache[ args ];
+    }
+    var a = 1;
+    for ( var i = 0, l = arguments. length; i < l; i++ ){
+      a = a * arguments[ i];
+    }
+    return cache[ args ] = a;
+  }
+})();
+
+
+
+// 2.延续局部变量的寿命
+var report = function( src ){
+  var img = new Image();
+  img. src = src;
+};
+report( 'http:// xxx. com/ getUserInfo' );
+// 闭包优化后为：
+// 保存了new 的img
+var report = (function(){
+  var imgs = [];
+  return function( src ){
+    var img = new Image();
+    imgs. push( img );
+    img. src = src;
+  }
+})();
 
 
 ```
+
+**闭包和面向对象的关系**
+
+  通常用面向对象思想能实现的功能，闭包也能实现。反之亦然。对象以方法的形式包含了过程，而闭包是在过程中以以环境的形式包含了数据。  
+  在JavaScript语言的祖先Scheme语言中，甚至都没有提供面向对象的原生设计，但可以使用闭包来实现一个完整的面向对象系统。
 
 ## this
 
@@ -541,7 +605,7 @@ speak. call( me ); // Hello, 我是 KYLE
 speak. call( you ); // Hello, 我是 READER
 ```
 
-* this的用法：指向自身
+**this的用法：指向自身**
 
 ```javascript
 function foo( num) {
@@ -590,7 +654,7 @@ console. log( foo. count );
 
 ```
 
-* this的规则  
+**this的规则**  
 
 this 是在 运行时 进行 绑 定的， 并不 是在 编写 时 绑 定， 它的 上下文 取决于 函数 调用 时 的 各种 条件。 this 的 绑 定 和 函数 声明 的 位置 没有 任何 关系， 只 取决于 函数 的 调用 方式。 当 一个 函数 被 调用 时， 会 创建 一个 活动 记录（ 有时候 也称 为 执行 上下文）。 这个 记录 会 包含 函数 在哪里 被 调用（ 调用 栈）、 函数 的 调用 方法、 传入 的 参数 等 信息。 this 就是 记录 的 其中 一个 属性， 会在 函数 执行 的 过程中 用到。
 
@@ -674,6 +738,53 @@ this 是在 运行时 进行 绑 定的， 并不 是在 编写 时 绑 定， �
     ```
 
     赋值 表达式 p. foo = o. foo 的 返回 值 是 目标 函数 的 引用， 因此 调用 位置 是 foo() 而 不是 p. foo() 或者 o. foo()。 根据 我们 之前 说过 的， 这里 会 应用 默认 绑 定。
+
+**this指向问题的基本四种场景**
+
+```js
+// 1. 作为对象的方法调用 ,指向对象本身
+obj={
+  a:2,
+  getA:function(){
+    this.a
+    // 2
+  }
+}
+obj.getA();
+
+// 2. 作为普通函数调用 指向全局对象
+// 浏览器端是window
+function A(){
+  this.a=2;
+}
+A();
+
+// 3. 构造器调用 （function）
+// this有两种指向，取决于是否显式返回一个object {}
+
+// 如果是返回一个object {}:this指向返回的object {}
+var MyClass = function(){
+  this. name = 'sven';
+  return { // 显 式 地 返回 一个 object {}
+    name: 'anne'
+  }
+};
+var obj = new MyClass();
+alert ( obj. name );//anne
+
+// 如果不是返回一个object {}，this指向myclass function
+var MyClass = function(){
+  this. name = 'sven';
+  return 'anne'
+};
+var obj = new MyClass();
+alert ( obj. name );//sven
+
+
+// 4. Function.prototype.call Function.prototype.apply
+// 显式改变this指向
+
+```
 
 ## Math
 
