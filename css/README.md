@@ -33,6 +33,7 @@
 - [垂直居中](#垂直居中)
 - [margin](#margin)
 - [vertical-align](#vertical-align)
+- [z-index](#z-index)
 
 布局相关:<https://segmentfault.com/a/1190000013565024?utm_source=channel-hottest#item-1>
 
@@ -1312,3 +1313,7 @@ fieldset,img{border:0;}
 button,input,select,textarea{font-size:100%;}
 table{border-collapse:collapse;border-spacing:0;}
 ```
+
+## z-index
+
+https://juejin.im/post/5b876f86518825431079ddd6
