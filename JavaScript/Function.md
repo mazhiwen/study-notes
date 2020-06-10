@@ -16,9 +16,135 @@
 
 ***
 
-## function.length
+## 概念
 
-length 属性指明函数的形参个数。
+函数是对象，每个函数都是Function类型的实例
+
+## 函数名是指针
+
+函数是对象，函数名仅仅是一个包含指针的变量名
+
+函数名仅仅是指向函数的指针
+
+一个函数可能会有多个名字
+
+```js
+function sum(a,b){
+  alert(a+b);
+}
+
+var sum1 = sum;
+sum1(1,2); //正常
+
+sum = null;
+sum1(1,2); //正常
+```
+
+## 函数声明与函数表达式
+
+解析器会率先读取函数声明，并使其在执行任何代码之前可用
+
+函数表达式必须等到解析器执行到它所在的代码行，才会被真正解析
+
+**函数声明**
+
+情况下可以正常执行。函数声明提升
+
+```js
+
+sum(1,2);
+function sum(a,b){
+  return a+b;
+}
+```
+
+**函数表达式**
+
+函数位于一个初始化语句中，而不是一个函数声明
+
+```js
+//函数表达式 情况下报错
+sum(1,2);
+var sum = function(a,b) {
+  return a+b;
+}
+```
+
+## 函数内部属性
+
+函数内部有两个特殊的对象: arguments和this
+
+**arguments**
+
+arguments是一个类数组对象
+
+包含着传入函数中的所有参数
+
+```js
+function test() {
+  console.log(arguments);
+}
+test(1, 2);
+```
+
+arguments.callee: 是一个指针，指向拥有这个arguments对象的函数
+
+```js
+function factorial(num){
+  if(num<1){
+    return 1;
+  } else {
+    return num * arguments.callee(num - 1)
+  }
+}
+```
+
+**this**
+
+this引用的是函数据以执行的环境对象
+
+当在全局作用域中调用函数时，this对象引用的就是window
+
+this可能会在代码过程中引用不同的对象
+
+```js
+
+window.color = 'red';
+var o = { color : 'blue'};
+
+function sayColor(){
+  alert(this.color);
+}
+
+sayColor(); //'red' this指向window
+
+o.sayColor = sayColor;
+o.sayColor() // 'blue' this指向o
+```
+
+**caller**
+
+这个属性保存着调用当前函数的函数的引用
+
+如果在全局作用域中，值为null
+
+```js
+function outer(){
+  inner();
+}
+function inner(){
+  alert(inner.caller);
+}
+outer(); // 现实outer函数的源代码
+```
+
+## 函数的属性和方法
+
+**属性**
+
+1. length
+
+length 属性指明函数的形参个数。也就是函数希望接收的命名参数个数
 
 ```js
 function func1() {}
@@ -32,13 +158,35 @@ console.log(func2.length);
 // expected output: 2
 ```
 
-## arguments
+2. prototype
+
+prototype是保存引用类型对象的所有实例方法的真正所在
+
+**方法**
+
+apply和call的用途都是在特定的作用于中调用函数，就是设置函数体内this对象的值
+
+区别仅是传入参数不同
+
+返回调用有指定this值和参数的函数的执行结果。
+
+1. call()
+
+call()接受的是若干个参数的列表
 
 ```js
-function test() {
-  console.log(arguments);
-}
-test(1, 2);
+// 把fun内的this指向thisArg;
+fun.call(thisArg, arg1, arg2, argn);
+```
+
+2. apply()
+
+apply()接受的是一个包含多个参数的数组。
+
+```js
+// 第一个参数： 是在其中运行函数的作用域
+// 第二个参数： 是参数数组,可以是Array的实例，也可以是arguments对象
+fun.apply(thisArg, [argsArray])
 ```
 
 ## 匿名函数(立即执行函数)(IIFE)
@@ -125,32 +273,6 @@ function bind(fn, context) {
 EventUtil.addHandler(btn, "click", bind(handler.handleClick, handler));
 //es5 提供原生bind方法
 EventUtil.addHandler(btn, "click", handler.handleClick.bind(handler));
-```
-
-## call和apply
-
-语法是直接执行函数
-
-call 和 apply是ES3定义的
-
-区别仅是传入参数不同
-
-用途：
-
-  1. 改变this指向
-  2. 实现支持Function.prototype.bind
-  3. 借用其他对象的方法，可以实现继承
-
-```js
-//Function.prototype.call
-// 返回调用有指定this值和参数的函数的结果。
-//把fun内的this指向thisArg;
-fun.call(thisArg, arg1, arg2, argn);
-//call方法的作用和 apply() 方法类似，
-// 只有一个区别，就是call()方法接受的是若干个参数的列表，
-// 而apply()方法接受的是一个包含多个参数的数组。
-//Function.prototype.apply
-fun.apply(thisArg, [argsArray])
 ```
 
 ## bind

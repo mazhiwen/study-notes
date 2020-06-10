@@ -128,23 +128,38 @@ var mycar = {make: "Honda", model: "Accord", year: 1998};
 
 ## 数据类型
 
-**7种简单基本类型**
+**6种简单基本类型**
 
-简单基本类型本身不是对象
+存放在栈(stack)内存
+
+有：
+
+string: 区别于String内置对象，是字面量，不同的类型  
+
+number
+
 boolean  
+
 null  
+
 undefined  
-number  
-string 区别于String内置对象，是字面量，不同的类型  
-Symbol  
-Object(new生成的,如：Array,Date,Function,RegExp等)
+
+Symbol
 
 **引用类型**
 
-Object
+存放在堆(heap)内存：
+
+有：
+
+Object(new生成的,如：Array,Date,Function,RegExp等)
+
 Array
+
 Date
+
 RegExp
+
 Function
 
 ## 类型检测

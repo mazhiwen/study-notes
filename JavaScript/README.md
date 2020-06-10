@@ -8,7 +8,8 @@ JavaScript的知识
 - [基本知识](./basic/)
 - [Function](./Function.md)
 - [设计模式](./designPatterns.md)
-- [Array Object](./Array-Object.md)
+- [Object](./Object.md)
+- [Array](./Array.md)
 - [String](./String.md)
 - [ECMAScript规范](./es.md)
 - [面向对象](./OOinJS.md)
@@ -17,4 +18,3 @@ JavaScript的知识
 - [JSX](./JSX.md)
 - [面试题](./topic.md)
 - [富文本编辑器开发原理](./editor.md)
-
