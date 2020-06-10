@@ -5,7 +5,7 @@
 - [运算规则](#运算规则)
 - [作用域](#作用域)
 - [in运算符](#in运算符)
-- [7种简单基本类型](#7种简单基本类型)
+- [数据类型](#数据类型)
 - [类型检测](#类型检测)
 - [typeof](#typeof)
 - [instanceof](#instanceof)
@@ -126,7 +126,9 @@ var mycar = {make: "Honda", model: "Accord", year: 1998};
 
 ```
 
-## 7种简单基本类型
+## 数据类型
+
+**7种简单基本类型**
 
 简单基本类型本身不是对象
 boolean  
@@ -136,6 +138,14 @@ number
 string 区别于String内置对象，是字面量，不同的类型  
 Symbol  
 Object(new生成的,如：Array,Date,Function,RegExp等)
+
+**引用类型**
+
+Object
+Array
+Date
+RegExp
+Function
 
 ## 类型检测
 
