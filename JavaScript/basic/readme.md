@@ -5,7 +5,6 @@
 - [运算规则](#运算规则)
 - [作用域](#作用域)
 - [in运算符](#in运算符)
-- [数据类型](#数据类型)
 - [类型检测](#类型检测)
 - [typeof](#typeof)
 - [instanceof](#instanceof)
@@ -24,6 +23,40 @@
 - [安全随机](#安全随机)
 - [跨域](#跨域)
 - [Service worker](#Service&nbsp;worker)
+
+## 变量
+
+js的变量是松散类型的，就是说可以用来保存任何类型的数据。
+
+**赋值**
+
+var message。这样未经过初始化的变量，会保存一个特殊的值undefined
+
+定义变量的同时，可以设置变量的值：var message = '22';
+
+初始化值操作，并不会把他标记为固定类型，比如以上不会标记为字符串类型。
+
+**var定义局部变量**
+
+使用var操作符定义的变量将称为定义该变量的作用域中的局部变量。
+
+这个变量在函数退出后就会销毁
+
+```js
+function test(){
+  var message = '2';
+}
+test();
+alert(message); // 错误!
+```
+
+**一条语句定义多个变量**
+
+```js
+var message = '2',
+  flund = false,
+  age = 2;
+```
 
 ## 变量提升
 
@@ -126,41 +159,55 @@ var mycar = {make: "Honda", model: "Accord", year: 1998};
 
 ```
 
-## 数据类型
+## typeof
 
-**6种简单基本类型**
+typeof检测给定变量的数据类型
 
-存放在栈(stack)内存
+typeof是一个操作符而不是函数，可以不用括号
 
-有：
+typeof对基本类型返回基本类型，对引用类型返回"object"
 
-string: 区别于String内置对象，是字面量，不同的类型  
+返回值：
 
-number
+```
+'undefined'
+'Object'
+'boolean'
+'string'
+'number'
+'function'
+'symbol'
+```
 
-boolean  
+```javascript
+//number
+typeof 37 === 'number';
+typeof Infinity === 'number';
+typeof NaN === 'number'; // 尽管NaN是"Not-A-Number"的缩写
+// string
+typeof "" === 'string';
+typeof "bla" === 'string';
+// boolean
+typeof true === 'boolean';
+// symbol
+typeof Symbol() === 'symbol';
+// Undefined
+typeof undefined === 'undefined';
+// null返回Object
+typeof null === 'object';
+```
 
-null  
+```js
+// object
+typeof {a:1} === 'object';
+typeof [1, 2, 4] === 'object';
+typeof new Date() === 'object';
+```
 
-undefined  
-
-Symbol
-
-**引用类型**
-
-存放在堆(heap)内存：
-
-有：
-
-Object(new生成的,如：Array,Date,Function,RegExp等)
-
-Array
-
-Date
-
-RegExp
-
-Function
+```js
+// 函数
+typeof function(){} === 'function';
+```
 
 ## 类型检测
 
@@ -179,32 +226,6 @@ window. JSON && Object. prototype. toString. call( JSON) == "[object JSON]";
 typeof value === 'number' && !isNaN(value);
 
 
-```
-
-## typeof
-
-```javascript
-//Numbers
-typeof 37 === 'number';
-typeof Infinity === 'number';
-typeof NaN === 'number'; // 尽管NaN是"Not-A-Number"的缩写
-// Strings
-typeof "" === 'string';
-typeof "bla" === 'string';
-// Booleans
-typeof true === 'boolean';
-// Symbols
-typeof Symbol() === 'symbol';
-// null
-typeof null === 'object'; //bug
-// Undefined
-typeof undefined === 'undefined';
-// Objects
-typeof {a:1} === 'object';
-typeof [1, 2, 4] === 'object';
-typeof new Date() === 'object';
-// 函数
-typeof function(){} === 'function';
 ```
 
 ## instanceof

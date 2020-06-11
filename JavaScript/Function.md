@@ -1,12 +1,12 @@
 # function
 
-- [function.length](#function.length)
-- [arguments](#arguments)
+- [概念](#概念)
+- [函数声明与函数表达式](#函数声明与函数表达式)
+- [函数内部属性](#函数内部属性)
+- [函数的属性和方法](#函数的属性和方法)
 - [匿名函数 立即执行函数 IIFE](#匿名函数(立即执行函数)(IIFE))
 - [作用域安全的构造函数](#作用域安全的构造函数)
 - [函数绑定](#函数绑定)
-- [call apply](#call和apply)
-- [bind](#bind)
 - [高阶函数](#高阶函数)
 - [函数柯里化](#函数柯里化)
 - [惰性载入](#惰性载入)
@@ -18,9 +18,11 @@
 
 ## 概念
 
+**函数是对象:**
+
 函数是对象，每个函数都是Function类型的实例
 
-## 函数名是指针
+**函数名是指针:**
 
 函数是对象，函数名仅仅是一个包含指针的变量名
 
@@ -39,6 +41,10 @@ sum1(1,2); //正常
 sum = null;
 sum1(1,2); //正常
 ```
+
+**return**
+
+函数内 return;语句 会返回undefined
 
 ## 函数声明与函数表达式
 
@@ -77,6 +83,8 @@ var sum = function(a,b) {
 **arguments**
 
 arguments是一个类数组对象
+
+对arguments， 可以访问索引，可以读取length属性
 
 包含着传入函数中的所有参数
 
@@ -142,7 +150,7 @@ outer(); // 现实outer函数的源代码
 
 **属性**
 
-1. length
+- length
 
 length 属性指明函数的形参个数。也就是函数希望接收的命名参数个数
 
@@ -158,7 +166,7 @@ console.log(func2.length);
 // expected output: 2
 ```
 
-2. prototype
+- prototype
 
 prototype是保存引用类型对象的所有实例方法的真正所在
 
@@ -170,7 +178,26 @@ apply和call的用途都是在特定的作用于中调用函数，就是设置�
 
 返回调用有指定this值和参数的函数的执行结果。
 
-1. call()
+- 作用：扩充作用域，如下：
+
+```js
+window.color = 'red';
+var o = {
+  color: 'blue'
+}
+function sayColor(){
+  alert(this.color);
+}
+
+sayColor() //red
+sayColor.call(this) //red
+sayColor.call(window) //red
+sayColor.call(o) //blue
+```
+
+- 第一个参数都是在其中运行函数的作用域
+
+- call()
 
 call()接受的是若干个参数的列表
 
@@ -179,14 +206,47 @@ call()接受的是若干个参数的列表
 fun.call(thisArg, arg1, arg2, argn);
 ```
 
-2. apply()
+- apply()
 
 apply()接受的是一个包含多个参数的数组。
 
 ```js
-// 第一个参数： 是在其中运行函数的作用域
 // 第二个参数： 是参数数组,可以是Array的实例，也可以是arguments对象
 fun.apply(thisArg, [argsArray])
+```
+
+- bind()
+
+es5定义
+
+创建一个改变this指向的函数实例，而不是执行结果
+
+```js
+window.color = 'red';
+var o = {
+  color: 'blue'
+}
+function sayColor(){
+  alert(this.color);
+}
+var objectSayColor = sayColor.bind(o);
+objectSayColor() // blue
+```
+
+```js
+//语法: function.bind(thisArg[, arg1[, arg2[, ...]]])
+var module = {
+  x: 42,
+  getX: function () {
+    return this.x;
+  }
+}
+var unboundGetX = module.getX;
+console.log(unboundGetX()); // The function gets invoked at the global scope
+// expected output: undefined
+var boundGetX = unboundGetX.bind(module);
+console.log(boundGetX());
+// expected output: 42
 ```
 
 ## 匿名函数(立即执行函数)(IIFE)
@@ -273,26 +333,6 @@ function bind(fn, context) {
 EventUtil.addHandler(btn, "click", bind(handler.handleClick, handler));
 //es5 提供原生bind方法
 EventUtil.addHandler(btn, "click", handler.handleClick.bind(handler));
-```
-
-## bind
-
-bind返回的是一个改变this的函数
-
-```js
-//语法: function.bind(thisArg[, arg1[, arg2[, ...]]])
-var module = {
-  x: 42,
-  getX: function () {
-    return this.x;
-  }
-}
-var unboundGetX = module.getX;
-console.log(unboundGetX()); // The function gets invoked at the global scope
-// expected output: undefined
-var boundGetX = unboundGetX.bind(module);
-console.log(boundGetX());
-// expected output: 42
 ```
 
 ## 高阶函数

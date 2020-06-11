@@ -6,11 +6,13 @@
 JavaScript的知识
 
 - [基本知识](./basic/)
-- [Function](./Function.md)
+- [数据类型](./datatype.md)
+- [函数和Function](./Function.md)
 - [设计模式](./designPatterns.md)
 - [Object](./Object.md)
 - [Array](./Array.md)
 - [String](./String.md)
+- [Number](./Number.md)
 - [ECMAScript规范](./es.md)
 - [面向对象](./OOinJS.md)
 - [JS性能](./performance.md)
