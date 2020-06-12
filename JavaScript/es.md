@@ -3,14 +3,14 @@
 
 <http://es6.ruanyifeng.com/>
 
-**默认参数**
+### 默认参数
 
 ```js
 function fibonacci(current = 0, next = 1) {
 }
 ```
 
-**module**
+### module
 
 : import export default
 
@@ -42,7 +42,7 @@ export default class {}
 import customName from
 ```
 
-**Promise**
+### Promise
 
 <http://es6.ruanyifeng.com/#docs/promise>
 
@@ -154,7 +154,7 @@ mergePromise([ajax1, ajax2, ajax3]).then(data => {
 });
 ```
 
-**generator**
+### generator
 
 一种异步编程解决方案
 
@@ -184,7 +184,7 @@ hw.next()
 
 ```
 
-**set**
+### set
 
 ```
 const a = new Set();
@@ -202,11 +202,15 @@ Set.prototype.forEach()：使用回调函数遍历每个成员
 
 Set.prototype.delete(value)：删除某个值，返回一个布尔值，表示删除是否成功。
 
-**map**
+### map
 
-**class**
+### class
 
 新的 数据类型class 区别与javaclass定义，class在js类似数据类型，可以在function 内定义
+
+### symbol
+
+<https://juejin.im/post/5a0e65c1f265da430702d6b9>
 
 ## es2016 es7
 

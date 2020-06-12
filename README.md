@@ -13,6 +13,8 @@ please give 爸爸 a star?
 
 - [html](./html)
 - [css](./css)
+- [vue](./vue)
+- [React](./React)
 - [数据结构与算法](./DataStructuresAndAlgorithms)
 - [node](https://github.com/mazhiwen/study-notes/tree/master/node)
 - linux
@@ -23,10 +25,6 @@ please give 爸爸 a star?
   - [正则表达式](https://github.com/mazhiwen/study-notes/tree/master/other/regExp.MD)
   - [IDE](https://github.com/mazhiwen/study-notes/tree/master/other/IDE)
   - [php](https://github.com/mazhiwen/study-notes/tree/master/other/php)
-- [React](./React)
-- [vue](./vue)
-  - [vue基本知识](./vue)
-  - [Vue源码学习](./vue/Vue源码学习.md)
 - [前端工程化](./integration)
   - [webpack](./integration/webpack)
   - [微前端](https://github.com/mazhiwen/study-notes/tree/master/integration/微前端.md)
