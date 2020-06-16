@@ -21,3 +21,4 @@ JavaScript的知识
 - [JSX](./JSX.md)
 - [面试题](./topic.md)
 - [富文本编辑器开发原理](./editor.md)
+- [模块化](./module.md)

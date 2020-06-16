@@ -1,9 +1,7 @@
 # 学习webpack
+
 基于webpack官网教程  
 本项目可直接用作webpack项目demo
-
-
-
 
 ## import 规则
 
@@ -23,8 +21,6 @@
 
 如果不存在package.json就会找index.js文件，然后读取文件，查找到此结束；如果还没有就会抛出异常；
 
-
-
 ## 配置
 
 执行webpack默认获取webpack.config.js配置
@@ -38,20 +34,22 @@
 "start": "webpack-dev-server --open --config webpack.dev.js",
 "build": "webpack --config webpack.prod.js"
 ```
+
 ### config
+
 ```
 "build": "webpack"
 ```
+
 ***
 
-
-
-
 ## tree-shaking， 死代码 dead code ，按需加载
+
 目前发现对node_modules 无效  
 如果所有代码都不包含副作用，我们就可以简单地将该属性标记为 false，来告知 webpack，它可以安全地删除未用到的 export 导出。  
 "sideEffects": false  
 如果你的代码确实有一些副作用，那么可以改为提供一个数组：
+
 ```
 {
   "name": "your-project",
@@ -60,16 +58,14 @@
   ]
 }
 ```
+
 [tree-shaking](https://webpack.docschina.org/guides/tree-shaking/)
 
 注意：  
+
 * 使用 ES2015 模块语法（即 import 和 export）  
 * 在项目 package.json 文件中，添加一个 "sideEffects" 入口。  
 * 引入一个能够删除未引用代码(dead code)的压缩工具(minifier)（例如 UglifyJSPlugin）。
-
-
-
-
 
 ## webpack.optimization
 
@@ -84,7 +80,7 @@ runtime mainfest 是webpack用来管理所有模块的交互
 
 ### 代码分离code-splitting
 
-https://webpack.docschina.org/guides/code-splitting/
+<https://webpack.docschina.org/guides/code-splitting/>
 
 ### 根据不同entry
 
@@ -92,11 +88,12 @@ https://webpack.docschina.org/guides/code-splitting/
 
 ### SplitChunksPlugin
 
-https://juejin.im/post/5af1677c6fb9a07ab508dabb
-https://segmentfault.com/a/1190000013476837
-https://blog.51cto.com/13869008/2164811
+<https://juejin.im/post/5af1677c6fb9a07ab508dabb>
+<https://segmentfault.com/a/1190000013476837>
+<https://blog.51cto.com/13869008/2164811>
 
 相比CommonsChunkPlugin更支持深度的定制optimizations 优化
+
 ```javascript
 module.exports = {
   //...默认配置
@@ -170,10 +167,10 @@ module.exports = {
 ```
 
 ***注意***:
+
 - cacheGroups 里的每一项最好都要加上chunks参数，不然可能打包不出来你想要的东西。
 - minSize 默认是30KB（注意这个体积是压缩之前的）在小于30kb的情况下一定要设置一个值，否则也可能打包不出来你想要的东西，而且这东西要加在cacheGroups里面。
 - priority 在某些情况下，还是挺有用的，可以设置打包chunks的优先级。
-
 
 ### 异步 动态引入 懒加载
 
@@ -213,7 +210,6 @@ import(/* webpackPrefetch: true */ 'LoginModal');
 
 ## mode 配置  
 
-
 ## shimming  
 
 让 webpack 打包时自动发现关键的全局变量并自动的引入。它是一种隐性的全局变量。  
@@ -241,12 +237,11 @@ module.exports = {
 
 此选项控制是否生成，以及如何生成 source map。
 
-https://github.com/webpack/webpack/tree/master/examples/source-map
-
+<https://github.com/webpack/webpack/tree/master/examples/source-map>
 
 ## devserver
 
-### webpack-dev-server 
+### webpack-dev-server
 
 配置 devServer
 
@@ -254,7 +249,8 @@ https://github.com/webpack/webpack/tree/master/examples/source-map
 
 如果你有单独的后端开发服务器 API，并且希望在同域名下发送 API 请求 ，那么代理某些 URL 会很有用。
 
-https://www.jianshu.com/p/f489e7764cb8
+<https://www.jianshu.com/p/f489e7764cb8>
+
 ```js
 module.exports = {
     //...
@@ -284,23 +280,17 @@ module.exports = {
 
 ```
 
-
-
 - progress
 
 将运行进度输出到控制台。webpack-dev-server --progress
 
+### webpack-dev-middleware
 
-
-### webpack-dev-middleware 
-
-
-https://juejin.im/entry/574f95922e958a00683e402d
+<https://juejin.im/entry/574f95922e958a00683e402d>
 
 ## 代码检测
+
 [eslint](https://github.com/webpack-contrib/eslint-loader)
-
-
 
 ## resolve
 
@@ -311,15 +301,14 @@ alias:{
 
 import api from 'api';
 
-
-
 ## html-webpack-plugin
 
 ### 单页面
 
 默认output将所有bundle 添加到生成的index.html
 
-### 多页面配置 
+### 多页面配置
+
 在config多建立 plugin实例就可以
 
 plugins: [
@@ -332,6 +321,7 @@ plugins: [
 ]
 
 ### template
+
 - ejs  
 rule配置ejsloader
 {
@@ -344,14 +334,13 @@ rule配置ejsloader
 
 ejsloader采用lodash.template编译函数的规则
 
-
 ## output
 
 是html js 的output配置，主要是js
 
 ### publicPath
 
-
+该配置能帮助你为项目中的所有资源指定一个基础路径，它被称为公共路径(publicPath)。
 
 ### library相关
 
@@ -448,13 +437,12 @@ module.exports = {
 
 ```
 
-
-
 ## 模块规范概念
 
 ### commonjs
 
 Node应用模块，
+
 ```js
 module.exports.x = x;
 module.exports.addX = addX;
@@ -472,14 +460,16 @@ console.log(example.addX(1)); // 6
 define
 require
 ```
+
 ### es6
 
 ```js
-export 
-import 
+export
+import
 ```
 
 ## ProvidePlugin
+
 自动加载模块，而不必到处 import 或 require 。
 
 ```javascript
@@ -499,9 +489,7 @@ new webpack.ProvidePlugin({
 });
 ```
 
-
 ## import 中间件
-
 
 ```js
 a.js
@@ -514,15 +502,14 @@ console.log(paramaterA);
 // 此处会对a.js变更做出响应
 ```
 
-
-## externals 
+## externals
 
 防止将某些 import 的包(package)打包到 bundle 中，而是在运行时(runtime)再去从外部获取这些扩展依赖(external dependencies)。  
 例如：cdn
 
 ```js
 // 1. html script引入
-// 2.webpack 
+// 2.webpack
 externals: {
   jquery: 'jQuery'
 }
@@ -532,15 +519,7 @@ import $ from 'jquery';
 $('.my-element').animate(...);
 ```
 
-
-
-
-
 ## mini-css-extract-plugin
-
-
-
-
 
 ## 地址路径问题
 

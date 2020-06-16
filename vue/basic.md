@@ -19,7 +19,7 @@
 - [组件注册](#组件注册)
 - [渲染函数,render函数](#渲染函数,render函数)
 - [函数式组件](#函数式组件)
-- [vue-router](#vue-router)
+- [路由](#vue-router)
 - [vue使用jsx](#vue使用jsx)
 - [vuex](#vuex)
 - [虚拟DOM](#虚拟DOM)
