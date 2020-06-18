@@ -563,6 +563,8 @@ Vue.component('my-component', {
 
 ## vue-router
 
+### base构建选项
+
 ### router-link
 
 要注意，当 <router-link> 对应的路由匹配成功，将自动设置 class 属性值 .router-link-active
@@ -576,7 +578,7 @@ devServer:{
   historyApiFallback: true,
 }
 output: {
-  publicPath: '/',
+  publicPath: env ? '/' : '/base/',
 },
 ```
 
@@ -584,11 +586,18 @@ output: {
 
 ```js
 const router = new VueRouter({
+  base: '/base/'
   mode: 'history',
 });
 ```
 
 3. 生产环境nginx配置
+
+```
+location xxx/ {
+  try_files $uri $uri/ /index.html;
+}
+```
 
 ### hash模式
 

@@ -1,5 +1,18 @@
 # HTML
 
+- [base标签](#base标签)
+- [target属性](#target属性)
+- [元素内容分类](#元素内容分类)
+- [HTML元素集](#HTML元素集)
+- [响应式布局](#响应式布局)
+- [title和alt](#title和alt)
+- [DOCTYPE的作用是什么](#DOCTYPE的作用是什么)
+- [行内元素和块级元素](#行内元素和块级元素)
+- [浏览器内核](#浏览器内核)
+- [label](#label)
+- [1px高的线](#1px高的线)
+- [meta标签](#meta标签)
+
 html文档：
 
 whatwg组织:
@@ -10,10 +23,71 @@ whatwg组织:
 
 <https://github.com/CavsZhouyou/Front-End-Interview-Notebook/blob/master/Html/Html.md#1-doctype-%E7%9A%84%E4%BD%9C%E7%94%A8%E6%98%AF%E4%BB%80%E4%B9%88>
 
-## base
+***
 
-href:根据web服务的绝对地址  
-[xmlbase W3C地址](https://www.w3.org/TR/xmlbase/)
+## base标签
+
+<https://juejin.im/post/5e8be7046fb9a03c451bc331>
+
+### href属性
+
+`<base>`标签href属性指定一个HTML页中所有的相对路径的根路径
+
+```
+一个HTML中只能有一个<base>，并且这个<base>的href属性必须有值。如果有多个的话，只会使用第一个<base>标签。
+
+<base>标签需放在<head>里面，当base标签有href属性时，位置得在其他任何有定义url的属性前(除了html)。
+
+该属性设置的基路径可以在JS中使用 document.baseURI 获取到。如果文档不包含<base>元素，baseURI 默认为 document.location.href。
+
+这个基路径可以用来解析页面中所有的相对路径，比如JS<script>，CSS<link>，图片<img>，超链接<a>等元素的路径。
+```
+
+- 默认值
+
+为空字符串: ""
+
+不设置任何值的情况下，文档内资源地址以当前url地址为相对地址的上下文环境。
+
+如：
+
+```
+访问浏览器url：http://www.host.com/a/b/c
+<script  src="a.js"></script>的实际解析地址是：
+<script  src="http://www.host.com/a/b/a.js"></script>
+```
+
+- basehref设置为 /
+
+资源url相对地址的上下文环境为host/
+
+- 用法：
+
+实际地址为basehref + scriptsrc
+
+资源src为斜杆开头时取basehref的host根路径，否则取完整basehref
+
+```html
+<head>
+>
+  <base href="http://www.xxx.com/test/">
+  <script type="text/javascript" src="a.js"></script>
+  <script type="text/javascript" src="public/scripts/b.js"></script>
+  <script type="text/javascript" src="common/c.js"></script>
+</head>
+
+```
+
+### target属性
+
+target属性是网页窗口的打开方式，在base标签中设置该属性，那么页面中所有的链接都将遵循这个方式来打开网页
+
+## target属性
+
+1. _blank：在新窗口打开链接页面。
+2. _parent:在上一级窗口中打开链接。
+3. _self： 在当前窗口打开链接,此为默认值，可以省略。
+4. _top： 在浏览器的整个窗口打开链接，忽略任何框架。
 
 ## 元素内容分类
 

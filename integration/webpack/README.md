@@ -3,7 +3,27 @@
 基于webpack官网教程  
 本项目可直接用作webpack项目demo
 
-## import 规则
+- [import规则](#import规则)
+- [配置](#配置)
+- [tree-shaking](#tree-shaking)
+- [optimization](#webpack.optimization)
+- [mode配置](#mode配置)
+- [shimming](#shimming)
+- [devtool](#devtool)
+- [devserver](#devserver)
+- [代码检测](#代码检测)
+- [resolve](#resolve)
+- [html-webpack-plugin](#html-webpack-plugin)
+- [output](#output)
+- [ProvidePlugin](#ProvidePlugin)
+- [import中间件](#import中间件)
+- [externals](#externals)
+- [mini-css-extract-plugin](#mini-css-extract-plugin)
+- [地址路径问题](#地址路径问题)
+
+***
+
+## import规则
 
 工作机制
 
@@ -43,7 +63,9 @@
 
 ***
 
-## tree-shaking， 死代码 dead code ，按需加载
+## tree-shaking
+
+死代码 dead code ，按需加载
 
 目前发现对node_modules 无效  
 如果所有代码都不包含副作用，我们就可以简单地将该属性标记为 false，来告知 webpack，它可以安全地删除未用到的 export 导出。  
@@ -208,7 +230,7 @@ button.onclick = e => import(/* webpackChunkName: "print" */ './print').then(mod
 import(/* webpackPrefetch: true */ 'LoginModal');
 ```
 
-## mode 配置  
+## mode配置  
 
 ## shimming  
 
@@ -245,7 +267,7 @@ module.exports = {
 
 配置 devServer
 
-- proxy
+#### proxy
 
 如果你有单独的后端开发服务器 API，并且希望在同域名下发送 API 请求 ，那么代理某些 URL 会很有用。
 
@@ -280,9 +302,13 @@ module.exports = {
 
 ```
 
-- progress
+#### progress
 
 将运行进度输出到控制台。webpack-dev-server --progress
+
+#### publicPath
+
+默认从 output.publicPath 为基准，使用它来决定在哪个目录下启用服务，来访问 webpack 输出的文件。
 
 ### webpack-dev-middleware
 
@@ -340,7 +366,37 @@ ejsloader采用lodash.template编译函数的规则
 
 ### publicPath
 
-该配置能帮助你为项目中的所有资源指定一个基础路径，它被称为公共路径(publicPath)。
+output.path 中的 URL 以 HTML 页面为基准。
+
+指定在输出html文件中，资源的引用src地址前缀。结合资源路径可拼接成实际访问url。
+
+默认值是""
+
+```
+配置：
+publicPath: "/assets/",
+chunkFilename: "[id].chunk.js"
+
+实际资源请求：/assets/4.chunk.js
+对应的html中资源引用地址： <link href="/assets/spinner.gif" />
+对应css加载图片：background-image: url(/assets/spinner.gif);
+
+```
+
+例子：
+
+```js
+publicPath: "https://cdn.example.com/assets/", // CDN（总是 HTTPS 协议）
+publicPath: "//cdn.example.com/assets/", // CDN (协议相同)
+publicPath: "/assets/", // 相对于服务(server-relative)
+publicPath: "assets/", // 相对于 HTML 页面
+publicPath: "../assets/", // 相对于 HTML 页面
+publicPath: "", // 相对于 HTML 页面（目录相同）
+```
+
+自由变量：
+
+```__webpack_public_path__```
 
 ### library相关
 
@@ -348,13 +404,13 @@ ejsloader采用lodash.template编译函数的规则
 
 #### libraryTarget
 
-- libraryTarget: 'var' - （默认值）
+libraryTarget: 'var' - （默认值）
 
 当 library 加载完成，入口起点的返回值将分配给一个变量：
 
 当使用此选项时，将 output.library 设置为空，会因为没有变量导致无法赋值。
 
-- 通过在对象上赋值暴露
+通过在对象上赋值暴露:
 
 如
 
@@ -366,7 +422,7 @@ window['MyLibrary'] = _entry_return_;
 window.MyLibrary.doSomething();
 ```
 
-- 模块定义系统
+模块定义系统:
 
 1. libraryTarget: 'commonjs2'
 
@@ -437,37 +493,6 @@ module.exports = {
 
 ```
 
-## 模块规范概念
-
-### commonjs
-
-Node应用模块，
-
-```js
-module.exports.x = x;
-module.exports.addX = addX;
-
-var example = require('./example.js');
-console.log(example.x); // 5
-console.log(example.addX(1)); // 6
-```
-
-### umd
-
-### amd
-
-```js
-define
-require
-```
-
-### es6
-
-```js
-export
-import
-```
-
 ## ProvidePlugin
 
 自动加载模块，而不必到处 import 或 require 。
@@ -489,7 +514,7 @@ new webpack.ProvidePlugin({
 });
 ```
 
-## import 中间件
+## import中间件
 
 ```js
 a.js

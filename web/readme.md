@@ -13,4 +13,5 @@
 - [绘图](https://github.com/mazhiwen/study-notes/tree/master/web/绘图.md)
 - [资源文件](https://github.com/mazhiwen/study-notes/tree/master/web/StaticFile.md)
 - [Ajax](https://github.com/mazhiwen/study-notes/tree/master/web/Ajax.md)
+- [URL](./url.md)
 - [其他](https://github.com/mazhiwen/study-notes/tree/master/web/basic.md)
