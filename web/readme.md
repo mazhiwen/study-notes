@@ -2,6 +2,7 @@
 
 - [浏览器以及V8引擎](./browser)
 - [DOM](https://github.com/mazhiwen/study-notes/tree/master/web/DOM/)
+- [Web API](./webapi.md)
 - [Event](https://github.com/mazhiwen/study-notes/tree/master/web/Event.md)
 - [前端路由](./router.md)
 - [TCP/IP-HTTP](./TCP-HTTP/)
