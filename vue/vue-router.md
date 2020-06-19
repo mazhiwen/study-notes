@@ -16,10 +16,13 @@
 
 ```js
 devServer:{
-  historyApiFallback: true,
+  historyApiFallback: {
+    index: '/base/',
+  },
 }
+
 output: {
-  publicPath: env ? '/' : '/base/',
+  publicPath: '/base/',
 },
 ```
 
