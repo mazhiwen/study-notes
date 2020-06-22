@@ -14,19 +14,29 @@
 
 1. webpack devconfig
 
+historyApiFallback:
+
+本地环境：浏览器访问local/base/routes -> local请求到本地web服务根目录 -> historyApiFallback把所有正常资源请求 都转发到 options.index,也即是静态资源index.html的真正位置
+
+实际静态资源目录在 contentbase 。请求映射为local/base/ 指向 实际静态资源路径contentbase
+
 ```js
 devServer:{
   historyApiFallback: {
     index: '/base/',
   },
 }
+```
 
+2. webpack config
+
+```js
 output: {
   publicPath: '/base/',
 },
 ```
 
-2. router实例
+3. router实例
 
 ```js
 const router = new VueRouter({
@@ -35,7 +45,7 @@ const router = new VueRouter({
 });
 ```
 
-3. 生产环境nginx配置
+4. 生产环境nginx配置
 
 ```
 location xxx/ {

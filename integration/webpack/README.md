@@ -3,23 +3,26 @@
 基于webpack官网教程  
 本项目可直接用作webpack项目demo
 
-- [import规则](#import规则)
-- [配置](#配置)
-- [tree-shaking](#tree-shaking)
-- [optimization](#webpack.optimization)
-- [mode配置](#mode配置)
-- [shimming](#shimming)
-- [devtool](#devtool)
-- [devserver](#devserver)
-- [代码检测](#代码检测)
-- [resolve](#resolve)
-- [html-webpack-plugin](#html-webpack-plugin)
-- [output](#output)
-- [ProvidePlugin](#ProvidePlugin)
-- [import中间件](#import中间件)
-- [externals](#externals)
-- [mini-css-extract-plugin](#mini-css-extract-plugin)
-- [地址路径问题](#地址路径问题)
+- 源码解析
+  - [webbpack](./webbpack.md)
+  - [webbpackdevserver](./webbpackdevserver.md)
+- 配置
+  - [import规则](#import规则)
+  - [配置](#配置)
+  - [tree-shaking](#tree-shaking)
+  - [optimization](#webpack.optimization)
+  - [mode配置](#mode配置)
+  - [shimming](#shimming)
+  - [devtool](#devtool)
+  - [代码检测](#代码检测)
+  - [resolve](#resolve)
+  - [html-webpack-plugin](#html-webpack-plugin)
+  - [output](#output)
+  - [ProvidePlugin](#ProvidePlugin)
+  - [import中间件](#import中间件)
+  - [externals](#externals)
+  - [mini-css-extract-plugin](#mini-css-extract-plugin)
+  - [地址路径问题](#地址路径问题)
 
 ***
 
@@ -261,59 +264,6 @@ module.exports = {
 
 <https://github.com/webpack/webpack/tree/master/examples/source-map>
 
-## devserver
-
-### webpack-dev-server
-
-配置 devServer
-
-#### proxy
-
-如果你有单独的后端开发服务器 API，并且希望在同域名下发送 API 请求 ，那么代理某些 URL 会很有用。
-
-<https://www.jianshu.com/p/f489e7764cb8>
-
-```js
-module.exports = {
-    //...
-    devServer: {
-        proxy: [{
-            context: ['/auth', '/api'],
-            target: 'http://localhost:3000',
-        }]
-    }
-};
-
-//解决跨域原理
-// 上面的参数列表中有一个changeOrigin参数, 是一个布尔值, 设置为true, 本地就会虚拟一个服务器接收你的请求并代你发送该请求,
-module.exports = {
-  //...
-  devServer: {
-    proxy: {
-      '/api': {
-        target: 'http://localhost:3000',
-        // pathRewrite: {'^/api' : ''},
-        changeOrigin: true,  // target是域名的话，需要这个参数，
-        secure: false,          // 设置支持https协议的代理
-      }
-    }
-  }
-};
-
-```
-
-#### progress
-
-将运行进度输出到控制台。webpack-dev-server --progress
-
-#### publicPath
-
-默认从 output.publicPath 为基准，使用它来决定在哪个目录下启用服务，来访问 webpack 输出的文件。
-
-### webpack-dev-middleware
-
-<https://juejin.im/entry/574f95922e958a00683e402d>
-
 ## 代码检测
 
 [eslint](https://github.com/webpack-contrib/eslint-loader)
@@ -549,3 +499,7 @@ $('.my-element').animate(...);
 ## 地址路径问题
 
 webpack配置中字符串格式的 路径'' 一般是以webpack执行命令的路径 ，pkgjson路径;
+
+## webpack-dev-middleware
+
+<https://juejin.im/entry/574f95922e958a00683e402d>
