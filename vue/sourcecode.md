@@ -3,7 +3,7 @@
 - [组件](#组件)
 - [生成Vnode的h函数](#生成Vnode的h函数)
 - [VNode](#VNode)
-- [渲染器](#渲染器)
+- [渲染器](#./xuanranqi.md)
 
 <https://www.cnblogs.com/tiedaweishao/p/8933153.html>
 
@@ -41,6 +41,10 @@ function h(tag, data = null, children = null) {
   let flags = null
   if (typeof tag === 'string') {
     flags = tag === 'svg' ? VNodeFlags.ELEMENT_SVG : VNodeFlags.ELEMENT_HTML
+    // 序列化 class
+    if (data) {
+      data.class = normalizeClass(data.class)
+    }
   } else if (tag === Fragment) {
     flags = VNodeFlags.FRAGMENT
   } else if (tag === Portal) {
@@ -61,8 +65,14 @@ function h(tag, data = null, children = null) {
   }
 
   return {
+    _isVNode: true,
     flags,
     // 其他属性...
+    tag,
+    data,
+    children,
+    childFlags,
+    el: null
   }
 }
 ```
@@ -99,6 +109,29 @@ function h(tag, data = null, children = null) {
     childFlags = ChildrenFlags.SINGLE_VNODE
     children = createTextVNode(children + '')
   }
+}
+```
+
+### 序列化class函数normalizeClass
+
+```js
+function normalizeClass(classValue) {
+  // res 是最终要返回的类名字符串
+  let res = ''
+  if (typeof classValue === 'string') {
+    res = classValue
+  } else if (Array.isArray(classValue)) {
+    for (let i = 0; i < classValue.length; i++) {
+      res += normalizeClass(classValue[i]) + ' '
+    }
+  } else if (typeof classValue === 'object') {
+    for (const name in classValue) {
+      if (classValue[name]) {
+        res += name + ' '
+      }
+    }
+  }
+  return res.trim()
 }
 ```
 
@@ -264,64 +297,3 @@ const portalVNode = {
   }
 }
 ```
-
-## 渲染器
-
-### 渲染器概念
-
-渲染器 :将 Virtual DOM 渲染成特定平台下真实 DOM 的工具(就是一个函数，通常叫 render)
-
-```js
-function render(vnode, container) {
-  const prevVNode = container.vnode
-  if (prevVNode == null) {
-    if (vnode) {
-      // 没有旧的 VNode，只有新的 VNode。使用 `mount` 函数挂载全新的 VNode
-      mount(vnode, container)
-      // 将新的 VNode 添加到 container.vnode 属性下，这样下一次渲染时旧的 VNode 就存在了
-      container.vnode = vnode
-    }
-  } else {
-    if (vnode) {
-      // 有旧的 VNode，也有新的 VNode。则调用 `patch` 函数打补丁
-      patch(prevVNode, vnode, container)
-      // 更新 container.vnode
-      container.vnode = vnode
-    } else {
-      // 有旧的 VNode 但是没有新的 VNode，这说明应该移除 DOM，在浏览器中可以使用 removeChild 函数。
-      container.removeChild(prevVNode.el)
-      container.vnode = null
-    }
-  }
-}
-```
-
-不只是把virtualdom渲染为真实dom，还负责其他工作 .......
-
-### 挂载函数 mount
-
-mount 函数的作用是把一个 VNode 渲染成真实 DOM，根据不同类型的 VNode 需要采用不同的挂载方式，如下
-
-```js
-function mount(vnode, container) {
-  const { flags } = vnode
-  if (flags & VNodeFlags.ELEMENT) {
-    // 挂载普通标签
-    mountElement(vnode, container)
-  } else if (flags & VNodeFlags.COMPONENT) {
-    // 挂载组件
-    mountComponent(vnode, container)
-  } else if (flags & VNodeFlags.TEXT) {
-    // 挂载纯文本
-    mountText(vnode, container)
-  } else if (flags & VNodeFlags.FRAGMENT) {
-    // 挂载 Fragment
-    mountFragment(vnode, container)
-  } else if (flags & VNodeFlags.PORTAL) {
-    // 挂载 Portal
-    mountPortal(vnode, container)
-  }
-}
-```
-
-#### 挂载普通标签元素 mountElement
