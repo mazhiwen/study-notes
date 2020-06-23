@@ -1,10 +1,17 @@
-# vue源码学习
+# vue源码解析
+
+- [组件](#组件)
+- [生成Vnode的h函数](#生成Vnode的h函数)
+- [VNode](#VNode)
+- [渲染器](#渲染器)
 
 <https://www.cnblogs.com/tiedaweishao/p/8933153.html>
 
 <https://github.com/muwoo/blogs/blob/master/src/Vue/2.md>
 
 <http://hcysun.me/vue-design/zh/essence-of-comp.html>
+
+***
 
 ## 组件
 
@@ -24,9 +31,11 @@ patch(prevVnode, nextVnode)
 
 ## 生成Vnode的h函数
 
-通过 检测 tag 属性值 来确定一个 VNode 对象的 flags 属性值
+### 通过 检测 tag 属性值 来确定一个 VNode 对象的 flags 属性值
 
 ```js
+export const Fragment = Symbol()
+export const Portal = Symbol()
 // 省略...
 function h(tag, data = null, children = null) {
   let flags = null
@@ -58,9 +67,42 @@ function h(tag, data = null, children = null) {
 }
 ```
 
-可以通过 检测 children 来确定 childFlags 的值
+### 可以通过检测children 来确定 childFlags 的值
 
-## VirtualDom
+```js
+function h(tag, data = null, children = null) {
+  // 省略用于确定 flags 相关的代码
+
+  let childFlags = null
+  if (Array.isArray(children)) {
+    const { length } = children
+    if (length === 0) {
+      // 没有 children
+      childFlags = ChildrenFlags.NO_CHILDREN
+    } else if (length === 1) {
+      // 单个子节点
+      childFlags = ChildrenFlags.SINGLE_VNODE
+      children = children[0]
+    } else {
+      // 多个子节点，且子节点使用key
+      childFlags = ChildrenFlags.KEYED_VNODES
+      children = normalizeVNodes(children)
+    }
+  } else if (children == null) {
+    // 没有子节点
+    childFlags = ChildrenFlags.NO_CHILDREN
+  } else if (children._isVNode) {
+    // 单个子节点
+    childFlags = ChildrenFlags.SINGLE_VNODE
+  } else {
+    // 其他情况都作为文本节点处理，即单个子节点，会调用 createTextVNode 创建纯文本类型的 VNode
+    childFlags = ChildrenFlags.SINGLE_VNODE
+    children = createTextVNode(children + '')
+  }
+}
+```
+
+## VNode
 
 也叫vnode
 
@@ -136,6 +178,22 @@ const VNodeFlags = {
 
 表示： 一个标签的子节点的情况分类
 
+```js
+const ChildrenFlags = {
+  // 未知的 children 类型
+  UNKNOWN_CHILDREN: 0,
+  // 没有 children
+  NO_CHILDREN: 1,
+  // children 是单个 VNode
+  SINGLE_VNODE: 1 << 1,
+
+  // children 是多个拥有 key 的 VNode
+  KEYED_VNODES: 1 << 2,
+  // children 是多个没有 key 的 VNode
+  NONE_KEYED_VNODES: 1 << 3
+}
+```
+
 ### VNodeData
 
 VNode 的 data 属性,它是一个对象
@@ -206,3 +264,64 @@ const portalVNode = {
   }
 }
 ```
+
+## 渲染器
+
+### 渲染器概念
+
+渲染器 :将 Virtual DOM 渲染成特定平台下真实 DOM 的工具(就是一个函数，通常叫 render)
+
+```js
+function render(vnode, container) {
+  const prevVNode = container.vnode
+  if (prevVNode == null) {
+    if (vnode) {
+      // 没有旧的 VNode，只有新的 VNode。使用 `mount` 函数挂载全新的 VNode
+      mount(vnode, container)
+      // 将新的 VNode 添加到 container.vnode 属性下，这样下一次渲染时旧的 VNode 就存在了
+      container.vnode = vnode
+    }
+  } else {
+    if (vnode) {
+      // 有旧的 VNode，也有新的 VNode。则调用 `patch` 函数打补丁
+      patch(prevVNode, vnode, container)
+      // 更新 container.vnode
+      container.vnode = vnode
+    } else {
+      // 有旧的 VNode 但是没有新的 VNode，这说明应该移除 DOM，在浏览器中可以使用 removeChild 函数。
+      container.removeChild(prevVNode.el)
+      container.vnode = null
+    }
+  }
+}
+```
+
+不只是把virtualdom渲染为真实dom，还负责其他工作 .......
+
+### 挂载函数 mount
+
+mount 函数的作用是把一个 VNode 渲染成真实 DOM，根据不同类型的 VNode 需要采用不同的挂载方式，如下
+
+```js
+function mount(vnode, container) {
+  const { flags } = vnode
+  if (flags & VNodeFlags.ELEMENT) {
+    // 挂载普通标签
+    mountElement(vnode, container)
+  } else if (flags & VNodeFlags.COMPONENT) {
+    // 挂载组件
+    mountComponent(vnode, container)
+  } else if (flags & VNodeFlags.TEXT) {
+    // 挂载纯文本
+    mountText(vnode, container)
+  } else if (flags & VNodeFlags.FRAGMENT) {
+    // 挂载 Fragment
+    mountFragment(vnode, container)
+  } else if (flags & VNodeFlags.PORTAL) {
+    // 挂载 Portal
+    mountPortal(vnode, container)
+  }
+}
+```
+
+#### 挂载普通标签元素 mountElement

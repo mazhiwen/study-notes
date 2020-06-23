@@ -14,11 +14,15 @@
 
 1. webpack devconfig
 
-historyApiFallback:
+webpackdevserver.historyApiFallback:
 
 本地环境：浏览器访问local/base/routes -> local请求到本地web服务根目录 -> historyApiFallback把所有正常资源请求 都转发到 options.index,也即是静态资源index.html的真正位置
 
-实际静态资源目录在 contentbase 。请求映射为local/base/ 指向 实际静态资源路径contentbase
+实际静态资源目录在 local/base/虚拟内存路径下
+
+最终效果: local/base/指向编译生成的contentBase,下有index以及js
+
+> 此处base理解为是实际物理路径。区别与转发代理
 
 ```js
 devServer:{
