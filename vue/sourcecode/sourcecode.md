@@ -4,6 +4,7 @@
 - [生成Vnode的h函数](#生成Vnode的h函数)
 - [VNode](#VNode)
 - [渲染器](#./xuanranqi.md)
+- [渲染器之patch](#./patch.md)
 
 <https://www.cnblogs.com/tiedaweishao/p/8933153.html>
 
@@ -15,9 +16,9 @@
 
 ## 组件
 
-组件 -> 生成vnode -> patch -> 真实DOM
+组件或者模板语法 -> 生成vnode -> patch -> 真实DOM
 
-### patch
+- patch
 
 定义 : 把Virtual DOM 终究渲染真实DOM，
 

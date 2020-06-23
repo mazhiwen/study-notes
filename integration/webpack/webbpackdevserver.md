@@ -1,7 +1,5 @@
 # webpack-dev-server
 
-## 配置
-
 <https://www.cnblogs.com/vajoy/p/7000522.html>
 
 ## proxy
