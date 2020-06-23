@@ -1,8 +1,8 @@
 # webpack-dev-server
 
-配置 devServer
+## 配置
 
-## proxy
+### proxy
 
 如果你有单独的后端开发服务器 API，并且希望在同域名下发送 API 请求 ，那么代理某些 URL 会很有用。
 
@@ -37,11 +37,11 @@ module.exports = {
 
 ```
 
-## progress
+### progress
 
 将运行进度输出到控制台。webpack-dev-server --progress
 
-## publicPath
+### publicPath
 
 默认从 output.publicPath 为基准，使用它来决定在哪个目录下启用服务，来访问 webpack 输出的文件。
 
