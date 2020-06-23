@@ -5,7 +5,8 @@
 
 - 源码解析
   - [webbpack](./webbpack.md)
-  - [webbpackdevserver](./webbpackdevserver.md)
+  - [webbpack-dev-server](./webbpackdevserver.md)
+  - [webpack-dev-middleware](./webpack-dev-middleware.md)
 - 配置
   - [import规则](#import规则)
   - [配置](#配置)
@@ -314,9 +315,11 @@ ejsloader采用lodash.template编译函数的规则
 
 是html js 的output配置，主要是js
 
-### publicPath
+### path
 
-output.path 中的 URL 以 HTML 页面为基准。
+output.path只是指示输出的目录，对应一个绝对路径
+
+### publicPath
 
 指定在输出html文件中，资源的引用src地址前缀。结合资源路径可拼接成实际访问url。
 

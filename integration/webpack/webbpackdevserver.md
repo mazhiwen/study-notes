@@ -2,7 +2,9 @@
 
 ## 配置
 
-### proxy
+<https://www.cnblogs.com/vajoy/p/7000522.html>
+
+## proxy
 
 如果你有单独的后端开发服务器 API，并且希望在同域名下发送 API 请求 ，那么代理某些 URL 会很有用。
 
@@ -41,9 +43,22 @@ module.exports = {
 
 将运行进度输出到控制台。webpack-dev-server --progress
 
-### publicPath
+## contentBase
 
-默认从 output.publicPath 为基准，使用它来决定在哪个目录下启用服务，来访问 webpack 输出的文件。
+host指向contentBase , 也即是index.html的访问地址
+
+## publicPath
+
+publicPath实际功能是webpack-dev-middleware实现的，如下：
+
+```
+标记从内存的哪个路径去存放和查找资源
+
+当没有配置 devServer.publicPath 时，默认的 devServer.publicPath 并非根目录，而是 output.publicPath：
+
+打包后的 bundle.js 会存放在虚拟内存路径 host/output.publicPath/ 下 。暂时理解为publicPath是虚拟物理路径，host是server映射。
+
+```
 
 ## 源码
 

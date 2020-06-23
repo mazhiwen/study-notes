@@ -1,10 +1,17 @@
-# vue源码学习
+# vue源码解析
+
+- [组件](#组件)
+- [生成Vnode的h函数](#生成Vnode的h函数)
+- [VNode](#VNode)
+- [渲染器](#./xuanranqi.md)
 
 <https://www.cnblogs.com/tiedaweishao/p/8933153.html>
 
 <https://github.com/muwoo/blogs/blob/master/src/Vue/2.md>
 
 <http://hcysun.me/vue-design/zh/essence-of-comp.html>
+
+***
 
 ## 组件
 
@@ -24,14 +31,20 @@ patch(prevVnode, nextVnode)
 
 ## 生成Vnode的h函数
 
-通过 检测 tag 属性值 来确定一个 VNode 对象的 flags 属性值
+### 通过 检测 tag 属性值 来确定一个 VNode 对象的 flags 属性值
 
 ```js
+export const Fragment = Symbol()
+export const Portal = Symbol()
 // 省略...
 function h(tag, data = null, children = null) {
   let flags = null
   if (typeof tag === 'string') {
     flags = tag === 'svg' ? VNodeFlags.ELEMENT_SVG : VNodeFlags.ELEMENT_HTML
+    // 序列化 class
+    if (data) {
+      data.class = normalizeClass(data.class)
+    }
   } else if (tag === Fragment) {
     flags = VNodeFlags.FRAGMENT
   } else if (tag === Portal) {
@@ -52,15 +65,77 @@ function h(tag, data = null, children = null) {
   }
 
   return {
+    _isVNode: true,
     flags,
     // 其他属性...
+    tag,
+    data,
+    children,
+    childFlags,
+    el: null
   }
 }
 ```
 
-可以通过 检测 children 来确定 childFlags 的值
+### 可以通过检测children 来确定 childFlags 的值
 
-## VirtualDom
+```js
+function h(tag, data = null, children = null) {
+  // 省略用于确定 flags 相关的代码
+
+  let childFlags = null
+  if (Array.isArray(children)) {
+    const { length } = children
+    if (length === 0) {
+      // 没有 children
+      childFlags = ChildrenFlags.NO_CHILDREN
+    } else if (length === 1) {
+      // 单个子节点
+      childFlags = ChildrenFlags.SINGLE_VNODE
+      children = children[0]
+    } else {
+      // 多个子节点，且子节点使用key
+      childFlags = ChildrenFlags.KEYED_VNODES
+      children = normalizeVNodes(children)
+    }
+  } else if (children == null) {
+    // 没有子节点
+    childFlags = ChildrenFlags.NO_CHILDREN
+  } else if (children._isVNode) {
+    // 单个子节点
+    childFlags = ChildrenFlags.SINGLE_VNODE
+  } else {
+    // 其他情况都作为文本节点处理，即单个子节点，会调用 createTextVNode 创建纯文本类型的 VNode
+    childFlags = ChildrenFlags.SINGLE_VNODE
+    children = createTextVNode(children + '')
+  }
+}
+```
+
+### 序列化class函数normalizeClass
+
+```js
+function normalizeClass(classValue) {
+  // res 是最终要返回的类名字符串
+  let res = ''
+  if (typeof classValue === 'string') {
+    res = classValue
+  } else if (Array.isArray(classValue)) {
+    for (let i = 0; i < classValue.length; i++) {
+      res += normalizeClass(classValue[i]) + ' '
+    }
+  } else if (typeof classValue === 'object') {
+    for (const name in classValue) {
+      if (classValue[name]) {
+        res += name + ' '
+      }
+    }
+  }
+  return res.trim()
+}
+```
+
+## VNode
 
 也叫vnode
 
@@ -135,6 +210,22 @@ const VNodeFlags = {
 ### ChildrenFlags
 
 表示： 一个标签的子节点的情况分类
+
+```js
+const ChildrenFlags = {
+  // 未知的 children 类型
+  UNKNOWN_CHILDREN: 0,
+  // 没有 children
+  NO_CHILDREN: 1,
+  // children 是单个 VNode
+  SINGLE_VNODE: 1 << 1,
+
+  // children 是多个拥有 key 的 VNode
+  KEYED_VNODES: 1 << 2,
+  // children 是多个没有 key 的 VNode
+  NONE_KEYED_VNODES: 1 << 3
+}
+```
 
 ### VNodeData
 
