@@ -1,36 +1,7 @@
 
-# 渲染器
+# 渲染器-挂载
 
-## 渲染器概念
-
-渲染器 : 将 Virtual DOM 渲染成特定平台下真实 DOM 的工具(就是一个函数，通常叫 render)
-
-```js
-function render(vnode, container) {
-  const prevVNode = container.vnode
-  if (prevVNode == null) {
-    if (vnode) {
-      // 没有旧的 VNode，只有新的 VNode。使用 `mount` 函数挂载全新的 VNode
-      mount(vnode, container)
-      // 将新的 VNode 添加到 container.vnode 属性下，这样下一次渲染时旧的 VNode 就存在了
-      container.vnode = vnode
-    }
-  } else {
-    if (vnode) {
-      // 有旧的 VNode，也有新的 VNode。则调用 `patch` 函数打补丁
-      patch(prevVNode, vnode, container)
-      // 更新 container.vnode
-      container.vnode = vnode
-    } else {
-      // 有旧的 VNode 但是没有新的 VNode，这说明应该移除 DOM，在浏览器中可以使用 removeChild 函数。
-      container.removeChild(prevVNode.el)
-      container.vnode = null
-    }
-  }
-}
-```
-
-不只是把virtualdom渲染为真实dom，还负责其他工作 .......
+渲染器的挂载逻辑，本质上就是将各种类型的 VNode 渲染成真实DOM的过程
 
 ## 挂载函数mount
 

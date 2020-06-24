@@ -1,10 +1,11 @@
 # vue源码解析
 
 - [组件](#组件)
-- [生成Vnode的h函数](#生成Vnode的h函数)
+- [生成Vnode的h函数](#./h.md)
 - [VNode](#VNode)
-- [渲染器](#./xuanranqi.md)
-- [渲染器之patch](#./patch.md)
+- [渲染器render](#渲染器)
+- [渲染器-挂载](#./mount.md)
+- [渲染器-patch](#./patch.md)
 
 参考:
 
@@ -18,7 +19,7 @@
 
 ## 组件
 
-组件或者模板语法 -> 生成vnode -> patch -> 真实DOM
+组件或者模板描述 -> 通过h函数 -> 生成vnode对象 -> render函数(vnode,container) -> 真实DOM
 
 - patch
 
@@ -30,112 +31,6 @@
 // 数据变更，产出新的 VNode
 // 通过对比新旧 VNode，高效地渲染真实 DOM
 patch(prevVnode, nextVnode)
-```
-
-## 生成Vnode的h函数
-
-### 通过 检测 tag 属性值 来确定一个 VNode 对象的 flags 属性值
-
-```js
-export const Fragment = Symbol()
-export const Portal = Symbol()
-// 省略...
-function h(tag, data = null, children = null) {
-  let flags = null
-  if (typeof tag === 'string') {
-    flags = tag === 'svg' ? VNodeFlags.ELEMENT_SVG : VNodeFlags.ELEMENT_HTML
-    // 序列化 class
-    if (data) {
-      data.class = normalizeClass(data.class)
-    }
-  } else if (tag === Fragment) {
-    flags = VNodeFlags.FRAGMENT
-  } else if (tag === Portal) {
-    flags = VNodeFlags.PORTAL
-    tag = data && data.target
-  } else {
-    // 兼容 Vue2 的对象式组件
-    if (tag !== null && typeof tag === 'object') {
-      flags = tag.functional
-        ? VNodeFlags.COMPONENT_FUNCTIONAL       // 函数式组件
-        : VNodeFlags.COMPONENT_STATEFUL_NORMAL  // 有状态组件
-    } else if (typeof tag === 'function') {
-      // Vue3 的类组件
-      flags = tag.prototype && tag.prototype.render
-        ? VNodeFlags.COMPONENT_STATEFUL_NORMAL  // 有状态组件
-        : VNodeFlags.COMPONENT_FUNCTIONAL       // 函数式组件
-    }
-  }
-
-  return {
-    _isVNode: true,
-    flags,
-    // 其他属性...
-    tag,
-    data,
-    children,
-    childFlags,
-    el: null
-  }
-}
-```
-
-### 可以通过检测children 来确定 childFlags 的值
-
-```js
-function h(tag, data = null, children = null) {
-  // 省略用于确定 flags 相关的代码
-
-  let childFlags = null
-  if (Array.isArray(children)) {
-    const { length } = children
-    if (length === 0) {
-      // 没有 children
-      childFlags = ChildrenFlags.NO_CHILDREN
-    } else if (length === 1) {
-      // 单个子节点
-      childFlags = ChildrenFlags.SINGLE_VNODE
-      children = children[0]
-    } else {
-      // 多个子节点，且子节点使用key
-      childFlags = ChildrenFlags.KEYED_VNODES
-      children = normalizeVNodes(children)
-    }
-  } else if (children == null) {
-    // 没有子节点
-    childFlags = ChildrenFlags.NO_CHILDREN
-  } else if (children._isVNode) {
-    // 单个子节点
-    childFlags = ChildrenFlags.SINGLE_VNODE
-  } else {
-    // 其他情况都作为文本节点处理，即单个子节点，会调用 createTextVNode 创建纯文本类型的 VNode
-    childFlags = ChildrenFlags.SINGLE_VNODE
-    children = createTextVNode(children + '')
-  }
-}
-```
-
-### 序列化class函数normalizeClass
-
-```js
-function normalizeClass(classValue) {
-  // res 是最终要返回的类名字符串
-  let res = ''
-  if (typeof classValue === 'string') {
-    res = classValue
-  } else if (Array.isArray(classValue)) {
-    for (let i = 0; i < classValue.length; i++) {
-      res += normalizeClass(classValue[i]) + ' '
-    }
-  } else if (typeof classValue === 'object') {
-    for (const name in classValue) {
-      if (classValue[name]) {
-        res += name + ' '
-      }
-    }
-  }
-  return res.trim()
-}
 ```
 
 ## VNode
@@ -208,6 +103,19 @@ const VNodeFlags = {
   // Portal
   PORTAL: 1 << 8
 }
+```
+
+```js
+// html 和 svg 都是标签元素，可以用 ELEMENT 表示
+VNodeFlags.ELEMENT = VNodeFlags.ELEMENT_HTML | VNodeFlags.ELEMENT_SVG
+// 普通有状态组件、需要被keepAlive的有状态组件、已经被keepAlice的有状态组件 都是“有状态组件”，统一用 COMPONENT_STATEFUL 表示
+VNodeFlags.COMPONENT_STATEFUL =
+  VNodeFlags.COMPONENT_STATEFUL_NORMAL |
+  VNodeFlags.COMPONENT_STATEFUL_SHOULD_KEEP_ALIVE |
+  VNodeFlags.COMPONENT_STATEFUL_KEPT_ALIVE
+// 有状态组件 和  函数式组件都是“组件”，用 COMPONENT 表示
+VNodeFlags.COMPONENT = VNodeFlags.COMPONENT_STATEFUL | VNodeFlags.COMPONENT_FUNCTIONAL
+
 ```
 
 ### ChildrenFlags
@@ -300,3 +208,35 @@ const portalVNode = {
   }
 }
 ```
+
+## 渲染器render
+
+渲染器 : 将 Virtual DOM 渲染成特定平台下真实 DOM 的工具(就是一个函数，通常叫 render)
+
+
+```js
+function render(vnode, container) {
+  const prevVNode = container.vnode
+  if (prevVNode == null) {
+    if (vnode) {
+      // 没有旧的 VNode，只有新的 VNode。使用 `mount` 函数挂载全新的 VNode
+      mount(vnode, container)
+      // 将新的 VNode 添加到 container.vnode 属性下，这样下一次渲染时旧的 VNode 就存在了
+      container.vnode = vnode
+    }
+  } else {
+    if (vnode) {
+      // 有旧的 VNode，也有新的 VNode。则调用 `patch` 函数打补丁
+      patch(prevVNode, vnode, container)
+      // 更新 container.vnode
+      container.vnode = vnode
+    } else {
+      // 有旧的 VNode 但是没有新的 VNode，这说明应该移除 DOM，在浏览器中可以使用 removeChild 函数。
+      container.removeChild(prevVNode.el)
+      container.vnode = null
+    }
+  }
+}
+```
+
+不只是把virtualdom渲染为真实dom，还负责其他工作 .......
