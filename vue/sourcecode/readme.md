@@ -1,11 +1,12 @@
 # vue源码解析
 
 - [组件](#组件)
-- [生成Vnode的h函数](#./h.md)
+- [生成Vnode的h函数](./h.md)
 - [VNode](#VNode)
 - [渲染器render](#渲染器)
-- [渲染器-挂载](#./mount.md)
-- [渲染器-patch](#./patch.md)
+- [渲染器-挂载](./mount.md)
+- [渲染器-patch](./patch.md)
+- [渲染器的核心-diff算法](./diff.md)
 
 参考:
 
@@ -212,7 +213,6 @@ const portalVNode = {
 ## 渲染器render
 
 渲染器 : 将 Virtual DOM 渲染成特定平台下真实 DOM 的工具(就是一个函数，通常叫 render)
-
 
 ```js
 function render(vnode, container) {

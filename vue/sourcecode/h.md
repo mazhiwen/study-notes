@@ -313,6 +313,7 @@ const statefulComponentVNode = {
   _isVNode: true,
   flags: 4, // VNodeFlags.COMPONENT_STATEFUL_NORMAL
   data: null,
+  tag: MyStatefulComponent,//有状态组件的引用 即是MyStatefulComponent
   children: {
     _isVNode: true,
     flags: 1,

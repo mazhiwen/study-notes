@@ -251,7 +251,7 @@ function mountStatefulComponent(vnode, container, isSVG) {
   const instance = new vnode.tag()
   // 渲染VNode
   instance.$vnode = instance.render()
-  // 挂载
+  // 挂载 已经转换为其他类型如标签类型VNode
   mount(instance.$vnode, container, isSVG)
   // el 属性值 和 组件实例的 $el 属性都引用组件的根DOM元素
   instance.$el = vnode.el = instance.$vnode.el
@@ -259,10 +259,6 @@ function mountStatefulComponent(vnode, container, isSVG) {
 ```
 
 ```js
-// h 函数的第一个参数是组件类
-const compVnode = h(MyComponent)
-render(compVnode, document.getElementById('app'))
-
 class MyComponent {
   render() {
     return h(
@@ -279,6 +275,10 @@ class MyComponent {
     )
   }
 }
+
+// h 函数的第一个参数是组件类
+const compVnode = h(MyComponent)
+render(compVnode, document.getElementById('app'))
 ```
 
 ## 函数式组件的挂载和原理

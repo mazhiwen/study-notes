@@ -368,6 +368,26 @@ patchPortal (prevVNode, nextVNode){
 当前示例再组件内自行this._update更新
 
 ```js
+class MyComponent {
+  // 自身状态 or 本地状态
+  localState = 'one'
+
+  // mounted 钩子
+  mounted() {
+    // 两秒钟之后修改本地状态的值，并重新调用 _update() 函数更新组件
+    setTimeout(() => {
+      this.localState = 'two'
+      this._update()
+    }, 2000)
+  }
+
+  render() {
+    return h('div', null, this.localState)
+  }
+}
+
+
+
 function mountStatefulComponent(vnode, container, isSVG) {
   // 创建组件实例
   const instance = new vnode.tag()
@@ -379,7 +399,7 @@ function mountStatefulComponent(vnode, container, isSVG) {
       const prevVNode = instance.$vnode
       // 2、重渲染新的 VNode
       const nextVNode = (instance.$vnode = instance.render())
-      // 3、patch 更新
+      // 3、patch 更新 此时生成的是标签类型VNode
       patch(prevVNode, nextVNode, prevVNode.el.parentNode)
       // 4、更新 vnode.el 和 $el
       instance.$el = vnode.el = instance.$vnode.el
@@ -445,27 +465,113 @@ class ChildComponent {
 
 ```
 
-## 被动更新
+### 被动更新
 
 被动更新指的是由外部状态变化而引起的更新操作，通常父组件自身状态的变化可能会引起子组件的更新
 
+组件内部在挂载时，生成_update方法，用来挂载或者更新组件
+
 在 _update 函数内部的更新操作，等价于 prevCompVNode 和 nextCompVNode 之间的 patch。会执行patchComponent更新
 
-每个类型为有状态组件的 VNode，在挂载期间我们都会让其 children 属性引用组件的实例，以便能够通过 VNode 访问组件实例对象
+有状态组件的 VNode，在挂载期间其**children 属性引用组件的实例**，以便能够通过 VNode 访问组件实例对象
 
 VNode 将插槽内容存储在单独的 slots 属性中,children 属性就可以用来存储组件实例了，
 
+不同的组件渲染不同的内容，所以对于不同的组件，我们采用的方案是使用新组件的内容替换旧组件渲染的内容
+
 ```js
 function patchComponent(prevVNode, nextVNode, container) {
+  // tag 属性的值是组件类，通过比较新旧组件类是否相等来判断是否是相同的组件
+  if (nextVNode.tag !== prevVNode.tag) {
+    replaceVNode(prevVNode, nextVNode, container)
   // 检查组件是否是有状态组件
-  if (nextVNode.flags & VNodeFlags.COMPONENT_STATEFUL_NORMAL) {
+  } else if (nextVNode.flags & VNodeFlags.COMPONENT_STATEFUL_NORMAL) {
     // 1、获取组件实例
     const instance = (nextVNode.children = prevVNode.children)
-    // 2、更新 props
+    // 2、更新 props 为新的nextVNode的data属性，即新数据  
+    //在挂载期间调用组件render函数生成的实例VNode的$props指向
     instance.$props = nextVNode.data
     // 3、更新组件
     instance._update()
+  } else {
+    // 更新函数式组件
+    // 通过 prevVNode.handle 拿到 handle 对象
+    const handle = (nextVNode.handle = prevVNode.handle)
+    // 更新 handle 对象
+    handle.prev = prevVNode
+    handle.next = nextVNode
+    handle.container = container
+
+    // 调用 update 函数完成更新
+    handle.update()
   }
 }
 
+
+// 改进replaceVNode方法 添加对组件类型的处理，即加unmounted钩子
+function replaceVNode(prevVNode, nextVNode, container) {
+  container.removeChild(prevVNode.el)
+  // 如果将要被移除的 VNode 类型是组件，则需要调用该组件实例的 unmounted 钩子函数
+  if (prevVNode.flags & VNodeFlags.COMPONENT_STATEFUL_NORMAL) {
+    // 类型为有状态组件的 VNode，其 children 属性被用来存储组件实例对象
+    const instance = prevVNode.children
+    instance.unmounted && instance.unmounted()
+  }
+  mount(nextVNode, container)
+}
+```
+
+## 更新函数式组件
+
+无论是有状态组件还是函数式组件，它们的更新原理都是一样的：用组件新产出的 VNode 与之前产出的旧 VNode 进行比对，从而完成更新
+
+在函数式组件中我们不能通过 this.$props.xxx 访问 props 数据，props 数据是作为函数的参数传递进去的
+
+与有状态组件不同，函数式组件没有组件实例，所以我们没办法封装类似 instance._update 这样的函数，那应该怎么办呢？很简单，我们把 update 函数定义在函数式组件的 VNode 上就可以了
+
+```js
+// 子组件 - 函数式组件
+function MyFunctionalComp(props) {
+  return h('div', null, props.text)
+}
+
+
+// 实现函数式组件的 props 传递
+// 这里直接将整个 VNodeData 作为 props 数据，这么做的原因是出于简便
+function mountFunctionalComponent(vnode, container, isSVG) {
+  // 在函数式组件类型的 vnode 上添加 handle 属性，它是一个对象
+  vnode.handle = {
+    prev: null, // 存储旧的函数式组件 VNode，在初次挂载时，没有旧的 VNode 可言，所以初始值为 null
+    next: vnode, // 存储新的函数式组件 VNode，在初次挂载时，被赋值为当前正在挂载的函数式组件 VNode。
+    container,
+    update: () => {
+      if (vnode.handle.prev) {
+        // 更新的逻辑写在这里
+        // prevVNode 是旧的组件VNode，nextVNode 是新的组件VNode
+        const prevVNode = vnode.handle.prev
+        const nextVNode = vnode.handle.next
+        // prevTree 是组件产出的旧的 VNode
+        const prevTree = prevVNode.children
+        // 更新 props 数据
+        const props = nextVNode.data
+        // nextTree 是组件产出的新的 VNode
+        const nextTree = (nextVNode.children = nextVNode.tag(props))
+        // 调用 patch 函数更新
+        patch(prevTree, nextTree, vnode.handle.container)
+      } else {
+        // 获取 props
+        const props = vnode.data
+        // 获取 VNode
+        const $vnode = (vnode.children = vnode.tag(props))
+        // 挂载
+        mount($vnode, container, isSVG)
+        // el 元素引用该组件的根元素
+        vnode.el = $vnode.el
+      }
+    }
+  }
+
+  // 立即调用 vnode.handle.update 完成初次挂载
+  vnode.handle.update()
+}
 ```
