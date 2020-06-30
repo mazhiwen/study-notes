@@ -12,6 +12,22 @@
 
 <https://developer.mozilla.org/zh-CN/docs/Web/API/NodeList/item>
 
+### Node.nextSibling
+
+是一个只读属性，返回其父节点的 childNodes 列表中紧跟在其后面的节点，如果指定的节点为最后一个节点，则返回 null。
+
+就是相邻的下一个节点
+
+### Node.insertBefore()
+
+```js
+var insertedNode = parentNode.insertBefore(newNode, referenceNode);
+```
+
+在参考节点之前插入一个拥有指定父节点的子节点。
+
+如果给定的子节点是对文档中现有节点的引用，insertBefore() 会将其从当前位置移动到新位置（在将节点附加到其他节点之前，不需要从其父节点删除该节点）。
+
 ## document
 
 **createElement**
@@ -26,17 +42,17 @@
 
 > Element 是一个通用性非常强的基类，所有 Document 对象下的对象都继承自它。这个接口描述了所有相同种类的元素所普遍具有的方法和属性。一些接口继承自 Element 并且增加了一些额外功能的接口描述了具体的行为。例如， HTMLElement 接口是所有 HTML 元素的基本接口，而 SVGElement 接口是所有 SVG 元素的基础。大多数功能是在这个类的更深层级（hierarchy）的接口中被进一步制定的。
 
-**方法API**
+### 方法API
 
-**属性**
+### 属性
 
-**HTMLElement**
+### HTMLElement
 
 HTMLElement 接口表示所有的 HTML 元素。一些HTML元素直接实现了HTMLElement接口，其它的间接实现HTMLElement接口.
 
 继承自父接口Element和 GlobalEventHandlers的属性  
 
-**元素 窗口,距离**
+### 元素 窗口,距离
 
 - 元素距离视口 包括元素外部滚动  读写
 
@@ -108,7 +124,7 @@ Element.scrollWidth: 表示元素内容的宽度，包括由于滚动而未显�
 
 Element.scrollHeight: 获取对象的滚动高度。
 
-**getBoundingClientRect()**
+### getBoundingClientRect()
 
 element.getBoundingClientRect()
 

@@ -92,8 +92,8 @@ function mountElement(vnode, container, isSVG) {
     }
   }
 
+  refNode ? container.insertBefore(el, refNode) : container.appendChild(el)
 
-  container.appendChild(el)
 }
 ```
 

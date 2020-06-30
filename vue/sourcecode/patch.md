@@ -242,14 +242,20 @@ function patchChildren(
           break
         default:
           // 新的 children 中有多个子节点时，会执行该 case 语句块
+          //简单方案一：
           // 以下为粗暴算法演示代码，并非真正实现的diff代码。
           // 遍历旧的子节点，将其全部移除
+          // for (let i = 0; i < prevChildren.length; i++) {
+          //   container.removeChild(prevChildren[i].el)
+          // }
+          // // 遍历新的子节点，将其全部添加
+          // for (let i = 0; i < nextChildren.length; i++) {
+          //   mount(nextChildren[i], container)
+          // }
+
+          // 改进方案二：
           for (let i = 0; i < prevChildren.length; i++) {
-            container.removeChild(prevChildren[i].el)
-          }
-          // 遍历新的子节点，将其全部添加
-          for (let i = 0; i < nextChildren.length; i++) {
-            mount(nextChildren[i], container)
+            patch(prevChildren[i], nextChildren[i], container)
           }
           break
       }
