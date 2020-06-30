@@ -24,6 +24,12 @@
 var insertedNode = parentNode.insertBefore(newNode, referenceNode);
 ```
 
+parentNode： 新插入节点的父节点
+
+newNode： 用于插入的节点
+
+referenceNode ： newNode 将要插在这个节点之前
+
 在参考节点之前插入一个拥有指定父节点的子节点。
 
 如果给定的子节点是对文档中现有节点的引用，insertBefore() 会将其从当前位置移动到新位置（在将节点附加到其他节点之前，不需要从其父节点删除该节点）。

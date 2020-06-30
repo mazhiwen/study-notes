@@ -10,6 +10,8 @@
 
 ## 提升二：尽可能的复用 DOM 元素
 
+本小节是React的算法
+
 ### key
 
 h 函数创建 VNode 时，通过 VNodeData 为即将创建的 VNode 设置一个 key, 再将key 添加到 VNode 本身以方便访问
@@ -100,3 +102,72 @@ find值 ： 如果内层循环结束后，变量 find 的值仍然为 false，�
 使用 insertBefore 方法代替 appendChild 方法，例如：我们可以找到 li-a 节点所对应真实 DOM 的下一个节点，然后将 li-d 节点插入到该节点之前即可
 
 ### 移除不存在的元素
+
+外层循环结束之后，再优先遍历一次旧的 children，并尝试拿着旧 children 中的节点去新 children 中寻找相同的节点，如果找不到则说明该节点已经不存在于新 children 中了，这时我们应该将该节点对应的真实 DOM 移除
+
+## 提升三：双端比较
+
+### 原理
+
+使用四个变量 oldStartIdx、oldEndIdx、newStartIdx 以及 newEndIdx 分别存储旧 children 和新 children 的两个端点的位置索引
+
+这4个点都分别进行对比，一共4次对比
+
+```js
+let oldStartIdx = 0
+let oldEndIdx = prevChildren.length - 1
+let newStartIdx = 0
+let newEndIdx = nextChildren.length - 1
+
+while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
+  if (oldStartVNode.key === newStartVNode.key) {
+    // 步骤一：oldStartVNode 和 newStartVNode 比对
+    // 调用 patch 函数更新
+    patch(oldStartVNode, newStartVNode, container)
+    // 更新索引，指向下一个位置
+    oldStartVNode = prevChildren[++oldStartIdx]
+    newStartVNode = nextChildren[++newStartIdx]
+  } else if (oldEndVNode.key === newEndVNode.key) {
+    // 步骤二：oldEndVNode 和 newEndVNode 比对
+    // 调用 patch 函数更新
+    // 不需要进行移动操作的，只需要调用 patch 函数更新即可
+    patch(oldEndVNode, newEndVNode, container)
+    // 更新索引，指向下一个位置
+    oldEndVNode = prevChildren[--oldEndIdx]
+    newEndVNode = nextChildren[--newEndIdx]
+  } else if (oldStartVNode.key === newEndVNode.key) {
+    // 步骤三：oldStartVNode 和 newEndVNode 比对
+    // 调用 patch 函数更新
+    patch(oldStartVNode, newEndVNode, container)
+    // 将 oldStartVNode.el 移动到 oldEndVNode.el 的后面，也就是 oldEndVNode.el.nextSibling 的前面
+    container.insertBefore(
+      oldStartVNode.el,
+      oldEndVNode.el.nextSibling
+    )
+    // 更新索引，指向下一个位置
+    oldStartVNode = prevChildren[++oldStartIdx]
+    newEndVNode = nextChildren[--newEndIdx]
+  } else if (oldEndVNode.key === newStartVNode.key) {
+    // 步骤四：oldEndVNode 和 newStartVNode 比对
+    // 先调用 patch 函数完成更新
+    patch(oldEndVNode, newStartVNode, container)
+    // 更新完成后，将容器中最后一个子节点移动到最前面，使其成为第一个子节点
+    container.insertBefore(oldEndVNode.el, oldStartVNode.el)
+    // 更新索引，指向下一个位置
+    oldEndVNode = prevChildren[--oldEndIdx]
+    newStartVNode = nextChildren[++newStartIdx]
+    // 当4次查找都找不到的时候
+    // 新 children 中的第一个节点尝试去旧 children 中寻找，试图找到拥有相同 key 值的节点
+    // 遍历旧 children，试图寻找与 newStartVNode 拥有相同 key 值的元素
+    const idxInOld = prevChildren.findIndex(
+      node => node.key === newStartVNode.key
+    )
+  }
+}
+```
+
+### 双端比较的优势
+
+双端比较在移动 DOM 方面更具有普适性，不会因为 DOM 结构的差异而产生影响
+
+### 非理想情况的处理方式
