@@ -1,17 +1,5 @@
 # 学习资料
 
-## 网站博客
-
-<http://www.ruanyifeng.com/blog/javascript/>
-
-### 论坛
-
-掘金:<https://juejin.im/timeline>
-
-### 博客
-
-<https://www.cnblogs.com/vajoy/p/3589717.html>
-
 ## web开发书籍
 
 <https://github.com/justjavac/free-programming-books-zh_CN>
