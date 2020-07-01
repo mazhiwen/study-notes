@@ -10,9 +10,6 @@
 
 参考:
 
-<https://www.cnblogs.com/tiedaweishao/p/8933153.html>
-
-<https://github.com/muwoo/blogs/blob/master/src/Vue/2.md>
 
 <http://hcysun.me/vue-design/zh/essence-of-comp.html>
 

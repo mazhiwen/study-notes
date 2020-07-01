@@ -33,7 +33,7 @@ function mount(vnode, container) {
 
 ```js
 
-function mountElement(vnode, container, isSVG) {
+function mountElement(vnode, container, isSVG, refNode) {
   const el = document.createElement(vnode.tag)
 
   isSVG = isSVG || vnode.flags & VNodeFlags.ELEMENT_SVG

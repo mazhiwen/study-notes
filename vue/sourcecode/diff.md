@@ -107,6 +107,10 @@ find值 ： 如果内层循环结束后，变量 find 的值仍然为 false，�
 
 ## 提升三：双端比较
 
+Vue2 所采用的算法
+
+借鉴于开源项目：snabbdom，但最早采用双端比较算法的库是 citojs
+
 ### 原理
 
 使用四个变量 oldStartIdx、oldEndIdx、newStartIdx 以及 newEndIdx 分别存储旧 children 和新 children 的两个端点的位置索引
@@ -120,7 +124,12 @@ let newStartIdx = 0
 let newEndIdx = nextChildren.length - 1
 
 while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
-  if (oldStartVNode.key === newStartVNode.key) {
+  // 4次查找不到 赋值的undefined判断
+  if (!oldStartVNode) {
+    oldStartVNode = prevChildren[++oldStartIdx]
+  } else if (!oldEndVNode) {
+    oldEndVNode = prevChildren[--oldEndIdx]
+  else if (oldStartVNode.key === newStartVNode.key) {
     // 步骤一：oldStartVNode 和 newStartVNode 比对
     // 调用 patch 函数更新
     patch(oldStartVNode, newStartVNode, container)
@@ -156,12 +165,41 @@ while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
     // 更新索引，指向下一个位置
     oldEndVNode = prevChildren[--oldEndIdx]
     newStartVNode = nextChildren[++newStartIdx]
+  } else {
     // 当4次查找都找不到的时候
     // 新 children 中的第一个节点尝试去旧 children 中寻找，试图找到拥有相同 key 值的节点
     // 遍历旧 children，试图寻找与 newStartVNode 拥有相同 key 值的元素
     const idxInOld = prevChildren.findIndex(
       node => node.key === newStartVNode.key
     )
+    if (idxInOld >= 0) {
+      // vnodeToMove 就是在旧 children 中找到的节点，该节点所对应的真实 DOM 应该被移动到最前面
+      const vnodeToMove = prevChildren[idxInOld]
+      // 调用 patch 函数完成更新
+      patch(vnodeToMove, newStartVNode, container)
+      // 把 vnodeToMove.el 移动到最前面，即 oldStartVNode.el 的前面
+      container.insertBefore(vnodeToMove.el, oldStartVNode.el)
+      // 由于旧 children 中该位置的节点所对应的真实 DOM 已经被移动，所以将其设置为 undefined
+      prevChildren[idxInOld] = undefined
+    } else {
+      // newStartVNode 是一个全新的节点
+      // 使用 mount 函数挂载新节点
+      mount(newStartVNode, container, false, oldStartVNode.el)
+    }
+    // 将 newStartIdx 下移一位
+    newStartVNode = nextChildren[++newStartIdx]
+  }
+}
+
+if (oldEndIdx < oldStartIdx) {
+  // 添加新节点
+  for (let i = newStartIdx; i <= newEndIdx; i++) {
+    mount(nextChildren[i], container, false, oldStartVNode.el)
+  }
+} else if (newEndIdx < newStartIdx) {
+  // 移除操作
+  for (let i = oldStartIdx; i <= oldEndIdx; i++) {
+    container.removeChild(prevChildren[i].el)
   }
 }
 ```
@@ -171,3 +209,23 @@ while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
 双端比较在移动 DOM 方面更具有普适性，不会因为 DOM 结构的差异而产生影响
 
 ### 非理想情况的处理方式
+
+双端比较的中 ①、②、③、④ 这四步中的每一步比对，都无法找到可复用的节点的时候。我们只能拿新 children 中的第一个节点尝试去旧 children 中寻找，试图找到拥有相同 key 值的节点
+
+旧 children 中的这个节点所对应的真实 DOM 在新 children 的顺序中，已经变成了第一个节点。所以我们要把该节点所对应的真实 DOM 移动到最前头
+
+### 添加新元素
+
+节点是一个全新的节点,所以只要把它挂载到位于 oldStartIdx 位置的节点所对应的真实 DOM 前面就可以了，即 oldStartVNode.el
+
+如果在循环结束之后 oldEndIdx 的值小于 oldStartIdx 的值则说明新的 children 中存在还没有被处理的全新节点，这时我们应该调用 mount 函数将其挂载到容器元素中，我们只需要把这些全新的节点添加到 oldStartIdx 索引所指向的节点之前即可
+
+### 移除不存在的元素
+
+认为循环结束后，一旦满足条件 newEndIdx < newStartId 则说明有元素需要被移除
+
+## 提升四：inferno所采用的核心Diff算法及原理
+
+在 Vue3 中将采用另外一种核心 Diff 算法，它借鉴于 ivi 和 inferno
+
+### 相同的前置和后置元素
