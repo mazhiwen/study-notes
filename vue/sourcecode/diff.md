@@ -228,4 +228,189 @@ if (oldEndIdx < oldStartIdx) {
 
 在 Vue3 中将采用另外一种核心 Diff 算法，它借鉴于 ivi 和 inferno
 
-### 相同的前置和后置元素
+### 逻辑一：相同的前置和后置元素
+
+预处理：“去掉”相同的前置/后置节点
+
+一个while 循环向后遍历，一个while 循环向前遍历，再处理新加节点，和移除节点
+
+使用 javascript 中的 label 语句
+
+```js
+// 逻辑一：
+outer: {
+  // 更新相同的前缀节点
+  // j 为指向新旧 children 中第一个节点的索引
+  let j = 0
+  let prevVNode = prevChildren[j]
+  let nextVNode = nextChildren[j]
+  // while 循环向后遍历，直到遇到拥有不同 key 值的节点为止
+  while (prevVNode.key === nextVNode.key) {
+    // 调用 patch 函数更新
+    patch(prevVNode, nextVNode, container)
+    j++
+    // 旧 children 中的所有节点都已经参与了 patch,没有必要再执行后续的操作
+    if (j > prevEnd || j > nextEnd) {
+      break outer
+    }
+    prevVNode = prevChildren[j]
+    nextVNode = nextChildren[j]
+  }
+  // while 循环向前遍历，直到遇到拥有不同 key 值的节点为止
+  // 更新相同的后缀节点
+  // 指向旧 children 最后一个节点的索引
+  let prevEnd = prevChildren.length - 1
+  // 指向新 children 最后一个节点的索引
+  let nextEnd = nextChildren.length - 1
+  prevVNode = prevChildren[prevEnd]
+  nextVNode = nextChildren[nextEnd]
+  // while 循环向前遍历，直到遇到拥有不同 key 值的节点为止
+  while (prevVNode.key === nextVNode.key) {
+    // 调用 patch 函数更新
+    patch(prevVNode, nextVNode, container)
+    prevEnd--
+    nextEnd--
+    // 新 children 中的所有节点都已经参与了 patch,没有必要再执行后续的操作
+    if (j > prevEnd || j > nextEnd) {
+      break outer
+    }
+    prevVNode = prevChildren[prevEnd]
+    nextVNode = nextChildren[nextEnd]
+  }
+}
+
+if (j > prevEnd && j <= nextEnd) {
+  // 满足条件，则说明从 j -> nextEnd 之间的节点应作为新节点插入
+  // j -> nextEnd 之间的节点应该被添加
+  // 所有新节点应该插入到位于 nextPos 位置的节点的前面
+  const nextPos = nextEnd + 1
+  const refNode =
+    nextPos < nextChildren.length ? nextChildren[nextPos].el : null
+  // 采用 while 循环，调用 mount 函数挂载节点
+  while (j <= nextEnd) {
+    mount(nextChildren[j++], container, false, refNode)
+  }
+} else if (j > nextEnd) {
+  // j -> prevEnd 之间的节点应该被移除
+  while (j <= prevEnd) {
+    container.removeChild(prevChildren[j++].el)
+  }
+} else {
+
+  // 处理预处理前后之后，剩下的需要被处理的节点
+  // 逻辑二：
+  // 构造 source 数组
+  const nextLeft = nextEnd - j + 1  // 新 children 中剩余未处理节点的数量
+  const source = []
+  for (let i = 0; i < nextLeft; i++) {
+    source.push(-1)
+  }
+  const prevStart = j
+  const nextStart = j
+  let moved = false
+  let pos = 0
+  // 构建索引表
+  const keyIndex = {}
+  for(let i = nextStart; i <= nextEnd; i++) {
+    keyIndex[nextChildren[i].key] = i
+  }
+  let patched = 0
+  // 遍历旧 children 的剩余未处理节点
+  for(let i = prevStart; i <= prevEnd; i++) {
+    prevVNode = prevChildren[i]
+    if (patched < nextLeft) {
+      // 通过索引表快速找到新 children 中具有相同 key 的节点的位置
+      const k = keyIndex[prevVNode.key]
+      if (typeof k !== 'undefined') {
+        nextVNode = nextChildren[k]
+        // patch 更新
+        patch(prevVNode, nextVNode, container)
+        patched++
+        // 更新 source 数组
+        source[k - nextStart] = i
+        // 判断是否需要移动
+        if (k < pos) {
+          moved = true
+        } else {
+          pos = k
+        }
+      } else {
+        // 没找到，说明旧节点在新 children 中已经不存在了，应该移除
+        container.removeChild(prevVNode.el)
+      }
+    } else {
+      // 多余的节点，应该移除
+      container.removeChild(prevVNode.el)
+    }
+  }
+
+}
+
+```
+
+### 逻辑二：判断是否需要进行 DOM 移动
+
+react，vue2的DIFF的重点都是：判断是否有节点需要移动，以及应该如何移动和寻找出那些需要被添加或移除
+
+source数组 : 它的长度与“去掉”相同的前置/后置节点后新 children 中剩余未处理节点的数量相等，并存储着新 children 中的节点在旧 children 中位置，后面我们会根据 source 数组计算出一个最长递增子序列，并用于 DOM 移动操作
+
+建立了 moved 变量作为标识，当它的值为 true 时则说明需要进行 DOM 移动
+
+建立索引表，用空间换时间的方式，复杂度能够降低到 O(n)
+
+拿旧 children 中的节点尝试去新 children 中寻找具有相同 key 值的节点。最终目的：对新旧 children 中具有相同 key 值的节点进行更新，同时检测是否需要移动操作。
+
+### 逻辑三：DOM 移动的方式
+
+根据 source 数组计算一个最长递增子序列 seq 。seq的结果是source中最长递增子序列值的索引的数组
+
+使用两个索引 i 和 j 分别指向新 children 中剩余未处理节点的最后一个节点和最长递增子序列数组中的最后一个位置，并从后向前遍历，如下代码所示：
+
+```js
+if (moved) {
+  const seq = lis(source)
+  // j 指向最长递增子序列的最后一个值
+  let j = seq.length - 1
+  // 从后向前遍历新 children 中的剩余未处理节点
+  for (let i = nextLeft - 1; i >= 0; i--) { // i值是从 剩余数组长度-1 到 0
+    if (source[i] === -1) {
+      // 作为全新的节点挂载
+      // 该节点在新 children 中的真实位置索引
+      const pos = i + nextStart
+      const nextVNode = nextChildren[pos]
+      // 该节点下一个节点的位置索引
+      const nextPos = pos + 1
+      // 挂载
+      mount(
+        nextVNode,
+        container,
+        false,
+        nextPos < nextChildren.length
+          ? nextChildren[nextPos].el
+          : null
+      )
+    } else if (i !== seq[j]) {
+      // 说明该节点需要移动
+      // 该节点在新 children 中的真实位置索引
+      const pos = i + nextStart
+      const nextVNode = nextChildren[pos]
+      // 该节点下一个节点的位置索引
+      const nextPos = pos + 1
+      // 移动
+      container.insertBefore(
+        nextVNode.el,
+        nextPos < nextChildren.length
+          ? nextChildren[nextPos].el
+          : null
+      )
+    } else {
+      // 当 i === seq[j] 时，说明该位置的节点不需要移动
+      // 并让 j 指向下一个位置
+      j--
+    }
+  }
+}
+
+```
+
+### 求解最长递增子序列

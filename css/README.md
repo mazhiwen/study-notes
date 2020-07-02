@@ -3,16 +3,19 @@
 目录
 
 - [visibility:hidden和display:none](#visibility:hidden和display:none)
+- [text-align](./text-align.md)
+- [vertical-align](./vertical-align.md)
+- [display](./display.md)
 - [box-shadow](#box-shadow)
 - [transition](#transition)
 - [transform](#transform)
 - [角度单位](#角度单位)
-- [距离尺寸单位](#距离尺寸单位)
+- [距离尺寸单位](./unit.md)
 - [position](#position)
 - [white-space](#white-space)
 - [word-break](#word-break)
 - [animation](#animation)
-- [flex布局](#flex布局)
+- [flex布局](./flex.md)
 - [选择器](#选择器)
 - [行内元素和块元素](#行内元素和块元素)
 - [0.5px的边](#0.5px的边)
@@ -24,7 +27,7 @@
 - [两列固定-一列自适应](#两列固定-一列自适应)
 - [左边定宽-右边自适应](#左边定宽-右边自适应)
 - [全页面布局](#全页面布局)
-- [BFC](#BFC)
+- [BFC](./BFC.md)
 - [media媒体查询](#media)
 - [initial等](#initial等)
 - [background](#background)
@@ -32,11 +35,11 @@
 - [等宽字体](#等宽字体)
 - [垂直居中](#垂直居中)
 - [margin](#margin)
-- [vertical-align](#vertical-align)
 - [z-index](#z-index)
 
 布局相关:<https://segmentfault.com/a/1190000013565024?utm_source=channel-hottest#item-1>
 
+《css权威指南》
 ***
 
 ## visibility:hidden和display:none
@@ -51,139 +54,6 @@ deg :度 360deg
 grad :百分度 400grad  
 rad :弧度 2π  
 turn :1turn  
-
-## 距离尺寸单位
-
-\<length>
-
-形式：\<number> + 长度单位（px，em，pt，in，mm，...）  
-
-**相对单位：**  
-
-### em  
-
-### rem
-
-The font size of the root element
-
-<https://juejin.im/entry/5833f572128fe1006ccda98b>
-<!-- <https://juejin.im/post/5b90e07ce51d450e6a2dd140> -->
-
-- 一般认为网页中的根节点是 html 元素，所以采用的方式也是通过设置 html 元素的 font-size 来做屏幕适配
-
-- 实现方案:
-
-1. 方案1
-
-  ```css
-  @media screen and (min-width: 320px) {html{font-size:50px;}}
-  @media screen and (min-width: 360px) {html{font-size:56.25px;}}
-  @media screen and (min-width: 375px) {html{font-size:58.59375px;}}
-  @media screen and (min-width: 400px) {html{font-size:62.5px;}}
-  @media screen and (min-width: 414px) {html{font-size:64.6875px;}}
-  @media screen and (min-width: 440px) {html{font-size:68.75px;}}
-  @media screen and (min-width: 480px) {html{font-size:75px;}}
-  @media screen and (min-width: 520px) {html{font-size:81.25px;}}
-  @media screen and (min-width: 560px) {html{font-size:87.5px;}}
-  @media screen and (min-width: 600px) {html{font-size:93.75px;}}
-  @media screen and (min-width: 640px) {html{font-size:100px;}}
-  @media screen and (min-width: 680px) {html{font-size:106.25px;}}
-  @media screen and (min-width: 720px) {html{font-size:112.5px;}}
-  @media screen and (min-width: 760px) {html{font-size:118.75px;}}
-  @media screen and (min-width: 800px) {html{font-size:125px;}}
-  @media screen and (min-width: 960px) {html{font-size:150px;}}
-  ```
-
-2. 方案2
-
-```css
-@media screen and (min-width: 320px) {html{font-size:312.5%;}}
-@media screen and (min-width: 360px) {html{font-size:351.5625%;}}
-@media screen and (min-width: 375px) {html{font-size:366.211%;}}
-@media screen and (min-width: 400px) {html{font-size:390.625%;}}
-@media screen and (min-width: 414px) {html{font-size:404.2969%;}}
-@media screen and (min-width: 440px) {html{font-size:429.6875%;}}
-@media screen and (min-width: 480px) {html{font-size:468.75%;}}
-@media screen and (min-width: 520px) {html{font-size:507.8125%;}}
-@media screen and (min-width: 560px) {html{font-size:546.875%;}}
-@media screen and (min-width: 600px) {html{font-size:585.9375%;}}
-@media screen and (min-width: 640px) {html{font-size:625%;}}
-@media screen and (min-width: 680px) {html{font-size:664.0625%;}}
-@media screen and (min-width: 720px) {html{font-size:703.125%;}}
-@media screen and (min-width: 760px) {html{font-size:742.1875%;}}
-@media screen and (min-width: 800px) {html{font-size:781.25%;}}
-@media screen and (min-width: 960px) {html{font-size:937.5%;}}
-```
-
-3. 方案3
-
-```
-
-计算fontSize:
-
-其中100为 : 1rem对应视觉稿多少px。可以是任意值的系数比。下面计算用rem2px来表示这个系数.
-
-实际场景： 设计稿总宽700px 中的 元素10px
-相当于实际情况 总宽window.innerWidth 中的 元素多少px = (固定rem , css输入单位)
-
-window.innerWidth / designWidth 是px比例.
-
-输入的css单位：x * 1rem
-x * fontSize px / 设计稿元素 px = window.innerWidth / 设计稿总宽度 px
-
-当设计稿元素 = 100px时，应该是对应的应该输入1rem 也就是计算的 fontSize
-也就是=》
-window.innerWidth / designWidth * 100 = 1rem = fontSize值;
-
-导出结果:
-
-fontsize = 1rem  = window.innerWidth / designWidth * 100 'px'
-=>
-fontsize / 100 = window.innerWidth / designWidth
-
-```
-
-```js
-var designWidth = 640, rem2px = 100;
-document.documentElement.style.fontSize =
-  ((window.innerWidth / designWidth) * rem2px) + 'px';
-```
-
-4. 方案4
-
-```js
-function adapt(designWidth, rem2px){
-  var d = window.document.createElement('div');
-  d.style.width = '1rem';
-  d.style.display = "none";
-  var head = window.document.getElementsByTagName('head')[0];
-  head.appendChild(d);
-  var defaultFontSize = parseFloat(window.getComputedStyle(d, null).getPropertyValue('width'));
-  d.remove();
-  document.documentElement.style.fontSize = window.innerWidth / designWidth * rem2px / defaultFontSize * 100 + '%';
-  var st = document.createElement('style');
-  var portrait = "@media screen and (min-width: "+window.innerWidth+"px) {html{font-size:"+ ((window.innerWidth/(designWidth/rem2px)/defaultFontSize)*100) +"%;}}";
-  var landscape = "@media screen and (min-width: "+window.innerHeight+"px) {html{font-size:"+ ((window.innerHeight/(designWidth/rem2px)/defaultFontSize)*100) +"%;}}"
-  st.innerHTML = portrait + landscape;
-  head.appendChild(st);
-  return defaultFontSize
-};
-var defaultFontSize = adapt(640, 100);
-```
-
-**绝对单位：**
-
-### px:像素（点）  
-
-### mm:毫米  
-
-### cm:厘米  
-
-### in:英寸
-
-### pt:磅  
-
-### pc:12 点活字
 
 ## position
 
@@ -320,127 +190,6 @@ blur 可选。模糊距离。
 spread 可选。阴影的尺寸。  
 color 可选。阴影的颜色。请参阅 CSS 颜色值。  
 inset 可选。将外部阴影 (outset) 改为内部阴影。  
-
-## flex布局
-
-主轴:flex-direction:row | row-reverse | column | column-reverse  
-
-交叉轴:垂直于主轴  
-
-flex容器:display:flex;  
-
-### 盒子属性
-
-- flex-direction: row;更改 flex 元素的排列方向;  
-
-- flex-wrap:[wrap | nowrap] 换行策略，是否自动换行，是否超出缩放，溢出;
-
-```html
-<h4>This is an example for flex-wrap:wrap </h4>
-<div class="content">
-  <div class="red">1</div>
-  <div class="green">2</div>
-  <div class="blue">v3</div>
-</div>
-<h4>This is an example for flex-wrap:nowrap </h4>
-<div class="content1">
-  <div class="red">1</div>
-  <div class="green">2</div>
-  <div class="blue">3</div>
-</div>
-<h4>This is an example for flex-wrap:wrap-reverse </h4>
-<div class="content2">
-  <div class="red">1</div>
-  <div class="green">2</div>
-  <div class="blue">3</div>
-</div>
-```
-
-```css
-/* Common Styles */
-.content,
-.content1,
-.content2 {
-  color: #fff;
-  font: 100 24px/100px sans-serif;
-  height: 150px;
-  text-align: center;
-}
-.content div,
-.content1 div,
-.content2 div {
-  height: 50%;
-  width: 50%;
-}
-.red {
-  background: orangered;
-}
-.green {
-  background: yellowgreen;
-}
-.blue {
-  background: steelblue;
-}
-/* Flexbox Styles */
-.content {
-  display: flex;
-  flex-wrap: wrap;
-}
-.content1 {
-  display: flex;
-  flex-wrap: nowrap;
-}
-.content2 {
-  display: flex;
-  flex-wrap: wrap-reverse;
-}
-```
-
-![wrap_demo](./flex_wrap.jpeg)
-
-- flex-flow :flex-direction flex-wrap; 简写;  
-
-- align-content: ;定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。  
-
-- justify-content:[flex-start | flex-end | center | space-between | space-around | initial]  ;主轴上，元素之间及其周围的空间.元素如何排列，以及空间隔  
-
-- align-items: flex-start | flex-end | center | baseline | stretch; 定义项目在交叉轴上如何对齐。  
-
-### 子元素属性: flex item  
-
-<https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex>
-
-- order:
-
-[number] 定义项目的排列顺序。数值越小，排列越靠前，默认为0。
-
-- flex:
-
-flex-grow flex-shrink flex-basis;简写;规定了弹性元素如何伸长或缩短以适应flex容器中的可用空间
-
-- flex-basis:  
-
-布局空白的基准值  指定了 flex 元素在主轴方向上的初始大小
-
-- flex-grow:
-
-[number] ;定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。
-
-- flex-shrink:
-
-[number] ;flex 元素的收缩规则,flex 元素仅在默认宽度之和大于容器的时候才会发生收缩，其收缩的大小是依据 flex-shrink 的值;
-
-### flex子元素不超出容器做法
-
-```css
-/* 子元素 */
-flex:auto;
-overflow:hidden;
-
-/* 或者 */
-flex:auto;
-width:0;
-```
 
 ## 选择器
 
@@ -895,102 +644,6 @@ body{
 
 > absolute时，设置top,bottom后，可以实现高度自适应
 
-## BFC
-
-(Block Formatting Context)
-
-**定义：**
-
-块级格式化上下文，它是指一个独立的块级渲染区域，只有Block-level Box参与，该区域拥有一套渲染规则来约束块级盒子的布局，且与区域外部无关。  
-
-**生成：**  
-
-满足下列CSS声明之一的元素便会生成BFC：  
-
-根元素或其它包含它的元素；  
-float的值不为none；  
-overflow的值不为visible;  
-position的值不为static；  
-display的值为inline-block、table-cell、table-caption；  
-flex boxes (元素的display: flex或inline-flex)；  
-
-**用法：**
-
-* 给父元素设置overflow:hidden可以清除子元素的浮动
-
-```html
-<div class="one">
-  <div class="two">Hello World!</div>
-</div>
-你好世界！
-```
-
-```css
-.one {
-  background-color: pink;
-  overflow: hidden;
-}
-.two {
-  float: left;
-}
-```
-
-* 解决margin重叠问题
-
-```html
-<div class="container">
-  <div class="wrapper">
-      <div class="box1"></div>
-  </div>
-  <div class="box2"></div>
-</div>
-```
-
-```css
-.container {
-    overflow: hidden;
-    width: 100px;
-    height: 100px;
-    background-color: red;
-}
-.wrapper {
-    overflow: hidden;
-}
-.box1 {
-    height: 20px;
-    margin: 10px 0;
-    background-color: green;
-}
-.box2 {
-    height: 20px;
-    margin: 20px 0;
-    background-color: green;
-}
-```
-
-* 解决侵占浮动元素的问题
-
-```html
-<div class="box1">box1</div>
-<div class="box2">box2</div>
-```
-
-```css
-.box1 {
-  float: left;
-  width: 100px;
-  height: 100px;
-  background-color: pink;
-}
-.box2 {
-  width: 200px;
-  height: 200px;
-  background-color: skyblue;
-  overflow: hidden;
-  /*或者 float: left;*/
-}
-```
-
 ## media
 
 ```css
@@ -1226,14 +879,6 @@ inherit : 规定应该从父元素继承外边距
 
 解决效果：子元素的margin在父空间内撑开。不会影响父元素。
 
-## vertical-align
-
-<https://segmentfault.com/a/1190000015366749>
-
-指定行内元素（inline）或表格单元格（table-cell）元素的垂直对齐方式
-
-对于块级元素，vertical-align是不起作用的
-
 ## cssreset和normalize.css
 
 css reset 是最早的一种解决浏览器间样式不兼容问题的方案，它的基本思想是将浏览器的所有样式都重置掉，从而达到所有浏览器样式保持一致的效果。但是使用这种方法，可能会带来一些性能上的问题，并且对于一些元素的不必要的样式的重置，其实反而会造成画蛇添足的效果。
@@ -1316,4 +961,4 @@ table{border-collapse:collapse;border-spacing:0;}
 
 ## z-index
 
-https://juejin.im/post/5b876f86518825431079ddd6
+<https://juejin.im/post/5b876f86518825431079ddd6>
