@@ -26,6 +26,8 @@
 
 [前端工匠git](https://github.com/ljianshu/Blog)
 
+[2020 年阿里巴巴 P6 前端面试知识点汇总](http://www.mawen.co/question/837)
+
 ## 书
 
 [新时代下前端工程师的推荐书籍和必备知识](https://juejin.im/post/5c7129b0f265da2d9710f7ca)
@@ -33,8 +35,11 @@
 ## 论坛
 
 掘金:<https://juejin.im/timeline>
-<http://www.ruanyifeng.com/blog/javascript/>
 
 ## 博客
 
 <https://www.cnblogs.com/vajoy/p/3589717.html>
+
+<http://www.ruanyifeng.com/blog/javascript/>
+
+https://www.zhangxinxu.com/wordpress/category/js/

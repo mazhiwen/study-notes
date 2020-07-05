@@ -37,5 +37,5 @@ please give 爸爸 a star?
   - [IDE](https://github.com/mazhiwen/study-notes/tree/master/other/IDE)
   - [php](https://github.com/mazhiwen/study-notes/tree/master/other/php)
 - [学习资料](https://github.com/mazhiwen/study-notes/tree/master/StudyResource)
-  - [面试题](https://github.com/mazhiwen/study-notes/tree/master/StudyResource/面试题.md)
+  - [面试题博客等学习资源](https://github.com/mazhiwen/study-notes/tree/master/StudyResource/blog.md)
   - [书](https://github.com/mazhiwen/study-notes/tree/master/StudyResource/book.md)
