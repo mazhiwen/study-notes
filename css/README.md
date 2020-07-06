@@ -11,6 +11,7 @@
 - [盒子模型](./box.md)
 - [padding](./padding.md)
 - [margin](./margin.md)
+- [border](./border.md)
 - [box-shadow](#box-shadow)
 - [transition](#transition)
 - [transform](./transform.md)

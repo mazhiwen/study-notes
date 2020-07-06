@@ -20,7 +20,7 @@ margin: auto生效的前提是元素在width和height为auto的时候能够自�
 .father {
   width:200px;
   height:200px;
-  border:1px solid #ccc;
+  border:1px solid #ccc;  
   position :relative;
   .child {
     position:absolute;
@@ -36,18 +36,181 @@ margin: auto生效的前提是元素在width和height为auto的时候能够自�
 }
 ```
 
-## margin cllapse ，magin坍塌
+## width:auto时，margin左右正负值可以改变元素尺寸
 
-- 相邻：相邻元素margin会重叠，取最大值  
+margin左右负值可以使width:auto的元素宽度增宽或者减窄
 
-- 父子：子元素margin，会给父元素添加margin
+宽度width固定时,margin-right正负值不会改变元素布局流。相反，宽度width:auto时,margin-right正负值会改变元素布局流。
 
-父子元素解决办法：
+而,margin-left无论width多少都会影响布局流。
 
-1. 边框，当然可以设置边框为透明;
+```css
 
-2. 为父DIV添加 padding，或者至少添加padding-top;
+.div1{
+  height: 50px;
+  margin: 10px -10px;
+  background: red;
+}
+.div2{
+  height: 50px;
+  margin: 10px 10px;
+  background: blue;
+}
 
-3. overflow:hidden
+```
 
-解决效果：子元素的margin在父空间内撑开。不会影响父元素。
+## margin负值
+
+- 使得margin:right不折行
+
+通过margin右负值实现宽度向右边增加
+
+```html
+<div class="div1">
+  <ul class="ul">
+    <li></li>
+    <li></li>
+    <li></li>
+  </ul>
+</div>
+```
+
+```css
+.div1{
+  width: 320px;
+  border:1px solid blue;
+}
+.ul{
+  overflow:hidden;
+  padding:0;
+  margin: 0 -10px 0 0;
+  background: blue;
+}
+.ul > li {
+  float:left;
+  list-style:none;
+  width:100px;
+  height:100px;
+  margin-right:10px;
+  background:red;
+}
+
+```
+
+- 等高布局
+
+区别于margin左右，margin上下正负值并不会使元素高度变化
+
+等高布局 ：可以实现内容区域高度随内容自动增加高低，因为padding区域会被overflow:hidden隐藏掉的重叠的marigin的区域
+
+margin负值的区域，在父元素overflow:hidden的时候会视溢出区域而被隐藏。也就是说margin正负值可以影响overflow:hidden的区域
+
+margin-bottom正值或者负值都不会影响元素的布局流位置。margin-bottom正值可以撑开父元素高度。margin-bottom负值会使当前行布局流上移到负值区域，导致后面布局同时上移。
+
+margin-top正值或者负值都会影响元素的布局流位置,使元素布局下移或者上移。
+
+```html
+<div class="div1">
+  <div class="c1">红</div>
+  <div class="c2">
+    <p>蓝色</p>
+    <p>蓝色</p>
+  </div>
+</div>
+```
+
+```css
+.div1{
+  overflow:hidden;
+  width:300px;
+}
+.c1{
+  background:red;
+}
+.c2{
+  background:blue;
+}
+.c1,.c2{
+  float:left;
+  width:50%;
+  margin-bottom:-99999px;
+  padding-bottom:99999px;
+}
+```
+
+## margin cllapse ，magin坍塌，margin合并
+
+块级元素 的 上外边距margin-top与 下外边距margin-top 有时会合并为单个外边距，这种现象称为“margin合并”。一般会有以下三种：
+
+### 相邻兄弟元素margin合并
+
+```html
+<div class="div1">11</div>
+<div class="div2">2</div>
+```
+
+```css
+.div1{
+  width:300px;
+  background: red;
+  margin-bottom: 100px;
+}
+.div2{
+  margin-top: 100px;
+  width:300px;
+  background: blue;
+}
+```
+
+### 父级和第一个/最后一个子元素合并
+
+父子：子元素margin-top或者margin-bottom，会给父元素添加margin-top或者margin-bottom。
+
+```html
+<div class="div1">
+  <div class="div2">2</div>
+</div>
+```
+
+```css
+.div1{
+  width:300px;
+  background: red;
+  margin-top: 100px;
+}
+.div2{
+  margin-top: 100px;
+  width:300px;
+  background: blue;
+}
+```
+
+解决办法：
+
+- margin-top合并，解决方案：
+
+```
+父元素设置为块状格式化上下文元素 ?????
+
+父元素设置border-top值
+
+父元素设置padding-top正值
+
+父元素和第一个子元素之间添加内联元素进行分隔。如:加个文字
+```
+
+- margin-bottom合并，解决方案：
+
+```
+父元素设置为块状格式化上下文元素
+
+父元素设置border-bottom值
+
+父元素设置padding-bottom值
+
+父元素和最后一个子元素之间添加内联元素进行分隔
+
+父元素设置 height、min-height 或 max-height。
+```
+
+### 3、空块级元素的margin合并，即自身有margin-top和margin-bottom，但元素是空的，此时会合并为一个margin
