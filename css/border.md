@@ -8,7 +8,7 @@
 
 float是在父元素的内容区域内开始计算float，内容区域即不包括margin border padding
 
-给float起来的元素的父元素添加伪元素可以抵消float造成的布局流消失，即使浮动的子元素可以自动撑高父元素高度。
+给float起来的元素的父元素添加伪元素设置 `clear:both;display: block;content: '';` 可以抵消float造成的布局流消失，即使浮动的子元素可以自动撑高父元素高度。
 
 ```html
 <div class="div1">
@@ -25,24 +25,23 @@ float是在父元素的内容区域内开始计算float，内容区域即不包�
 ```
 
 ```css
-.div1{
+.div1 {
   text-align: left;
   background: #f3f3f3;
   border-left: 150px solid #333;
-  &::after{
+  &::after {
     clear:both;
     display: block;
     content: '';
   }
 }
-.div2{
+.div2 {
   float: left;
   width:150px;
   margin-left:-150px;
   background: gray;
-
 }
-li{
+li {
   list-style: none;
   color: white;
 }

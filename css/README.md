@@ -12,6 +12,8 @@
 - [padding](./padding.md)
 - [margin](./margin.md)
 - [border](./border.md)
+- [width](./width.md)
+- [float](./float.md)
 - [box-shadow](#box-shadow)
 - [transition](#transition)
 - [transform](./transform.md)
@@ -173,7 +175,7 @@ inset 可选。将外部阴影 (outset) 改为内部阴影。
 ## 行内元素和块元素
 
 块级元素： div p forn ul li h1-h6  
-行内元素：span img input a i
+行内元素：span img input a i button
 
 ## 0.5px的边
 

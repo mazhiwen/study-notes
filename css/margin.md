@@ -162,9 +162,11 @@ margin-top正值或者负值都会影响元素的布局流位置,使元素布局
 }
 ```
 
+避免重叠解决办法见BFC模块内容 [BFC](./BFC.md)
+
 ### 父级和第一个/最后一个子元素合并
 
-父子：子元素margin-top或者margin-bottom，会给父元素添加margin-top或者margin-bottom。
+父子：子元素margin-top或者margin-bottom，会添加到父元素margin-top或者margin-bottom。而不会添加在父子元素之间。
 
 ```html
 <div class="div1">
@@ -190,7 +192,7 @@ margin-top正值或者负值都会影响元素的布局流位置,使元素布局
 - margin-top合并，解决方案：
 
 ```
-父元素设置为块状格式化上下文元素 ?????
+父元素设置为块状格式化上下文元素,即BFC
 
 父元素设置border-top值
 
