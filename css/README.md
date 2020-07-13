@@ -2,34 +2,35 @@
 
 目录
 
-- [visibility:hidden和display:none](#visibility:hidden和display:none)
-- [text-align](./text-align.md)
-- [vertical-align](./vertical-align.md)
+- [块级元素和行内元素](./blockinline.md)
 - [display](./display.md)
 - [字母x相关的概念](./x.md)
+- [居中](./center.md)
 - [布局](./layout.md)
 - [盒子模型](./box.md)
+- [BFC](./BFC.md)
 - [padding](./padding.md)
 - [margin](./margin.md)
 - [border](./border.md)
 - [width](./width.md)
 - [float](./float.md)
+- [text-align](./text-align.md)
+- [vertical-align](./vertical-align.md)
+- [position](./position.md)
+- [flex布局](./flex.md)
+- [visibility:hidden和display:none](#visibility:hidden和display:none)
 - [box-shadow](#box-shadow)
 - [transition](#transition)
 - [transform](./transform.md)
 - [角度单位](#角度单位)
 - [距离尺寸单位](./unit.md)
-- [position](#position)
 - [white-space](#white-space)
 - [word-break](#word-break)
 - [animation](#animation)
-- [flex布局](./flex.md)
 - [选择器](#选择器)
-- [行内元素和块元素](#行内元素和块元素)
 - [0.5px的边](#0.5px的边)
 - [清除浮动](#清除浮动)
 - [overflow](#overflow)
-- [BFC](./BFC.md)
 - [media媒体查询](#media)
 - [initial等](#initial等)
 - [background](#background)
@@ -54,28 +55,6 @@ deg :度 360deg
 grad :百分度 400grad  
 rad :弧度 2π  
 turn :1turn  
-
-## position
-
-CSS position属性用于指定一个元素在文档中的定位方式。top，right，bottom 和 left 属性则决定了该元素的最终位置。
-
-```
-absolute
-生成绝对定位的元素，相对于值不为static的第一个父元素的paddingbox进行定位，也可以理解为离自己这一级元素最近的
-一级position设置为absolute或者relative的父元素的paddingbox的左上角为原点的。
-
-fixed（老IE不支持）
-生成绝对定位的元素，相对于浏览器窗口进行定位。
-
-relative
-生成相对定位的元素，相对于其元素本身所在正常位置进行定位。
-
-static
-默认值。没有定位，元素出现在正常的流中（忽略top,bottom,left,right,z-index声明）。
-
-inherit
-规定从父元素继承position属性的值。
-```
 
 ## white-space
 
@@ -171,11 +150,6 @@ inset 可选。将外部阴影 (outset) 改为内部阴影。
 比如说特殊性值为1000的的规则优先级就要比特殊性值为0999的规则高。如果两个规则的特殊性值相等的时候，那么就会根据它们引
 入的顺序，后出现的规则的优先级最高。
 ```
-
-## 行内元素和块元素
-
-块级元素： div p forn ul li h1-h6  
-行内元素：span img input a i button
 
 ## 0.5px的边
 
