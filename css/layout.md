@@ -1,12 +1,178 @@
 # 布局
 
+- [一些知识](#一些知识)
+- [两列布局](#两列布局)
 - [三栏布局](#三栏布局)
-- [两列固定-一列自适应](#两列固定-一列自适应)
-- [左边定宽-右边自适应](#左边定宽-右边自适应)
 - [全页面布局](#全页面布局)
 - [多列等高布局](#多列等高布局)
 
 ***
+
+## 一些知识
+
+设置width：1000px;或者max-width：1000px(这两者的区别是当屏幕小于1000px时，前者会出现滚动条，后者则不会，显示出实际宽度
+
+## 两列布局
+
+### 两列自适应布局
+
+一列由内容撑开，另一列撑满剩余宽度的布局方式
+
+```html
+<div class="parent" style="background-color: lightgrey;">
+  <div class="left" style="background-color: lightblue;">
+    <p>left</p>
+  </div>
+  <div class="right"  style="background-color: lightgreen;">
+    <p>right</p>
+    <p>right</p>
+  </div>
+</div>
+
+<style>
+.parent {
+  overflow: hidden;
+  zoom: 1;
+}
+.left {
+  float: left;
+  margin-right: 20px;
+}
+.right {
+  overflow: hidden;
+  zoom: 1;
+}
+</style>
+```
+
+### 两列固定-一列自适应
+
+```html
+<div class="left">
+  <p>left</p>
+</div>
+<div class="center">
+  <p>center</p>
+</div>
+<div class="right">
+  <p>right</p>
+  <p>right</p>
+</div>
+```
+
+> overflow: hidden 可以抵消受到同层级float元素的效果,并且自适应宽度
+
+```css
+.left,.center{
+    float: left;
+    margin-right: 20px;
+    outline: 1px solid red;
+}
+.right{
+  overflow: hidden;
+}
+.left p,.center p{
+    width: 100px;
+}
+```
+
+### 左边定宽-右边自适应
+
+**float cacl**
+
+```css
+.left{
+  float:left;
+  width: 200px;
+  outline: 1px solid red;
+}
+.right{
+  width:calc(100% - 200px);
+  float:left;
+  outline: 1px solid red;
+}
+```
+
+**table table-cell**
+
+```css
+.container {
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+.left, .right {
+  display: table-cell;
+  height: 600px;
+}
+.left {
+  width: 400px;
+  background-color: aqua;
+}
+.right {
+  background-color: blueviolet;
+}
+```
+
+**flex**
+
+```css
+.contain {
+  display: flex
+}
+.right {
+  flex: 1
+}
+```
+
+**float margin**
+
+```css
+.left {
+  width: 400px;
+  float: left;
+  border: 1px solid blue;
+}
+.right {
+  margin-left: 400px;
+  border: 1px solid red;
+}
+```
+
+> div块元素，自适应宽度
+
+```css
+/* 改进 */
+.left {
+  float:left;
+  width:100px;
+  position:relative;
+}
+.right-fix {
+  float:right;
+  width:100%;
+  margin-left:-100px;
+  outline: 1px solid red;
+}
+.right {
+  margin-left:120px;
+}
+
+```
+
+**float overflow**
+
+```css
+.left {
+  width: 400px;
+  float: left;
+  border: 1px solid blue;
+}
+.right {
+  overflow: hidden;
+  border: 1px solid red;
+}
+```
 
 ## 三栏布局
 
@@ -113,135 +279,6 @@
 </div>
 </body>
 </html>
-```
-
-## 两列固定-一列自适应
-
-```html
-<div class="left">
-  <p>left</p>
-</div>
-<div class="center">
-  <p>center</p>
-</div>
-<div class="right">
-  <p>right</p>
-  <p>right</p>
-</div>
-```
-
-> overflow: hidden 可以抵消受到同层级float元素的效果,并且自适应宽度
-
-```css
-.left,.center{
-    float: left;
-    margin-right: 20px;
-    outline: 1px solid red;
-}
-.right{
-  overflow: hidden;
-}
-.left p,.center p{
-    width: 100px;
-}
-```
-
-## 左边定宽-右边自适应
-
-**float cacl**
-
-```css
-.left{
-  float:left;
-  width: 200px;
-  outline: 1px solid red;
-}
-.right{
-  width:calc(100% - 200px);
-  float:left;
-  outline: 1px solid red;
-}
-```
-
-**table table-cell**
-
-```css
-.container {
-  display: table;
-  table-layout: fixed;
-  width: 100%;
-}
-.left, .right {
-  display: table-cell;
-  height: 600px;
-}
-.left {
-  width: 400px;
-  background-color: aqua;
-}
-.right {
-  background-color: blueviolet;
-}
-```
-
-**flex**
-
-```css
-.contain {
-  display: flex
-}
-.right {
-  flex: 1
-}
-```
-
-**float margin**
-
-```css
-.left {
-  width: 400px;
-  float: left;
-  border: 1px solid blue;
-}
-.right {
-  margin-left: 400px;
-  border: 1px solid red;
-}
-```
-
-> div块元素，自适应宽度
-
-```css
-/* 改进 */
-.left {
-  float:left;
-  width:100px;
-  position:relative;
-}
-.right-fix {
-  float:right;
-  width:100%;
-  margin-left:-100px;
-  outline: 1px solid red;
-}
-.right {
-  margin-left:120px;
-}
-
-```
-
-**float overflow**
-
-```css
-.left {
-  width: 400px;
-  float: left;
-  border: 1px solid blue;
-}
-.right {
-  overflow: hidden;
-  border: 1px solid red;
-}
 ```
 
 ## 全页面布局
