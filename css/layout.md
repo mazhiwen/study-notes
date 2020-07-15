@@ -175,7 +175,7 @@
 
 ### 中间列自适应宽度，旁边两侧固定宽度
 
-- 圣杯布局：
+#### 圣杯布局
 
 dom结构必须是先写中间列部分，这样实现中间列可以优先加载。
 
@@ -184,6 +184,16 @@ float元素是在contentbox区域开始进行计算布局,即去掉margin border
 中间子元素float，并width：100%占满父元素。左子元素 float，margin-left:-100%,可以实现相对当前位置上移到父元素内容区域开始部分
 
 margin-left可以使元素出现上移，再通过positon:relative 对元素做偏移
+
+实现步骤:
+
+1. 三个部分都设定为左浮动，否则左右两边内容上不去，就不可能与中间列同一行。然后设置center的宽度为100%(实现中间列内容自适应)，此时，left和right部分会跳到下一行
+
+2. 通过设置margin-left为负值让left和right部分回到与center部分同一行
+
+3. 通过设置父容器的padding-left和padding-right，让左右两边留出间隙。
+
+4. 通过设置相对定位，让left和right部分移动到两边。
 
 ```html
 <div class="container">
@@ -228,12 +238,12 @@ margin-left可以使元素出现上移，再通过positon:relative 对元素做�
 </style>
 ```
 
-- position（绝对定位法）
+#### position（绝对定位法）
 
 center的div需要放在最后面
   绝对定位法原理将左右两边使用absolute定位，因为绝对定位使其脱离文档流，后面的center会自然流动到他们的上卖弄，然后margin属性，留出左右两边的宽度。就可以自适应了。  
   
-- float
+#### float
 
 自身浮动法 center的div需要放到后面
   自身浮动法的原理就是对左右使用float:left和float：right，float使左右两个元素脱离文档流，中间的正常文档流中，使用margin指定左右外边距对其进行一个定位。  
@@ -282,7 +292,7 @@ center的div需要放在最后面
 </html>
 ```
 
-### 两列固定-一列自适应
+### 左中固定，右自适应
 
 ```html
 <div class="left">
