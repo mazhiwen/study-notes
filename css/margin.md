@@ -1,6 +1,6 @@
 # margin
 
-## 属性
+## margin值
 
 auto : 浏览器计算外边距
 

@@ -1,5 +1,15 @@
 # width
 
+## length
+
+绝对宽度
+
+## 百分比值percentage
+
+使用外层元素的容纳区块宽度（the containing block's width）的百分比定义宽度。
+
+## auto
+
 width的默认值是auto 。在不同环境下分别表现为：
 
 - fill-available

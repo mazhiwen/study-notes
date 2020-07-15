@@ -16,7 +16,13 @@
 
 ### 两列自适应布局
 
+- float + overflow:hidden
+
 一列由内容撑开，另一列撑满剩余宽度的布局方式
+
+方法：父元素 overflow:hidden，子元素第一个float:left；第二个 overflow:hidden
+
+第二个元素 设置overflow:hidden，以不会被第一个元素float影响,不会使布局坍塌，被float元素覆盖重叠。
 
 ```html
 <div class="parent" style="background-color: lightgrey;">
@@ -45,40 +51,31 @@
 </style>
 ```
 
-### 两列固定-一列自适应
-
-```html
-<div class="left">
-  <p>left</p>
-</div>
-<div class="center">
-  <p>center</p>
-</div>
-<div class="right">
-  <p>right</p>
-  <p>right</p>
-</div>
-```
-
-> overflow: hidden 可以抵消受到同层级float元素的效果,并且自适应宽度
+- flex
 
 ```css
-.left,.center{
-    float: left;
-    margin-right: 20px;
-    outline: 1px solid red;
+.parent {
+  display:flex;
+}  
+.right {
+  margin-left:20px;
+  flex:1;
 }
-.right{
-  overflow: hidden;
-}
-.left p,.center p{
-    width: 100px;
+```
+
+- gird
+
+```css
+.parent {
+  display:grid;
+  grid-template-columns:auto 1fr;
+  grid-gap:20px
 }
 ```
 
 ### 左边定宽-右边自适应
 
-**float cacl**
+- float + calc
 
 ```css
 .left{
@@ -93,7 +90,7 @@
 }
 ```
 
-**table table-cell**
+- table + table-cell
 
 ```css
 .container {
@@ -114,7 +111,7 @@
 }
 ```
 
-**flex**
+- flex + flex-grow
 
 ```css
 .contain {
@@ -125,7 +122,7 @@
 }
 ```
 
-**float margin**
+- float + margin
 
 ```css
 .left {
@@ -160,7 +157,7 @@
 
 ```
 
-**float overflow**
+- float + overflow
 
 ```css
 .left {
@@ -176,12 +173,69 @@
 
 ## 三栏布局
 
-两边两栏宽度固定，中间栏宽度自适应
+### 中间列自适应宽度，旁边两侧固定宽度
 
-* position（绝对定位法） center的div需要放在最后面
+- 圣杯布局：
+
+dom结构必须是先写中间列部分，这样实现中间列可以优先加载。
+
+float元素是在contentbox区域开始进行计算布局,即去掉margin border padding的content盒子区域
+
+中间子元素float，并width：100%占满父元素。左子元素 float，margin-left:-100%,可以实现相对当前位置上移到父元素内容区域开始部分
+
+margin-left可以使元素出现上移，再通过positon:relative 对元素做偏移
+
+```html
+<div class="container">
+  <div class="center">
+    <h2>圣杯布局</h2>
+  </div>
+  <div class="left"></div>
+  <div class="right"></div>
+</div>
+
+<style>
+.container {
+  padding-left: 220px;//为左右栏腾出空间
+  padding-right: 220px;
+  overflow: hidden;
+  background: lightblue;
+}
+.center {
+  float: left;
+  width: 100%;
+  height: 500px;
+  background: yellow;
+}
+.left {
+  float: left;
+  width: 200px;
+  height: 400px;
+  background: red;
+  margin-left: -100%;
+  position: relative;
+  left: -220px;
+}
+.right {
+  float: left;
+  width: 200px;
+  height: 400px;
+  background: blue;
+  margin-left: -200px;
+  position: relative;
+  right: -220px;
+}
+</style>
+```
+
+- position（绝对定位法）
+
+center的div需要放在最后面
   绝对定位法原理将左右两边使用absolute定位，因为绝对定位使其脱离文档流，后面的center会自然流动到他们的上卖弄，然后margin属性，留出左右两边的宽度。就可以自适应了。  
   
-* float 自身浮动法 center的div需要放到后面
+- float
+
+自身浮动法 center的div需要放到后面
   自身浮动法的原理就是对左右使用float:left和float：right，float使左右两个元素脱离文档流，中间的正常文档流中，使用margin指定左右外边距对其进行一个定位。  
 
 ```html
@@ -228,57 +282,35 @@
 </html>
 ```
 
-* 圣杯布局：
+### 两列固定-一列自适应
 
 ```html
-<!DOCTYPE html>
-<html>
-<head lang="en">
-<title>圣杯</title>
-<style>
-.container{
-  /*控制main区域*/
-  padding:0 200px 0 180px;
-  height:100px;
-}
-.main{
-  /*继承container宽度*/
-  float:left;
-  width:100%;
-  height:100px;
-  background:#999;
-}
-.left{
+<div class="left">
+  <p>left</p>
+</div>
+<div class="center">
+  <p>center</p>
+</div>
+<div class="right">
+  <p>right</p>
+  <p>right</p>
+</div>
+```
 
-  float:left;
-  width:180px;
-  height:100px;
-  /*左移到左侧 相对main区域*/
-  position:relative;
-  left:-180px;
-  /*同位上移*/
-  margin-left:-100%;
-  background:#111;
+> overflow: hidden 可以抵消受到同层级float元素的效果,并且自适应宽度
+
+```css
+.left,.center{
+    float: left;
+    margin-right: 20px;
+    outline: 1px solid red;
 }
 .right{
-  float:left;
-  width:200px;
-  height:100px;
-  margin-left:-200px;
-  background:#eee;
-  position:relative;
-  right:-200px;
+  overflow: hidden;
 }
-</style>
-</head>
-<body>
-<div class="container">
-  <div class="main">middle</div>
-  <div class="left">left</div>
-  <div class="right">right</div>
-</div>
-</body>
-</html>
+.left p,.center p{
+    width: 100px;
+}
 ```
 
 ## 全页面布局
