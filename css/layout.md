@@ -3,8 +3,8 @@
 - [一些知识](#一些知识)
 - [两列布局](#两列布局)
 - [三栏布局](#三栏布局)
+- [等高布局](#等高布局)
 - [全页面布局](#全页面布局)
-- [多列等高布局](#多列等高布局)
 
 ***
 
@@ -16,13 +16,13 @@
 
 ### 两列自适应布局
 
-- float + overflow:hidden
-
 一列由内容撑开，另一列撑满剩余宽度的布局方式
+
+- float + overflow:hidden
 
 方法：父元素 overflow:hidden，子元素第一个float:left；第二个 overflow:hidden
 
-第二个元素 设置overflow:hidden，以不会被第一个元素float影响,不会使布局坍塌，被float元素覆盖重叠。
+第二个元素 设置overflow:hidden，以不会被第一个元素float影响,不会使布局坍塌，被float元素覆盖重叠。会在左边元素，右边顺序布局，并width自动填充
 
 ```html
 <div class="parent" style="background-color: lightgrey;">
@@ -175,7 +175,7 @@
 
 ### 中间列自适应宽度，旁边两侧固定宽度
 
-#### 圣杯布局
+- 圣杯布局
 
 dom结构必须是先写中间列部分，这样实现中间列可以优先加载。
 
@@ -198,10 +198,10 @@ margin-left可以使元素出现上移，再通过positon:relative 对元素做�
 ```html
 <div class="container">
   <div class="center">
-    <h2>圣杯布局</h2>
+    <h2>圣杯布局center</h2>
   </div>
-  <div class="left"></div>
-  <div class="right"></div>
+  <div class="left">left</div>
+  <div class="right">right</div>
 </div>
 
 <style>
@@ -235,61 +235,69 @@ margin-left可以使元素出现上移，再通过positon:relative 对元素做�
   position: relative;
   right: -220px;
 }
+
+.center,
+.left,
+.right {
+  padding-bottom: 10000px;
+  margin-bottom: -10000px;
+}
 </style>
 ```
 
-#### position（绝对定位法）
+- 双飞翼布局
 
-center的div需要放在最后面
-  绝对定位法原理将左右两边使用absolute定位，因为绝对定位使其脱离文档流，后面的center会自然流动到他们的上卖弄，然后margin属性，留出左右两边的宽度。就可以自适应了。  
-  
-#### float
+同样也是三栏布局，在圣杯布局基础上进一步优化，解决了圣杯布局错乱问题，实现了内容与布局的分离。而且任何一栏都可以是最高栏，不会出问题。
 
-自身浮动法 center的div需要放到后面
-  自身浮动法的原理就是对左右使用float:left和float：right，float使左右两个元素脱离文档流，中间的正常文档流中，使用margin指定左右外边距对其进行一个定位。  
+实现步骤:
+
+前两步与圣杯布局一样
+
+三个部分都设定为左浮动，然后设置center的宽度为100%，此时，left和right部分会跳到下一行；
+
+通过设置margin-left为负值让left和right部分回到与center部分同一行；
+
+center部分增加一个内层div，并设margin: 0 200px
+
+left和right会依次在center下方左边距位置开始计算float位置
 
 ```html
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>双飞翼</title>
-    <style>
-.main{
-    float:left;
-    width:100%;
-    height:100px;
-    background:#999;
+<article class="container">
+  <div class="center">
+      <div class="inner">双飞翼布局</div>
+  </div>
+  <div class="left"></div>
+  <div class="right"></div>
+</article>
+
+<style>
+.container {
+  min-width: 600px;//确保中间内容可以显示出来，两倍left宽+right宽
 }
-.left{
-    float:left;
-    width:180px;
-    height:100px;
-    margin-left:-100%;
-    background:#111;
+.left {
+  float: left;
+  width: 200px;
+  height: 400px;
+  background: red;
+  margin-left: -100%;
 }
-.right{
-    float:left;
-    width:200px;
-    height:100px;
-    margin-left:-200px;
-    background:#eee;
+.center {
+  float: left;
+  width: 100%;
+  height: 500px;
+  background: yellow;
 }
-.inline{
-  /*main实际展示区域*/
-  margin:0 200px 0 180px;
-  background: #ddd;
+.center .inner {
+  margin: 0 200px; //新增部分
+}
+.right {
+  float: left;
+  width: 200px;
+  height: 400px;
+  background: blue;
+  margin-left: -200px;
 }
 </style>
-</head>
-<body>
-  <div class="main">
-    <div class="inline">middle</div>
-  </div>
-  <div class="left">left</div>
-  <div class="right">right</div>
-</body>
-</html>
 ```
 
 ### 左中固定，右自适应
@@ -311,9 +319,9 @@ center的div需要放在最后面
 
 ```css
 .left,.center{
-    float: left;
-    margin-right: 20px;
-    outline: 1px solid red;
+  float: left;
+  margin-right: 20px;
+  outline: 1px solid red;
 }
 .right{
   overflow: hidden;
@@ -321,6 +329,147 @@ center的div需要放在最后面
 .left p,.center p{
     width: 100px;
 }
+```
+
+## 等高布局
+
+等高布局是指子元素在父元素中高度相等的布局方式。
+
+```
+（1）利用padding-bottom|margin-bottom正负值相抵，不会影响页面布局的特点。设置父容器设置超出隐藏（overflow:
+hidden），这样父容器的高度就还是它里面的列没有设定padding-bottom时的高度，当它里面的任一列高度增加了，则
+父容器的高度被撑到里面最高那列的高度，其他比这列矮的列会用它们的padding-bottom补偿这部分高度差。
+
+（2）利用table-cell所有单元格高度都相等的特性，来实现多列等高。
+
+（3）利用flex布局中项目align-items属性默认为stretch，如果项目未设置高度或设为auto，将占满整个容器的高度
+的特性，来实现多列等高。
+```
+
+### 利用正padding+负margin
+
+overflow:hidden 可以把 负的 margin-bottom 隐藏
+
+在圣杯布局的基础上
+
+```css
+.center,
+.left,
+.right {
+  padding-bottom: 10000px;
+  margin-bottom: -10000px;
+}
+.container {
+  padding-left: 220px;
+  padding-right: 220px;
+  overflow: hidden;//把溢出背景切掉
+}
+```
+
+### 利用背景图片
+
+这种方法是我们实现等高列最早使用的一种方法，就是使用背景图片，在列的父元素上使用这个背景图进行Y轴的铺放，从而实现一种等高列的假象。实现方法简单，兼容性强，不需要太多的css样式就可以轻松实现,但此方法不适合流体布局等高列的布局。
+
+```html
+<div class=”container clearfix”>
+    <div class=”left”></div>
+    <div  class=”content”></div>
+    <div class=”right”></div>
+</div>
+
+<style>
+.container {
+  background: url("column.png") repeat-y;
+  width: 960px;
+  margin: 0 auto;
+}
+</style>
+```
+
+### 模仿表格布局
+
+table > tablerow > tablecell  tablecell中的其中一个height，所有tablecell会等高
+
+```html
+<div class="container table">
+  <div class="containerInner tableRow">
+    <div class="column tableCell cell1">
+      <div class="left aside">
+        ....
+      </div>
+    </div>
+    <div class="column tableCell cell2">
+      <div class="content section">
+        ...
+      </div>
+    </div>
+    <div class="column tableCell cell3">
+      <div class="right aside">
+        ...
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.table {
+  width: auto;
+  min-width: 1000px;
+  margin: 0 auto;
+  padding: 0;
+  display: table;
+}
+.tableRow {
+  display: table-row;
+}
+.tableCell {
+  display: table-cell;
+  width: 33%;
+}
+.cell1 {
+  background: #f00;
+  height: 800px;
+}
+.cell2 {
+  background: #0f0;
+}
+.cell3 {
+  background: #00f;
+}
+</style>
+```
+
+### 使用边框和定位
+
+子元素position:absolute，height固定。左边border-right，右边margin-left。都用固定值
+
+```html
+<div id="wrapper">
+  <div id="mainContent">...</div>
+  <div id="sidebar">...</div>
+</div>
+
+<style>
+#wrapper {
+  width: 960px;
+  margin: 0 auto;
+}
+#mainContent {
+  border-right: 220px solid #dfdfdf;
+  position: absolute;
+  width: 740px;
+  height: 800px;  
+  background: green;
+}
+#sidebar {
+  background: #dfdfdf;
+  margin-left: 740px;
+  position: absolute;
+  height: 800px;
+  width: 220px;
+}
+</style>
+
 ```
 
 ## 全页面布局
@@ -394,16 +543,3 @@ body{
 ```
 
 > absolute时，设置top,bottom后，可以实现高度自适应
-
-## 多列等高布局
-
-```
-（1）利用padding-bottom|margin-bottom正负值相抵，不会影响页面布局的特点。设置父容器设置超出隐藏（overflow:
-hidden），这样父容器的高度就还是它里面的列没有设定padding-bottom时的高度，当它里面的任一列高度增加了，则
-父容器的高度被撑到里面最高那列的高度，其他比这列矮的列会用它们的padding-bottom补偿这部分高度差。
-
-（2）利用table-cell所有单元格高度都相等的特性，来实现多列等高。
-
-（3）利用flex布局中项目align-items属性默认为stretch，如果项目未设置高度或设为auto，将占满整个容器的高度
-的特性，来实现多列等高。
-```

@@ -1,5 +1,9 @@
 # padding
 
+## 特性
+
+background属性影响区域包括padding增加的区域。
+
 ## padding与内联元素
 
 垂直方向完全受line-height和vertical-align的影响，padding视觉上并没有改变上一行和下一行内容的间距。可以在垂直方向上增大可点击区域。如：一个关闭的“x”如果太小，用户就很难点击到，调大字体又会影响布局，这时候就可以用到padding。
