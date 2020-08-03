@@ -11,6 +11,8 @@
 - [el](#el)
 - [组件通信](#组件通信)
 - [props](#props)
+- [computed](./computed.md)
+- [watch](./watch.md)
 - [filters](#filters)
 - [组合](#组合)
 - [样式](#样式)
@@ -26,7 +28,6 @@
 - [响应式原理](./reactivity.md)
 - [keep-alive](#keep-alive)
 - [异步组件](#异步组件)
-- [watch](#watch)
 - [$root](#$root)
 - [.sync](#.sync)
 - [递归组件](#递归组件)
@@ -513,31 +514,6 @@ new Vue({
     'my-component': () => import('./my-async-component')
   }
 })
-
-```
-
-## watch
-
-```js
-//立即执行
-watch: {
-  inpVal:{
-    handler: 'getList',
-    immediate: true
-  }
-}
-
-//深度监听
-watch:{
-  inpValObj:{
-    handler(newVal,oldVal){
-      console.log(newVal)
-      console.log(oldVal)
-    },
-    deep:true
-  }
-}
-//此时发现oldVal和 newVal 值一样; 因为它们索引同一个对象/数组,Vue 不会保留修改之前值的副本; 所以深度监听虽然可以监听到对象的变化,但是无法监听到具体对象里面那个属性的变化
 
 ```
 

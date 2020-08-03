@@ -18,51 +18,53 @@
 
 初始化一些属性 方法 参数：如，$前缀的 $parent $root 等
 
-初始化事件：
+初始化事件
+
+在当前阶段中data、methods、computed以及watch上的数据和方法均不能被访问。
 
 ### created
 
 初始化界面前,组件实例创建完成，属性已绑定，但DOM还未生成，$el属性还不存在
 
-做不需要响应式的数据: inject
+完成了数据观测
 
-做了 props 、methods 、data 、computed 和 watch 的初始化处理；
+props 、methods 、data 、computed 和 watch 的初始化处理；
+
+在这里更改数据不会触发updated函数
 
 ### beforeMount
 
-模版编译/挂载之前，渲染dom前
+虚拟Dom已经创建完成，即将开始渲染
 
 在 beforeMount 这里，基本没做什么事情，只是做了一个 render 方法如果存在就绑定一下 createEmptyVNode 函数；
 
 ### mounted
 
-模版编译/挂载之后
+真实的Dom挂载完毕
 
-实例挂载到DOM上，此时可以通过DOM API获取到DOM节点，$ref属性可以访问
+此时可以通过DOM API获取到DOM节点，$ref属性可以访问
 
 ### beforeUpdate
 
-数据改变——> 导致虚拟DOM的改变——>调用 beforeUpdate updated 这两个生命钩子去改变视图
+响应式数据发生更新 ——> 虚拟dom重新渲染 ——>调用 beforeUpdate updated 这两个生命钩子去改变视图
 
-组件更新之前
+虚拟dom重新渲染之前触发beforeUpdate
 
-响应式数据更新时调用，发生在虚拟DOM打补丁之前
+当前阶段进行更改数据，不会造成重渲染
 
 ### updated
 
-组件更新之后
+虚拟DOM已经更新完成，可执行依赖于DOM的操作
 
-虚拟 DOM 重新渲染和打补丁之后调用，组件DOM已经更新，可执行依赖于DOM的操作
+避免在此期间更改数据，因为这可能会导致无限循环的更新
 
 ### beforeDestroy
 
-组件销毁前
-
-实例销毁之前调用。这一步，实例仍然完全可用，this仍能获取到实例
+这个钩子发生在实例销毁之前，在当前阶段实例完全可以被使用，我们可以在这时进行善后收尾工作，比如清除计时器。
 
 ### destroyed
 
-组件销毁后
+这个钩子发生在实例销毁之后，这个时候只剩下了dom空壳。组件已被拆解，数据绑定被卸除，监听被移出，子实例也统统被销毁。
 
 ### activated
 
