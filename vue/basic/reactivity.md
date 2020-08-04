@@ -2,9 +2,11 @@
 
 <https://cn.vuejs.org/v2/guide/reactivity.html>
 
-<https://juejin.im/post/5c386acb518825261f735384>
-
 <https://juejin.im/post/6844903597986037768>
+
+<https://juejin.im/post/6844903877699960846>
+
+https://juejin.im/post/6844903746774761486
 
 由于 JavaScript 的限制，Vue 不能检测数组和对象的变化
 
@@ -46,6 +48,8 @@ const defineReactive = function(obj, key) {
 
 ### 收集依赖
 
+data 中的声明的每个属性，都拥有一个数组，保存着 谁依赖（使用）了 它
+
 订阅者 Dep: 它用来收集依赖、删除依赖和向依赖发送消息等
 
 addSub 方法 :可以在目前的 Dep 对象中增加一个 Watcher 的订阅操作；
@@ -84,7 +88,9 @@ const Dep = function() {
 
 在getter中收集依赖，先收集依赖，即把用到该数据的地方收集起来。在setter中触发依赖，等属性发生变化时，把之前收集好的依赖循环触发一遍就行了。
 
-### 发布订阅模式：数据变化时，自动“通知”需要更新的视图部分，并进行更新
+### watcher - 发布订阅模式：数据变化时，自动“通知”需要更新的视图部分，并进行更新
+
+简单说一下，watcher 是什么，每个 Vue 实例都会拥有一个专属的 watcher，可用于实例更新
 
 ```js
 const Watcher = function(vm, fn) {

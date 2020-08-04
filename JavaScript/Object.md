@@ -4,8 +4,6 @@
 
 Object本质上是由一组无序的名值对组成的
 
-
-
 大多数引用类型的值都是Object类型的实例
 
 ## 创建Object实例
@@ -130,3 +128,11 @@ Object.isFrozen(person);
 
 检测是否自身有某属性 返回boolean  
 不会检查prototype链,区别与in操作符
+
+## Object.defineProperty
+
+Object.defineProperty 可以为属性设置很多特性，例如 configurable，enumerable，get,set
+
+get 值是一个函数，当属性被访问时，会触发 get 函数
+
+set 值同样是一个函数，当属性被赋值时，会触发 set 函数
