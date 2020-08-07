@@ -1,14 +1,57 @@
 
 # 知识整理
 
-你确定不给star吗？
+如果你觉得快乐
 
 please give 爸爸 a star?
 
 ***
 
-- [web](https://github.com/mazhiwen/study-notes/tree/master/web)
-- [JavaScript](./JavaScript)
+- web
+  - [浏览器以及V8引擎](./web/browser)
+  - [DOM](./web/DOM/)
+  - [window](./web/window.md)
+  - [Event](./web/Event.md)
+  - [前端路由](./web/vue-router.md)
+  - [TCP/IP-HTTP](./web/TCP-HTTP/)
+  - [性能web方向](./web/performance.md)
+  - [性能http方向](./web/performancehttp.md)
+  - [跨域攻击](./web/cyber-attack.md)
+  - [nginx](./web/nginx)
+  - [前端监控和埋点方案](./web/monitor.md)
+  - [绘图](./web/绘图.md)
+  - [资源文件](./web/StaticFile.md)
+  - [Ajax](./web/Ajax.md)
+  - [URL](./web/url.md)
+  - [history](./web/history.md)
+  - [其他](./web/basic.md)
+- JavaScript
+  - [常见问题大全](./JavaScript/basic.md)
+  - [变量](./JavaScript/var.md)
+  - [作用域](./JavaScript/scope.md)
+  - [Event Loop](./JavaScript/eventloop.md)
+  - [内存管理](./JavaScript/cache.md)
+  - [闭包](./JavaScript/bibao.md)
+  - [this](./JavaScript/this.md)
+  - [跨域](./JavaScript/crosssite.md)
+  - [数据类型](./JavaScript/datatype.md)
+  - [函数和Function](./JavaScript/Function.md)
+  - [Object](./JavaScript/Object.md)
+  - [Array](./JavaScript/Array.md)
+  - [String](./JavaScript/String.md)
+  - [Number](./JavaScript/Number.md)
+  - [Math](./JavaScript/math.md)
+  - [位运算](./JavaScript/位运算.md)
+  - [ECMAScript规范](./JavaScript/es.md)
+  - [面向对象](./JavaScript/OOinJS.md)
+  - [JS性能](./JavaScript/performance.md)
+  - [设计模式](./JavaScript/designPatterns.md)
+  - [TypeScript](./JavaScript/TypeScript.md)
+  - [JSX](./JavaScript/JSX.md)
+  - [防抖和节流](./JavaScript/debounce.md)
+  - [富文本编辑器开发原理](./JavaScript/editor.md)
+  - [模块化](./JavaScript/module.md)
+  - [前端鉴权](./JavaScript/auth.md)
 - [html](./html)
 - [css](./css)
 - [vue](./vue)

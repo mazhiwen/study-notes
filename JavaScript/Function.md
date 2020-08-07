@@ -708,46 +708,6 @@ var createXHR = (function () {
 
 ## 函数节流
 
-函数有可能被非常频繁地调用，而造成大的性能问题。比如：  
-window.onresize  
-mousemove  
-上传进度
-
-函数节流的原理:  
-比如onresize，监听浏览器大小变化，console输出变化，1秒钟进行了10次。实际我们只需要2次或者3次。我们就可以按照时间段来忽略一些，比如确保500ms内打印一次，可以借助setTimeout来完成
-
-函数截流代码实现:  
-
-```js
-// 把需要节流的目标执行函数，转换为节流函数
-// 返回一个闭包形成的 带有私有状态的function
-var throttle = function (fn,interval){
-  var _self=fn,
-    timer,
-    firstTime = true;
-  return function(){
-    var args=arguments,
-      _me=this;
-    if(firstTime){
-      _slef.apply(_me,args);
-      return firstTime=false;
-    }
-    if(timer){
-      return false;
-    }
-    timer = setTimeout(function(){
-      clearTimeout(timer);
-      timer=null;
-      _slef.apply(_me,args);
-    },interval||500);
-
-  }
-}
-window.onresize = throttle(function(){
-  console.log(1);
-},500);
-```
-
 ## 分时函数
 
 ```js

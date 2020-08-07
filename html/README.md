@@ -1,7 +1,6 @@
 # HTML
 
 - [base标签](#base标签)
-- [history](./history.md)
 - [target属性](#target属性)
 - [元素内容分类](#元素内容分类)
 - [HTML元素集](#HTML元素集)
