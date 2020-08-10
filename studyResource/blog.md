@@ -6,7 +6,7 @@
 
 [面试完50个人后我写下这篇总结](https://juejin.im/post/5df1e312f265da33d039d06d#heading-76)
 
-[web前端面试总结](https://juejin.im/post/5dafb263f265da5b9b80244d)
+[web前端面试总结](https://juejin.im/post/6844903976693940231)
 
 [2018前端面试总结](https://juejin.im/post/5b94d8965188255c5a0cdc02#heading-66)
 

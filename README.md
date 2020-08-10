@@ -56,7 +56,11 @@ please give 爸爸 a star?
 - [css](./css)
 - [vue](./vue)
 - [React](./React)
-- [数据结构与算法](./DataStructuresAndAlgorithms)
+- 数据结构与算法
+  - [知识体系概览](./DataStructuresAndAlgorithms)
+  - [数学知识点](./DataStructuresAndAlgorithms/math.md)
+  - [数据结构与算法](./DataStructuresAndAlgorithms/DSA)
+  - [算法题](./DataStructuresAndAlgorithms/jstopic.md)
 - [node](https://github.com/mazhiwen/study-notes/tree/master/node)
 - [前端工程化](./integration)
   - [webpack](./integration/webpack)
@@ -79,6 +83,6 @@ please give 爸爸 a star?
   - [正则表达式](https://github.com/mazhiwen/study-notes/tree/master/other/regExp.MD)
   - [IDE](https://github.com/mazhiwen/study-notes/tree/master/other/IDE)
   - [php](https://github.com/mazhiwen/study-notes/tree/master/other/php)
-- [学习资料](https://github.com/mazhiwen/study-notes/tree/master/StudyResource)
-  - [面试题博客等学习资源](https://github.com/mazhiwen/study-notes/tree/master/StudyResource/blog.md)
-  - [书](https://github.com/mazhiwen/study-notes/tree/master/StudyResource/book.md)
+- 学习资料
+  - [面试题博客等学习资源](./StudyResource/blog.md)
+  - [书](./StudyResource/book.md)
