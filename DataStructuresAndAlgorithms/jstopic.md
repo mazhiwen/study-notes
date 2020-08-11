@@ -106,3 +106,45 @@ function fibonacci(n) {
 
 第一次将两组三个的球进行比较，如果两边相等，则说明重的球在最后一组里。第二次将最后一组的球进行比较即可。如
 果两边不等，则说明重的球在较重的一边，第二次只需从这一组中随机取两球出来比较即可判断。
+
+## 两个栈实现一个队列
+
+栈的最大特点就是先进后出，让我们用两个先进后出的栈来实现一个先进先出的队列
+
+那么我们把数据压入第一个栈，此时我们很清楚它的出战顺序是与我们想要的队列的出队顺序是相反的，如果再把这个栈里面的元素依次压入第二个栈，此时我们想想栈2里面的元素的顺序，相当于对一组数据进行了两次倒序，此时对第二个栈进行的出栈操作的顺序就相当于这组数据进入队列的顺序了。
+
+push：当有数据要入队的时候，我们就让它压入stack1。
+
+pop：当pop操作的时候，我们就把s1的元素都压入到s2中，然后对s2进行pop操作就相当于对队列的pop了。pop 操作时，首先判断栈2是否为空，如果不为空则直接 pop 元素。如果栈2为空，则将栈1中的所有元素 pop 然后 push 到栈2中，然后再执行栈2的 pop 操作
+
+front ：前面也有提到，这个队列的front就是stack2的栈顶元素，只要stack2不为空我们返回stack2的栈顶就可以，为空的话还是像之前一样，我们把stack1的所有数据全部压入stack2中再取栈顶
+
+## 数组去重
+
+```javascript
+let arr = [1,2,1,2,3,5,4,5,3,4,4,4,4];
+let result = arr.sort().reduce((init, current)=>{
+    if(init.length===0 || init[init.length-1]!==current){
+        init.push(current);
+    }
+    return init;
+}, []);
+console.log(result); //[1,2,3,4,5]
+```
+  
+## 计算数组中每个元素出现的次数
+
+```javascript
+var names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice'];
+var countedNames = names.reduce(function (allNames, name) {
+  if (name in allNames) {
+    allNames[name]++;
+  }
+  else {
+    allNames[name] = 1;
+  }
+  return allNames;
+}, {});
+// countedNames is:
+// { 'Alice': 2, 'Bob': 1, 'Tiff': 1, 'Bruce': 1 }
+```

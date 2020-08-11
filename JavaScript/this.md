@@ -176,9 +176,9 @@ A();
 
 this有两种指向，取决于是否显式返回一个object {}
 
-如果是返回一个object {}:this指向返回的object {}
+如果是返回一个object {}: this指向 返回的结果对象
 
-如果不是返回一个object {}，this指向myclass function
+如果不是返回一个object {}，this指向 构造函数对象
 
 ```js
 // function 返回一个object {}
