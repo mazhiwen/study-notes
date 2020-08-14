@@ -6,7 +6,9 @@
 
 由边连接的节点组成  
 
-一棵树最上面的节点称为根节点，如果一个节点下面连接多个节点，那么该节点称为父节点，它下面的节点称为子节点。一个节点可以有0个、1个或多个子节点。
+根节点: 一棵树最上面的节点称为根节点，
+
+如果一个节点下面连接多个节点，那么该节点称为父节点，它下面的节点称为子节点。一个节点可以有0个、1个或多个子节点。
 
 叶子节点：没有任何子节点的节点称为叶子节点。  
 
@@ -21,6 +23,8 @@
 非空左子树的所有键值小于其根结点的键值
 
 非空右子树的所有键值大于其根结点的键值
+
+二叉查找树有较高的插入和删除效率，并且具备较高的查找效率，对组织动态数据比较友好。
 
 ## 二叉查找树(BST)
 
@@ -179,6 +183,49 @@ function postOrder( node) {
 
 查找给定值，最大值，最小值
 
+从根结点开始，如果树为空，则返回NULL
+
+如果树不为空，则根结点的值与查找值X进行比较，并进行不同的处理:
+
+如果X等于根结点的值，则查找完成，返回结点
+
+如果X小于根结点的值，则在左子树中继续查找
+
+如果X大于根结点的值，则在右子树中继续查找
+
+伪代码 逻辑：
+
+```js
+def find(root: TreeNode, key):
+    if not root:
+        return None
+    if key == root.val:
+        return root
+    elif key < root.val:
+        return find(root.left, key)
+    else:
+        return find(root.right, key)
+```
+
+将上面的递归优化为迭代:
+
+```js
+def find(root: TreeNode, key):
+    if not root:
+        return None
+    while root:
+        if key == root.val:
+            return root
+        elif key < root.val:
+            root = root.left
+        else:
+            root = root.right
+```
+
+可以看的出来，算法的复杂度和树的高度有关，每一次对比之后都会舍弃掉原来数据的一半，因此算法的时间复杂为O(logn)
+
+实现：
+
 ```javascript
 //最小值:遍历左子树的最后一个节点
 function getMin() {
@@ -211,6 +258,12 @@ function find( data) {
   return null;
 }
 ```
+
+根据二叉查找树的性质:
+
+最小元素一定是在树的最左分枝的端结点上
+
+最大元素一定是在树的最右分枝的端结点上
 
 ### 删除
 
