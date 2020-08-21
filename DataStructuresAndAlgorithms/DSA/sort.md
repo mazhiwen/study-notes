@@ -3,17 +3,18 @@
 ## 1. 冒泡排序
 
 相邻比较，交换顺序
-每进行一趟outer排序都会找出一个较大值，并放在outer末尾
 
-* 如果数据正序，只需要走一趟即可完成排序。所需的比较次数C和记录移动次数M均达到最小值，  
-  即：Cmin=n-1;Mmin=0;  
-  所以，冒泡排序最好的时间复杂度为O(n)。  
+比较相邻的元素。如果第一个比第二个大，就交换他们两个。对每一对相邻元素做同样的工作，从开始第一对到结尾的最后一对。在这一点，最后的元素应该会是最大的数。
 
-* 如果数据是反序的，则需要进行n-1趟排序。每趟排序要进行n-i次比较(1≤i≤n-1)，  
-  且每次比较都必须移动记录三次来达到交换记录位置。在这种情况下，比较和移动次数均达到最大值：  
+每进行一趟outer排序都会找出一个较大值或者最小值，并放在outer末尾
 
-![s](./11533632197.png)
+继续排除掉后面已经排好的最大元素，进行重复上面步骤相邻元素比较
 
+如果数据正序，只需要走一趟即可完成排序。所需的比较次数C和记录移动次数M均达到最小值，即：Cmin=n-1;Mmin=0;  所以，冒泡排序最好的时间复杂度为O(n)。  
+
+如果数据是反序的，则需要进行n-1趟排序。每趟排序要进行n-i次比较(1≤i≤n-1)，且每次比较都必须移动记录三次来达到交换记录位置。在这种情况下，比较和移动次数均达到最大值：  
+
+```
 第1次循环：比较n个数据  
 第2次循环：比较n-1个数据  
 第3次循环：比较n-2个数据  
@@ -21,6 +22,7 @@
 第i次循环：比较n-i+1个数据  
 ...  
 第n-1次循环：比较2个数据
+```
 
 ```javascript
 function bubbleSort() {  
@@ -42,7 +44,10 @@ function swap( arr, index1, index2) {
 
 ## 2. 选择排序
 
-从第一个元素开始，每次与其他元素比较  
+首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置，然后，再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。以此类推，直到所有元素均排序完毕。
+
+从第一个元素开始，每次与其他元素比较
+
 选择排序从数组的开头开始，将第一个元素和其他元素(后面的)进行比较。检查完所有元素后，最小的元素会被放到数组的第一个位置，然后算法会从第二个位置继续。这个过程一直进行，当进行到数组的倒数第二个位置时，所有的数据便完成了排序。
 
 ```javascript
@@ -62,34 +67,78 @@ function selectionSort() {
 
 ## 3. 插入排序
 
+直接插入排序基本思想是每一步将一个待排序的记录，插入到前面已经排好序的有序序列中去，直到插完所有元素为止。
+
 外层遍历数据，内层将当前值与前面的值遍历比大小，当前值小，则前移。移到比前面值大，则停止.
 
+内while循环，从后面，也就是从大到小，与待插入的元素比大小。比较元素小时，待插入元素直接放末尾，后续不需要遍历了。比较元素大时，继续向前遍历，直到比较元素大，插入当前位置。
+
+伪代码：
+
+```js
+INSERTION-SORT(A)
+for j=2 to A.length:
+    key=A[j]
+    //将A[j]插入已排序序列A[1..j-1]
+    i=j-1
+    while i>0 and A[i]>key
+        A[i+1]= A[i]
+        i=i-1
+    A[i+1]=key
+```
+
+实现代码：
+
 ```javascript
-function insertionSort() {
-  var temp, inner;
-  //从1 到 最后一个 遍历数据
-  for (var outer = 1; outer <= this. dataStore. length - 1; ++ outer) {
-    temp = this. dataStore[ outer];//temp 初始化为outer的值
-    inner = outer;//inner 初始化为outer索引
-    //当 inner-1的值>=temp值 时 inner--
-    while (inner > 0 && (this. dataStore[ inner - 1] >= temp)) {
-      this. dataStore[ inner] = this. dataStore[ inner - 1];//inner-1的值 后移为inner位置
-      --inner;
+function insertSort(array) {
+  let length = array.length;
+  // 如果不是数组或者数组长度小于等于1，直接返回，不需要排序
+  if (!Array.isArray(array) || length <= 1) return;
+  // 循环从 1 开始，0 位置为默认的已排序的序列
+  for (let i = 1; i < length; i++) {
+    let temp = array[i]; // 保存当前需要排序的元素
+    let j = i;
+    // 在当前已排序序列中比较，如果比需要排序的元素大，就依次往后移动位置
+    while (j -1 >= 0 && array[j - 1] > temp) {
+      array[j] = array[j - 1];
+      j--;  
     }
-    //inner 值为temp
-    this. dataStore[ inner] = temp;
+    // 将找到的位置插入元素
+    array[j] = temp;
   }
+  return array;
 }
 ```
 
-***总结基本排序算法速度:  
-插入排序>选择排序>冒泡排序***  
+插入排序在小规模数据，或者基本有序时，十分高效
+
+当排序序列为已排序序列时，为最好的时间复杂度 O(n)。插入排序的平均时间复杂度为 O(n²) ，最坏时间复杂度为 O(n²) ，空间复杂度为 O(1) ，是稳定排序。
+
+插入排序适用于已经有部分数据已经排好，并且排好的部分越大越好。一般在输入规模大于1000的场合下不建议使用插入排序
+
+总结基本排序算法速度:  插入排序 > 选择排序 > 冒泡排序
 
 ## 4. 希尔排序
 
-类似插入排序，但首先比较最远的元素，而不是相邻元素
+<https://blog.csdn.net/qq_39207948/article/details/80006224>
 
-外循环控制***间隔序列***的移动。也就是说，算法在第一次处理数据集时，会检查所有间隔为5的元素。下一次遍历会检查所有间隔为3的元素。最后一次则会对间隔为1的元素，也就是相邻元素执行标准插入排序。在开始做最后一次处理时，大部分元素都将在正确的位置，算法就不必对很多元素进行交换。这就是希尔排序比插入排序更高效的地方。
+是插入排序的改进，但不是挨个比较大小，而是分组比较
+
+对整列数据，把整列数据按照一定间隔拆分，把一定间隔的数据分为一组，一列数据最终会分为多组类似的数据，再分别对这样的每组数据进行插入排序
+
+实际实现中，并不是分组进行比较，而是按照同一gap时，按顺序对gap的值进行比较
+
+后续减小间隔，直到为1，重复上述操作
+
+每组进行插入排序后，整个数据大致有序
+
+最后设置增量为1时，则整个数组被分为一组，此时，整个数组已经接近有序了，插入排序效率高
+
+外循环控制间隔序列的移动。也就是说，算法在第一次处理数据集时，会检查所有间隔为5的元素。下一次遍历会检查所有间隔为3的元素。最后一次则会对间隔为1的元素，也就是相邻元素执行标准插入排序。在开始做最后一次处理时，大部分元素都将在正确的位置，算法就不必对很多元素进行交换。这就是希尔排序比插入排序更高效的地方。
+
+总的来说时间复杂度是小于 O(n^2)
+
+希尔排序的平均时间复杂度为 O(nlogn) ，最坏时间复杂度为 O(n^s) ，空间复杂度为 O(1) ，不是稳定排序。
 
 ```javascript
 //硬编码间隔序列
@@ -132,59 +181,85 @@ function shellsort1() {
 
 ```
 
+另一种写法：
+
+```js
+function hillSort(array) {
+  let length = array.length;
+  // 如果不是数组或者数组长度小于等于1，直接返回，不需要排序
+  if (!Array.isArray(array) || length <= 1) return;
+  // 第一层确定增量的大小，每次增量的大小减半
+  for (let gap = parseInt(length >> 1); gap >= 1; gap = parseInt(gap >> 1)) {
+    // 对每个分组使用插入排序，相当于将插入排序的1换成了 n
+    for (let i = gap; i < length; i++) {
+      let temp = array[i];
+      let j = i;
+      while (j - gap >= 0 && array[j - gap] > temp) {
+        array[j] = array[j - gap];
+        j -= gap;
+      }
+      array[j] = temp;
+    }
+  }
+  return array;
+}
+```
+
 ## 5. 归并排序
 
-* 自底向上的归并排序 : 这个算法首先将数据集分解为一组只有一个元素的数组。然后通过创建一组左右子数组将它们慢慢合并起来，每次合并都保存一部分排好序的数据，直到最后剩下的这个数组所有的数据都已完美排序。
+<https://www.cnblogs.com/chengxiao/p/6194356.html>
+
+采用经典的分治（divide-and-conquer）策略（分治法将问题分(divide)成一些小的问题然后递归求解
+
+本质上是将两个顺序序列合并成一个顺序序列
+
+可以看到这种结构很像一棵完全二叉树，分阶段可以理解为就是递归拆分子序列的过程，递归深度为log2n。
+
+这个算法首先将数据集分解为一组只有一个元素的数组。然后通过创建一组左右子数组将它们慢慢合并起来，每次合并都保存一部分排好序的数据，直到最后剩下的这个数组所有的数据都已完美排序。
 
 ```javascript
-function mergeSort( arr) {
-  if (arr. length < 2) {
-    return;
+function mergeSort(array) {
+
+  let length = array.length;
+
+  // 如果不是数组或者数组长度小于等于0，直接返回，不需要排序
+  if (!Array.isArray(array) || length === 0) return;
+
+  if (length === 1) {
+    return array;
   }
-  var step = 1;//控制子序列的大小
-  var left, right;
-  while (step < arr. length) {
-    left = 0;
-    right = step;
-    while (right + step <= arr. length) {
-      mergeArrays( arr, left, left+ step, right, right+ step);
-      left = right + step; right = left + step;
-    }
-    if (right < arr. length) {
-      mergeArrays( arr, left, left+ step, right, arr. length);
-    }
-    step *= 2;
-  }
+  
+  let mid = parseInt(length >> 1), // 找到中间索引值
+    left = array.slice(0, mid), // 截取左半部分
+    right = array.slice(mid, length); // 截取右半部分
+  return merge(mergeSort(left), mergeSort(right)); // 递归分解后，进行排序合并
 }
-function mergeArrays( arr, startLeft, stopLeft, startRight, stopRight) {
-  var rightArr = new Array( stopRight - startRight + 1);
-  var leftArr = new Array( stopLeft - startLeft + 1);
-  k = startRight;
-  for (var i = 0; i < (rightArr. length- 1); ++ i) {
-    rightArr[ i] = arr[ k]; ++ k;
-  }
-  k = startLeft;
-  for (var i = 0; i < (leftArr. length- 1); ++ i) {
-    leftArr[ i] = arr[ k]; ++ k;
-  }
-  rightArr[ rightArr. length- 1] = Infinity; // 哨兵 值
-  leftArr[ leftArr. length- 1] = Infinity; // 哨兵 值
-  var m = 0;
-  var n = 0;
-  for (var k = startLeft; k < stopRight; ++ k) {
-    if (leftArr[ m] <= rightArr[ n]) {
-      arr[ k] = leftArr[ m];
-      m++;
+
+
+function merge(leftArray, rightArray) {
+  let result = [],
+    leftLength = leftArray.length,
+    rightLength = rightArray.length,
+    il = 0,
+    ir = 0;
+  // 左右两个数组的元素依次比较，将较小的元素加入结果数组中，直到其中一个数组的元素全部加入完则停止
+  while (il < leftLength && ir < rightLength) {
+    if (leftArray[il] < rightArray[ir]) {
+      result.push(leftArray[il++]);
     } else {
-      arr[ k] = rightArr[ n];
-      n++;
+      result.push(rightArray[ir++]);
     }
   }
-  print(" left array - ", leftArr);
-  print(" right array - ", rightArr);
+  // 如果是左边数组还有剩余，则把剩余的元素全部加入到结果数组中。
+  while (il < leftLength) {
+    result.push(leftArray[il++]);
+  }
+  // 如果是右边数组还有剩余，则把剩余的元素全部加入到结果数组中。
+  while (ir < rightLength) {
+    result.push(rightArray[ir++]);
+  }
+  return result;
 }
-
-
 ```
 
 ## 6. 快速排序
