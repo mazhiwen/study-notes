@@ -71,7 +71,7 @@ please give 爸爸 a star?
   - [图](#图)
   - [排序算法](./DataStructuresAndAlgorithms/DSA/sort.md)
   - [查找算法](./DataStructuresAndAlgorithms/DSA/search.md)
-  - [高级算法](#高级算法)
+  - [动态规划](./DataStructuresAndAlgorithms/DSA/dynamic.md)
 - [node](https://github.com/mazhiwen/study-notes/tree/master/node)
 - [前端工程化](./integration)
   - [webpack](./integration/webpack)
