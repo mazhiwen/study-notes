@@ -6,11 +6,15 @@
 
 <https://juejin.im/post/6844903653992579079>
 
+<https://blog.csdn.net/baidu_28312631/article/details/47418773>
+
+<https://blog.csdn.net/ailaojie/article/details/83014821>
+
 动态规划是一种算法，通过将复杂问题分解为子问题来解决给定的复杂问题，并存储子问题的结果，以避免再次计算相同的结果。
 
 以下是一个问题的两个主要特性，表明可以使用动态规划解决给定的问题：重复子问题，最佳子结构
 
-## 重叠子问题
+## 特性-重叠子问题
 
 ```js
 /* simple recursive program for Fibonacci numbers */
@@ -85,7 +89,9 @@ public static int fib(int n) {
     }
 ```
 
-## 最佳子结构
+自下而上的逻辑，写出的是递推型动态规划程序。
+
+## 特性-最佳子结构
 
 给定问题具有最优子结构性质，如果给定问题的最优解可以通过使用子问题的最优解得到。
 
@@ -99,8 +105,157 @@ public static int fib(int n) {
 
 dp问题一般都会包含一个状态，即子问题，而子状态之间如何转换就是一个关键。 什么是状态呢？一个状态可以被定义为一组参数，它可以唯一地标识某个特定的位置或站在给定的问题中。 这组参数应尽可能小以减少状态空间。例如背包问题的index weight 权重。
 
-## 动态规划解决背包问题
+## 解决思路 - 画表格
 
-## 动态规划解决LCS
+<https://juejin.im/post/6844904181187215368>
 
-## 最长公共子序列
+动态规划解决问题时，可以直接粗暴 画表格，找规律。把问题的规模变小，变成小问题思考。根据小问题来填表格，找出规律。特别是矩阵型dp问题，用这种方法方便。
+
+例如，题目，在m*n的表格，机器人只能往下，或者往右走，到达右下角有多少种走法。
+
+通过画表格，在3*3, 4*4时候总结发现规律，dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
+
+## 一般优化路径
+
+```
+递归 -》 记忆递归【可以转换为记忆递推】
+
+2^n       n^2
+```
+
+递归有时候会造成2的n次方的重复计算 2^n, 记忆型优化后，优化为n^2。改进后，使之成为记忆递归型的动态规划程序
+
+递归总是需要使用大量堆栈上的空间，很容易造成栈溢出
+
+递归一般情况下是可以转化为递推的
+
+## 递推
+
+例如三角形数据，自下而上处理。
+
+递推，本质上是从下而上进行 记忆 递归。
+
+```c++
+#include <iostream>  
+#include <algorithm>
+using namespace std;
+
+#define MAX 101  
+
+int D[MAX][MAX];
+int n;  
+int maxSum[MAX][MAX];
+int main(){
+ int i,j;
+ cin >> n;
+ for(i=1;i<=n;i++)
+  for(j=1;j<=i;j++)
+   cin >> D[i][j];
+ for( int i = 1;i <= n; ++ i )
+  maxSum[n][i] = D[n][i];
+ for( int i = n-1; i>= 1;  --i ) // 外层从 n-1 底层开始
+  for( int j = 1; j <= i; ++j ) // 内层从 1 开始
+   maxSum[i][j] = max(maxSum[i+1][j],maxSum[i+1][j+1]) + D[i][j];
+ cout << maxSum[1][1] << endl;  
+}
+```
+
+记忆递归可以考虑进行空间优化，减少记忆数据的存储
+
+如下，空间优化的代码：
+
+```c++
+ int i,j;
+ cin >> n;
+ for(i=1;i<=n;i++)
+  for(j=1;j<=i;j++)
+   cin >> D[i][j];
+ maxSum = D[n]; //maxSum指向第n行
+ for( int i = n-1; i>= 1;  --i )
+  for( int j = 1; j <= i; ++j )
+   maxSum[j] = max(maxSum[j],maxSum[j+1]) + D[i][j];
+ cout << maxSum[1] << endl;  
+```
+
+那么递归到动规的一般转化方法为:
+
+如果该递归函数有n个参数,那么就定义一个n维数组,数组下标是递归函数参数的取值范围(也就是数组每一维的大小).数组元素的值就是递归函数的返回值(初始化为一个标志值,表明还未被填充),这样就可以从边界值开始逐步的填充数组,相当于计算递归函数的逆过程(这和前面所说的推导过程应该是相同的).
+
+## 实际案例
+
+### LCS（最长公共子序列）
+
+```java
+public class LongCS {
+    public static int lcs(String a, String b) {
+        int[][] dp = new int[a.length() + 1][b.length() + 1];
+        for (int i = 1; i < a.length() + 1; i++) {
+            for (int j = 1; j < b.length() + 1; j++) {
+                if (a.charAt(i - 1) == b.charAt(j - 1)) {
+                    dp[i][j] = dp[i - 1][j - 1] + 1;
+                } else {
+                    dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+                }
+            }
+        }
+        return dp[a.length()][b.length()];
+    }
+
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+        System.out.println(lcs("AGGTAB", "GXTXAYB"));
+    }
+}
+```
+
+利用画表格的方法：
+
+最终验证了答案，当两个字符相等的时候，就等于上一个规模小的问题加1，不想等的就相当于有没有这个字符都一样。取两个串少一个的情况下的最大值就可以了。
+
+所以规律如下：
+
+text1[i] == text2[j], table[i][j] = table[i - 1][j - 1] + 1
+
+text1[i] != text2[j], table[i][j] = max(table[i - 1][j], table[i][j - 1])
+
+### 背包问题
+
+转换为表格 行为物品，列为容量，从左到右，从上到下计算值。
+
+```
+
+          j
+          1     2     3      4
+i 吉他
+  音响
+  电脑
+```
+
+计算每个单元格的值的公式cell[i][j]：比较 上一个单元格的值cell[i-1][j] 和 当前商品的价值+剩余空间的价值(cell[i-1][j-当前商品的重量])
+
+### 数字三角形问题
+
+在上面的数字三角形中寻找一条从顶部到底边的路径，使得路径上所经过的数字之和最大。路径上的每一步都只能往左下或 右下走。只需要求出这个最大和即可，不必给出具体路径。 三角形的行数大于1小于等于100，数字为 0 - 99
+
+```
+      7
+    3   8
+  4   5   6
+...
+```
+
+二维数组来存放数字三角形
+
+D( r, j) 来表示第r行第 j 个数字(r,j从1开始算)
+
+MaxSum(r, j)表示从D(r,j)到底边的各条路径中，最佳路径的数字之和。
+
+最终问题就变成了求 MaxSum(1,1)
+
+```js
+// 递归思路
+if ( r == N)
+ MaxSum(r,j) = D(r,j)  
+else
+ MaxSum( r, j) = Max{ MaxSum(r＋1,j), MaxSum(r+1,j+1) } + D(r,j)
+```
