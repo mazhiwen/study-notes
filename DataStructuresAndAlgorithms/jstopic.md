@@ -148,3 +148,137 @@ var countedNames = names.reduce(function (allNames, name) {
 // countedNames is:
 // { 'Alice': 2, 'Bob': 1, 'Tiff': 1, 'Bruce': 1 }
 ```
+
+## 最长公共子序列
+
+LCS-最长公共子序列
+
+<https://juejin.im/post/6844903782325682183>
+
+<https://juejin.im/post/6844903613861462029>
+
+最长公共子序列与最长公共子串不一样,子串是连续的，子序列不连续
+
+利用画表格的方法：
+
+最终验证了答案，当两个字符相等的时候，就等于上一个规模小的问题加1，不想等的就相当于有没有这个字符都一样。取两个串少一个的情况下的最大值就可以了。
+
+所以规律如下：
+
+```js
+if(input1[i] == input2[j]){
+ T[i][j] = T[i-1][j-1] + 1;
+}else{
+ T[i][j] = max(T[i-1][j],T[i][j-1])
+}
+```
+
+```js
+//动态规划 -- 最长公共子序列
+
+
+//!!!!  T[i][j] 计算，记住口诀：相等左上角加一，不等取上或左最大值
+
+function longestSeq(input1,input2,n1,n2){
+ var T = []; // T[i][j]表示 公共子序列长度
+ for(let i=0;i<n1;i++){
+  T[i] = [];
+  for(let j= 0;j<n2;j++){
+   if(j==0 ||i==0){
+    T[i][j] = 0;
+    continue;
+   }
+   if(input1[i] == input2[j]){
+    T[i][j] = T[i-1][j-1] + 1;
+   }else{
+    T[i][j] = Math.max(T[i-1][j],T[i][j-1])
+   }
+
+  }
+
+ }
+
+ findValue(input1,input2,n1,n2,T);
+
+ return T;
+
+}
+
+//!!!如果它来自左上角加一，则是子序列，否则向左或上回退。
+//findValue过程，其实就是和 就是把T[i][j]的计算反过来。
+function findValue(input1,input2,n1,n2,T){
+ var i = n1-1,j=n2-1;
+ var result = [];//结果保存在数组中
+ console.log(i);
+ console.log(j);
+ while(i>0 && j>0){
+  if(input1[i] == input2[j]){
+   result.unshift(input1[i]);
+   i--;
+   j--;
+  }else{
+   //向左或向上回退
+   if(T[i-1][j]>T[i][j-1]){
+    //向上回退
+    i--;
+   }else{
+    //向左回退
+    j--;
+   }
+  }
+
+ }
+
+ console.log(result);
+}
+
+
+//两个序列，长度不一定相等, 从计算表格考虑，把input1和input2首位都补一个用于占位的空字符串
+var input2 = ["","a","b","c","a","d","f"],
+ input1 = ["","a","c","b","a","d"],
+ n1 = input1.length,
+ n2 = input2.length;
+
+console.log(longestSeq(input1,input2,n1,n2));
+
+```
+
+## 背包问题
+
+转换为表格 行为物品，列为容量，从左到右，从上到下计算值。
+
+```
+
+          j
+          1     2     3      4
+i 吉他
+  音响
+  电脑
+```
+
+计算每个单元格的值的公式cell[i][j]：比较 上一个单元格的值cell[i-1][j] 和 当前商品的价值+剩余空间的价值(cell[i-1][j-当前商品的重量])
+
+```java
+public static int PackageHelper2(int n,int w[],int p[],int v) {
+  //设置一个二维数组，横坐标代表从第一个物品开始放到第几个物品，纵坐标代表背包还有多少容量，dp代表最大价值
+  int dp[] = new int[v+1];
+  for(int i=1;i<=n;i++){
+   for(int j=v;j>0;j--){
+    if(j>w[i]){
+     dp[j] = Math.max(dp[j], dp[j-w[i]]+p[i]);
+    }else{
+     dp[j] = dp[j];
+    }
+   }
+  }
+  return dp[v];
+ }
+```
+
+## 全排列
+
+<https://blog.csdn.net/qq_41056506/article/details/82659524>
+
+<https://www.cnblogs.com/sooner/p/3264882.html>
+
+

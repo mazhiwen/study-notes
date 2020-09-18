@@ -98,53 +98,55 @@ function seqSearch( arr, data) {
 
 适用于元素已经排序的列表，效率高  
 
-a. 将 数组 的 第一个 位置 设置 为 下 边界（ 0）。  
-b. 将 数组 最后 一个 元素 所在 的 位置 设置 为上 边界（ 数组 的 长度 减 1）。  
-c.若 下边 界 等于 或 小于 上 边界， 则 做 如下 操作。  
-  将 中点 设置 为（ 上边 界 加上 下 边界） 除以 2。  
-  如果 中点 的 元素 小于 查询 的 值， 则 将 下边 界 设置 为 中点 元素 所在 下标 加 1。  
-  如果 中点 的 元素 大于 查询 的 值， 则 将上 边界 设置 为 中点 元素 所在 下标 减 1。  
-  否则 中点 元素 即为 要 查找 的 数据， 可以 进行 返回。
+当数据量很大适宜采用该方法。
 
-```javascript
-function binSearch( arr, data) {
-  var upperBound = arr. length- 1;
-  var lowerBound = 0;
-  while (lowerBound <= upperBound) {
-    var mid = Math. floor(( upperBound + lowerBound) / 2);
-    if (arr[ mid] < data) {
-      lowerBound = mid + 1;
-    } else if (arr[ mid] > data) {
-      upperBound = mid - 1;
-    } else {
-      return mid;
-    }
-  }
-  return -1;
-}
-//计算重复次数
-function count( arr, data) {
-  var count = 0;
-  //position是重复位置的中间位置
-  var position = binSearch( arr, data);
-  if (position > -1) {
-    ++ count;
-    for (var i = position- 1; i > 0; --i) {
-      if (arr[ i] == data) {
-        ++ count;
-      } else {
-        break;
-      }
-    }
-    for (var i = position+ 1; i < arr. length; ++ i) {
-      if (arr[ i] == data) {
-        ++ count;
-      } else {
-        break;
-      }
-    }
-  }
-  return count;
-}
+采用二分法查找时，数据需是排好序的，假设数据是按升序排序的。
 
+对于给定值key，从序列的中间位置 mid 开始比较，l o w lowlow为初始位置，h i g h highhigh为末尾位置，
+
+如果当前位置arr[mid]值等于key，则查找成功；
+
+若key小于当前位置值arr[mid]，则在数列的前半段中查找arr[low,mid−1]；
+
+若key大于当前位置值arr[mid]，则在数列的后半段中继续查找arr[mid+1,high]，直到找到为止。
+
+二分法的时间复杂度为：O(log2(n))，n为序列长度。
+
+递归法：
+
+```js
+
+function binarySearch(arr,low,high,key){
+ if(low>high){return -1;}
+ var mid=Math.floor((low+high)/2);
+ if(key==arr[mid]){
+  return mid;
+ }else if(key<arr[mid]){
+  high=mid-1;
+  return binarySearch(arr,low,high,key);
+ }else{
+  low=mid+1;
+  return binarySearch(arr,low,high,key);
+ }
+}
+```
+
+迭代优化法：
+
+```js
+function binarySearch(arr,key){
+ var low=0; //数组最小索引值
+ var high=arr.length-1; //数组最大索引值
+ while(low<=high){
+  var mid=Math.floor((low+high)/2);
+  if(key==arr[mid]){
+   return mid;
+  }else if(key>arr[mid]){
+   low=mid+1;
+  }else{
+   high=mid-1;
+  }
+ }
+ return -1; //low>high的情况，这种情况下key的值大于arr中最大的元素值或者key的值小于arr中最小的元素值
+}
 ```
