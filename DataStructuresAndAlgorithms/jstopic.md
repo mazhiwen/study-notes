@@ -281,4 +281,50 @@ public static int PackageHelper2(int n,int w[],int p[],int v) {
 
 <https://www.cnblogs.com/sooner/p/3264882.html>
 
+<https://juejin.im/post/6844903907575988238>
 
+<https://juejin.im/post/6844903809701904397>
+
+<https://www.bilibili.com/video/av9830088/>
+
+<https://juejin.im/post/6844903502121009160>
+
+n个元素全排列为n！= n*(n-1)* .... *1;
+
+### 递归法
+
+```js
+// arr即表示问题的输入，from 表示从哪里开始全排列。
+var ret = []; // 定义数组存储排列结果
+function permutation(arr,from){
+  console.log('permutation', from);
+
+    if(from===arr.length-1){ // 当from到达arr最后一个元素时，问题规模达到最小
+      console.log('生成结果:',arr.join(''));  
+      ret.push(arr.join(''))
+        return;
+    }
+    // ...something need to do...here
+    // 缩小问题规模
+    for(var i=from;i<arr.length;i++){
+        console.log('i => ',i, 'swap:',from,i);
+        swap(arr,from,i)//每一位都与第一位发生交换，i===from时，也就是自己和自己交换，并不会发生值的变化，所以我们可以直接这样处理，不需要让i从from+1开始，当然也可以从i=from+1开始循环。
+
+        permutation(arr,from+1) // 固定位置后移
+        swap(arr,from,i)// 这一步的操作是为了在循环体中的第一步，我们对arr,进行了位置交换，对数组产生了影响。arr的顺序发生了变化，如果我们要假定第一位的所有可能性的话，那么，就必须是在建立在这些序列的初始状态一致的情况下,所以每次交换后，要还原，确保初始状态一致。
+    }
+}
+// 位置交换
+function swap(list, m, n) {
+    var temp = list[m];
+    list[m] = list[n];
+    list[n] = temp;
+}
+
+permutation([0,1,2,3],0);
+console.log(ret);
+```
+
+## 排列组合
+
+<https://juejin.im/post/6844904021510062094>
