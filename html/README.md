@@ -8,10 +8,12 @@
 - [title和alt](#title和alt)
 - [DOCTYPE的作用是什么](#DOCTYPE的作用是什么)
 - [行内元素和块级元素](#行内元素和块级元素)
-- [浏览器内核](#浏览器内核)
 - [label](#label)
 - [1px高的线](#1px高的线)
 - [meta标签](#meta标签)
+- [空元素定义](#空元素定义)
+- [link标签定义](#link标签定义)
+- [html5](#html5)
 
 html文档：
 
@@ -150,28 +152,6 @@ DTD 是对 HTML 文档的声明，还会影响浏览器的渲染模式（工作�
 2. 内容上，默认情况下，行内元素只能包含文本和其他行内元素。而块级元素可以包含行内元素和其他块级元素。
 3. 行内元素与块级元素属性的不同，主要是盒模型属性上：行内元素设置 width 无效，height 无效（可以设置 line-height），设置 margin 和 padding 的上下不会对其他元素产生影响。
 
-## 浏览器内核
-
-（1） IE 浏览器内核：Trident 内核，也是俗称的 IE 内核；
-
-（2） Chrome 浏览器内核：统称为 Chromium 内核或 Chrome 内核，以前是 Webkit 内核，现在是 Blink内核；
-
-（3） Firefox 浏览器内核：Gecko 内核，俗称 Firefox 内核；
-
-（4） Safari 浏览器内核：Webkit 内核；
-
-（5） Opera 浏览器内核：最初是自己的 Presto 内核，后来加入谷歌大军，从 Webkit 又到了 Blink 内核；
-
-（6） 360浏览器、猎豹浏览器内核：IE + Chrome 双内核；
-
-（7） 搜狗、遨游、QQ 浏览器内核：Trident（兼容模式）+ Webkit（高速模式）；
-
-（8） 百度浏览器、世界之窗内核：IE 内核；
-
-（9） 2345浏览器内核：好像以前是 IE 内核，现在也是 IE + Chrome 双内核了；
-
-（10）UC 浏览器内核：这个众口不一，UC 说是他们自己研发的 U3 内核，但好像还是基于 Webkit 和 Trident ，还有说是基于火狐内核。
-
 ## label
 
 label 标签来定义表单控制间的关系，当用户选择该标签时，浏览器会自动将焦点转到和标签相关的表单控件上。
@@ -226,3 +206,49 @@ label 标签来定义表单控制间的关系，当用户选择该标签时，�
  <meta http-equiv=”cache-control” content=”no-cache”>
  <meta http-equiv=”expires” content=”0″>
  ```
+
+## 空元素定义
+
+标签内没有内容的 HTML 标签被称为空元素。空元素是在开始标签中关闭的。
+
+常见的空元素有：br hr img input link meta
+
+## link标签定义
+
+link 标签定义文档与外部资源的关系。
+
+link 元素是空元素，它仅包含属性。 此元素只能存在于 head 部分，不过它可出现任何次数。
+
+link 标签中的 rel 属性定义了当前文档与被链接文档之间的关系。常见的 stylesheet 指的是定义一个外部加载的样式表。
+
+## link和@import区别
+
+1. 从属关系区别。 @import 是 CSS 提供的语法规则，只有导入样式表的作用；link 是 HTML 提供的标签，不仅可以加载 CSS 文件，还可以定义 RSS、rel 连接属性、引入网站图标等。
+
+2. 加载顺序区别。加载页面时，link 标签引入的 CSS 被同时加载；@import 引入的 CSS 将在页面加载完毕后被加载。
+
+3. 兼容性区别。@import 是 CSS2.1 才有的语法，故只可在 IE5+ 才能识别；link 标签作为 HTML 元素，不存在兼容性问题。
+
+4. DOM 可控性区别。可以通过 JS 操作 DOM ，插入 link 标签来改变样式；由于 DOM 方法是基于文档的，无法使用 @import 的方式插入样式。
+
+## html5
+
+HTML5 现在已经不是 SGML 的子集，主要是关于图像，位置，存储，多任务等功能的增加。
+
+```
+新增的有：
+
+绘画 :canvas;
+用于媒介回放的: video 和 audio 元素;
+本地离线存储 :localStorage 长期存储数据，浏览器关闭后数据不丢失;
+sessionStorage: 的数据在浏览器关闭后自动删除;
+语意化更好的内容元素:比如 article、footer、header、nav、section;
+表单控件:calendar、date、time、email、url、search;
+新的技术: webworker, websocket;
+新的文档属性: document.visibilityState
+
+移除的元素有：
+
+纯表现的元素：basefont，big，center，font, s，strike，tt，u;
+对可用性产生负面影响的元素：frame，frameset，noframes；
+```

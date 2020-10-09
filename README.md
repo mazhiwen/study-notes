@@ -8,10 +8,14 @@ please give 爸爸 a star?
 ***
 
 - web
-  - [浏览器以及V8引擎](./web/browser)
+  - [浏览器](./web/browser)
   - [DOM](./web/DOM/)
   - [window](./web/window.md)
   - [Event](./web/Event.md)
+  - [浏览器解析渲染](./web/render.md)
+  - [重绘和回流](./web/reflow.md)
+  - [缓存](./web/cache.md)
+  - [浏览器存储](./web/storage.md)
   - [前端路由](./web/vue-router.md)
   - [TCP/IP-HTTP](./web/TCP-HTTP/)
   - [性能web方向](./web/performance.md)
@@ -53,6 +57,7 @@ please give 爸爸 a star?
   - [模块化](./JavaScript/module.md)
   - [前端鉴权](./JavaScript/auth.md)
 - [html](./html)
+  - [离线缓存](./html/mainfest.md)
 - [css](./css)
 - [vue](./vue)
 - [React](./React)
