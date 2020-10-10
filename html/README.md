@@ -18,6 +18,7 @@
 - [autocomplete](#autocomplete)
 - [圆形的可点击区域](#圆形的可点击区域)
 - [map标签](#map标签)
+- [attribute和property的区别是什么](#attribute和property的区别是什么)
 
 html文档：
 
@@ -110,7 +111,7 @@ target属性是网页窗口的打开方式，在base标签中设置该属性，�
 - rem:rem是根据html的根元素来决定元素大小的，在自适应布局中应用非常广泛。
 - 视窗(vw/vh):c3中新增视窗，1vw代表1%的宽度，通常结合rem一起使用。
 
-## title和alt
+## img的title和alt
 
 ```
 1.<img src="#" alt="alt信息" />
@@ -166,6 +167,8 @@ label 标签来定义表单控制间的关系，当用户选择该标签时，�
 ```
 
 ## 1px高的线
+
+实现不使用 border 画出 1 px 高的线，在不同浏览器的标准模式与怪异模式下都能保持一致的效果。
 
 ```
   <div style="height:1px;overflow:hidden;background:red"></div>
@@ -327,3 +330,13 @@ area ：可以是圆形（circle），多边形(poly)，矩形(rect)，不同形
 多边形：shape="polygon"，coords="x1,y1,x2,y2,x3,y3,..."。每一对x,y坐标都定义了多边形的一个顶点(0,0) 是图像左上角的坐标）。定义三角形至少需要三组坐标；高纬多边形则需要更多数量的顶点。
 
 矩形：shape="rectangle"，coords="x1,y1,x2,y2"。第一个坐标是矩形的一个角的顶点坐标，另一对坐标是对角的顶点坐标，"0,0" 是图像左上角的坐标。请注意，定义矩形实际上是定义带有四个顶点的多边形的一种简化方法。（就是说，知道对角的两个点的坐标就行了。）
+
+## attribute和property的区别是什么
+
+attribute 是 dom 元素在文档中作为 html 标签拥有的属性；
+
+property 就是 dom 元素在 js 中作为对象拥有的属性。
+
+对于 html 的标准属性来说，attribute 和 property 是同步的，是会自动更新的，
+
+但是对于自定义的属性来说，他们是不同步的。
