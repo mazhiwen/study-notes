@@ -14,6 +14,10 @@
 - [空元素定义](#空元素定义)
 - [link标签定义](#link标签定义)
 - [html5](#html5)
+- [iframe的缺点](#iframe的缺点)
+- [autocomplete](#autocomplete)
+- [圆形的可点击区域](#圆形的可点击区域)
+- [map标签](#map标签)
 
 html文档：
 
@@ -252,3 +256,74 @@ sessionStorage: 的数据在浏览器关闭后自动删除;
 纯表现的元素：basefont，big，center，font, s，strike，tt，u;
 对可用性产生负面影响的元素：frame，frameset，noframes；
 ```
+
+## iframe的缺点
+
+iframe 元素会创建包含另外一个文档的内联框架（即行内框架）。
+
+主要缺点有：
+
+（1） iframe 会阻塞主页面的 onload 事件。window 的 onload 事件需要在所有 iframe 加载完毕后（包含里面的元素）才
+    会触发。在 Safari 和 Chrome 里，通过 JavaScript 动态设置 iframe 的 src 可以避免这种阻塞情况。
+（2） 搜索引擎的检索程序无法解读这种页面，不利于网页的 SEO 。
+（3） iframe 和主页面共享连接池，而浏览器对相同域的连接有限制，所以会影响页面的并行加载。
+（4） 浏览器的后退按钮失效。
+（5） 小型的移动设备无法完全显示框架。
+
+## autocomplete
+
+autocomplete 属性规定输入字段是否应该启用自动完成功能。默认为启用，设置为 autocomplete=off 可以关闭该功能。
+
+自动完成允许浏览器预测对字段的输入。当用户在字段开始键入时，浏览器基于之前键入过的值，应该显示出在字段中填写的选项。
+
+autocomplete 属性适用于 <form\>，以及下面的 <input\> 类型：text, search, url, telephone, email, password, datepickers, range 以及 color。
+
+## 圆形的可点击区域
+
+在页面上实现一个圆形的可点击区域
+
+（1）纯 html 实现，使用 ```<area>``` 来给 ```<img>``` 图像标记热点区域的方式，```<map>``` 标签用来定义一个客户端图像映射，```<area>``` 标签用来定义图像映射中的区域，area 元素永远嵌套在 map 元素内部，我们可以将 area 区域设置为圆形，从而实现可点击的圆形区域。
+
+（2）纯 css 实现，使用 border-radius ，当 border-radius 的长度等于宽高相等的元素值的一半时，即可实现一个圆形的点击区域。
+
+（3）纯 js 实现，判断一个点在不在圆上的简单算法，通过监听文档的点击事件，获取每次点击时鼠标的位置，判断该位置是否在我们规定的圆形区域内。
+
+## map标签
+
+<https://segmentfault.com/a/1190000002489109>
+
+定义一个客户端图像映射。图像映射（image-map）指带有可点击区域的一幅图像。
+
+area元素永远嵌套在map元素内部。area元素可定义图像映射中的区域。
+
+img标签中的usemap属性可引用的map标签中的id或name属性（取决于浏览器），所以我们应同时向map标签添加id和name属性。
+
+### map
+
+```html
+
+<img src="cat.jpg" alt="" usemap="#catmap" >
+
+<map name="catmap">
+  <area shape="rect" coords="0,0,148,139" href ="http://www.baidu.com" target ="_blank" alt="">
+  <area shape="rect" coords="148,139,295,0" href ="http://www.sina.com" target ="_blank" alt="">
+  <area shape="rect" coords="295,0,439,140" href ="http://www.qq.com" target ="_blank" alt="">
+  <area shape="rect" coords="148,139,0,340" href ="http://www.163.com" target ="_blank" alt="">
+  <area shape="rect" coords="148,139,296,340" href ="http://www.soso.com" target ="_blank" alt="">
+  <area shape="rect" coords="296,340,439,140" href ="http://sf.gg" target ="_blank" alt="">
+  <area shape="rect" coords="0,340,148,493" href="http://www.zhihu.com" target ="_blank" alt="">
+  <area shape="rect" coords="148,493,296,340" href="http://z.cn" target ="_blank" alt="">
+  <area shape="rect" coords="296,340,436,490" href="http://jd.com" target ="_blank" alt="">
+</map>
+
+```
+
+### area标签
+
+area ：可以是圆形（circle），多边形(poly)，矩形(rect)，不同形状要选取不同的坐标（coords）.
+
+圆形：shape="circle"，coords="x,y,z" 。x,y为圆心坐标（x,y），z为圆的半径
+
+多边形：shape="polygon"，coords="x1,y1,x2,y2,x3,y3,..."。每一对x,y坐标都定义了多边形的一个顶点(0,0) 是图像左上角的坐标）。定义三角形至少需要三组坐标；高纬多边形则需要更多数量的顶点。
+
+矩形：shape="rectangle"，coords="x1,y1,x2,y2"。第一个坐标是矩形的一个角的顶点坐标，另一对坐标是对角的顶点坐标，"0,0" 是图像左上角的坐标。请注意，定义矩形实际上是定义带有四个顶点的多边形的一种简化方法。（就是说，知道对角的两个点的坐标就行了。）
