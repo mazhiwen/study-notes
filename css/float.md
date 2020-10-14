@@ -1,8 +1,10 @@
 # float
 
-让block元素无视float元素，让inline元素让流水一样围绕着float元素来实现浮动布局
+浮动元素会从普通文档流中脱离，但浮动元素影响的不仅是自己，它会影响周围的元素对齐进行环绕。
 
 ## 典型应用：文字环绕图片
+
+让block元素无视float元素，让inline元素让流水一样围绕着float元素来实现浮动布局
 
 ```html
 <img class="float" src="image1.jpg">
@@ -33,17 +35,13 @@
 
 当多个元素指定为float且同时为left/right时，元素是紧挨着排列，行内宽度不够时再换行排列。
 
+浮动并不是从父元素左上角开始作为浮动位置。
+
 ### 高度崩塌
 
 脱离文档流，父元素不做特殊设置的话，高度不会被子元素撑开
 
-## clear属性
-
-clear属性的作用是清除浮动。
-
-clear : none | left | right | both
-
-## float布局的9条规则
+### float布局的9条规则
 
 <https://segmentfault.com/a/1190000005925592>
 
@@ -58,3 +56,31 @@ clear : none | left | right | both
 - 浮动盒子的顶部不能超出容器的顶部边界
 
 - 浮动盒子的**顶部**不会超出在html文档中早出现的的块级元素(block)或者是浮动元素的**顶部**
+
+### 其他特性
+
+当给元素添加了绝对定位 absolute 或者 fixed 后，元素的浮动效果就会消失，即便 float 属性设置在 position 属性之后。
+
+## clear属性
+
+clear属性的作用是清除浮动。
+
+clear : none | left | right | both
+
+## 清除浮动
+
+以下方法清除浮动，以及清除浮动带来的效果
+
+1.给父级元素定义高度  
+2.让父级元素也浮动  
+3.父级定义display:table  
+4.父元素设置overflow:hidden  
+5.clearfix:使用内容生成的方式清除浮动  
+
+```css
+.clearfix::after {  /* :after选择器向选定的元素之后插入内容  */
+  content:""; /* 生成内容为空  */
+  display: block; /* 块级元素显示  */
+  clear:both; /* 清除前面元素  */
+}
+```

@@ -1,9 +1,7 @@
 
 # 知识整理
 
-如果你觉得快乐
-
-please give 爸爸 a star?
+万水千山总是情，给个star就是爱
 
 ***
 
@@ -15,11 +13,13 @@ please give 爸爸 a star?
   - [浏览器解析渲染](./web/render.md)
   - [重绘和回流](./web/reflow.md)
   - [缓存](./web/cache.md)
+  - [Chrome调试工具](./web/chrome.md)
   - [浏览器存储](./web/storage.md)
   - [前端路由](./web/vue-router.md)
   - [TCP/IP-HTTP](./web/TCP-HTTP/)
-  - [性能web方向](./web/performance.md)
-  - [性能http方向](./web/performancehttp.md)
+  - [前端性能-谷歌文档](./web/performance.md)
+  - [前端性能-实践应用](./web/performanceapply.md)
+  - [性能-http](./web/performancehttp.md)
   - [websocket](./web/websocket.md)
   - [https](./web/https.md)
   - [页面可见性](./web/PageVisibility.md)
@@ -60,8 +60,11 @@ please give 爸爸 a star?
   - [模块化](./JavaScript/module.md)
   - [前端鉴权](./JavaScript/auth.md)
 - [html](./html)
+  - [html5](./html/html5.md)
   - [离线缓存](./html/mainfest.md)
 - [css](./css)
+  - [css3](./css/css3.md)
+  - [雪碧图csssprite](./css/sprite.md)
   - [块级元素和行内元素](./css/blockinline.md)
   - [display](./css/display.md)
   - [字母x相关的概念](./css/x.md)
@@ -80,6 +83,7 @@ please give 爸爸 a star?
   - [flex布局](./css/flex.md)
   - [transform](./css/transform.md)
   - [距离尺寸单位](./css/unit.md)
+  - [css初始化](./css/cssreset.md)
 - [vue](./vue)
 - [React](./React)
 - 数据结构与算法

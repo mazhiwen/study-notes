@@ -1,12 +1,14 @@
 # 性能
 
-主要参考谷歌开发者文档
+***
+
+## 谷歌文档
+
+参考谷歌开发者文档
 
 <https://developers.google.com/web/fundamentals/performance/get-started/httprequests-5?hl=zh-cn>
 
-***
-
-## 一. 加载性能
+### 一. 加载性能
 
 **图片**
 
@@ -50,8 +52,7 @@ png无损压缩，jpg有损压缩。
 
 - 合并文本资源:
 
-
-## 二. 渲染性能
+### 二. 渲染性能
 
 ## 单页面首屏性能
 

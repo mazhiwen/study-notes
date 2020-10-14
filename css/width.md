@@ -1,5 +1,7 @@
 # width
 
+一般情况下，元素width设置值的时候，最终渲染效果为contenbox宽度是width值，不包括padding margin border
+
 ## length
 
 绝对宽度
@@ -48,3 +50,11 @@ width的默认值是auto 。在不同环境下分别表现为：
 - max-content
 
 max-content：超出容器限制，内容很长的连续英文或数字，或者内联元素被设置为了white-space: nowrap。
+
+## width:auto 和 width:100%的区别
+
+一般情况下：
+
+width:100%会使元素box的宽度等于父元素的content box的宽度。
+
+width:auto会使元素撑满整个父元素，margin、border、padding、content区域会自动分配水平空间。

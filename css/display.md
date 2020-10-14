@@ -2,6 +2,8 @@
 
 <https://zhanfang.github.io/2016/07/22/display%E5%B1%9E%E6%80%A7%E8%AF%A6%E8%A7%A3/>
 
+## 值列表
+
 ```css
 /* CSS 1 */
 display: none;
@@ -57,3 +59,13 @@ display: unset;
 具有block的宽高特性
 
 又具有inline的同行元素特性
+
+默认宽度为内容宽度，可以设置宽高，同行显示。
+
+## inline
+
+行内元素类型。默认宽度为内容宽度，不可设置宽高，同行显示。
+
+## list-item
+
+像块类型元素一样显示，并添加样式列表标记。

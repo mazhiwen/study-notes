@@ -2,7 +2,7 @@
 
 目录
 
-- [visibility:hidden和display:none](#visibility:hidden和display:none)
+- [visibility](#visibility)
 - [box-shadow](#box-shadow)
 - [transition](#transition)
 - [角度单位](#角度单位)
@@ -11,30 +11,33 @@
 - [animation](#animation)
 - [选择器](#选择器)
 - [0.5px的边](#0.5px的边)
-- [清除浮动](#清除浮动)
 - [overflow](#overflow)
 - [media媒体查询](#media)
-- [initial等](#initial等)
+- [继承属性](#继承属性)
 - [background](#background)
 - [文字溢出](#文字溢出)
 - [等宽字体](#等宽字体)
 - [z-index](#z-index)
-- [初始化css](#初始化css)
-- [cssreset和normalize.css](#cssreset和normalize.css)
 - [浏览器css前缀](#浏览器css前缀)
 - [属性继承](#属性继承)
 - [css实现三角形](#css实现三角形)
-- [initial等](#initial等)
-
-<!-- - [初始化css](#初始化css)
-- [初始化css](#初始化css) -->
+- [伪元素与伪类](#伪元素与伪类)
+- [li 与 li 之间有看不见的空白间隔是什么原因引起的？有什么解决办法？](#li-与-li-之间有看不见的空白间隔是什么原因引起的有什么解决办法)
 
 布局相关:<https://segmentfault.com/a/1190000013565024?utm_source=channel-hottest#item-1>
 
 《css权威指南》
 ***
 
-## visibility:hidden和display:none
+## visibility
+
+### visibility:collapse
+
+对于一般的元素，它的表现跟visibility：hidden;是一样的。元素是不可见的，但此时仍占用页面空间。
+
+但例外的是，如果这个元素是table相关的元素，例如table行，table group，table列，table column group，它的表现却跟display:none一样，也就是说，它们占用的空间也会释放。
+
+### visibility:hidden和display:none
 
 简单提一句，请注意 visibility: hidden 与 display: none 是不一样的。前者隐藏元素，但元素仍占据着布局空间（即将其渲染成一个空框），而后者 (display: none) 将元素从渲染树中完全移除，元素既不可见，也不是布局的组成部分。
 
@@ -163,22 +166,6 @@ inset 可选。将外部阴影 (outset) 改为内部阴影。
 }
 ```
 
-## 清除浮动
-
-1.给父级元素定义高度  
-2.让父级元素也浮动  
-3.父级定义display:table  
-4.父元素设置overflow:hidden  
-5.clearfix:使用内容生成的方式清除浮动  
-
-```css
-.clearfix:after {  /* :after选择器向选定的元素之后插入内容  */
-  content:""; /* 生成内容为空  */
-  display: block; /* 块级元素显示  */
-  clear:both; /* 清除前面元素  */
-}
-```
-
 ## overflow
 
 <https://juejin.im/post/581dcefbda2f60005df93b54>
@@ -220,11 +207,42 @@ inset 可选。将外部阴影 (outset) 改为内部阴影。
 
 position,float 会导致打印位置错乱.
 
-## initial等
+## 继承属性
 
 initial,inherit,unset
 
 initial 关键字可用于任何 HTML 元素上的任何 CSS 属性。
+
+每一个属性在定义中都给出了这个属性是否具有继承性，一个具有继承性的属性会在没有指定值的时候，会使用父元素的同属性的值来作为自己的值。
+
+一般具有继承性的属性有，字体相关的属性，font-size和font-weight等。文本相关的属性，color和text-align等。表格的一些布局属性、列表属性如list-style等。还有光标属性cursor、元素可见性visibility。
+
+当一个属性不是继承属性的时候，我们也可以通过将它的值设置为inherit来使它从父元素那获取同名的属性值来继承。
+
+```
+有继承性的属性：
+
+（1）字体系列属性
+font、font-family、font-weight、font-size、font-style、font-variant、font-stretch、font-size-adjust
+
+（2）文本系列属性
+text-indent、text-align、text-shadow、line-height、word-spacing、letter-spacing、
+text-transform、direction、color
+
+（3）表格布局属性
+caption-side border-collapse empty-cells
+
+（4）列表属性
+list-style-type、list-style-image、list-style-position、list-style
+
+（5）光标属性
+cursor
+
+（6）元素可见性
+visibility
+
+（7）还有一些不常用的；speak，page，设置嵌套引用的引号类型quotes等属性
+```
 
 ## background
 
@@ -259,32 +277,6 @@ p{
 
 <https://cloud.tencent.com/developer/article/1009289>
 
-## cssreset和normalize.css
-
-css reset 是最早的一种解决浏览器间样式不兼容问题的方案，它的基本思想是将浏览器的所有样式都重置掉，从而达到所有浏览器样式保持一致的效果。但是使用这种方法，可能会带来一些性能上的问题，并且对于一些元素的不必要的样式的重置，其实反而会造成画蛇添足的效果。
-
-后面出现一种更好的解决浏览器间样式不兼容的方法，就是 normalize.css ，它的思想是尽量的保留浏览器自带的样式，通过在原有的样式的基础上进行调整，来保持各个浏览器间的样式表现一致。相对与 css reset，normalize.css 的方法保留了有价值的默认值，并且修复了一些浏览器的 bug，而且使用 normalize.css 不会造成元素复杂的继承链。
-
-1.Normalize.css 保护了有价值的默认值
-
-Reset 通过为几乎所有的元素施加默认样式，强行使得元素有相同的视觉效果。 相比之下，Normalize.css 保持了许多默认的浏览器样式。 这就意味着你不用再为所有公共的排版元素重新设置样式。 当一个元素在不同的浏览器中有不同的默认值时，Normalize.css 会力求让这些样式保持一致并尽可能与现代标准相符合。
-
-2.Normalize.css 修复了浏览器的 bug
-
-它修复了常见的桌面端和移动端浏览器的 bug。这往往超出了 Reset 所能做到的范畴。关于这一点，Normalize.css 修复的问题包含了 HTML5 元素的显示设置、预格式化文字的 font-size 问题、在 IE9 中 SVG 的溢出、许多出现在各浏览器和操作系统中的与表单相关的 bug。
-
-3.Normalize.css 没有复杂的继承链
-
-使用 Reset 最让人困扰的地方莫过于在浏览器调试工具中大段大段的继承链。在 Normalize.css 中就不会有这样的问题，因为在我们的准则中对多选择器的使用时非常谨慎的，我们仅会有目的地对目标元素设置样式。
-
-4.Normalize.css 是模块化的
-
-这个项目已经被拆分为多个相关却又独立的部分，这使得你能够很容易也很清楚地知道哪些元素被设置了特定的值。因此这能让你自己选择性地移除掉某些永远不会用到部分（比如表单的一般化）。
-
-5.Normalize.css 拥有详细的文档
-
-Normalize.css 的代码基于详细而全面的跨浏览器研究与测试。这个文件中拥有详细的代码说明并在 Github Wiki 中有进一步的说明。这意味着你可以找到每一行代码具体完成了什么工作、为什么要写这句代码、浏览器之间的差异，并且你可以更容易地进行自己的测试。
-
 ## 浏览器css前缀
 
 ```
@@ -308,11 +300,11 @@ trident 内核 （ie 浏览器）           -ms
 
 ## css实现三角形
 
-```
 采用的是相邻边框连接处的均分原理。
+
 将元素的宽高设为0，只设置border
+
 把任意三条边隐藏掉（颜色设为transparent），剩下的就是一个三角形。
-```
 
 ```css
 #demo {
@@ -320,32 +312,79 @@ trident 内核 （ie 浏览器）           -ms
   height: 0;
   border-width: 20px;
   border-style: solid;
-  border-color: transparenttransparentredtransparent;
+  border-color: transparent transparent red transparent;
 }
-```
-
-## 初始化css
-
-```css
-/* 淘宝的样式初始化代码： */
-body,h1,h2,h3,h4,h5,h6,hr,p,blockquote,dl,dt,dd,ul,ol,li,pre,form,fieldset,legend
-,button,input,textarea,th,td{margin:0;padding:0;}
-body,button,input,select,textarea{font:12px/1.5tahoma,arial,\5b8b\4f53;}
-h1,h2,h3,h4,h5,h6{font-size:100%;}
-address,cite,dfn,em,var{font-style:normal;}
-code,kbd,pre,samp{font-family:couriernew,courier,monospace;}
-small{font-size:12px;}
-ul,ol{list-style:none;}
-a{text-decoration:none;}
-a:hover{text-decoration:underline;}
-sup{vertical-align:text-top;}
-sub{vertical-align:text-bottom;}
-legend{color:#000;}
-fieldset,img{border:0;}
-button,input,select,textarea{font-size:100%;}
-table{border-collapse:collapse;border-spacing:0;}
 ```
 
 ## z-index
 
 <https://juejin.im/post/5b876f86518825431079ddd6>
+
+## 伪元素与伪类
+
+在css3中使用单冒号来表示伪类，用双冒号来表示伪元素。但是为了兼容已有的伪元素的写法，在一些浏览器中也可以使用单冒号
+来表示伪元素。
+
+伪类一般匹配的是元素的一些特殊状态，如hover、link等，而伪元素一般匹配的特殊的位置，比如after、before等。
+
+css引入伪类和伪元素概念是为了格式化文档树以外的信息。也就是说，伪类和伪元素是用来修饰不在文档树中的部分，比如，一句话中的第一个字母，或者是列表中的第一个元素。
+
+伪类用于当已有的元素处于某个状态时，为其添加对应的样式，这个状态是根据用户行为而动态变化的。比如说，当用户悬停在指定的元素时，我们可以通过:hover来描述这个元素的状态。
+
+伪元素用于创建一些不在文档树中的元素，并为其添加样式。它们允许我们为元素的某些部分设置样式。比如说，我们可以通过::before来在一个元素前增加一些文本，并为这些文本添加样式。虽然用户可以看到这些文本，但是这些文本实际上不在文档树中。
+
+有时你会发现伪元素使用了两个冒号（::）而不是一个冒号（:）。这是CSS3的一部分，并尝试区分伪类和伪元素。大多数浏览器都支持这两个值。按照规则应该使用（::）而不是（:），从而区分伪类和伪元素。但是，由于在旧版本的W3C规范并未对此进行特别区分，因此目前绝大多数的浏览器都支持使用这两种方式表示伪元素。
+
+伪类文档：<https://developer.mozilla.org/zh-CN/docs/Web/CSS/pseudo-classes>
+
+CSS3 新增伪类有那些:
+
+```
+（1）elem:nth-child(n)选中父元素下的第n个子元素，并且这个子元素的标签名为elem，n可以接受具体的数
+值，也可以接受函数。
+
+（2）elem:nth-last-child(n)作用同上，不过是从后开始查找。
+
+（3）elem:last-child选中最后一个子元素。
+
+（4）elem:only-child如果elem是其父元素下唯一的子元素，则选中之。
+
+（5）elem:nth-of-type(n)选中父元素下第n个elem类型元素，n可以接受具体的数值，也可以接受函数。
+
+（6）elem:first-of-type选中父元素下第一个elem类型元素。
+
+（7）elem:last-of-type选中父元素下最后一个elem类型元素。
+
+（8）elem:only-of-type如果父元素下的子元素只有一个elem类型元素，则选中该元素。
+
+（9）elem:empty选中不包含子元素和内容的elem类型元素。
+
+（10）elem:target选择当前活动的elem元素。
+
+（11）:not(elem)选择非elem元素的每个元素。
+
+（12）:enabled 控制表单控件的禁用状态。
+
+（13）:disabled 控制表单控件的禁用状态。
+
+(14):checked单选框或复选框被选中。
+
+```
+
+## li 与 li 之间有看不见的空白间隔是什么原因引起的？有什么解决办法
+
+浏览器会把inline元素间的空白字符（空格、换行、Tab等）渲染成一个空格。
+
+而为了美观。我们通常是一个<li>放在一行，这导致<li>换行后产生换行字符，它变成一个空格，占用了一个字符的宽度。
+
+```
+解决办法：
+
+（1）为<li>设置float:left。不足：有些容器是不能设置浮动，如左右切换的焦点图等。
+
+（2）将所有<li>写在同一行。不足：代码不美观。
+
+（3）将<ul>内的字符尺寸直接设为0，即font-size:0。不足：<ul>中的其他字符尺寸也被设为0，需要额外重新设定其他字符尺寸，且在Safari浏览器依然会出现空白间隔。
+
+（4）消除<ul>的字符间隔letter-spacing:-8px，不足：这也设置了<li>内的字符间隔，因此需要将<li>内的字符间隔设为默认letter-spacing:normal。
+```

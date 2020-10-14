@@ -335,18 +335,9 @@ left和right会依次在center下方左边距位置开始计算float位置
 
 等高布局是指子元素在父元素中高度相等的布局方式。
 
-```
-（1）利用padding-bottom|margin-bottom正负值相抵，不会影响页面布局的特点。设置父容器设置超出隐藏（overflow:
-hidden），这样父容器的高度就还是它里面的列没有设定padding-bottom时的高度，当它里面的任一列高度增加了，则
-父容器的高度被撑到里面最高那列的高度，其他比这列矮的列会用它们的padding-bottom补偿这部分高度差。
-
-（2）利用table-cell所有单元格高度都相等的特性，来实现多列等高。
-
-（3）利用flex布局中项目align-items属性默认为stretch，如果项目未设置高度或设为auto，将占满整个容器的高度
-的特性，来实现多列等高。
-```
-
 ### 利用正padding+负margin
+
+利用padding-bottom|margin-bottom正负值相抵，不会影响页面布局的特点。设置父容器设置超出隐藏（overflow:hidden），这样父容器的高度就还是它里面的列没有设定padding-bottom时的高度，当它里面的任一列高度增加了，则父容器的高度被撑到里面最高那列的高度，其他比这列矮的列会用它们的padding-bottom补偿这部分高度差。
 
 overflow:hidden 可以把 负的 margin-bottom 隐藏
 
@@ -387,6 +378,8 @@ overflow:hidden 可以把 负的 margin-bottom 隐藏
 ```
 
 ### 模仿表格布局
+
+（2）利用table-cell所有单元格高度都相等的特性，来实现多列等高。
 
 table > tablerow > tablecell  tablecell中的其中一个height，所有tablecell会等高
 
@@ -471,6 +464,10 @@ table > tablerow > tablecell  tablecell中的其中一个height，所有tablecel
 </style>
 
 ```
+
+### 利用flex
+
+利用flex布局中项目align-items属性默认为stretch，如果项目未设置高度或设为auto，将占满整个容器的高度的特性，来实现多列等高
 
 ## 全页面布局
 

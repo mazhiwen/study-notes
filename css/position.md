@@ -4,24 +4,24 @@ CSS position属性用于指定一个元素在文档中的定位方式。top，ri
 
 ## position属性值
 
-### static
+- static
 
 默认值。没有定位，元素出现在正常的流中（忽略top,bottom,left,right,z-index声明）。
 
-### absolute
+- absolute
 
 生成绝对定位的元素，相对于值不为static的第一个父元素的paddingbox进行定位，也可以理解为离自己这一级元素最近的
 一级position设置为absolute或者relative的父元素的paddingbox的左上角为原点的。
 
-### fixed（老IE不支持）
+- fixed（老IE不支持）
 
 生成绝对定位的元素，相对于浏览器窗口进行定位。
 
-### relative
+- relative
 
 生成相对定位的元素，相对于其元素本身所在正常位置进行定位。
 
-### inherit
+- inherit
 
 规定从父元素继承position属性的值。
 
@@ -51,3 +51,9 @@ auto等
 inherit;
 initial;
 unset;
+
+## 绝对定位元素与非绝对定位元素的百分比计算的区别
+
+绝对定位元素的宽高百分比是相对于临近的position不为static的祖先元素的padding box来计算的。
+
+非绝对定位元素的宽高百分比则是相对于父元素的content box来计算的。

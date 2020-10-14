@@ -13,12 +13,12 @@
 - [meta标签](#meta标签)
 - [空元素定义](#空元素定义)
 - [link标签定义](#link标签定义)
-- [html5](#html5)
 - [iframe的缺点](#iframe的缺点)
 - [autocomplete](#autocomplete)
 - [圆形的可点击区域](#圆形的可点击区域)
 - [map标签](#map标签)
 - [attribute和property的区别是什么](#attribute和property的区别是什么)
+- [head标签中必不少的是](#head标签中必不少的是)
 
 html文档：
 
@@ -238,28 +238,6 @@ link 标签中的 rel 属性定义了当前文档与被链接文档之间的关�
 
 4. DOM 可控性区别。可以通过 JS 操作 DOM ，插入 link 标签来改变样式；由于 DOM 方法是基于文档的，无法使用 @import 的方式插入样式。
 
-## html5
-
-HTML5 现在已经不是 SGML 的子集，主要是关于图像，位置，存储，多任务等功能的增加。
-
-```
-新增的有：
-
-绘画 :canvas;
-用于媒介回放的: video 和 audio 元素;
-本地离线存储 :localStorage 长期存储数据，浏览器关闭后数据不丢失;
-sessionStorage: 的数据在浏览器关闭后自动删除;
-语意化更好的内容元素:比如 article、footer、header、nav、section;
-表单控件:calendar、date、time、email、url、search;
-新的技术: webworker, websocket;
-新的文档属性: document.visibilityState
-
-移除的元素有：
-
-纯表现的元素：basefont，big，center，font, s，strike，tt，u;
-对可用性产生负面影响的元素：frame，frameset，noframes；
-```
-
 ## iframe的缺点
 
 iframe 元素会创建包含另外一个文档的内联框架（即行内框架）。
@@ -340,3 +318,11 @@ property 就是 dom 元素在 js 中作为对象拥有的属性。
 对于 html 的标准属性来说，attribute 和 property 是同步的，是会自动更新的，
 
 但是对于自定义的属性来说，他们是不同步的。
+
+## head标签中必不少的是
+
+````
+ 下面这些标签可用在 head 部分：<base>, <link>, <meta>, <script>, <style>, 以及 <title>。
+
+ <title> 定义文档的标题，它是 head 部分中唯一必需的元素。
+```
