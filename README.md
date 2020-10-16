@@ -85,8 +85,9 @@
   - [position](./css/position.md)
   - [flex布局](./css/flex.md)
   - [transform](./css/transform.md)
-  - [距离尺寸单位](./css/unit.md)
+  - [尺寸单位rem等](./css/unit.md)
   - [css初始化](./css/cssreset.md)
+  - [动画transition,animation](./css/transition.md)
 - [vue](./vue)
 - [React](./React)
 - 数据结构与算法

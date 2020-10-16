@@ -8,18 +8,29 @@
 
 ## em  
 
+em是相对于父元素的font-size进行计算
+
 ## rem
 
-The font size of the root element
+手淘H5页面的终端适配 :<https://github.com/amfe/article/issues/17>
+
+<https://www.jianshu.com/p/e8ae1c3861dc>
+
+<https://juejin.im/post/6844903680253100046>
 
 <https://juejin.im/entry/5833f572128fe1006ccda98b>
-<!-- <https://juejin.im/post/5b90e07ce51d450e6a2dd140> -->
 
-- 一般认为网页中的根节点是 html 元素，所以采用的方式也是通过设置 html 元素的 font-size 来做屏幕适配
+### 概念
 
-- 实现方案:
+rem是相对于根元素html的font-size进行计算的
 
-1. 方案1
+默认情况下，浏览器给的字体大小是16px，按照转化关系16px = 1rem
+
+一般认为网页中的根节点是 html 元素，所以采用的方式也是通过设置 html 元素的 font-size 来做屏幕适配
+
+### 实现方案
+
+- 1. 方案1
 
   ```css
   @media screen and (min-width: 320px) {html{font-size:50px;}}
@@ -40,7 +51,7 @@ The font size of the root element
   @media screen and (min-width: 960px) {html{font-size:150px;}}
   ```
 
-2. 方案2
+- 2. 方案2
 
 ```css
 @media screen and (min-width: 320px) {html{font-size:312.5%;}}
@@ -61,7 +72,7 @@ The font size of the root element
 @media screen and (min-width: 960px) {html{font-size:937.5%;}}
 ```
 
-3. 方案3
+- 3. 方案3
 
 ```
 
@@ -95,7 +106,7 @@ document.documentElement.style.fontSize =
   ((window.innerWidth / designWidth) * rem2px) + 'px';
 ```
 
-4. 方案4
+- 4. 方案4
 
 ```js
 function adapt(designWidth, rem2px){

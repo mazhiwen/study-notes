@@ -4,11 +4,9 @@
 
 - [visibility](#visibility)
 - [box-shadow](#box-shadow)
-- [transition](#transition)
 - [角度单位](#角度单位)
 - [white-space](#white-space)
 - [word-break](#word-break)
-- [animation](#animation)
 - [百分比参照](#百分比参照)
 - [选择器](#选择器)
 - [0.5px的边](#0.5px的边)
@@ -81,40 +79,6 @@ white-space: pre-line;
 
 ## word-break
 
-## transition
-
-- transition:
-
-property duration timing-function delay;  
-
-transition:width 2s;  
-
-- transition-property:
-
-规定设置过渡效果的 CSS 属性的名称。
-
-- transition-duration
-
-规定完成过渡效果需要多少秒或毫秒:5s
-
-- transition-timing-function
-
-规定速度效果的速度曲线:
-
-linear:规定以相同速度开始至结束的过渡效果（等于 cubic-bezier(0,0,1,1)）。
-
-ease:规定慢速开始，然后变快，然后慢速结束的过渡效果（cubic-bezier(0.25,0.1,0.25,1)）。
-
-ease-in :规定以慢速开始的过渡效果（等于 cubic-bezier(0.42,0,1,1)）。
-
-ease-out :规定以慢速结束的过渡效果（等于 cubic-bezier(0,0,0.58,1)）。
-
-ease-in-out :规定以慢速开始和结束的过渡效果（等于 cubic-bezier(0.42,0,0.58,1)）。
-
-- transition-delay 定义过渡效果何时开始。  
-
-## animation
-
 ## box-shadow
 
 box-shadow: h-shadow v-shadow blur spread color inset;
@@ -162,6 +126,8 @@ inset 可选。将外部阴影 (outset) 改为内部阴影。
 
 ## 0.5px的边
 
+### transform: scale
+
 ```css
 .thinner-border {
   width: 10px;
@@ -180,6 +146,10 @@ inset 可选。将外部阴影 (outset) 改为内部阴影。
   box-sizing: border-box;
 }
 ```
+
+### border-image
+
+### meta viewport
 
 ## overflow
 
@@ -481,3 +451,11 @@ input:-webkit-autofill,textarea:-webkit-autofill,select:-webkit-autofill
 ## overflow:scroll 时不能平滑滚动
 
 以下代码可解决这种卡顿的问题：-webkit-overflow-scrolling:touch;是因为这行代码启用了硬件加速特性，所以滑动很流畅。
+
+## 为什么 height:100%会无效
+
+对于普通文档流中的元素，百分比高度值要想起作用，其父级必须有一个可以生效的高度值。
+
+原因是如果包含块的高度没有显式指定（即高度由内容决定），并且该元素不是绝对定位，则计算值为auto，因为解释成了auto，所以无法参与计算。
+
+使用绝对定位的元素会有计算值，即使祖先元素的height计算为auto也是如此。
