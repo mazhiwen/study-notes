@@ -61,6 +61,8 @@ margin左右负值可以使width:auto的元素宽度增宽或者减窄
 
 ## margin负值
 
+用途：
+
 - 使得margin:right不折行
 
 通过margin右负值实现宽度向右边增加
@@ -138,7 +140,9 @@ margin-top正值或者负值都会影响元素的布局流位置,使元素布局
 }
 ```
 
-## margin cllapse ，magin坍塌，margin合并
+## margin重叠
+
+margin cllapse ，magin坍塌，margin合并
 
 块级元素 的 上外边距margin-top与 下外边距margin-top 有时会合并为单个外边距，这种现象称为“margin合并”。一般会有以下三种：
 
@@ -216,3 +220,10 @@ margin-top正值或者负值都会影响元素的布局流位置,使元素布局
 ```
 
 ### 3、空块级元素的margin合并，即自身有margin-top和margin-bottom，但元素是空的，此时会合并为一个margin
+
+解决办法：
+
+- 设置垂直方向的border；
+- 设置垂直方向的padding；
+- 里面添加内联元素（直接Space键空格是没用的）；
+- 设置height或者min-height。

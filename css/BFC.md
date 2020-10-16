@@ -4,35 +4,39 @@
 
 <https://github.com/ljianshu/Blog/issues/15>
 
-## 定义
-
 BFC直意为块级格式化上下文
 
-它是一个独立的渲染区域，只有Block-level box参与， 它规定了内部的Block-level Box如何布局，并且与这个区域外部毫不相干。通俗地讲，BFC是一个容器，用于管理块级元素。
+块格式化上下文（Block Formatting Context，BFC）是Web页面的可视化CSS渲染的一部分，是布局过程中生成块级盒子的区域，也是浮动元素与其他元素的交互限定区域。
+
+BFC 是一个独立的布局环境,可以理解为一个容器,在这个容器中按照一定规则进行物品摆放,并且不会影响其它环境中的物品。
+
+BFC指的是块级格式化上下文，一个元素形成了BFC之后，那么它内部元素产生的布局不会影响到外部元素，外部元素的布局也不会影响到BFC中的内部元素。一个BFC就像是一个隔离区域，和其他区域互不影响。
+
+一般来说根元素是一个BFC区域，浮动和绝对定位的元素也会形成BFC，display属性的值为inline-block、flex这些属性时也会创建BFC。还有就是元素的overflow的值不为visible时都会创建BFC。
+
+BFC 是一个独立的容器，容器内子元素不会影响容器外的元素。反之亦如此。
+
+盒子从顶端开始垂直地一个接一个地排列，盒子之间垂直的间距是由 margin 决定的。在同一个 BFC 中，两个相邻的块级盒子的垂直外边距会发生重叠。
+
+BFC 区域不会和 float box 发生上下重叠。
+
+BFC 能够识别并包含浮动元素，当计算其区域的高度时，浮动元素也可以参与计算了。
 
 ## 创建BFC的方式
 
-- float为 left|right
-- overflow为 hidden|auto|scroll
-- display为 table-cell|table-caption|inline-block|inline-flex|flex
-- position为 absolute|fixed
+- float 为 left|right
+
+- overflow 为 hidden|auto|scroll
+
+- display 为 table-cell|table-caption|inline-block|inline-flex|flex
+
+- position 为 absolute|fixed
+
 - 根元素
-
-## BFC布局规则
-
-内部的Box会在垂直方向，一个接一个地放置(即块级元素独占一行)。
-
-BFC的区域不会与float box重叠(利用这点可以实现自适应两栏布局)。
-
-内部的Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生重叠(margin重叠三个条件:同属于一个BFC;相邻;块级元素)。
-
-计算BFC的高度时，浮动元素也参与计算。（清除浮动 haslayout）
-
-BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。反之也如此。
 
 ## 用法特性
 
-### 特性一：BFC会阻止垂直外边距折叠
+### 特性一：BFC会阻止垂直外边距重叠
 
 1. 解决相邻元素margin重叠
 
@@ -97,7 +101,7 @@ background:#ccc;
 }
 ```
 
-### 特性二：包含浮动
+### 特性二：让父元素包含浮动，并清除子元素浮动给父元素造成的高度塌陷效果
 
 3. 清除子元素给父元素造成的浮动效果：给父元素造BFC
 

@@ -9,6 +9,7 @@
 - [white-space](#white-space)
 - [word-break](#word-break)
 - [animation](#animation)
+- [百分比参照](#百分比参照)
 - [选择器](#选择器)
 - [0.5px的边](#0.5px的边)
 - [overflow](#overflow)
@@ -23,10 +24,22 @@
 - [css实现三角形](#css实现三角形)
 - [伪元素与伪类](#伪元素与伪类)
 - [li 与 li 之间有看不见的空白间隔是什么原因引起的？有什么解决办法？](#li-与-li-之间有看不见的空白间隔是什么原因引起的有什么解决办法)
+- ['display'、'position'和'float'的相互关系？](#'display'、'position'和'float'的相互关系)
+- [响应式设计](#响应式设计)
+- [视差滚动效果](#视差滚动效果)
+- [修改 chrome 记住密码后自动填充表单的黄色背景](#修改chrome记住密码后自动填充表单的黄色背景)
+- [让Chrome 支持小于 12px 的文字](#让Chrome支持小于12px的文字)
+- [动画最小时间间隔是多久，为什么](#动画最小时间间隔是多久为什么)
+- [去除 inline-block 元素间间距](#去除inline-block元素间间距)
+
+参考：
 
 布局相关:<https://segmentfault.com/a/1190000013565024?utm_source=channel-hottest#item-1>
 
 《css权威指南》
+
+<https://github.com/CavsZhouyou/Front-End-Interview-Notebook/blob/master/Css/Css.md>
+
 ***
 
 ## visibility
@@ -114,6 +127,10 @@ inset 可选。将外部阴影 (outset) 改为内部阴影。
 
 ## 选择器
 
+样式系统从关键选择器开始匹配，然后左移查找规则选择器的祖先元素。只要选择器的子树一直在工作，样式系统就会持续左移，直到和规则匹配，或者是因为不匹配而放弃该规则。
+
+试想一下，如果采用从左至右的方式读取CSS规则，那么大多数规则读到最后（最右）才会发现是不匹配的，这样做会费时耗能，最后有很多都是无用的；而如果采取从右向左的方式，那么只要发现最右边选择器不匹配，就可以直接舍弃了，避免了许多无效匹配。
+
 ```
 （1）id选择器（#myid）
 （2）类选择器（.myclassname）
@@ -133,17 +150,15 @@ inset 可选。将外部阴影 (outset) 改为内部阴影。
 
 后写的会覆盖先写的
 
-```
-判断优先级时，首先我们会判断一条属性声明是否有权重，也就是是否在声明后面加上了!important。一条声明如果加上了权重，
-那么它的优先级就是最高的，前提是它之后不再出现相同权重的声明。如果权重相同，我们则需要去比较匹配规则的特殊性。
+判断优先级时，首先我们会判断一条属性声明是否有权重，也就是是否在声明后面加上了!important。一条声明如果加上了权重，那么它的优先级就是最高的，前提是它之后不再出现相同权重的声明。如果权重相同，我们则需要去比较匹配规则的特殊性。
 
-一条匹配规则一般由多个选择器组成，一条规则的特殊性由组成它的选择器的特殊性累加而成。选择器的特殊性可以分为四个等级，
-第一个等级是行内样式，为1000，第二个等级是id选择器，为0100，第三个等级是类选择器、伪类选择器和属性选择器，为0010，
-第四个等级是元素选择器和伪元素选择器，为0001。规则中每出现一个选择器，就将它的特殊性进行叠加，这个叠加只限于对应的等
-级的叠加，不会产生进位。选择器特殊性值的比较是从左向右排序的，也就是说以1开头的特殊性值比所有以0开头的特殊性值要大。
-比如说特殊性值为1000的的规则优先级就要比特殊性值为0999的规则高。如果两个规则的特殊性值相等的时候，那么就会根据它们引
-入的顺序，后出现的规则的优先级最高。
-```
+一条匹配规则一般由多个选择器组成，一条规则的特殊性由组成它的选择器的特殊性累加而成。
+
+选择器的特殊性可以分为四个等级，第一个等级是行内样式，为1000，第二个等级是id选择器，为0100，第三个等级是类选择器、伪类选择器和属性选择器，为0010，第四个等级是元素选择器和伪元素选择器，为0001。
+
+规则中每出现一个选择器，就将它的特殊性进行叠加，这个叠加只限于对应的等级的叠加，不会产生进位。选择器特殊性值的比较是从左向右排序的，也就是说以1开头的特殊性值比所有以0开头的特殊性值要大。
+
+比如说特殊性值为1000的的规则优先级就要比特殊性值为0999的规则高。如果两个规则的特殊性值相等的时候，那么就会根据它们引入的顺序，后出现的规则的优先级最高。
 
 ## 0.5px的边
 
@@ -185,6 +200,8 @@ inset 可选。将外部阴影 (outset) 改为内部阴影。
 > float浮动的div会失去独霸一行的能力，也就是宽度自填充满。而overflow清除子元素对父元素的浮动影响后，父元素可以独霸一行。
 
 ## media
+
+<https://www.runoob.com/cssref/css3-pr-mediaquery.html>
 
 ```css
 /* 321px 到 375px之间时的样式 */
@@ -388,3 +405,79 @@ CSS3 新增伪类有那些:
 
 （4）消除<ul>的字符间隔letter-spacing:-8px，不足：这也设置了<li>内的字符间隔，因此需要将<li>内的字符间隔设为默认letter-spacing:normal。
 ```
+
+## 'display'、'position'和'float'的相互关系
+
+（1）首先我们判断display属性是否为none，如果为none，则position和float属性的值不影响元素最后的表现。
+
+（2）然后判断position的值是否为absolute或者fixed，如果是，则float属性失效，并且display的值应该被设置为table或者block，具体转换需要看初始转换值。
+
+（3）如果position的值不为absolute或者fixed，则判断float属性的值是否为none，如果不是，则display的值则按上面的规则转换。注意，如果position的值为relative并且float属性的值存在，则relative相对于浮动后的最终位置定位。
+
+（4）如果float的值为none，则判断元素是否为根元素，如果是根元素则display属性按照上面的规则转换，如果不是，则保持指定的display属性值不变。
+
+总的来说，可以把它看作是一个类似优先级的机制，"position:absolute"和"position:fixed"优先级最高，有它存在的时候，浮动不起作用，'display'的值也需要调整；其次，元素的'float'特性的值不是"none"的时候或者它是根元素的时候，调整'display'的值；最后，非根元素，并且非浮动元素，并且非绝对定位的元素，'display'特性值同设置值。
+
+## 百分比参照
+
+元素竖向的百分比设定是相对于容器的高度吗？
+
+如果是height的话，是相对于包含块的高度。
+
+如果是padding或者margin竖直方向的属性则是相对于包含块的宽度。
+
+## 响应式设计
+
+响应式网站设计是一个网站能够兼容多个终端，而不是为每一个终端做一个特定的版本。基本原理是通过媒体查询检测不同的设备屏幕尺寸做处理。页面头部必须有meta声明的viewport。
+
+## 视差滚动效果
+
+<https://www.jianshu.com/p/ea8867b25fe5>
+
+## 修改 chrome 记住密码后自动填充表单的黄色背景
+
+chrome表单自动填充后，input文本框的背景会变成黄色的，通过审查元素可以看到这是由于chrome会默认给自动填充的input表单加上input:-webkit-autofill私有属性，然后对其赋予以下样式：
+
+```css
+{
+  background-color:rgb(250,255,189)!important;
+  background-image:none!important;
+  color:rgb(0,0,0)!important;
+}
+```
+
+对chrome默认定义的background-color，background-image，color使用important是不能提高其优先级的，但是其他属性可使用。
+
+使用足够大的纯色内阴影来覆盖input输入框的黄色背景，处理如下
+
+```css
+input:-webkit-autofill,textarea:-webkit-autofill,select:-webkit-autofill
+{
+  -webkit-box-shadow:000px 1000px white inset;
+  border:1px solid #CCC !important;
+}
+```
+
+## 让Chrome 支持小于 12px 的文字
+
+在谷歌下css设置字体大小为12px及以下时，显示都是一样大小，都是默认12px。
+
+解决办法：
+
+（1）可以使用Webkit的内核的-webkit-text-size-adjust的私有CSS属性来解决，只要加了-webkit-text-size-adjust:none;字体大小就不受限制了。但是chrome更新到27版本之后就不可以用了。所以高版本chrome谷歌浏览器已经不再支持-webkit-text-size-adjust样式，所以要使用时候慎用。
+
+（2）还可以使用css3的transform缩放属性-webkit-transform:scale(0.5);注意-webkit-transform:scale(0.75);收缩的是整个元素的大小，这时候，如果是内联元素，必须要将内联元素转换成块元素，可以使用display：block/inline-block/...；
+
+（3）使用图片：如果是内容固定不变情况下，使用将小于12px文字内容切出做图片，这样不影响兼容也不影响美观。
+
+## 动画最小时间间隔是多久，为什么
+
+多数显示器默认频率是60Hz，即1秒刷新60次，所以理论上最小间隔为1/60*1000ms＝16.7ms
+
+## 去除 inline-block 元素间间距
+
+移除空格、使用margin负值、使用font-size:0、letter-spacing、word-spacing
+
+## overflow:scroll 时不能平滑滚动
+
+以下代码可解决这种卡顿的问题：-webkit-overflow-scrolling:touch;是因为这行代码启用了硬件加速特性，所以滑动很流畅。

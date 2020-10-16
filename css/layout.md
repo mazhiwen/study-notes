@@ -1,28 +1,20 @@
 # 布局
 
-- [一些知识](#一些知识)
-- [两列布局](#两列布局)
-- [三栏布局](#三栏布局)
-- [等高布局](#等高布局)
-- [全页面布局](#全页面布局)
-
 ***
 
 ## 一些知识
 
 设置width：1000px;或者max-width：1000px(这两者的区别是当屏幕小于1000px时，前者会出现滚动条，后者则不会，显示出实际宽度
 
-## 两列布局
-
-### 两列自适应布局
+## 两列-左内容宽度-右自动填充
 
 一列由内容撑开，另一列撑满剩余宽度的布局方式
 
-- float + overflow:hidden
+### float + overflow:hidden
 
 方法：父元素 overflow:hidden，子元素第一个float:left；第二个 overflow:hidden
 
-第二个元素 设置overflow:hidden，以不会被第一个元素float影响,不会使布局坍塌，被float元素覆盖重叠。会在左边元素，右边顺序布局，并width自动填充
+第二个元素 设置overflow:hidden，以不会被第一个元素float影响,不会使布局坍塌，被float元素覆盖重叠。会在左边元素的右边顺序布局，并width自动填充
 
 ```html
 <div class="parent" style="background-color: lightgrey;">
@@ -51,7 +43,7 @@
 </style>
 ```
 
-- flex
+### flex
 
 ```css
 .parent {
@@ -63,7 +55,7 @@
 }
 ```
 
-- gird
+### gird
 
 ```css
 .parent {
@@ -73,9 +65,9 @@
 }
 ```
 
-### 左边定宽-右边自适应
+## 两列-左边定宽-右边自动填充
 
-- float + calc
+### float + calc
 
 ```css
 .left{
@@ -90,7 +82,7 @@
 }
 ```
 
-- table + table-cell
+### table + table-cell
 
 ```css
 .container {
@@ -111,7 +103,7 @@
 }
 ```
 
-- flex + flex-grow
+### flex + flex-grow
 
 ```css
 .contain {
@@ -122,7 +114,7 @@
 }
 ```
 
-- float + margin
+### float + margin
 
 ```css
 .left {
@@ -157,7 +149,7 @@
 
 ```
 
-- float + overflow
+### float + overflow
 
 ```css
 .left {
@@ -171,11 +163,9 @@
 }
 ```
 
-## 三栏布局
+## 三栏-中间列自适应宽度，旁边两侧固定宽度
 
-### 中间列自适应宽度，旁边两侧固定宽度
-
-- 圣杯布局
+### 圣杯布局
 
 dom结构必须是先写中间列部分，这样实现中间列可以优先加载。
 
@@ -245,7 +235,7 @@ margin-left可以使元素出现上移，再通过positon:relative 对元素做�
 </style>
 ```
 
-- 双飞翼布局
+### 双飞翼布局
 
 同样也是三栏布局，在圣杯布局基础上进一步优化，解决了圣杯布局错乱问题，实现了内容与布局的分离。而且任何一栏都可以是最高栏，不会出问题。
 
@@ -300,7 +290,7 @@ left和right会依次在center下方左边距位置开始计算float位置
 </style>
 ```
 
-### 左中固定，右自适应
+## 三栏-左中固定，右自适应
 
 ```html
 <div class="left">
@@ -473,6 +463,8 @@ table > tablerow > tablecell  tablecell中的其中一个height，所有tablecel
 
 **absolute**
 
+absolute时，设置top,bottom后，可以实现高度自适应
+
 ```html
 <div class="parent">
   <div class="top">
@@ -539,4 +531,8 @@ body{
 }
 ```
 
-> absolute时，设置top,bottom后，可以实现高度自适应
+## 有一个高度自适应的 div，里面有两个 div，一个高度 100px，希望另一个填满剩下的高度
+
+（1）外层div使用position：relative；高度要求自适应的div使用position:absolute;top:100px;bottom:0;left:0;right:0;
+
+（2）使用flex布局，设置主轴为竖轴，第二个div的flex-grow为1。
