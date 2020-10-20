@@ -70,7 +70,7 @@
   - [雪碧图csssprite](./css/sprite.md)
   - [块级元素和行内元素](./css/blockinline.md)
   - [display](./css/display.md)
-  - [字母x相关的概念](./css/x.md)
+  - [x-height](./css/x.md)
   - [居中](./css/center.md)
   - [各种布局问题](./css/layout.md)
   - [盒子模型](./css/box.md)
@@ -88,6 +88,8 @@
   - [尺寸单位rem等](./css/unit.md)
   - [css初始化](./css/cssreset.md)
   - [动画transition,animation](./css/transition.md)
+  - [clip-path图像裁切](./css/clip.md)
+  - [z-index](./css/zindex.md)
 - [vue](./vue)
 - [React](./React)
 - 数据结构与算法

@@ -16,7 +16,6 @@
 - [background](#background)
 - [文字溢出](#文字溢出)
 - [等宽字体](#等宽字体)
-- [z-index](#z-index)
 - [浏览器css前缀](#浏览器css前缀)
 - [属性继承](#属性继承)
 - [css实现三角形](#css实现三角形)
@@ -29,6 +28,12 @@
 - [让Chrome 支持小于 12px 的文字](#让Chrome支持小于12px的文字)
 - [动画最小时间间隔是多久，为什么](#动画最小时间间隔是多久为什么)
 - [去除 inline-block 元素间间距](#去除inline-block元素间间距)
+- [overflow:scroll时不能平滑滚动](#overflow:scroll时不能平滑滚动)
+- [为什么 height:100%会无效](#为什么height:100%会无效)
+- [text-indent](#text-indent)
+- [letter-spacing](#letter-spacing)
+- [word-spacing](#word-spacing)
+- [常见的元素隐藏方式](#常见的元素隐藏方式)
 
 参考：
 
@@ -65,15 +70,22 @@ turn :1turn
 
 white-space CSS 属性是用来设置如何处理元素中的 空白。
 
+因此，white-space可以决定图文内容是否在一行显示（回车空格是否生效），是否显示大段连续空白（空格是否生效）等。
+
 ```css
-/* Keyword values */
+/*合并空白字符和换行符*/
 white-space: normal;
 
+/*和 normal 一样，连续的空白符会被合并。但文本内的换行无效，即转换为空格。*/
 white-space: nowrap;
-/*和 normal 一样，连续的空白符会被合并。但文本内的换行无效。*/
 
+/*空白字符不合并，并且内容只在有换行符的地方换行。*/
 white-space: pre;
+x`
+/*空白字符不合并，并且内容只在有换行符的地方换行，同时允许文本环绕。*/
 white-space: pre-wrap;
+
+/*合并空白字符，但只在有换行符的地方换行，允许文本环绕。*/
 white-space: pre-line;
 ```
 
@@ -155,9 +167,11 @@ inset 可选。将外部阴影 (outset) 改为内部阴影。
 
 <https://juejin.im/post/581dcefbda2f60005df93b54>
 
-> overflow 属性指定了一个块容器元素在其内容溢出这个元素的时候，内容是否裁掉。
+overflow 属性指定了一个块容器元素在其内容溢出这个元素的时候，内容是否裁掉。
 
-**作用**
+一个设置了overflow:hidden声明的元素，假设同时存在border属性和padding属性，则当子元素内容超出容器宽度高度限制的时候，剪裁的边界是border box的内边缘，而非padding box的内边缘。
+
+作用:
 
 - overflow 的值为非 visible 的时候可以生成新的 BFC （块级格式化上下文），常见的结果就是：消除浮动影响（清除子元素浮动引起的父元素对自元素忽略空间效果）、左侧固定右侧自适应（不需要指定 margin-left ）、margin 不再折叠等。
 
@@ -167,7 +181,7 @@ inset 可选。将外部阴影 (outset) 改为内部阴影。
 
 - overflow:hidden 可以解决移动端页面内容（一般文字内容相对多一点的时候效果更明显）会出现“进来左右方向缩小到一块”然后再变为正常布局的 bug ，这个 bug 会引起很明显的闪动效果。
 
-> float浮动的div会失去独霸一行的能力，也就是宽度自填充满。而overflow清除子元素对父元素的浮动影响后，父元素可以独霸一行。
+float浮动的div会失去独霸一行的能力，也就是宽度自填充满。而overflow清除子元素对父元素的浮动影响后，父元素可以独霸一行。
 
 ## media
 
@@ -233,28 +247,53 @@ visibility
 
 ## background
 
-- background:
+### background属性
 
 url('../../static/images/home_logo.png') no-repeat center left / auto 80% ;
 
-- background-size:
+### background-size
 
 percentage|cover|contain|length
+
+### background-image
+
+元素本身设置 display:none，会请求图片
+
+父级元素设置 display:none，不会请求图片
+
+样式没有元素使用，不会请求
+
+:hover 样式下，触发时请求
 
 ## 文字溢出
 
 省略号
 
-```html
-<p></p>
-```
+参考: <https://zhuanlan.zhihu.com/p/30707916>
 
 ```css
-p{
-  width:100px;
-  text-overflow:ellipsis;
-  overflow:hidden;
-  word-break:keep-all;
+/*单行文本溢出*/
+p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/*多行文本溢出*/
+p {
+  position: relative;
+  line-height: 1.5em;
+  /*高度为需要显示的行数*行高，比如这里我们显示两行，则为3*/
+  height: 3em;
+  overflow: hidden;
+}
+p:after {
+  content: '...';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #fff;
 }
 ```
 
@@ -302,10 +341,6 @@ trident 内核 （ie 浏览器）           -ms
   border-color: transparent transparent red transparent;
 }
 ```
-
-## z-index
-
-<https://juejin.im/post/5b876f86518825431079ddd6>
 
 ## 伪元素与伪类
 
@@ -448,7 +483,7 @@ input:-webkit-autofill,textarea:-webkit-autofill,select:-webkit-autofill
 
 移除空格、使用margin负值、使用font-size:0、letter-spacing、word-spacing
 
-## overflow:scroll 时不能平滑滚动
+## overflow:scroll时不能平滑滚动
 
 以下代码可解决这种卡顿的问题：-webkit-overflow-scrolling:touch;是因为这行代码启用了硬件加速特性，所以滑动很流畅。
 
@@ -459,3 +494,51 @@ input:-webkit-autofill,textarea:-webkit-autofill,select:-webkit-autofill
 原因是如果包含块的高度没有显式指定（即高度由内容决定），并且该元素不是绝对定位，则计算值为auto，因为解释成了auto，所以无法参与计算。
 
 使用绝对定位的元素会有计算值，即使祖先元素的height计算为auto也是如此。
+
+## text-indent
+
+（1）text-indent仅对第一行内联盒子内容有效。
+
+（2）非替换元素以外的display计算值为inline的内联元素设置text-indent值无效，如果计算值inline-block/inline-table则会生效。
+
+（3）`<input>`标签按钮text-indent值无效。
+
+（4）`<button>`标签按钮text-indent值有效。
+
+（5）text-indent的百分比值是相对于当前元素的“包含块”计算的，而不是当前元素。
+
+## letter-spacing
+
+```
+letter-spacing可以用来控制字符之间的间距，这里说的“字符”包括英文字母、汉字以及空格等。
+
+letter-spacing具有以下一些特性。
+
+（1）继承性。
+（2）默认值是normal而不是0。虽然说正常情况下，normal的计算值就是0，但两者还是有差别的，在有些场景下，letter-spacing会调整normal的计算值以实现更好的版面布局。
+（3）支持负值，且值足够大的时候，会让字符形成重叠，甚至反向排列。
+（4）和text-indent属性一样，无论值多大或多小，第一行一定会保留至少一个字符。
+（5）支持小数值，即使0.1px也是支持的。
+（6）暂不支持百分比值。
+```
+
+## word-spacing
+
+letter-spacing作用于所有字符，但word-spacing仅作用于空格字符。换句话说，word-spacing的作用就是增加空格的间隙
+宽度。
+
+## 常见的元素隐藏方式
+
+-（1）使用 display:none;隐藏元素，渲染树不会包含该渲染对象，因此该元素不会在页面中占据位置，也不会响应绑定的监听事件。
+
+-（2）使用 visibility:hidden;隐藏元素。元素在页面中仍占据空间，但是不会响应绑定的监听事件。
+
+-（3）使用 opacity:0;将元素的透明度设置为 0，以此来实现元素的隐藏。元素在页面中仍然占据空间，并且能够响应元素绑定的监听事件。
+
+-（4）通过使用绝对定位将元素移除可视区域内，以此来实现元素的隐藏。
+
+-（5）通过 z-index 负值，来使其他元素遮盖住该元素，以此来实现隐藏。
+
+-（6）通过 clip/clip-path 元素裁剪的方法来实现元素的隐藏，这种方法下，元素仍在页面中占据位置，但是不会响应绑定的监听事件。
+
+-（7）通过 transform:scale(0,0)来将元素缩放为 0，以此来实现元素的隐藏。这种方法下，元素仍在页面中占据位置，但是不会响应绑定的监听事件。

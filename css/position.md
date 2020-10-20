@@ -26,6 +26,8 @@ CSS position属性用于指定一个元素在文档中的定位方式。top，ri
 
 ## 相关的left,right,top,bottom值
 
+当相对定位元素同时应用对立方向定位值的时候，也就是top/bottom和left/right同时使用的时候，只有一个方向的定位属性会起作用。而谁起作用则是与文档流的顺序有关的，默认的文档流是自上而下、从左往右，因此top/bottom同时使用的时候，bottom失效；left/right同时使用的时候，right失效。
+
 ### length类型值
 
 px
