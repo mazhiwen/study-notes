@@ -1,6 +1,6 @@
 # 布局
 
-https://juejin.im/post/6844903710070407182#heading-12
+<https://juejin.im/post/6844903710070407182#heading-12>
 
 ***
 
@@ -291,6 +291,8 @@ left和right会依次在center下方左边距位置开始计算float位置
 }
 </style>
 ```
+
+float + margin负值后 margin元素不会占据文档位
 
 ## 三栏-左中固定，右自适应
 

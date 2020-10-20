@@ -255,7 +255,7 @@ justify-content: center;
 ```html
 <body>
   <div id='container'>
-    <div id='center' style="width: 100px;height: 100px;background-color: #666">center</div>
+    <div id='center' style="background-color: #666">center</div>
   </div>
 </body>
 
@@ -268,6 +268,8 @@ justify-content: center;
   position: absolute;
   top: 50%;
   left: 50%;
+  width: 100px;
+  height: 100px;
   margin: -50px 0 0 -50px;
 }
 </style>

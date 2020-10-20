@@ -7,7 +7,7 @@
 - [角度单位](#角度单位)
 - [white-space](#white-space)
 - [word-break](#word-break)
-- [百分比参照](#百分比参照)
+- [height，padding，margin百分比参照](#height_padding_margin百分比参照)
 - [选择器](#选择器)
 - [0.5px的边](#0.5px的边)
 - [overflow](#overflow)
@@ -17,7 +17,6 @@
 - [文字溢出](#文字溢出)
 - [等宽字体](#等宽字体)
 - [浏览器css前缀](#浏览器css前缀)
-- [属性继承](#属性继承)
 - [css实现三角形](#css实现三角形)
 - [伪元素与伪类](#伪元素与伪类)
 - [li 与 li 之间有看不见的空白间隔是什么原因引起的？有什么解决办法？](#li-与-li-之间有看不见的空白间隔是什么原因引起的有什么解决办法)
@@ -27,7 +26,7 @@
 - [修改 chrome 记住密码后自动填充表单的黄色背景](#修改chrome记住密码后自动填充表单的黄色背景)
 - [让Chrome 支持小于 12px 的文字](#让Chrome支持小于12px的文字)
 - [动画最小时间间隔是多久，为什么](#动画最小时间间隔是多久为什么)
-- [去除 inline-block 元素间间距](#去除inline-block元素间间距)
+- [去除 inline-block 元素间间距](#去除-inline-block-元素间间距)
 - [overflow:scroll时不能平滑滚动](#overflow:scroll时不能平滑滚动)
 - [为什么 height:100%会无效](#为什么height:100%会无效)
 - [text-indent](#text-indent)
@@ -245,6 +244,16 @@ visibility
 （7）还有一些不常用的；speak，page，设置嵌套引用的引号类型quotes等属性
 ```
 
+```
+每一个属性在定义中都给出了这个属性是否具有继承性，一个具有继承性的属性会在没有指定值的时候，会使用父元素的同属性的值
+来作为自己的值。
+
+一般具有继承性的属性有，字体相关的属性，font-size和font-weight等。文本相关的属性，color和text-align等。
+表格的一些布局属性、列表属性如list-style等。还有光标属性cursor、元素可见性visibility。
+
+当一个属性不是继承属性的时候，我们也可以通过将它的值设置为inherit来使它从父元素那获取同名的属性值来继承。
+```
+
 ## background
 
 ### background属性
@@ -310,18 +319,6 @@ mozilla 内核 （firefox,flock 等）    -moz
 webkit  内核 （safari,chrome 等）   -webkit
 opera   内核 （opera 浏览器）        -o
 trident 内核 （ie 浏览器）           -ms
-```
-
-## 属性继承
-
-```
-每一个属性在定义中都给出了这个属性是否具有继承性，一个具有继承性的属性会在没有指定值的时候，会使用父元素的同属性的值
-来作为自己的值。
-
-一般具有继承性的属性有，字体相关的属性，font-size和font-weight等。文本相关的属性，color和text-align等。
-表格的一些布局属性、列表属性如list-style等。还有光标属性cursor、元素可见性visibility。
-
-当一个属性不是继承属性的时候，我们也可以通过将它的值设置为inherit来使它从父元素那获取同名的属性值来继承。
 ```
 
 ## css实现三角形
@@ -423,13 +420,9 @@ CSS3 新增伪类有那些:
 
 总的来说，可以把它看作是一个类似优先级的机制，"position:absolute"和"position:fixed"优先级最高，有它存在的时候，浮动不起作用，'display'的值也需要调整；其次，元素的'float'特性的值不是"none"的时候或者它是根元素的时候，调整'display'的值；最后，非根元素，并且非浮动元素，并且非绝对定位的元素，'display'特性值同设置值。
 
-## 百分比参照
+## height，padding，margin百分比参照
 
-元素竖向的百分比设定是相对于容器的高度吗？
-
-如果是height的话，是相对于包含块的高度。
-
-如果是padding或者margin竖直方向的属性则是相对于包含块的宽度。
+元素竖向的百分比设定是相对于容器的高度吗？如果是height的话，是相对于包含块的高度。如果是padding或者margin竖直方向的属性则是相对于包含块的宽度。
 
 ## 响应式设计
 
@@ -463,7 +456,7 @@ input:-webkit-autofill,textarea:-webkit-autofill,select:-webkit-autofill
 }
 ```
 
-## 让Chrome 支持小于 12px 的文字
+## 让Chrome支持小于12px的文字
 
 在谷歌下css设置字体大小为12px及以下时，显示都是一样大小，都是默认12px。
 
@@ -487,7 +480,7 @@ input:-webkit-autofill,textarea:-webkit-autofill,select:-webkit-autofill
 
 以下代码可解决这种卡顿的问题：-webkit-overflow-scrolling:touch;是因为这行代码启用了硬件加速特性，所以滑动很流畅。
 
-## 为什么 height:100%会无效
+## 为什么height:100%会无效
 
 对于普通文档流中的元素，百分比高度值要想起作用，其父级必须有一个可以生效的高度值。
 

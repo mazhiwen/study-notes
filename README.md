@@ -88,7 +88,7 @@
   - [尺寸单位rem等](./css/unit.md)
   - [css初始化](./css/cssreset.md)
   - [动画transition,animation](./css/transition.md)
-  - [clip-path图像裁切](./css/clip.md)
+  - [clip-path元素裁切](./css/clip.md)
   - [z-index](./css/zindex.md)
 - [vue](./vue)
 - [React](./React)
