@@ -3,18 +3,15 @@
 - [技巧](#技巧)
 - [运算规则](#运算规则)
 - [in运算符](#in运算符)
-- [类型检测](#类型检测)
-- [typeof](#typeof)
-- [instanceof](#instanceof)
 - [深浅拷贝](#深浅拷贝)
 - [定时器](#定时器)
 - [cookie](#cookie)
 - [Error](#Error)
-- [symbol](#symbol)
 - [Reflect](#Reflect)
 - [typed&nbsp;arrays](#typed&nbsp;arrays)
 - [安全随机](#安全随机)
 - [Service worker](#Service&nbsp;worker)
+- [内置对象](#内置对象)
 
 ## 技巧
 
@@ -49,79 +46,6 @@ var mycar = {make: "Honda", model: "Accord", year: 1998};
 "model" in mycar // 返回true
 
 ```
-
-## typeof
-
-typeof检测给定变量的数据类型
-
-typeof是一个操作符而不是函数，可以不用括号
-
-typeof对基本类型返回基本类型，对引用类型返回"object"
-
-返回值：
-
-```
-'undefined'
-'Object'
-'boolean'
-'string'
-'number'
-'function'
-'symbol'
-```
-
-```javascript
-//number
-typeof 37 === 'number';
-typeof Infinity === 'number';
-typeof NaN === 'number'; // 尽管NaN是"Not-A-Number"的缩写
-// string
-typeof "" === 'string';
-typeof "bla" === 'string';
-// boolean
-typeof true === 'boolean';
-// symbol
-typeof Symbol() === 'symbol';
-// Undefined
-typeof undefined === 'undefined';
-// null返回Object
-typeof null === 'object';
-```
-
-```js
-// object
-typeof {a:1} === 'object';
-typeof [1, 2, 4] === 'object';
-typeof new Date() === 'object';
-```
-
-```js
-// 函数
-typeof function(){} === 'function';
-```
-
-## 类型检测
-
-```javascript
-//常规检测
-var arr=[1,'a'];
-Array.isArray(arr);
-arr instanceof Array;
-//安全检测
-Object. prototype. toString. call( arr ) == "[object Object]";
-Object. prototype. toString. call( arr ) == "[object Array]";
-Object. prototype. toString. call( arr ) == "[object Function]";
-Object. prototype. toString. call( arr ) == "[object RegExp]";
-window. JSON && Object. prototype. toString. call( JSON) == "[object JSON]";
-// 数字检测另外一种方式
-typeof value === 'number' && !isNaN(value);
-
-
-```
-
-## instanceof
-
-// 检测原型
 
 ## 深浅拷贝
 
@@ -168,21 +92,6 @@ function deepCopy(obj) {
 
 1.resObject = Object.assign(target,origina,originb,...)
 
-### 数据类型存储方式
-
-```
-1.引用类型
-存储：
-栈：name：指针[指向堆值]
-堆[指针]：value
-
-2.基本类型
-存储：
-栈：name：value
-```
-
-<https://blog.csdn.net/flyingpig2016/article/details/52895620>
-
 ## cookie
 
 ## Error
@@ -190,8 +99,6 @@ function deepCopy(obj) {
 ```javascript
 throw new Error();
 ```
-
-## symbol
 
 ## Reflect
 
@@ -227,45 +134,60 @@ return array.join("");
 
 <https://zhuanlan.zhihu.com/p/20040372>
 
-## ['1', '2', '3'].map(parseInt)
+## 内置对象
 
-返回 [1, NaN, NaN]
+全局的对象（ global objects ）或称标准内置对象，不要和 "全局对象（global object）" 混淆。这里说的全局的对象是说在全局作用域里的对象。全局作用域中的其他对象可以由用户的脚本创建或由宿主程序提供。
 
-## 请根据面对对象编程的思想，设计一个类型 Cash 用于表达人民币，使得
+标准内置对象的分类
 
-```js
-class Cash {
-}
-const cash1 = new Cash(105);
-const cash2 = new Cash(66);
-const cash3 = cash1.add(cash2);
-const cash4 = Cash.add(cash1, cash2);
-const cash5 = new Cash(cash1 + cash2);
-console.log(`${cash3}`, `${cash4}`, `${cash5}`);
-```
+（1）值属性，这些全局属性返回一个简单值，这些值没有自己的属性和方法。
 
-```js
-class Cash {
-  constructor(money) {
-   this.money = money;
-  }
-  static add(){ // Cash类直接可调用的方法
-    let c = new Cash();
-    [...arguments].forEach( // arguments转义为可数组Array
-      function(item){
-        this.money=(this.money||0)+(item.money||0);
-      }.bind(c) // bind后返回改变this的函数
-    );
-    return c;
-  }
-  add(){ // 实例方法
-    return Cash.add(this,...arguments);
-  }
-  valueOf() { // 实现实例可以运算，并取值
-   return this.money;
-  }
-  toString() {
-   return this.money.toString().replace(/(.)(..)$/,"$1元$2").replace(/(.)(.)$/,"$1角$2")+"分";
-  }
-}
-```
+例如 Infinity、NaN、undefined、null 字面量
+
+（2）函数属性，全局函数可以直接调用，不需要在调用时指定所属对象，执行结束后会将结果直接返回给调用者。
+
+例如 eval()、parseFloat()、parseInt() 等
+
+（3）基本对象，基本对象是定义或使用其他对象的基础。基本对象包括一般对象、函数对象和错误对象。
+
+例如 Object、Function、Boolean、Symbol、Error 等
+
+（4）数字和日期对象，用来表示数字、日期和执行数学计算的对象。
+
+例如 Number、Math、Date
+
+（5）字符串，用来表示和操作字符串的对象。
+
+例如 String、RegExp
+
+（6）可索引的集合对象，这些对象表示按照索引值来排序的数据集合，包括数组和类型数组，以及类数组结构的对象。例如 Array
+
+（7）使用键的集合对象，这些集合对象在存储数据时会使用到键，支持按照插入顺序来迭代元素。
+
+例如 Map、Set、WeakMap、WeakSet
+
+（8）矢量集合，SIMD 矢量集合中的数据会被组织为一个数据序列。
+
+例如 SIMD 等
+
+（9）结构化数据，这些对象用来表示和操作结构化的缓冲区数据，或使用 JSON 编码的数据。
+
+例如 JSON 等
+
+（10）控制抽象对象
+
+例如 Promise、Generator 等
+
+（11）反射
+
+例如 Reflect、Proxy
+
+（12）国际化，为了支持多语言处理而加入 ECMAScript 的对象。
+
+例如 Intl、Intl.Collator 等
+
+（13）WebAssembly
+
+（14）其他
+
+例如 arguments

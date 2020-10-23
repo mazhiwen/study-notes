@@ -136,3 +136,14 @@ Object.defineProperty 可以为属性设置很多特性，例如 configurable，
 get 值是一个函数，当属性被访问时，会触发 get 函数
 
 set 值同样是一个函数，当属性被赋值时，会触发 set 函数
+
+## 内部属性 [[Class]]
+
+所有 typeof 返回值为 "object" 的对象（如数组）都包含一个内部属性 [[Class]]（我们可以把它看作一个内部的分类，而非传统的面向对象意义上的类）。
+
+这个属性无法直接访问，一般通过 Object.prototype.toString(..) 来查看。例如：
+
+```js
+Object.prototype.toString.call( [1,2,3] );
+// "[object Array]"
+```

@@ -32,9 +32,13 @@ person1.constructor = Person
 
 所有对象均继承自Object
 
-## 原型链概念
+## 原型对象 原型链
 
-**原型对象 prototype**
+在 js 中我们是使用构造函数来新建一个对象的，每一个构造函数的内部都有一个 prototype 属性值，这个属性值是一个对象，这个对象包含了可以由该构造函数的所有实例共享的属性和方法。当我们使用构造函数新建一个对象后，在这个对象的内部将包含一个指针，这个指针指向构造函数的 prototype 属性对应的值，在 ES5 中这个指针被称为对象的原型。一般来说我们是不应该能够获取到这个值的，但是现在浏览器中都实现了 __proto__ 属性来让我们访问这个属性，但是我们最好不要使用这个属性，因为它不是规范中规定的。ES5 中新增了一个 Object.getPrototypeOf() 方法，我们可以通过这个方法来获取对象的原型。
+
+当我们访问一个对象的属性时，如果这个对象内部不存在这个属性，那么它就会去它的原型对象里找这个属性，这个原型对象又会有自己的原型，于是就这样一直找下去，也就是原型链的概念。原型链的尽头一般来说都是 Object.prototype 所以这就是我们新建的对象为什么能够使用 toString() 等方法的原因。
+
+### 原型对象 prototype
 
 function才有prototype
 
@@ -53,7 +57,7 @@ Person.prototype.sayName = function(){
 }
 ```
 
-**原型对象的构造函数 constructor**
+### 原型对象的构造函数 constructor
 
 默认的情况下，所有的原型对象(originObj)都会都会自动获得一个constructor(构造函数)属性 , 这个constructor属性指向prototype属性所在函数的指针
 
@@ -64,15 +68,15 @@ originObj.constructor = Person
 originObj.sayName =  //自定义方法等
 ```
 
-**实例的指向构造函数的原型对象的指针：[[prototype]], \_\_proto\_\_**
+### 实例的指向构造函数的原型对象的指针：`[[prototype]]` , `__proto__`
 
-- [[prototype]]:
+- `[[prototype]]`:
 
-[[prototype]] 也就是 ```__proto__```是对象才有的属性
+[[prototype]] 也就是 `__proto__` 是对象才有的属性
 
 当调用构造函数Person 创建( new )一个新实例( person1 )后，该实例（ person1 ）的内部将包含一个指针，指向构造函数的原型对象( Person.prototype 也即是 originObj )
 
-ECMA-262第5版中这个内部指针叫 [[prototype]] ,但在浏览器中都支持一个属性```__proto__```
+ECMA-262第5版中这个内部指针叫 `[[prototype]]` ,但在浏览器中都支持一个属性`__proto__`
 
 ```js
 var person1 = new Person();
@@ -117,7 +121,7 @@ console.log(Person.prototype.isPrototypeOf(person1)); // true
 console.log(Object.getPrototypeOf(person1) === Person.prototype); // true
 ```
 
-**原型属性的查找链：**
+### 原型属性的查找链
 
 - 基本原型链顺序
 
@@ -170,13 +174,13 @@ delete func1.name
 
 如果想要获取所有的实例属性，无论它是否可以枚举，我们可以使用 Object.getOwnPropertyNames() 方法。
 
-**默认原型**
+### 默认原型
 
 所有函数的默认原型都是 Object 的实例，因此默认原型都会包含一个内部指针，指向 Object.Prototype 。这也正是所有的自定义类型都会继承 toString() 、valueOf() 等默认方法的根本原因。
 
 Object.prototype 就是原型链的终点了，我们可以试着打印一下 Object.prototype.```__proto__```，我们会发现返回的是一个 null 空对象，这就意味着原型链的结束。
 
-**原型链**
+### 原型链
 
 同一构造函数的所有对象实例共享对象实例的原型对象上的属性，方法。
 
@@ -186,7 +190,7 @@ Object.prototype 就是原型链的终点了，我们可以试着打印一下 Ob
 
 实例属性添加原型属性中已有的相同的属性时，只会阻止我们访问原型属性，而不会修改那个属性。delete操作可以完全删除实例属性，从而能够重新访问原型属性。
 
-## 原型链继承
+## 原型链实现继承
 
 ```js
 //*******************************组合继承  (原型链 和 借用构造函数共同构成)

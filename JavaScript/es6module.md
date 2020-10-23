@@ -1,0 +1,29 @@
+: import export default
+
+```javascript
+// 正常写法:
+// export
+export { name1, name2, …, nameN };
+export { variable1 as name1, variable2 as name2, …, nameN };
+export let name1, name2, …, nameN; // also var
+export let name1 = …, name2 = …, …, nameN; // also var, const
+export function FunctionName() {...}
+export class ClassName {...}
+// import
+import {firstName, lastName, year} from
+import { lastName as surname } from
+import * as name from//name.firstName name.lastName
+```
+
+```javascript
+//default写法 默认写法
+// export
+export default expression;
+export default function (…) { … } // also class, function*
+export default function name1(…) { … } // also class, function*
+export default class {}
+
+// 不能使用var，let或const用于导出默认值export default。
+//import
+import customName from
+```
