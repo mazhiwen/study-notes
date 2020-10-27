@@ -12,6 +12,9 @@
 - [安全随机](#安全随机)
 - [Service worker](#Service&nbsp;worker)
 - [内置对象](#内置对象)
+- [ToString](#ToString)
+- [ToNumber](#ToNumber)
+- [ToBoolean](#ToBoolean)
 
 ## 技巧
 
@@ -191,3 +194,50 @@ return array.join("");
 （14）其他
 
 例如 arguments
+
+## ToString
+
+范的 9.8 节中定义了抽象操作 ToString ，它负责处理非字符串到字符串的强制类型转换。
+
+（1）Null 和 Undefined 类型 ，null 转换为 "null"，undefined 转换为 "undefined"，
+
+（2）Boolean 类型，true 转换为 "true"，false 转换为 "false"。
+
+（3）Number 类型的值直接转换，不过那些极小和极大的数字会使用指数形式。
+
+（4）Symbol 类型的值直接转换，但是只允许显式强制类型转换，使用隐式强制类型转换会产生错误。
+
+（3）对普通对象来说，除非自行定义 toString() 方法，否则会调用 toString()（Object.prototype.toString()）来返回内部属性 [[Class]] 的值，如"[object Object]"。如果对象有自己的 toString() 方法，字符串化时就会调用该方法并使用其返回值。
+
+## ToNumber
+
+有时我们需要将非数字值当作数字来使用，比如数学运算。为此 ES5 规范在 9.3 节定义了抽象操作 ToNumber。
+
+（1）Undefined 类型的值转换为 NaN。
+
+（2）Null 类型的值转换为 0。
+
+（3）Boolean 类型的值，true 转换为 1，false 转换为 0。
+
+（4）String 类型的值转换如同使用 Number() 函数进行转换，如果包含非数字值则转换为 NaN，空字符串为 0。
+
+（5）Symbol 类型的值不能转换为数字，会报错。
+
+（6）对象（包括数组）会首先被转换为相应的基本类型值，如果返回的是非数字的基本类型值，则再遵循以上规则将其强制转换为数字。
+
+为了将值转换为相应的基本类型值，抽象操作 ToPrimitive 会首先（通过内部操作 DefaultValue）检查该值是否有valueOf() 方法。如果有并且返回基本类型值，就使用该值进行强制类型转换。如果没有就使用 toString() 的返回值（如果存在）来进行强制类型转换。
+
+如果 valueOf() 和 toString() 均不返回基本类型值，会产生 TypeError 错误。
+
+## ToBoolean
+
+ES5 规范 9.2 节中定义了抽象操作 ToBoolean，列举了布尔强制类型转换所有可能出现的结果。
+
+以下这些是假值：
+• undefined
+• null
+• false
+• +0、-0 和 NaN
+• ""
+
+假值的布尔强制类型转换结果为 false。从逻辑上说，假值列表以外的都应该是真值。

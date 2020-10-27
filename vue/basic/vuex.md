@@ -5,6 +5,8 @@
 dispatch(actions(commit)) ->
 commit(mutations(state))) -> view
 
+## state getters mutations actions
+
 ```js
 
 //////////// 声明 /////////////
@@ -106,7 +108,11 @@ const store = new Vuex.Store({
     }
   }
 })
+```
 
+## mapState,mapGetters,mapMutations,mapActions
+
+```js
 //////////// 使用 /////////////
 import { mapState,mapGetters,mapMutations,mapActions} from 'vuex'
 export default {
@@ -167,6 +173,11 @@ export default {
   }
 }
 
+```
+
+## Module
+
+```js
 //////////////////////////////Module
 const moduleA = {
   state: { ... },

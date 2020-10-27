@@ -58,115 +58,13 @@ undefined                          undefined
 
 ### 4.string
 
-表示由零或多个16位Unicode字符组成的字符序列，即字符串
-
-区别于String内置对象，是字面量，不同的类型
-
-```js
-var text = 'th \b i \u03a3.';
-```
-
-- length
-
-text.length 获得字符长度
-
-- 转换为字符串
-
-有两种方式：
-
-toString()方法：返回相应值的字符串表现。默认情况下对数值输出10进制表现形式。可以传入参数输出对应的进制格式形式。
-
-String() 转型函数: 不同于toString()，null 和 undefined 也可以执行String()
+具体见 [String文档](./String.md)
 
 ### 5.number
 
 用来表示整数和浮点数值
 
-- 科学计数法（e表示法）：
-
-数值等于e前面的数值乘以10的指数次幂。如下:
-
-也可以小的数值3e-7
-
-```js
-var floatNum = 3.213e7 //等于32130000
-```
-
-- 范围
-
-浮点数值的最高精度是17位小数。
-
-但是在进行算数计算时，浮点计算精度远远不如整数，如下:
-
-```js
-0.1 + 0.3  // = 0.300000000004;
-```
-
-```
-最小值：Number.MIN_VALUE = 5e-324
-最大值：Number.MAX_VALUE = 1.79....e+308
-```
-
-计算如果超出范围，这个数值会自动转换成特殊的Infinity值。
-
-isFinite()函数用来判断参数值是否在最值范围内
-
-- NaN
-
-NaN (Not a Number):用来表示一个本来要返回数值的操作数未返回数值的情况（这样就不会抛出错误）
-
-任何涉及NaN的操作都会返回NaN
-
-任何值与NaN都不等
-
-```js
-NaN == NaN // false
-```
-
-isNaN() 函数：接收任何类型的参数，返回这个参数是否 不是数值。在接收到参数后，会尝试将这个值转为数值。不能转换为数值的值会返回true。
-
-```js
-isNaN(NaN) // true
-isNaN(10) // false
-isNaN("10") // false
-isNaN("blue") // true
-isNaN(true) // false  可以转换为1
-```
-
-- 数值转换
-
-3个函数可以把非数值转换为数值：Number() parseInt() parseFloat()
-
-Number()可以用于任何数据类型
-
-具体规则：见书上把
-
-```js
-Number('hello') //NaN
-Number("") //0
-Number('000011') //11
-Number(true) //1
-```
-
-parseInt() parseFloat()专门把字符串转换成数值
-
-```js
-parseInt('1234blue') // 1234
-parseInt('') // NaN
-parseInt('0xA') // 10 16进制
-parseInt(22.5) // 22
-parseInt('070') // 56 8进制
-parseInt('70') // 70 10进制
-parseInt('0xf') // 15 16进制
-```
-
-parseInt() 第二个参数是转换时，使用的基数，即多少进制
-
-```js
-parseInt('0xAF',16)
-```
-
-parseFloat() 只解析十进制值
+具体见 [number文档](./Number.md)
 
 ### 6.Symbol
 
@@ -256,56 +154,11 @@ falseValue instanceof Boolean // false
 
 **7. Number**
 
-与数字值对应的引用类型
-
-创建Number对象，在调用Number构造函数时，向其中传递相应的数值：
-
-```js
-var numberObject = new Number(10);
-```
-
-Number类型也重写了valueOf(),toString(),toLocaleString()方法
-
-重写的valueOf()返回表示的基本类型的数值
-
-另外两个返回字符串形式的数值
-
-toString(2) 传递表示基数的参数，返回几进制数值的字符串形式
-
-toFixed() 按照制定的小数位返回数值的字符串形式
-
-toExponential()
-
-toPrecision()等其他方法需要补充到Number文档
-
-同样和Boolean对象类似，基本类型数值与引用类型数值测试时，返回值不同，如下：
-
-```js
-var numberObject = new Number(2);
-var numberValue = 2;
-
-typeof numberObject // object
-typeof numberValue // number
-
-numberObject instanceof Number // true
-numberValue instanceof Number // false
-```
-
-Number对象是Number类型的实例，而基本类型的数值则不是
+具体见 [Number文档](./Number.md)
 
 **8. String**
 
-String类型是字符串类型的包装类型
-
-用String构造函数来创建String类型
-
-```js
-var stringObject = new String('hlll');
-```
-
-String类型的每个实例都有一个length属性，表示字符串中包含多少个字符
-
-提供了很多方法,需要从书中补充 [String类型文档](../String.md)
+具体见 [String文档](./String.md)
 
 ### 单体内置对象
 
@@ -447,3 +300,11 @@ typeof function(){} === 'function';
 ## instanceof
 
 // 检测原型
+
+## 布尔值的隐式强制类型转换
+
+（1） if (..) 语句中的条件判断表达式。
+（2） for ( .. ; .. ; .. ) 语句中的条件判断表达式（第二个）。
+（3） while (..) 和 do..while(..) 循环中的条件判断表达式。
+（4） ? : 中的条件判断表达式。
+（5） 逻辑运算符 ||（逻辑或）和 &&（逻辑与）左边的操作数（作为条件判断表达式）。

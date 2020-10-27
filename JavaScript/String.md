@@ -1,6 +1,42 @@
-# String 的方法
+# String 与 string类型
 
 ***
+
+## string类型
+
+表示由零或多个16位Unicode字符组成的字符序列，即字符串
+
+区别于String内置对象，是字面量，不同的类型
+
+```js
+var text = 'th \b i \u03a3.';
+```
+
+### length
+
+text.length 获得字符长度
+
+### 转换为字符串
+
+有两种方式：
+
+toString()方法：返回相应值的字符串表现。默认情况下对数值输出10进制表现形式。可以传入参数输出对应的进制格式形式。
+
+String() 转型函数: 不同于toString()，null 和 undefined 也可以执行String()
+
+## String
+
+String类型是字符串类型的包装类型
+
+用String构造函数来创建String类型
+
+```js
+var stringObject = new String('hlll');
+```
+
+String类型的每个实例都有一个length属性，表示字符串中包含多少个字符
+
+提供了很多方法,需要从书中补充
 
 ## slice
 
@@ -52,6 +88,7 @@ $` 插入当前匹配的子串左边的内容。
 $' 插入当前匹配的子串右边的内容。
 $n
 假如第一个参数是 RegExp对象，并且 n 是个小于100的非负整数，那么插入第 n 个括号匹配的字符串。提示：索引是从1开始
+
 ```js
 var re = /(\w+)\s(\w+)/;
 var str = "John Smith";

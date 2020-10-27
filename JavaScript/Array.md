@@ -1,131 +1,14 @@
-# iterations 迭代相关
-
-## for
-
-## do...while
-
-do {
-    //statement 在检查条件之间会执行一次
-    i += 1;
-    console.log(i);
-} while (i < 5);
-
-## while
-
-var n = 0;
-var x = 0;
-while (n < 3) {//条件检测会在每次 statement 执行之前发生
-  n++;
-  x += n;
-}
-
-## break
-
-//break中止循环(for,do...while,while,label)，switch
-
-## continue  
-
-//继续循环
-
-## for...in
-
-//遍历key 遍历arr object
-// 这个 for...in 语句循环一个指定的变量来循环一个对象所有可枚举的属性
-//array 返回index,object 返回key
-let arr = [3, 5, 7];
-arr.foo = "hello";
-for (let key in arr) {
-    console.log(key); // logs "0", "1", "2", "foo"
-}
-  
-## for...of  
-
-//遍历value  遍历arr
-for (let value of arr) {
-    console.log(value); // logs "3", "5", "7" // 注意这里没有 hello
-}
-
-## entries
-
-### array.entries()  返回一个Array Iterator
-
-var arr = ["a", "b", "c"];
-var iterator = arr.entries();
-console.log(iterator);
-
-### Object.entries(object)
-
-```js
-// 返回一个给定对象自身可枚举属性的键值对数组
-//Function 是不可枚举的
-const obj = { foo: 'bar', baz: 42 };
-console.log(Object.entries(obj));
-// [ ['foo', 'bar'], ['baz', 42] ]
-// array like object with random key ordering
-const anObj = { 100: 'a', 2: 'b', 7: 'c' };
-console.log(Object.entries(anObj));
-// [ ['2', 'b'], ['7', 'c'], ['100', 'a'] ]
-// non-object argument will be coerced to an object
-console.log(Object.entries('foo')); // [ ['0', 'f'], ['1', 'o'], ['2', 'o'] ]
-```
-
-### iterator    iterator.next  
-
-//next方法 用来更新iterator 的迭代
-console.log(iterator.next());
-//二维数组排序
-function sortArr(arr) {
-  var goNext = true;
-  var entries = arr.entries();
-  while (goNext) {
-      var result = entries.next();
-      if (result.done !== true) {
-          result.value[1].sort((a, b) => a - b);
-          goNext = true;
-      } else {
-          goNext = false;
-      }
-  }
-  return arr;
-}
-var arr = [[1,34],[456,2,3,44,234],[4567,1,4,5,6],[34,78,23,1]];
-sortArr(arr);
-// (4) [Array(2), Array(5), Array(5), Array(4)]
-//   0:(2) [1, 34]
-//   1:(5) [2, 3, 44, 234, 456]
-//   2:(5) [1, 4, 5, 6, 4567]
-//   3:(4) [1, 23, 34, 78]
-//   length:4
-//   __proto__:Array(0)
-
-### for of
-
-```js
-for (let e of iterator) {
-    console.log(e);
-}
-for (const [key, value] of Object.entries(obj)) {
-  console.log(`${key} ${value}`); // "a 5", "b 7", "c 9"
-}
-
-//*******forEach
-Object.entries(obj).forEach(([key, value]) => {
-    console.log(`${key} ${value}`); // "a 5", "b 7", "c 9"
-});
-
-//*******转为 Map
-var obj = { foo: "bar", baz: 42 };
-var map = new Map(Object.entries(obj));
-console.log(map); // Map { foo: "bar", baz: 42 }
-Object.entries(obj).map(([key, value],index) => {
-    console.log(`${key} ${value}`); // "a 5", "b 7", "c 9"
-});
-
-```
 
 # Array
 
-## 基本知识 *******************/
+## Array 构造函数
+
+Array 构造函数只带一个数字参数的时候，该参数会被作为数组的预设长度（length），而非只充当数组中的一个元素。这样
+创建出来的只是一个空数组，只不过它的 length 属性被设置成了指定的值。
+
+构造函数 Array(..) 不要求必须带 new 关键字。不带时，它会被自动补上。
+
+## 基本知识
 
 // 数组也是对象，可以添加属性
 //var array=[1,2];
@@ -133,7 +16,7 @@ Object.entries(obj).map(([key, value],index) => {
 // array.baz  array[baz]
 // array.length : 2
 
-## Array.map*******************/
+## Array.map*
 
 - map会生成新的数组，并返回
 - 传入 函数，每个元素调用一次函数，返回array
@@ -147,14 +30,14 @@ var newArray = array.map(function callback(currentValue, index, array) {
 })
 ```
 
-## array.forEach() *******************/
+## array.forEach() *
 
 // 为每个数组元素执行callback函数 没有返回值
 // 不修改原数组
 array.forEach(function callback(currentValue, index, array) {  
 })
 
-## array.every()*******************/
+## array.every()*
 
 // 为数组中的每个元素执行一次 callback 函数
 // 直到它找到一个使 callback 返回 false（表示可转换为布尔值 false 的值）的元素,否则返回true
@@ -163,7 +46,7 @@ var bool=array.every(function callback(currentValue, index, array){
     return currentValue>0;
 });
 
-## array.some()*******************/
+## array.some()*
 
 // 测试数组中的某些元素是否通过由提供的函数实现的测试
 [1, 2, 3, 4, 5].some(function(currentValue, index, array) {
@@ -186,7 +69,7 @@ var newArray = array.filter(function callback(currentValue, index, array){
 });
 ```
 
-## array.reduce()*******************/
+## array.reduce()*
 
 //array从左到右执行callback
 // 返回最终return
@@ -200,7 +83,7 @@ array.reduce(
     initialValue
 );
 
-## array.slice*******************/
+## array.slice*
 
 //slice() 方法返回一个从开始到结束（不包括结束）选择的数组的一部分浅拷贝到一个新数组对象。
 //原始数组不会被修改。
@@ -216,7 +99,7 @@ function list() {
 }
 var list1 = list(1, 2, 3); // [1, 2, 3]
 
-## array.splice *******************/
+## array.splice *
 
 //在原数组 删除现有元素 或 添加新元素
 返回被删除的数组，并改变原数组
@@ -225,7 +108,7 @@ var list1 = list(1, 2, 3); // [1, 2, 3]
 // itemn 添加的元素
 array.splice(start,deleteCount,item1, item2,itemn);
 
-## array.sort *******************/
+## array.sort *
 
 // 默认unicode顺序
 // compareFunction 规则:
@@ -235,28 +118,28 @@ array.sort(function compareFunction(a, b) {
   return a - b;
 });
 
-## array.concat *******************/
+## array.concat *
 
 // 将数组和/或值连接成新数组
 // 此方法不会更改现有数组，而是返回一个新数组
 // 参数可以是 array , 或者 value
 array.concat(value1,value2,valuen);
 
-## array.includes*******************/
+## array.includes*
 
 arr.includes(searchElement)  
 arr.includes(searchElement, fromIndex)  
 //fromIndex :
 //从该索引处开始查找 searchElement。如果为负值，则按升序从 array.length + fromIndex 的索引开始搜索。默认为 0。
 
-## array.findIndex*******************/
+## array.findIndex*
 
 // 查询满足callback的index并返回
 findindex = fileList.findIndex((value,index,thisarr)=>{
     return value.uid===file.uid
 })
 
-## Array.indexOf*******************/
+## Array.indexOf*
 
 返回在数组中可以找到一个给定元素的第一个索引，如果不存在，则返回-1。
 

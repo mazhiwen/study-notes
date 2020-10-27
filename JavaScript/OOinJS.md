@@ -190,6 +190,14 @@ Object.prototype 就是原型链的终点了，我们可以试着打印一下 Ob
 
 实例属性添加原型属性中已有的相同的属性时，只会阻止我们访问原型属性，而不会修改那个属性。delete操作可以完全删除实例属性，从而能够重新访问原型属性。
 
+### 获取原型的方法
+
+p.`__proto__`
+
+p.constructor.prototype
+
+Object.getPrototypeOf(p)
+
 ## 原型链实现继承
 
 ```js
