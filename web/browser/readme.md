@@ -2,6 +2,7 @@
 
 目录：
 
+- [BOM](#BOM)
 - [浏览器内核](#浏览器内核)
 - [URL](#URL)
 - [devtools](#devtools)
@@ -20,6 +21,14 @@ Google开发者：<https://developers.google.com/web/fundamentals/performance/cr
 <https://juejin.im/book/5bdc715fe51d454e755f75ef/section/5bdc7207f265da613c09425d>
 
 ***
+
+## BOM
+
+BOM 是 Browser Object Model，浏览器对象模型。
+
+BOM 顾名思义其实就是为了控制浏览器的行为而出现的接口。
+
+BOM 是为了操作浏览器出现的 API，window 是其的一个对象。
 
 ## 浏览器内核
 

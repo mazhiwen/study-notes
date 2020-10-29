@@ -127,7 +127,8 @@ Object.isFrozen(person);
 ## hasOwnPropty
 
 检测是否自身有某属性 返回boolean  
-不会检查prototype链,区别与in操作符
+
+不会检查prototype原型链,区别与in操作符
 
 ## Object.defineProperty
 
@@ -137,7 +138,7 @@ get 值是一个函数，当属性被访问时，会触发 get 函数
 
 set 值同样是一个函数，当属性被赋值时，会触发 set 函数
 
-## 内部属性 [[Class]]
+## 内部属性 [[Class]] Object.prototype.toString
 
 所有 typeof 返回值为 "object" 的对象（如数组）都包含一个内部属性 [[Class]]（我们可以把它看作一个内部的分类，而非传统的面向对象意义上的类）。
 
@@ -147,3 +148,54 @@ set 值同样是一个函数，当属性被赋值时，会触发 set 函数
 Object.prototype.toString.call( [1,2,3] );
 // "[object Array]"
 ```
+
+## Object.getPrototypeOf()
+
+这个方法可以返回[[Prototype]]的值
+
+根据一个实例对象 返回对应的原型对象
+
+```js
+console.log(Object.getPrototypeOf(person1) === Person.prototype); // true
+```
+
+person1：实例对象
+
+## 原型对象.isPrototypeOf
+
+方法来确定对象之间是否存在这种实例原型对象关系，测试一个对象是否存在于另一个对象的原型链上
+
+```js
+console.log(Person.prototype.isPrototypeOf(person1)); // true
+```
+
+## instanceof
+
+instanceof 运算符用于检测`构造函数`的 prototype 属性是否出现在某个`实例对象`的原型链上。
+
+`object instanceof constructor`
+
+object:某个实例对象
+
+constructor:某个构造函数
+
+```js
+function Car(make, model, year) {
+  this.make = make;
+  this.model = model;
+  this.year = year;
+}
+const auto = new Car('Honda', 'Accord', 1998);
+
+console.log(auto instanceof Car);
+// expected output: true
+
+console.log(auto instanceof Object);
+// expected output: true
+```
+
+## Object.create()
+
+Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的__proto__。
+
+返回：一个新对象，带着指定的原型对象和属性。

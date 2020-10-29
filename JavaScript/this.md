@@ -4,7 +4,7 @@
 
 ***
 
-## 概念
+this 是执行上下文中的一个属性，它指向最后一次调用这个方法的对象。
 
 function 内才有 this
 
@@ -36,7 +36,7 @@ speak. call( me ); // Hello, 我是 KYLE
 speak. call( you ); // Hello, 我是 READER
 ```
 
-### this的用法：指向自身
+## this的用法：指向自身
 
 ```js
 function foo( num) {
@@ -62,7 +62,7 @@ console. log( foo. count );
 
 ```
 
-### 绑定规则  
+## 绑定规则  
 
 - 默认绑定：
 
@@ -102,11 +102,11 @@ var bar = new foo( 2);
 console. log( bar. a ); // 2
 ```  
 
-### 绑定优先级,判定规则
+## 绑定优先级,判定规则
 
-new>显示绑定>隐式绑定>默认规则  
+new>显示绑定>隐式绑定>默认规则
 
-### 绑定null 列外
+## 绑定null 列外
 
 ```javascript
 function foo( a, b) { console. log( "a:" + a + ", b:" + b ); } // 把 数组“ 展开” 成 参数
@@ -127,7 +127,7 @@ var bar = foo. bind( ø, 2 );
 bar( 3 ); // a: 2, b: 3
 ```
 
-### 间接引用
+## 间接引用
 
 ```javascript
 //常见在赋值时发生
@@ -145,9 +145,11 @@ o. foo(); // 3
 
 赋值 表达式 p. foo = o. foo 的 返回 值 是 目标 函数 的 引用， 因此 调用 位置 是 foo() 而 不是 p. foo() 或者 o. foo()。 根据 我们 之前 说过 的， 这里 会 应用 默认 绑 定。
 
-## this指向问题的基本四种场景
+## this指向的四种场景
 
-- 作为对象的方法调用 : 指向对象本身
+### 1.作为对象的方法调用 : 指向对象本身
+
+如果一个函数作为一个对象的方法来调用时，this 指向这个对象。
 
 ```js
 obj={
@@ -160,7 +162,9 @@ obj={
 obj.getA();
 ```
 
-- 作为普通函数调用 : 指向全局对象window
+### 2.作为普通函数调用 : 指向全局对象window
+
+当一个函数不是一个对象的属性时，直接作为函数来调用时，this 指向全局对象。
 
 ```js
 // 浏览器端是window
@@ -170,9 +174,11 @@ function A(){
 A();
 ```
 
-- 构造器调用 new
+### 3.构造器调用 new
 
 如果函数调用前使用了 new 关键字, 则是调用了构造函数。
+
+函数用 new 调用时，函数执行前会新创建一个对象，this 指向这个新创建的对象
 
 this有两种指向，取决于是否显式返回一个object {}
 
@@ -202,11 +208,13 @@ alert ( obj. name );//sven
 
 ```
 
-- Function.prototype.call Function.prototype.apply
+### 4.call apply bind
 
 显式改变this指向
 
-- 匿名函数的 this 永远指向 window
+> 优先级: new构造器 > call ... > 方法调用 > 函数调用
+
+## 匿名函数的 this 永远指向 window
 
 ```js
 var a = 3;
@@ -221,7 +229,7 @@ var o = {
 
 ```
 
-## 怎么改变 this 的指向
+## 改变 this 的指向
 
 - 使用 ES6 的箭头函数
 

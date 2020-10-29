@@ -1,7 +1,7 @@
 
-## Math
+# Math
 
-### .ceil
+## .ceil
 
 返回大于或等于一个给定数字的最小整数
 
@@ -10,7 +10,7 @@ console.log(Math.ceil(7.004));
 // expected output: 8
 ```
 
-### .floor
+## .floor
 
 返回小于或等于一个给定数字的最小整数
 
@@ -19,7 +19,7 @@ console.log(Math.ceil(7.004));
 // expected output: 7
 ```
 
-### .random
+## .random
 
 函数返回一个浮点,  伪随机数在范围从0到小于1
 
@@ -27,15 +27,15 @@ console.log(Math.ceil(7.004));
 
 ```
 
-### .max
+## .max
 
-### .min
+## .min
 
 返回最小值
 
 Math.min([value1[,value2, ...]])  
 
-### .pow
+## .pow
 
 求幂
 

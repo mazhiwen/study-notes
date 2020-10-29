@@ -108,15 +108,19 @@ var list1 = list(1, 2, 3); // [1, 2, 3]
 // itemn 添加的元素
 array.splice(start,deleteCount,item1, item2,itemn);
 
-## array.sort *
+## array.sort
 
-// 默认unicode顺序
-// compareFunction 规则:
-// compareFunction(a, b) < 0 , a在b前 ; >0 ,相反
-// 原数组已经被排序后的数组代替,并作为返回
+默认sort方法执行后，原数组按照unicode顺序重新排序
+
+规则 : compareFunction(a, b) < 0 , a在b前 ; >0 ,相反
+
+原数组已经被排序后的数组代替,并作为返回
+
+```js
 array.sort(function compareFunction(a, b) {
   return a - b;
 });
+```
 
 ## array.concat *
 

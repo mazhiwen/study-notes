@@ -1,5 +1,11 @@
 # DOM标准
 
+DOM 全称是 Document Object Model，也就是文档对象模型。
+
+DOM 指的是文档对象模型，它指的是把文档当做一个对象来对待，这个对象主要定义了处理网页内容的方法和接口。
+
+DOM 是为了操作文档出现的 API，document 是其的一个对象；
+
 官方文档:
 
 <https://dom.spec.whatwg.org/>
@@ -36,7 +42,11 @@ referenceNode ： newNode 将要插在这个节点之前
 
 ## document
 
-**createElement**
+当浏览器下载到一个网页，通常是 HTML，这个 HTML 就叫 document（当然，这也是 DOM 树中的一个 node），从上图可以看到，document 通常是整个 DOM 树的根节点。这个 document 包含了标题（document.title）、URL（document.URL）等属性，可以直接在 JS 中访问到。
+
+在一个浏览器窗口中可能有多个 document，例如，通过 iframe 加载的页面，每一个都是一个 document。
+
+### document.createElement
 
 <https://developer.mozilla.org/zh-CN/docs/Web/API/Document/createElement>
 

@@ -297,7 +297,6 @@ typeof new Date() === 'object';
 typeof function(){} === 'function';
 ```
 
-## instanceof
 
 // 检测原型
 

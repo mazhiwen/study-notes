@@ -105,21 +105,9 @@ console.log(a2.__proto__ === a1);// true
 console.log(a2.__proto__ === a2.constructor.prototype); //false（此处即为图1中的例外情况）
 ```
 
-- isPrototypeOf:
 
-方法来确定对象之间是否存在这种实例原型对象关系，测试一个对象是否存在于另一个对象的原型链上
 
-```js
-console.log(Person.prototype.isPrototypeOf(person1)); // true
-```
 
-- Object.getPrototypeOf():
-
-这个方法可以返回[[Prototype]]的值
-
-```js
-console.log(Object.getPrototypeOf(person1) === Person.prototype); // true
-```
 
 ### 原型属性的查找链
 
@@ -198,10 +186,238 @@ p.constructor.prototype
 
 Object.getPrototypeOf(p)
 
-## 原型链实现继承
+## 面向对象概念
+
+- 多态
+
+javascript是动态类型语言
+
+同一操作作用于不同的对象上面，可以产生不同的解释和不同的执行结果。换句话说，给不同的对象发送同一个消息的时候，这些对象会根据这个消息分别给出不同的反馈。
+
+多态背后的思想是将“做什么”和“谁去做以及怎样去做”分离开来，也就是将“不变的事物”与“可能改变的事物”分离开来。
+
+静态 类型 的 面向 对象 语言 通常 被 设计 为 可以 **向上转型**
+
+多 态 的 思想 实际上 是把“ 做 什么” 和“ 谁 去做” 分离 开来， 要 实现 这一点， 归根结底 先要 消除 类型 之间 的 耦合 关系。
+
+多 态 的 最 根本 好处 在于， 你 不必 再向 对象 询问“ 你是 什么 类型” 而后 根据 得到 的 答案 调用 对象 的 某个 行为—— 你 只管 调用 该 行为 就是 了， 其他 的 一切 多 态 机制 都会 为你 安排 妥当。  
+----Martin Fowler 《重构：改善既有的代码设计》
+
+多 态 最 根本 的 作用 就是 通过 把 过程 化 的 条件 分支 语句 转化 为 对象 的 多 态 性， 从而 消除 这些 条件 分支 语句。
+
+面向对象相关思想: 通过 对 封装、 继承、 多 态、 组合 等 技术 的 反复 使用， 提炼 出 一些 可 重复 使用 的 面向 对象 设计 技巧。 而 多 态 在其中 又是 重 中 之 重， 绝大部分 设计 模式 的 实现 都 离不开 多 态 性的 思想。
+
+- 封装
+
+封装 的 目的 是将 信息 隐藏。 一般而言， 我们 讨论 的 封装 是 封装 数据 和 封装 实现。  更 广义 的 封装: 不仅 包括 封装 数据 和 封装 实现， 还包括 封装 类型 和 封装 变化。
+
+封装数据：私有数据，公有方法
+方式：闭包方式 ， Symbol
+
+- 原型设计模式（js）
+
+js是基于原型的继承 区别与 类和对象 的面向对象系统；  
+ES5 Object.creat(),是实现clone，新的对象基于对象去clone；
+JavaScript基于原型的面向对象系统参考了Self语言和Smalltalk语言；  
+基于原型链的委托机制就是原型继承的本质。
+
+原型编程范型的基本规则:  
+所有 的 数据 都是 对象。  
+要得 到 一个 对象， 不是 通过 实例 化 类， 而是 找到 一个 对象 作为 原型 并 克隆 它。  
+对象 会 记住 它的 原型。  
+ 如果 对象 无法 响应 某个 请求， 它 会把 这个 请求 委托 给 它自己 的 原型。
+
+经测试
 
 ```js
-//*******************************组合继承  (原型链 和 借用构造函数共同构成)
+Object.__proto__ === Function.__proto__
+// true
+```
+
+js中的原型实现：  
+从Object.prototype克隆
+
+JavaScript 的 函数 既可以 作为 普通 函数 被 调用， 也可以 作为 构造 器（new） 被 调用。  
+
+```js
+// 执行下面 可以让obj的原型指向Constructor.prototype原型，
+// 而不是本来的Object.prototype
+obj.__ proto__ = Constructor.prototype;
+// js常用的原型继承
+var obj={
+  name:'a'
+}
+var A=function(){
+
+}
+A.prototype=Obj;
+
+var a= new A();
+a.name;
+// 例子中a.name的查找过程
+// a属性没有 -> a.__proto__记录有原型指向A.prototype -> A.prototype被设置为obj -> obj
+// 如果没找到会继续查找
+// -> Object.prototype -> 找不到就是返回undefined
+
+```
+
+ES6的class也是基于原型链实现的
+
+## javascript 创建对象的几种方式
+
+<http://cavszhouyou.top/JavaScript%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E4%B9%8B%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA.html>
+
+### 工厂模式
+
+```js
+function createPerson(name, age, job){
+    var o = new Object();
+    o.name = name;
+    o.age = age;
+    o.job = job;
+    o.sayName = function(){
+        alert(this.name);
+    };
+    return o;
+}
+
+var person1 = createPerson("james"，9，"student");
+
+var person2 = createPerson("kobe"，9，"student");
+```
+
+### 构造函数模式
+
+```js
+function createPerson(name, age, job){
+    this.name = name;
+    this.age = age;
+    this.job = job;
+    this.sayName = function(){
+        alert(this.name);
+    };
+    return o;
+}
+
+var person1 = new createPerson("james"，9，"student");
+
+var person2 = new createPerson("kobe"，9，"student");
+```
+
+解决了工厂模式中对象类型无法识别的问题，并且创建自定义的构造函数意味着将来可以将它的实例标识为一种特定的类型。
+
+在使用构造函数创建对象时，每个方法都会在实例对象中重新创建一遍。拿上面的例子举例，这意味着每创建一个对象，我们就会创建一个 sayName 函数的实例，但它们其实做的都是同样的工作，因此这样便会造成内存的浪费。
+
+### 原型模式
+
+```js
+function Person(){
+
+}
+
+Person.prototype.name = "james";
+Person.prototype.age = 9;
+Person.prototype.job = "student";
+Person.prototype.sayName = function(){
+    alert(this.name);
+}
+
+var person1 = new Person();
+person1.sayName(); // "james"
+
+var person2 = new Person();
+person2.sayName(); // "james"
+
+
+console.log(person1.sayName === person2.sayName) // true
+```
+
+我们通过使用原型对象可以让所有的对象实例共享它所包含的属性和方法，因此这样也解决了代码的复用问题
+
+解决了构造函数模式中多次创建相同函数对象的问题，所有的实例可以共享同一组属性和函数。
+
+首先第一个问题是原型模式省略了构造函数模式传递初始化参数的过程，所有的实例在默认情况下都会取得默认的属性值，会在一定程度上造成不方便。
+
+### 组合使用构造函数模式和原型模式
+
+```js
+function Person(name, age, job){
+    this.name = name;
+    this.age = age;
+    this.job = job;
+}
+
+Person.prototype = {
+    constructor: Person,
+    sayName: function(){
+        alert(this.name);
+    }
+}
+
+var person1 = new createPerson("james"，9，"student");
+
+var person2 = new createPerson("kobe"，9，"student");
+
+console.log(person1.name); // "james"
+console.log(person2.name); // "kobe"
+console.log(person1.sayName === person2.sayName); // true
+```
+
+构造函数模式用于定义实例属性，而原型模式用于定义方法和共享的属性
+
+使用这种模式的好处就是，每个实例都会拥有自己的一份实例属性的副本，但同时又共享着对方法的引用，最大限度地节省了内存。而且这中混成模式还支持向构造函数传递参数
+
+由于使用了两种模式，因此对于代码的封装性来说不是很好。
+
+### 动态原型模式
+
+```js
+function Person(name, age, job){
+    this.name = name;
+    this.age = age;
+    this.job = job;
+
+    if(typeof this.sayName !== "function" ){
+
+        Person.prototype.sayName: function(){
+            alert(this.name);
+        }
+    }
+}
+
+var person1 = new createPerson("james"，9，"student");
+
+person1.sayName(); // "james"
+```
+
+### 寄生构造函数模式
+
+```js
+function Person(name, age, job){
+    var o = new Object();
+    o.name = name;
+    o.age = age;
+    o.job = job;
+    o.sayName = function(){
+        alert(this.name);
+    };
+    return o;
+}
+
+var person1 = new Person("james"，9，"student");
+```
+
+## js实现继承
+
+<http://cavszhouyou.top/JavaScript%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E4%B9%8B%E7%BB%A7%E6%89%BF.html>
+
+### 原型链
+
+### 借用构造函数
+
+### 组合继承  (原型链 和 借用构造函数共同构成)
+
+```js
 function SuperType( name){
     this. name = name;
     this. colors = ["red", "blue", "green"];
@@ -234,10 +450,15 @@ var instance2 = new SubType(" Greg", 27);
 alert( instance2. colors); //"red, blue, green"
 instance2. sayName(); //"Greg";
 instance2. sayAge(); //27
+```
 
+### 原型式继承
 
+### 寄生式继承
 
-//*******************************寄生组合式继承
+### 寄生组合式继承
+
+```js
 function object( o){
     function F(){}
     F. prototype = o;
@@ -268,7 +489,7 @@ SubType.prototype.sayAge = function(){
 
 ```
 
-## 模块化
+## js实现模块化
 
 ```js
 //*********************************** 基本模块
@@ -363,79 +584,4 @@ foo. awesome(); // LET ME INTRODUCE: HIPPO
 
 ```
 
-## 面向对象
 
-- 多态
-
-javascript是动态类型语言
-
-同一操作作用于不同的对象上面，可以产生不同的解释和不同的执行结果。换句话说，给不同的对象发送同一个消息的时候，这些对象会根据这个消息分别给出不同的反馈。
-
-多态背后的思想是将“做什么”和“谁去做以及怎样去做”分离开来，也就是将“不变的事物”与“可能改变的事物”分离开来。
-
-静态 类型 的 面向 对象 语言 通常 被 设计 为 可以 **向上转型**
-
-多 态 的 思想 实际上 是把“ 做 什么” 和“ 谁 去做” 分离 开来， 要 实现 这一点， 归根结底 先要 消除 类型 之间 的 耦合 关系。
-
-多 态 的 最 根本 好处 在于， 你 不必 再向 对象 询问“ 你是 什么 类型” 而后 根据 得到 的 答案 调用 对象 的 某个 行为—— 你 只管 调用 该 行为 就是 了， 其他 的 一切 多 态 机制 都会 为你 安排 妥当。  
-----Martin Fowler 《重构：改善既有的代码设计》
-
-多 态 最 根本 的 作用 就是 通过 把 过程 化 的 条件 分支 语句 转化 为 对象 的 多 态 性， 从而 消除 这些 条件 分支 语句。
-
-面向对象相关思想: 通过 对 封装、 继承、 多 态、 组合 等 技术 的 反复 使用， 提炼 出 一些 可 重复 使用 的 面向 对象 设计 技巧。 而 多 态 在其中 又是 重 中 之 重， 绝大部分 设计 模式 的 实现 都 离不开 多 态 性的 思想。
-
-- 封装
-
-封装 的 目的 是将 信息 隐藏。 一般而言， 我们 讨论 的 封装 是 封装 数据 和 封装 实现。  更 广义 的 封装: 不仅 包括 封装 数据 和 封装 实现， 还包括 封装 类型 和 封装 变化。
-
-封装数据：私有数据，公有方法
-方式：闭包方式 ， Symbol
-
-- 原型设计模式（js）
-
-js是基于原型的继承 区别与 类和对象 的面向对象系统；  
-ES5 Object.creat(),是实现clone，新的对象基于对象去clone；
-JavaScript基于原型的面向对象系统参考了Self语言和Smalltalk语言；  
-基于原型链的委托机制就是原型继承的本质。
-
-原型编程范型的基本规则:  
-所有 的 数据 都是 对象。  
-要得 到 一个 对象， 不是 通过 实例 化 类， 而是 找到 一个 对象 作为 原型 并 克隆 它。  
-对象 会 记住 它的 原型。  
- 如果 对象 无法 响应 某个 请求， 它 会把 这个 请求 委托 给 它自己 的 原型。
-
-经测试
-
-```js
-Object.__proto__ === Function.__proto__
-// true
-```
-
-js中的原型实现：  
-从Object.prototype克隆
-
-JavaScript 的 函数 既可以 作为 普通 函数 被 调用， 也可以 作为 构造 器（new） 被 调用。  
-
-```js
-// 执行下面 可以让obj的原型指向Constructor.prototype原型，
-// 而不是本来的Object.prototype
-obj.__ proto__ = Constructor.prototype;
-// js常用的原型继承
-var obj={
-  name:'a'
-}
-var A=function(){
-
-}
-A.prototype=Obj;
-
-var a= new A();
-a.name;
-// 例子中a.name的查找过程
-// a属性没有 -> a.__proto__记录有原型指向A.prototype -> A.prototype被设置为obj -> obj
-// 如果没找到会继续查找
-// -> Object.prototype -> 找不到就是返回undefined
-
-```
-
-ES6的class也是基于原型链实现的

@@ -15,6 +15,8 @@
 - [ToString](#ToString)
 - [ToNumber](#ToNumber)
 - [ToBoolean](#ToBoolean)
+- [DOM 和 BOM](#DOM-和-BOM)
+- [严格模式](#严格模式)
 
 ## 技巧
 
@@ -129,6 +131,8 @@ window.crypto.getRandomValues(array);
 return array.join("");
 ```
 
+生成随机数的方法：<https://www.hangge.com/blog/cache/detail_1872.html>
+
 ## Service worker
 
 <https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API>
@@ -241,3 +245,47 @@ ES5 规范 9.2 节中定义了抽象操作 ToBoolean，列举了布尔强制类�
 • ""
 
 假值的布尔强制类型转换结果为 false。从逻辑上说，假值列表以外的都应该是真值。
+
+## DOM 和 BOM
+
+DOM 指的是文档对象模型，它指的是把文档当做一个对象来对待，这个对象主要定义了处理网页内容的方法和接口。
+
+BOM 指的是浏览器对象模型，它指的是把浏览器当做一个对象来对待，这个对象主要定义了与浏览器进行交互的法和接口。BOM的核心是 window，而 window 对象具有双重角色，它既是通过 js 访问浏览器窗口的一个接口，又是一个 Global（全局）对象。这意味着在网页中定义的任何对象，变量和函数，都作为全局对象的一个属性或者方法存在。window 对象含有 location 对象、navigator 对象、screen 对象等子对象，并且 DOM 的最根本的对象 document 对象也是 BOM 的 window 对象的子对象。
+
+## 严格模式
+
+<https://www.ruanyifeng.com/blog/2013/01/javascript_strict_mode.html>
+
+use strict 是一种 ECMAscript5 添加的（严格）运行模式，这种模式使得 Javascript 在更严格的条件下运行。
+
+严格模式的目的：
+
+消除 Javascript 语法的一些不合理、不严谨之处，减少一些怪异行为;
+
+消除代码运行的一些不安全之处，保证代码运行的安全；
+
+提高编译器效率，增加运行速度；
+
+为未来新版本的 Javascript 做好铺垫。
+
+## js 延迟加载的方式
+
+js 延迟加载，也就是等页面加载完成之后再加载 JavaScript 文件。 js 延迟加载有助于提高页面加载速度。
+
+一般有以下几种方式：
+
+defer 属性
+async 属性
+动态创建 DOM 方式
+使用 setTimeout 延迟方法
+让 JS 最后加载
+
+## defer async
+
+<https://juejin.im/post/59c60691518825396f4f71a1>
+
+（1）脚本没有 defer 或 async，浏览器会立即加载并执行指定的脚本，也就是说不等待后续载入的文档元素，读到就加载并执行。
+
+（2）defer 属性表示延迟执行引入的 JavaScript，即这段 JavaScript 加载时 HTML 并未停止解析，这两个过程是并行的。当整个 document 解析完毕后再执行脚本文件，在DOMContentLoaded 事件触发之前完成。多个脚本按顺序执行。
+
+（3）async 属性表示异步执行引入的 JavaScript，与 defer 的区别在于，如果已经加载好，就会开始执行，也就是说它的执行仍然会阻塞文档的解析，只是它的加载过程不会阻塞。多个脚本的执行顺序无法保证。
