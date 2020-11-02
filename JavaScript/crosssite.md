@@ -1,19 +1,21 @@
-## 跨域
+# 跨域
+
+<https://segmentfault.com/a/1190000011145364>
 
 <https://segmentfault.com/a/1190000011145364>  
 <https://www.zhihu.com/topic/19612046/top-answers>
 
-**同源策略：**
+## 同源策略
 
 协议+端口号+域名要相同
+
+一个域下的 js 脚本在未经允许的情况下，不能够访问另一个域的内容。这里的同源的指的是两个域的协议、域名、端口号必须相同，否则则不属于同一个域。
 
 1. Cookie、LocalStorage 和 IndexDB 无法读取  
 2. DOM 和 Js对象无法获得  
 3. AJAX 请求不能发送  
 
-方法:
-
-### 1. CORS
+## 跨域请求：CORS
 
 (Cross-Origin Resource Sharing) 跨域资源共享
 
@@ -21,11 +23,13 @@
 
 <https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Access_control_CORS>
 
-整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。
+整个CORS通信过程，都是浏览器自动完成，不需要用户参与。对于开发者来说，CORS通信与同源的AJAX通信没有差别，代码完全一样。
+
+浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。
 
 因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。
 
-**简单请求:**
+### 简单请求
 
 只要同时满足以下两大条件，就属于简单请求。
 
@@ -73,10 +77,11 @@ xhr.withCredentials = true;
 
 需要注意的是，如果要发送Cookie，Access-Control-Allow-Origin就不能设为星号，必须指定明确的、与请求网页一致的域名。同时，Cookie依然遵循同源政策，只有用服务器域名设置的Cookie才会上传，其他域名的Cookie并不会上传，且（跨源）原网页代码中的document.cookie也无法读取服务器域名下的Cookie。
 
-**非简单请求**
+### 非简单请求
 
 method：不是简单请求中的一种  
 Content-Type：不是简单请求中的一种  
+
 浏览器先发送option， Preflighted requests请求
 
 服务器收到"预检"请求以后，检查了Origin、Access-Control-Request-Method和Access-Control-Request-Headers字段以后，确认允许跨源请求，就可以做出回应。
@@ -95,9 +100,9 @@ Access-Control-Allow-Methods: GET, POST, PUT, DELETE
 Content-Type: text/html
 ```
 
-### 2. JSONP
+## 跨域请求：JSONP
 
-**JSONP只支持GET请求**
+JSONP只支持GET请求
 
 js 文件不受浏览器同源策略的影响，所以通过 Script 便签可以进行跨域的请求
 
@@ -138,13 +143,7 @@ onBack({"status": true, "user": "admin"})
 它支持 GET 请求而不支持 POST 等其它类行的 HTTP 请求。  
 它只支持跨域 HTTP 请求这种情况，不能解决不同域的两个页面或 iframe 之间进行数据通信的问题
 
-### 3. document.domain
-
-该方式只能用于二级域名相同的情况下，比如 a.test.com 和 b.test.com 适用于该方式。
-
-只需要给页面添加 document.domain = 'test.com' 表示二级域名都相同就可以实现跨域
-
-### 4. 代理
+## 跨域请求：代理
 
 ```sh
 server{
@@ -180,49 +179,27 @@ server {
 }
 ```
 
-### 5. iframe form   待定
+## document.domain
 
-没有返回值
-创建form，提交到后端地址 ， 添加到创建的iframe ，submit form
+实现主域名下的不同子域名的跨域操作，我们可以使用设置 document.domain
 
-```javascript
-const requestPost = ({url, data}) => {
-  // 首先创建一个用来发送数据的iframe.
-  const iframe = document.createElement('iframe')
-  iframe.name = 'iframePost'
-  iframe.style.display = 'none'
-  document.body.appendChild(iframe)
-  // 注册iframe的load事件处理程序,如果你需要在响应返回时执行一些操作的话.
-  iframe.addEventListener('load', function () {
-    console.log('post success')
-  })
+只能用于二级域名相同的情况下，比如 a.test.com 和 b.test.com 适用于该方式。
 
-  const form = document.createElement('form')
-  form.action = url
-  // 在指定的iframe中执行form
-  form.target = iframe.name
-  form.method = 'post'
+只需要给页面添加 document.domain = 'test.com' 表示二级域名都相同就可以实现跨域
 
-  const node = document.createElement('input')
-  for (let name in data) {
-    node.name = name
-    node.value = data[name].toString()
-    form.appendChild(node.cloneNode())
-  }
+## Websocket
 
-  // 表单元素需要添加到主文档中.
-  form.style.display = 'none'
-  document.body.appendChild(form)
-  form.submit()
+WebSocket protocol是HTML5一种新的协议。它实现了浏览器与服务器全双工通信，同时允许跨域通讯，是server push技术的一种很好的实现。
 
-  // 表单提交后,就可以删除这个表单,不影响下次的数据发送.
-  document.body.removeChild(form)
-}
-// 使用方式
-requestPost({
-  url: 'http://localhost:9871/api/iframePost',
-  data: {
-    msg: 'helloIframePost'
-  }
-})
-```
+原生WebSocket API使用起来不太方便，我们使用Socket.io，它很好地封装了webSocket接口，提供了更简单、灵活的接口，也对不支持webSocket的浏览器提供了向下兼容。
+
+## postMessage
+
+a.） 页面和其打开的新窗口的数据传递
+b.） 多窗口之间消息传递
+c.） 页面与嵌套的iframe消息传递
+d.） 上面三个场景的跨域数据传递
+
+## location.hash + iframe
+
+## window.name + iframe

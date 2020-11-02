@@ -65,3 +65,13 @@ send类型:File,ArrayBuffer, Blob
 "document"  
 "json"  
 "text"  
+
+## Ajax解决浏览器缓存
+
+1.在 ajax 发送请求前加上 anyAjaxObj.setRequestHeader("If-Modified-Since","0")。
+
+2.在 ajax 发送请求前加上 anyAjaxObj.setRequestHeader("Cache-Control","no-cache")。
+
+3.在 URL 后面加上一个随机数： "fresh=" + Math.random();。
+
+4.在 URL 后面加上时间戳："nowtime=" + new Date().getTime();
