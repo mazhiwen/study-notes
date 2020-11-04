@@ -59,9 +59,12 @@ window.onload = () => {
     'http://localhost:8081',
   );
 };
+
 //子页面发送
 window.parent.postMessage()
 // 监听
+
+
 window.addEventListener('message',(event)=>{
   if(event.origin !== new URL('url').origin)
         return;

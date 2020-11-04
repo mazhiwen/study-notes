@@ -161,6 +161,8 @@ prototype是保存引用类型对象的所有实例方法的真正所在
 
 ### call()和apply()
 
+<https://juejin.im/entry/6844903470672117774>
+
 apply和call的用途都是在特定的作用于中调用函数，就是设置函数体内this对象的值
 
 区别仅是传入参数不同
@@ -193,6 +195,12 @@ call()接受的是若干个参数的列表
 ```js
 // 把fun内的this指向thisArg;
 fun.call(thisArg, arg1, arg2, argn);
+
+
+var func = function( a, b, c ){
+    console.log([a,b,c]); //输出:[1,2,3]
+};
+func.call( null, 1, 2, 3 );
 ```
 
 ### apply()
@@ -202,6 +210,13 @@ apply()接受的是一个包含多个参数的数组。
 ```js
 // 第二个参数： 是参数数组,可以是Array的实例，也可以是arguments对象
 fun.apply(thisArg, [argsArray])
+
+
+var func = function( a, b, c ){
+    console.log([a,b,c]); //输出:[1,2,3]
+};
+func.apply( null, [ 1, 2, 3 ] );
+
 ```
 
 ### bind()

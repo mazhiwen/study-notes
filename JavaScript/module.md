@@ -74,43 +74,31 @@ org.CoolSite.Utils.each = function (arr) {
 
 ## CommonJS
 
-同步加载；服务器端（node）；浏览器端，模块需要提前编译打包处理（browserify打包运行）。
+同步加载
+
+Node.js是commonJS规范的主要实践者
+
+webpck也是commonjs规范
+
+有四个重要的环境变量为模块化的实现提供支持：module、exports、require、global
+
+服务器端（node）；浏览器端，模块需要提前编译打包处理（browserify打包运行）。
 
 require命令的基本功能是，读入并执行一个JavaScript文件，然后返回该模块的exports对象
 
-### 特点
+```
+特点：
 
 所有代码都运行在模块作用域，不会污染全局作用域。
 
 模块可以多次加载，但是只会在第一次加载时运行一次，然后运行结果就被缓存了，以后再加载，就直接读取缓存结果。要想让模块再次运行，必须清除缓存。
 
 模块加载的顺序，按照其在代码中出现的顺序。
-
-### 加载机制
-
-CommonJS模块的加载机制是，输入的是被输出的值的拷贝。也就是说，一旦输出一个值，模块内部的变化就影响不到这个值。
-
-```js
-// lib.js
-var counter = 3;
-function incCounter() {
-  counter++;
-}
-module.exports = {
-  counter: counter,
-  incCounter: incCounter,
-};
-
-// main.js
-var counter = require('./lib').counter;
-var incCounter = require('./lib').incCounter;
-
-console.log(counter);  // 3
-incCounter();
-console.log(counter); // 3
 ```
 
-### 实现
+```
+缺点：同步的模块加载方式不适合在浏览器环境中，同步意味着阻塞加载，浏览器资源是异步加载的。不能非阻塞的并行加载多个模块
+```
 
 ```
 module.exports = value 或者 exports.xxx = value
@@ -138,13 +126,43 @@ var http = require('http');
 http.createService(...).listen(3000);
 ```
 
+加载机制：CommonJS模块的加载机制是，输入的是被输出的值的拷贝。也就是说，一旦输出一个值，模块内部的变化就影响不到这个值。
+
+```js
+// lib.js
+var counter = 3;
+function incCounter() {
+  counter++;
+}
+module.exports = {
+  counter: counter,
+  incCounter: incCounter,
+};
+
+// main.js
+var counter = require('./lib').counter;
+var incCounter = require('./lib').incCounter;
+
+console.log(counter);  // 3
+incCounter();
+console.log(counter); // 3
+```
+
 ## AMD
 
-异步加载 ; 依赖前置,提前执行
+异步加载
+
+对于依赖的模块，AMD推崇依赖前置，提前执行。也就是说，在define方法里传入的依赖模块(数组)，会在一开始就下载并执行。
 
 require.js：异步方式加载模块。所有依赖这个模块的语句，都定义在一个回调函数中，等到加载完成之后，这个回调函数才会运行。
 
 require.js在申明依赖的模块时会在第一之间加载并执行模块内的代码
+
+```
+优点：
+适合在浏览器环境中异步加载模块
+可以并行加载多个模块
+```
 
 ```js
 define(["a", "b", "c", "d", "e", "f"], function(a, b, c, d, e, f) {
@@ -190,23 +208,39 @@ require(["jquery","underscore"],function($,_){
 
 ## CMD
 
-异步加载; 懒执行,依赖就近,延迟执行
+异步加载;
+
+懒执行
+
+对于依赖的模块，CMD推崇依赖就近，延迟执行。也就是说，只有到require时依赖模块才执行。
 
 sea.js:
 
 ```js
 /** CMD写法 **/
+//a.js
+/*
+* define 接受 factory 参数，factory 可以是一个函数，也可以是一个对象或字符串，
+* factory 为对象、字符串时，表示模块的接口就是该对象、字符串。
+* define 也可以接受两个以上参数。字符串 id 表示模块标识，数组 deps 是模块依赖.
+*/
 define(function(require, exports, module) {
-    var a = require('./a'); //在需要时申明
-    a.doSomething();
-    if (false) {
-        var b = require('./b');
-        b.doSomething();
-    }
+  var $ = require('jquery');
+
+  exports.setColor = function() {
+    $('body').css('color','#333');
+  };
 });
+
+//b.js
+//数组中声明需要加载的模块，可以是模块名、js文件路径
+seajs.use(['a'], function(a) {
+  $('#el').click(a.setColor);
+});
+
 ```
 
-## ES6
+## ES6 Module
 
 需要预编译。import 是预先解析、预先加载的，不像 RequireJS 等是执行到点了再发一个请求。无法实现条件加载
 
@@ -216,13 +250,17 @@ define(function(require, exports, module) {
 
 浏览器端使用babel将es6编译为es5，或者browserify编译
 
-### es6与commonjs区别
+## es6 module 对比 CommonJS 模块、AMD、CMD
 
-- CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。
+1. CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。
 
-- CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
+CommonJS 模块输出的是值的拷贝，也就是说，一旦输出一个值，模块内部的变化就影响不到这个值。ES6 模块的运行机制与 CommonJS 不一样。JS 引擎对脚本静态分析的时候，遇到模块加载命令 import，就会生成一个只读引用。等到脚本真正执行时，再根据这个只读引用，到被加载的那个模块里面去取值。
 
-### es6相对于amd cmd的好处
+2. CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
+
+CommonJS 模块就是对象，即在输入时是先加载整个模块，生成一个对象，然后再从这个对象上面读取方法，这种加载称为“运行时加载”。而 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成。
+
+## es6 相对于 amd cmd的好处
 
 - 静态 import 能确保被编译成变量引用：这些引用在当前执行环境运行时能被解析器（通过 JIT 编译 polymorphic inline cache）优化，执行更有效率
 
@@ -231,3 +269,42 @@ define(function(require, exports, module) {
 - 更完备的循环依赖处理：在 Node.js 等已有的 CommonJS 实现中，循环依赖是通过传递未完成的 exports 对象解决的，对于直接引用 exports.foo 或者父模块覆盖 module.exports 的情况，传统方式无从解决，而因为 ES Module 传递的是引用，便不会有这些问题
 
 - 其他还有对未来可能新增的标准（宏、类型系统等）更兼容等。
+
+## amd 对比 cmd
+
+（1）第一个方面是在模块定义时对依赖的处理不同。AMD 推崇依赖前置，在定义模块的时候就要声明其依赖的模块。而 CMD 推崇 就近依赖，只有在用到某个模块的时候再去 require。
+
+（2）第二个方面是对依赖模块的执行时机处理不同。首先 AMD 和 CMD 对于模块的加载方式都是异步加载，不过它们的区别在于 模块的执行时机，AMD 在依赖模块加载完成后就直接执行依赖模块，依赖模块的执行顺序和我们书写的顺序不一定一致。而 CMD 在依赖模块加载完成后并不执行，只是下载而已，等到所有的依赖模块都加载好后，进入回调函数逻辑，遇到 require 语句 的时候才执行对应的模块，这样模块的执行顺序就和我们书写的顺序保持一致了。
+
+## 几种模块化对比点
+
+差异点：
+
+输出值类型
+
+加载时机：运行时，编译时
+
+加载方式：同步加载，异步并行加载
+
+模块执行时机，顺序
+
+## webpack
+
+webpack中将静态资源文件称之为模块。
+
+webpack是一个module bundler(模块打包工具)，其可以兼容多种js书写规范，且可以处理模块间的依赖关系，具有更强大的js模块化的功能。Webpack对它们进行统 一的管理以及打包发布
+
+```
+1. 对 CommonJS 、 AMD 、ES6的语法做了兼容
+2. 对js、css、图片等资源文件都支持打包
+3. 串联式模块加载器以及插件机制，让其具有更好的灵活性和扩展性，例如提供对CoffeeScript、ES6的支持
+4. 有独立的配置文件webpack.config.js
+5. 可以将代码切割成不同的chunk，实现按需加载，降低了初始化时间
+6. 支持 SourceUrls 和 SourceMaps，易于调试
+7. 具有强大的Plugin接口，大多是内部插件，使用起来比较灵活
+8. webpack 使用异步 IO 并具有多级缓存。这使得 webpack 很快且在增量编译上更加快
+```
+
+## requireJS 的核心原理是什么
+
+require.js 的核心原理是通过动态创建 script 脚本来异步引入模块，然后对每个脚本的 load 事件进行监听，如果每个脚本都加载完成了，再调用回调函数。

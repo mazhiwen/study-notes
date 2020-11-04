@@ -68,6 +68,7 @@
   - [富文本编辑器开发原理](./JavaScript/editor.md)
   - [模块化规范](./JavaScript/module.md)
   - [前端鉴权](./JavaScript/auth.md)
+  - [cookie](./JavaScript/cookie.md)
 - [html](./html)
   - [html5](./html/html5.md)
   - [离线缓存](./html/mainfest.md)

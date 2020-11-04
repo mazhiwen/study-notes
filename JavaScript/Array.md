@@ -122,12 +122,15 @@ array.sort(function compareFunction(a, b) {
 });
 ```
 
-## array.concat *
+## array.concat
 
 // 将数组和/或值连接成新数组
 // 此方法不会更改现有数组，而是返回一个新数组
 // 参数可以是 array , 或者 value
+
+```js
 array.concat(value1,value2,valuen);
+```
 
 ## array.includes*
 
@@ -188,3 +191,7 @@ console.log(elements.join('-'));
 ## array.push()
 
 push(itema, itemb) 方法将一个或多个元素添加到数组的末尾，并返回该数组的新长度。
+
+## 类数组对象
+
+一个拥有 length 属性和若干索引属性的对象就可以被称为类数组对象，类数组对象和数组类似，但是不能调用数组的方法。

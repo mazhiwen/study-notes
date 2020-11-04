@@ -5,7 +5,6 @@
 - [in运算符](#in运算符)
 - [深浅拷贝](#深浅拷贝)
 - [定时器](#定时器)
-- [cookie](#cookie)
 - [Error](#Error)
 - [Reflect](#Reflect)
 - [typed&nbsp;arrays](#typed&nbsp;arrays)
@@ -96,8 +95,6 @@ function deepCopy(obj) {
 ### 浅拷贝
 
 1.resObject = Object.assign(target,origina,originb,...)
-
-## cookie
 
 ## Error
 
@@ -289,5 +286,3 @@ async 属性
 （2）defer 属性表示延迟执行引入的 JavaScript，即这段 JavaScript 加载时 HTML 并未停止解析，这两个过程是并行的。当整个 document 解析完毕后再执行脚本文件，在DOMContentLoaded 事件触发之前完成。多个脚本按顺序执行。
 
 （3）async 属性表示异步执行引入的 JavaScript，与 defer 的区别在于，如果已经加载好，就会开始执行，也就是说它的执行仍然会阻塞文档的解析，只是它的加载过程不会阻塞。多个脚本的执行顺序无法保证。
-
-
