@@ -52,6 +52,7 @@
   - [set](./JavaScript/set.md)
   - [promise](./JavaScript/promise.md)
   - [es6-module](./JavaScript/es6module.md)
+  - [class](./JavaScript/class.md)
   - [async/await](./JavaScript/async.md)
   - [Math](./JavaScript/math.md)
   - [运算符](./JavaScript/operator.md)
