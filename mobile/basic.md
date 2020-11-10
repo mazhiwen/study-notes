@@ -2,13 +2,11 @@
 
 移动端的一些技巧
 
-## 目录
-
 ***
 
 <http://caibaojian.com/mobile-knowledge.html>
 
-#### viewport模版
+## viewport模版
 
 ```html
 <!DOCTYPE html>
@@ -33,7 +31,7 @@
 </html>
 ```
 
-#### font-family
+## font-family
 
 中文字体使用系统默认即可，英文用Helvetica
 
@@ -41,7 +39,7 @@
 body{font-family:Helvetica;}
 ```
 
-#### font-size
+## font-size
 
 需要兼容分辨率差别大的设备时，使用rem
 
@@ -60,7 +58,7 @@ html{font-size:10px}
 @media screen and (min-width:800px){html{font-size:25px}}
 ```
 
-#### touch事件
+## touch事件
 
 当用户手指放在移动设备在屏幕上滑动会触发的touch事件
 
@@ -106,7 +104,7 @@ onclick
 
 2. zepto的touch模块，tap事件也是为了解决在click的延迟问题
 
-#### Retina现实屏
+## Retina现实屏
 
 - retina：一种具备超高像素密度的液晶屏，同样大小的屏幕上显示的像素点由1个变为多个，如在同样带下的屏幕上，苹果设备的retina显示屏中，像素点1个变为4个
 
@@ -117,7 +115,7 @@ onclick
 设计稿切出来的图片长宽保证为偶数，并使用backgroud-size把图片缩小为原来的1/2。
 其它元素的取值为原来的1/2，例如视觉稿40px的字体，使用样式的写法为20px
 
-#### 其他技巧
+## 其他技巧
 
 - ios系统中元素被触摸时产生的半透明灰色遮罩怎么去掉
 
@@ -220,7 +218,7 @@ display: none;
 <a href="sms:10086">发短信给: 10086</a>
 ```
 
-#### 屏幕旋转的事件和样式
+## 屏幕旋转的事件和样式
 
 - 事件
 
@@ -254,7 +252,7 @@ window.onorientationchange = function(){
 }
 ```
 
-#### audio元素和video元素在ios和andriod中无法自动播放
+## audio元素和video元素在ios和andriod中无法自动播放
 
 应对方案：触屏即播
 
@@ -264,11 +262,11 @@ $('html').one('touchstart',function(){
 })
 ```
 
-#### 摇一摇功能
+## 摇一摇功能
 
 HTML5 deviceMotion：封装了运动传感器数据的事件，可以获取手机运动状态下的运动加速度等数据。
 
-#### 手机拍照和上传图片
+## 手机拍照和上传图片
 
 ```html
 <input type=”file”>的accept 属性
@@ -289,7 +287,7 @@ winphone不支持
 
 input控件默认外观丑陋
 
-#### 微信浏览器用户调整字体大小后页面矬了，怎么阻止用户调整
+## 微信浏览器用户调整字体大小后页面矬了，怎么阻止用户调整
 
 - 原因
 
@@ -336,19 +334,19 @@ body{-webkit-text-size-adjust: 100%!important;}
 
 整个页面用rem或者百分比布局
 
-#### 取消input在ios下，输入的时候英文首字母的默认大写
+## 取消input在ios下，输入的时候英文首字母的默认大写
 
 ```html
 <input autocapitalize="off" autocorrect="off" />
 ```
 
-#### android 上去掉语音输入按钮
+## android 上去掉语音输入按钮
 
 ```css
 input::-webkit-input-speech-button {display: none}
 ```
 
-#### android 2.3 bug
+## android 2.3 bug
 
 @-webkit-keyframes 需要以0%开始100%结束，0%的百分号不能去掉
 
@@ -358,7 +356,7 @@ border-radius不支持%单位
 
 translate百分比的写法和scale在一起会导致失效，例如-webkit-transform: translate(-50%,-50%) scale(-0.5, 1)
 
-#### android 4.x bug
+## android 4.x bug
 
 三星 Galaxy S4中自带浏览器不支持border-radius缩写
 
@@ -368,14 +366,14 @@ translate百分比的写法和scale在一起会导致失效，例如-webkit-tran
 
 android无法同时播放多音频audio
 
-#### 设计高性能css3动画的几个要素
+## 设计高性能css3动画的几个要素
 
 - 尽可能地使用合成属性transform和opacity来设计CSS3动画，不使用position的left和top来定位
 
 - 利用translate3D开启GPU加速
 参考《High Performance Animations》
 
-#### fixed bug
+## fixed bug
 
 - ios下fixed元素容易定位出错，软键盘弹出时，影响fixed元素定位
 - android下fixed表现要比iOS更好，软键盘弹出时，不会影响fixed元素定位
@@ -395,7 +393,7 @@ winphone下默认触摸事件事件使用e.preventDefault是无效的
 html{-ms-touch-action: none;}/* 禁止winphone默认触摸事件 */
 ```
 
-#### 播放视频不全屏
+## 播放视频不全屏
 
 ```html
 <!--
@@ -408,7 +406,7 @@ webkit-playsinline="true"
 <video x-webkit-airplay="true" webkit-playsinline="true" preload="auto" autoplay src="http://"></video>
 ```
 
-#### flex布局
+## flex布局
 
 flex布局目前可使用在移动中，并非所有的语法都全兼容，但以下写法笔者实践过，效果良好~
 
@@ -430,7 +428,7 @@ flex-pack-justify：子元素两端对齐
 .flex-pack-justify{-webkit-box-pack:justify;-webkit-justify-content:space-between;-ms-flex-pack:justify;justify-content:space-between;}
 ```
 
-### 常用的移动端框架
+## 常用的移动端框架
 
 - zepto.js
 
@@ -444,7 +442,7 @@ flex-pack-justify：子元素两端对齐
 
 该库提供了一整套函数式编程的实用功能，但是没有扩展任何JavaScript内置对象。
 
-### 滑屏框架
+## 滑屏框架
 
 适合上下滑屏、左右滑屏等滑屏切换页面的效果
 
@@ -453,3 +451,13 @@ slip.js
 iSlider.js
 
 fullpage.js
+
+## 移动端的点击事件的有延迟
+
+移动端点击有 300ms 的延迟是因为移动端会有双击缩放的这个操作，因此浏览器在 click 之后要等待 300ms，看用户有没有下一次点击，来判断这次操作是不是双击。
+
+有三种办法来解决这个问题：
+
+1.通过 meta 标签禁用网页的缩放。
+2.通过 meta 标签将网页的 viewport 设置为 ideal viewport。
+3.调用一些 js 库，比如 FastClick
