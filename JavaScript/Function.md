@@ -399,6 +399,10 @@ func();
 
 ### 函数柯里化
 
+<https://github.com/mqyqingfeng/Blog/issues/42>
+
+<https://juejin.im/post/6844903645222273037>
+
 > 简单来说柯里化就是把一个多参函数转换成接受单参的一系列函数
 
 下一个函数的参数是上一个函数的结果
@@ -409,31 +413,13 @@ func();
 
 内部函数 和 外部函数的 组合
 
-currying又称部分求值。一个currying的函数首先会接受一些参数，接受了这些参数之后，该函数并不会立即求值，而是继续返回另外一个函数，刚才传入的参数在函数形成的闭包中被保存起来。待到函数被真正需要求值的时候，之前传入的所有参数都会被一次性用于求值。  
+currying又称部分求值。一个currying的函数首先会接受一些参数，接受了这些参数之后，该函数并不会立即求值，而是继续返回另外一个函数，刚才传入的参数在函数形成的闭包中被保存起来。待到函数被真正需要求值的时候，之前传入的所有参数都会被一次性用于求值。
+
 每次进行数据push，最后一次性计算，返回
 
-**基本实现逻辑:**
+实现逻辑：记忆传入参数 和 判断触发函数执行条件
 
-```js
-function add(num1, num2) {
-  return num1 + num2;
-}
-//柯里化
-function curry(fn) {
-  var args = Array.prototype.slice.call(arguments, 1); //外函数arguments
-  //返回柯里化
-  return function () {
-    var innerArgs = Array.prototype.slice.call(arguments); //内函数arguments
-    var finalArgs = args.concat(innerArgs);
-    return fn.apply(null, finalArgs);
-  };
-}
-//应用以上
-var curriedAdd = curry(add, 5); //参数为5的add柯里化
-curriedAdd(3); //8
-```
-
-**实现**
+**实现一 :存储参数**
 
 ```js
 
@@ -474,67 +460,48 @@ cost( 300 ); // 未 真正 求值
 alert ( cost() ); // 求值 并 输出： 600
 ```
 
-**立即执行函数 实现:**
+**柯里化实现二**
 
 ```js
-//另外一种思路
-// countMoney为立即执行函数，返回的结果是另一个函数
-const countMoney = (function () {
-  let money = 0
-  let args = [] //闭包参数
-  return function loop(){
-    if (arguments.length === 0) {
-      for (let i = 0; i < args.length; i++) {
-        money += args[i]
-      }
-      console.log(money);
-      return money
-    } else {
-      // arguments 是类数组，应该用展开符展开才能push进去
-      args.push(...arguments)
-      return loop //闭包函数,返回递归
-    }
-  }
-})()
-// 注意：countMoney会立即执行上面，并且返回res 一个函数
-// 执行countMoney(1)时，相当于执行res(1)
-// 2018-01-01 存了1毛钱
-countMoney(1)
-// 2018-01-02 存了2毛钱
-countMoney(2)
-// 2018-01-03 存了3毛钱
-countMoney(3)
-// 2018-01-04 存了4毛钱
-countMoney(4)
-//一年以后
-// 统计这笔巨额存款 输出结果为 10
-console.log(countMoney())
-// 你还可以装逼地进行花式统计，结果同样是10
-countMoney(1)(2)(3)(4)()
-```
+function curry(fn, args) {
+    var length = fn.length;
 
-**柯里化工具函数 实现**
+    args = args || [];
 
-```js
-function currying(fn){
-  var allArgs = [];
-  return function next(){
-    var args = [].slice.call(arguments);
-    if(args.length > 0){
-      allArgs = allArgs.concat(args);
-      return next;
-    }else{
-      return fn.apply(null, allArgs);
+    return function() {
+
+        var _args = args.slice(0),
+
+            arg, i;
+
+        for (i = 0; i < arguments.length; i++) {
+
+            arg = arguments[i];
+
+            _args.push(arg);
+
+        }
+        if (_args.length < length) {
+            return curry.call(this, fn, _args);
+        }
+        else {
+            return fn.apply(this, _args);
+        }
     }
-  }
 }
-var add = currying(function(){
-  var sum = 0;
-  for(var i = 0; i < arguments.length; i++){
-    sum += arguments[i];
-  }
-  return sum;
+
+
+var fn = curry(function(a, b, c) {
+    console.log([a, b, c]);
 });
+
+fn("a", "b", "c") // ["a", "b", "c"]
+fn("a", "b")("c") // ["a", "b", "c"]
+fn("a")("b")("c") // ["a", "b", "c"]
+fn("a")("b", "c") // ["a", "b", "c"]
+
+
+
 ```
 
 **es6实现**

@@ -297,7 +297,6 @@ typeof new Date() === 'object';
 typeof function(){} === 'function';
 ```
 
-
 // 检测原型
 
 ## 布尔值的隐式强制类型转换

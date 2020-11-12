@@ -24,6 +24,8 @@ var inp = document.getElementById('inp');
 inp.addEventListener('input', debounce(sayHi)); // 防抖
 ```
 
+这可以使用在一些点击请求的事件上，避免因为用户的多次点击向后端发送多次请求
+
 ## 节流
 
 高频事件触发，但在n秒内只会执行一次，所以节流会稀释函数的执行频率

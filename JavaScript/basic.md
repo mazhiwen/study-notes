@@ -55,15 +55,17 @@ var mycar = {make: "Honda", model: "Accord", year: 1998};
 
 ### 深拷贝
 
+1. var newObj=JSON.parse(JSON.stringify(someObj))
+
+需要保证someObj是json安全的  
+
+当值为undefined、function、symbol 会在转换过程中被忽略。。。
+
+concat方法与slice也存在这样的情况，他们都不是真正的深拷贝，都是浅拷贝，值的引用地址没变
+
+2. 递归赋值 ??????错误需修正
+
 ```javascript
-
-//1. var newObj=JSON.parse(JSON.stringify(someObj))
-// 需要保证someObj是json安全的  
-// 当值为undefined、function、symbol 会在转换过程中被忽略。。。
-// concat方法与slice也存在这样的情况，他们都不是真正的深拷贝，都是浅拷贝，值的引用地址没变
-
-
-//2.递归赋值??????????????????????????????错误需修正
 //判断是否是可迭代对象
 function isIteration(obj){
   let objType = Object.prototype.toString.call(obj);
@@ -286,3 +288,50 @@ async 属性
 （2）defer 属性表示延迟执行引入的 JavaScript，即这段 JavaScript 加载时 HTML 并未停止解析，这两个过程是并行的。当整个 document 解析完毕后再执行脚本文件，在DOMContentLoaded 事件触发之前完成。多个脚本按顺序执行。
 
 （3）async 属性表示异步执行引入的 JavaScript，与 defer 的区别在于，如果已经加载好，就会开始执行，也就是说它的执行仍然会阻塞文档的解析，只是它的加载过程不会阻塞。多个脚本的执行顺序无法保证。
+
+## escape,encodeURI,encodeURIComponent
+
+### escape
+
+简单来说，escape是对字符串(string)进行编码(而另外两种是对URL)，作用是让它们在所有电脑上可读。
+
+编码之后的效果是%XX或者%uXXXX这种形式。其中 ASCII字母  数字  @*/+   这几个字符不会被编码，其余的都会。
+
+最关键的是，当你需要对URL编码时，请忘记这个方法，这个方法是针对字符串使用的，不适用于URL。
+
+### encodeURI和encodeURIComponent
+
+对URL编码是常见的事，所以这两个方法应该是实际中要特别注意的。
+
+它们都是编码URL，唯一区别就是编码的字符范围，
+
+其中encodeURI方法不会对下列字符编码  ASCII字母  数字  ~!@#$&*()=:/,;?+'
+
+encodeURIComponent方法不会对下列字符编码 ASCII字母  数字  ~!*()'
+
+所以encodeURIComponent比encodeURI编码的范围更大。
+
+实际例子来说，encodeURIComponent会把 http://  编码成  http%3A%2F%2F 而encodeURI却不会。
+
+### 场景
+
+1、如果只是编码字符串，不和URL有半毛钱关系，那么用escape。
+
+2、如果你需要编码整个URL，然后需要使用这个URL，那么用encodeURI。
+
+比如encodeURI("<http://www.cnblogs.com/season-huang/some> other thing");
+
+编码后会变为"http://www.cnblogs.com/season-huang/some%20other%20thing";
+
+其中，空格被编码成了%20。
+
+但是如果你用了encodeURIComponent，那么结果变为"http%3A%2F%2Fwww.cnblogs.com%2Fseason-huang%2Fsome%20other%20thing"。看到了区别吗，连 "/" 都被编码了，整个URL已经没法用了。
+
+3、当你需要编码URL中的参数的时候，那么encodeURIComponent是最好方法。
+
+```js
+var param = "http://www.cnblogs.com/season-huang/"; //param为参数
+param = encodeURIComponent(param);
+var url = "<http://www.cnblogs.com?next>=" + param;
+console.log(url) //"http://www.cnblogs.com?next=http%3A%2F%2Fwww.cnblogs.com%2Fseason-huang%2F"
+```
