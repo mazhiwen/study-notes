@@ -118,13 +118,21 @@ numberValue instanceof Number // false
 
 Number对象是Number类型的实例，而基本类型的数值则不是
 
-## number.toString([radix])
+### number.toString([radix])
 
 返回指定 Number 对象的字符串表示形式。
 
 radix 指定要用于数字到字符串的转换的基数(从2到36)。如果未指定 radix 参数，则默认值为 10。
 
-## Number.parseInt(string[, radix])
+### numObj.toFixed()
+
+toFixed() 方法使用定点表示法来格式化一个数值。
+
+numObj.toFixed(digits)
+
+digits ： 小数点后数字的个数；介于 0 到 20 （包括）之间，实现环境可能支持更大范围。如果忽略该参数，则默认为 0。
+
+### Number.parseInt(string[, radix])
 
 ```js
 Number.parseInt === parseInt; // true
@@ -153,3 +161,11 @@ parseInt() 第二个参数是转换时，使用的基数，即多少进制
 ```js
 parseInt('0xAF',16)
 ```
+
+### numObj.toPrecision()
+
+方法以指定的精度返回该数值对象的字符串表示。
+
+numObj.toPrecision(precision)
+
+precision:可选。一个用来指定有效数个数的整数。
