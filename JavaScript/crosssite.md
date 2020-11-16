@@ -15,6 +15,8 @@
 2. DOM 和 Js对象无法获得  
 3. AJAX 请求不能发送  
 
+域和子域不同源，但可以设置domain达到同源
+
 ## 跨域请求：CORS
 
 (Cross-Origin Resource Sharing) 跨域资源共享

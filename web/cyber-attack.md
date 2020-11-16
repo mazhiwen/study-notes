@@ -94,6 +94,8 @@ https://www.sogou.com/web?query=xss"a/><script>alert('XSS')</script>
 
 CSRF（Cross-site request forgery）跨站请求伪造：攻击者诱导受害者进入第三方网站，在第三方网站中，向被攻击网站发送跨站请求。利用受害者在被攻击网站已经获取的注册凭证，绕过后台的用户验证，达到冒充用户对被攻击的网站执行某项操作的目的。
 
+CSRF 攻击的本质是利用了 cookie 会在同源请求中携带发送给服务器的特点，以此来实现用户的冒充。
+
 **一个典型的CSRF攻击有着如下的流程：**
 
 受害者登录a.com，并保留了登录凭证（Cookie）。  
@@ -120,3 +122,15 @@ a.com以受害者的名义执行了act=xx。
   - 双重Cookie验证
 
 ## DDoS
+
+## CSP
+
+CSP 指的是内容安全策略，它的本质是建立一个白名单，告诉浏览器哪些外部资源可以加载和执行。我们只需要配置规则，如何拦截由浏览器自己来实现。
+
+```
+两种方法开启配置csp：
+
+http头部：Content-Security-Policy: policy
+
+html-meta：<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src https://*; child-src 'none';">
+```
