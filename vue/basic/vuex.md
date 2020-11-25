@@ -133,10 +133,10 @@ export default {
       }
     }),
     // mapState 或者当计算属性名称 = 子节点名称时 如下操作
-    mapState([
-      // 映射 this.count 为 store.state.count
-      'count','countA'
-    ]),
+    mapState({
+      // 映射 this.count 为 store.state.countA
+      count: 'countA'
+    }),
 
     //////////////////////////////mapGetters
     // 使用对象展开运算符将 getter 混入 computed 对象中

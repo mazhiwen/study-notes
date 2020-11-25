@@ -5,22 +5,17 @@
 
 ***
 
-- web
+- WebAPI
   - [浏览器以及BOM](./web/browser)
   - [DOM](./web/DOM/)
   - [window](./web/window.md)
+  - [Element](./web/DOM/Element.md)
   - [浏览器解析渲染](./web/render.md)
   - [重绘和回流](./web/reflow.md)
   - [浏览器端的缓存](./web/cache.md)
   - [Chrome调试工具](./web/chrome.md)
   - [浏览器存储](./web/storage.md)
   - [前端路由](./web/vue-router.md)
-  - [TCP/IP-HTTP](./web/TCP-HTTP/)
-  - [前端性能-谷歌文档](./web/performance.md)
-  - [前端性能-实践应用](./web/performanceapply.md)
-  - [性能-http](./web/performancehttp.md)
-  - [websocket](./web/websocket.md)
-  - [https](./web/https.md)
   - [页面可见性](./web/PageVisibility.md)
   - [跨域攻击](./web/cyber-attack.md)
   - [nginx](./web/nginx)
@@ -30,6 +25,13 @@
   - [URL](./web/url.md)
   - [history](./web/history.md)
   - [其他](./web/basic.md)
+- web
+  - [TCP/IP-HTTP](./web/TCP-HTTP/)
+  - [前端性能-谷歌文档](./web/performance.md)
+  - [前端性能-实践应用](./web/performanceapply.md)
+  - [性能-http](./web/performancehttp.md)
+  - [websocket](./web/websocket.md)
+  - [https](./web/https.md)
 - JavaScript
   - [知识大全](./JavaScript/basic.md)
   - [应用题](./JavaScript/apply.md)
@@ -102,6 +104,14 @@
   - [clip-path元素裁切](./css/clip.md)
   - [z-index](./css/zindex.md)
 - [vue](./vue)
+  - [vue知识点](./vue/basic/readme.md)
+  - [vue源码学习](./vue/sourcecode/readme.md)
+  - [computed](./vue/basic/computed.md)
+  - [vue插件](./vue/basic/plugin.md)
+  - [watch](./vue/basic/watch.md)
+  - [vuex](./vue/basic/vuex.md)
+  - [生命周期](./vue/basic/life.md)
+  - [响应式原理](./vue/basic/reactivity.md)
 - [React](./React)
 - 数据结构与算法
   - [概念](./DataStructuresAndAlgorithms)

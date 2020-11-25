@@ -132,11 +132,32 @@ Object.isFrozen(person);
 
 ## Object.defineProperty
 
+```js
+Object.defineProperty(obj, prop, descriptor)
+```
+
+descriptor:要定义或修改的属性描述符。
+
+该方法允许精确地添加或修改对象的属性
+
 Object.defineProperty 可以为属性设置很多特性，例如 configurable，enumerable，get,set
 
 get 值是一个函数，当属性被访问时，会触发 get 函数
 
 set 值同样是一个函数，当属性被赋值时，会触发 set 函数
+
+```js
+Object.defineProperty(obj, "hello", {
+  get: function () {return sth},
+  set: function (val) {/* do sth */},
+  configurable,
+  enumerable,
+  value,
+  writable
+})
+```
+
+有一些对属性的操作，使用这种方法无法拦截，比如说通过下标方式修改数组数据或者给对象新增属性，vue 内部通过重写函数解决了这个问题。在 Vue3.0 中已经不使用这种方式了，而是通过使用 Proxy 对对象进行代理，从而实现数据劫持。使用 Proxy 的好处是它可以完美的监听到任何方式的数据改变，唯一的缺点是兼容性的问题，因为这是 ES6 的语法。
 
 ## 内部属性 [[Class]] Object.prototype.toString
 

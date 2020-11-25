@@ -14,9 +14,136 @@
 
 Vue3.0可能会用ES6中Proxy 作为实现数据代理的主要方式
 
-## 概念原理
+## Vue双向绑定实现逻辑代码
 
-### 数据劫持 / 数据代理 ： 监测数据变化
+基本实现逻辑：
+
+```js
+//////////////  属性监听对象集中器
+// 对data每个属性新创建new dep主题对象
+// 属性变化时，会对注册的依赖属性的dep列表 watcher 依次更新 watcher.update
+Dep(){
+  this.subs = [];
+  // subs列表存储的是 compile组建时对{{data属性}} new的watcher实例
+}
+Dep.prototype = {
+  addSub:function(watcher){
+    this.subs.push(watcher);
+  },
+  notify:function(){
+    this.subs.forEach((watcher)=>{
+      watcher.update();
+    })
+  }
+}
+
+////////////// 对文本节点属性的监听
+// 每个文本类型节点都会新建 new watcher实例
+watcher(vm,node,name){
+  Dep.target = this; // 全局属性Dep.target
+  this.update();
+  Dep.target = null;
+}
+watcher.prototype= {
+  update:function(){
+    this.value = vm[name] // 初次compile的时候 触发 defineReactive vm[name] 的get函数 内的dep添加watcher
+    this.node.nodeValue = this.value;
+  }
+}
+
+////////////// 对data每个属性定义 set get 拦截
+observe(){
+  遍历 data 进行 defineReactive(){
+    var dep = new Dep();
+    Oject.defineProperty(data,key,{
+      get:function(){
+        if(Dep.target) dep.addSub(Dep.target);
+      },
+      set:function(){
+        dep.notify();
+      }
+    })
+  }
+}
+
+////////////// 编译 DOM 入口
+// 对App DOM 编译，并对 attrs 文本节点等，组建双向绑定的属性注册到监听器
+compile(){
+  if(node.nodeType === 1){
+    name = 获取App中v-modle后面的属性，即vm.data内属性
+    if v-model{
+      node.addEventListener('input',function(e){
+        vm[name] = e.target.value;
+      })
+    }
+  }
+  if(node.nodeType === 3){
+    // name 为文本节点 {{对应data属性}}
+    new Watcher(vm,node,name) // 订阅文本绑定的data[name]属性对应的发布订阅逻辑
+  }
+
+}
+
+////////////// vue
+vue(){
+  observe(data)
+  compile(App)
+}
+
+////////////// vue 实例挂载
+vue(App)
+
+```
+
+## 双向绑定
+
+<https://juejin.im/post/5d421bcf6fb9a06af23853f1>
+
+<https://www.cnblogs.com/kidney/p/6052935.html?utm_source=gold_browser_extension>
+
+vue 的双向数据绑定主要是通过使用数据劫持和发布订阅者模式来实现的。
+
+数据劫持 + dom监听 + 发布订阅
+
+数据劫持:
+
+```js
+
+/**
+  * 循环遍历数据对象的每个属性
+  */
+function observable(obj) {
+    if (!obj || typeof obj !== 'object') {
+        return;
+    }
+    let keys = Object.keys(obj);
+    keys.forEach((key) => {
+        defineReactive(obj, key, obj[key])
+    })
+    return obj;
+}
+/**
+ * 将对象的属性用 Object.defineProperty() 进行设置
+ */
+function defineReactive(obj, key, val) {
+    Object.defineProperty(obj, key, {
+        get() {
+            console.log(`${key}属性被读取了...`);
+            return val;
+        },
+        set(newVal) {
+            console.log(`${key}属性被修改了...`);
+            val = newVal;
+        }
+    })
+}
+```
+
+如果遇到元素节点，并且属性值包含 v-model 的话，我们就从 Model 中去获取 v-model 所对应的属性的值，并赋值给元素的 value 值。然后给这个元素设置一个监听事件，当 View 中元素的数据发生变化的时候触发该事件，通知 Model 中的对应的属性的值进行更新。
+
+如果遇到了绑定的文本节点，我们使用 Model 中对应的属性的值来替换这个文本。对于文本节点的更新，我们使用了发布订阅者模式，属性作为一个主题，我们为这个节点设置一个订阅者对象，将这个订阅者对象加入这个属性主题的订阅者列表中。当 Model 层数据发生改变的时候，Model 作为发布者向主题发出通知，主题收到通知再向它的所有订阅者推送，订阅者收到通知后更改自己的数据。
+
+## 数据劫持 / 数据代理 ： 监测数据变化
 
 - 方法一：Object.defineProperty
 
@@ -90,7 +217,7 @@ console.log(proxy.arr) // 模拟视图的更新 ['浪里行舟', 2, 3 ]
 proxy.arr.length-- // 无效
 ```
 
-### 收集依赖
+## 收集依赖
 
 data 中的声明的每个属性，都拥有一个数组，保存着 谁依赖（使用）了 它
 
@@ -105,7 +232,6 @@ notify 方法 : 通知目前 Dep 对象的 subs 中的所有 Watcher 对象触�
 先收集依赖，即把用到该数据的地方收集起来，然后等属性发生变化时，把之前收集好的依赖循环触发一遍就行了
 
 当外界通过Watcher读取数据时，便会触发getter从而将Watcher添加到依赖中，哪个Watcher触发了getter，就把哪个Watcher收集到Dep中。当数据发生变化时，会循环依赖列表，把所有的Watcher都通知一遍。
-
 
 ```js
 const Dep = function() {
@@ -139,7 +265,7 @@ const Dep = function() {
 
 在getter中收集依赖，先收集依赖，即把用到该数据的地方收集起来。在setter中触发依赖，等属性发生变化时，把之前收集好的依赖循环触发一遍就行了。
 
-### watcher - 发布订阅模式：数据变化时，自动“通知”需要更新的视图部分，并进行更新
+## watcher - 发布订阅模式：数据变化时，自动“通知”需要更新的视图部分，并进行更新
 
 简单说一下，watcher 是什么，每个 Vue 实例都会拥有一个专属的 watcher，可用于实例更新
 

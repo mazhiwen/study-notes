@@ -1,5 +1,6 @@
+# git
 
-### tag
+## tag
 
 ```sh
 git tag ：tag列表  
@@ -11,11 +12,11 @@ git tag -d v1.0.3 :删除本地tag
 git push origin :refs/tags/v1.0.2 :删除远程tag
 ```
 
-### 分支
+## 分支
 
 删除远程分支 git push origin --delete <BranchName>
 
-### 放弃更改
+## 放弃更改
 
 1.放弃未commit文件
 
@@ -42,7 +43,7 @@ git config core.ignorecase false
 3. 放弃git add
 git reset
 
-### reset远程commit
+## reset远程commit
 
 1.通过找到想要退回到的commit_id
 $ git log
@@ -51,7 +52,7 @@ $ git reset --hard <commit_id>
  3.推送到服务器，一定要加 --force 参数
 $ git push origin HEAD:master --force
 
-### 配置origin
+## 配置origin
 
 ```
 ①   cd ~/.ssh/    【如果没有对应的文件夹，则执行  mkdir  ./.ssh】
@@ -87,7 +88,7 @@ Host github.com
 
 ```
 
-### stash
+## stash
 
 git stash    加save 可以保存stash 加备注:git stash save "dd"
 
@@ -101,6 +102,10 @@ git stash clear 清空list
 
 git stash show 查看差异
 
-### 大小写
+## 大小写
 
 git config core.ignorecase true  忽略大小写
+
+## 撤销commit
+
+git reset --soft HEAD～1

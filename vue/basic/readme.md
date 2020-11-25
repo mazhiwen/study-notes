@@ -5,14 +5,11 @@
 
 ## 目录
 
-- [vue插件](./plugin.md)
 - [VueCli](#VueCli)
 - [webpack,懒加载,代码分离](#webpack,懒加载,代码分离)
 - [el](#el)
 - [组件通信](#组件通信)
 - [props](#props)
-- [computed](./computed.md)
-- [watch](./watch.md)
 - [filters](#filters)
 - [组合](#组合)
 - [样式](#样式)
@@ -21,10 +18,7 @@
 - [组件注册](#组件注册)
 - [渲染函数,render函数](#渲染函数,render函数)
 - [函数式组件](#函数式组件)
-- [vuex](./vuex.md)
 - [虚拟DOM](#虚拟DOM)
-- [生命周期](./life.md)
-- [响应式原理](./reactivity.md)
 - [keep-alive](#keep-alive)
 - [异步组件](#异步组件)
 - [$root](#$root)
@@ -642,44 +636,6 @@ export default{
   }
 }
 </script>
-```
-
-## 数据双向绑定
-
-<https://juejin.im/post/5d421bcf6fb9a06af23853f1>
-
-- 监听data属性
-
-```js
-
-/**
-  * 循环遍历数据对象的每个属性
-  */
-function observable(obj) {
-    if (!obj || typeof obj !== 'object') {
-        return;
-    }
-    let keys = Object.keys(obj);
-    keys.forEach((key) => {
-        defineReactive(obj, key, obj[key])
-    })
-    return obj;
-}
-/**
- * 将对象的属性用 Object.defineProperty() 进行设置
- */
-function defineReactive(obj, key, val) {
-    Object.defineProperty(obj, key, {
-        get() {
-            console.log(`${key}属性被读取了...`);
-            return val;
-        },
-        set(newVal) {
-            console.log(`${key}属性被修改了...`);
-            val = newVal;
-        }
-    })
-}
 ```
 
 ## nextTick 原理

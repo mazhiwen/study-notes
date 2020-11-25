@@ -18,7 +18,7 @@
 
 ## 组件
 
-组件或者模板描述 -> 通过h函数 -> 生成vnode对象 -> render函数(vnode,container) -> 真实DOM
+组件或者模板描述(view-model) -> 通过h函数 -> 生成vnode对象 -> render函数(vnode,container) -> 真实DOM
 
 - patch
 
