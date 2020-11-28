@@ -335,3 +335,9 @@ param = encodeURIComponent(param);
 var url = "<http://www.cnblogs.com?next>=" + param;
 console.log(url) //"http://www.cnblogs.com?next=http%3A%2F%2Fwww.cnblogs.com%2Fseason-huang%2F"
 ```
+
+## js动画与css动画
+
+js动画适合复杂
+
+css动画适合简单的

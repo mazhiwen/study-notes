@@ -93,12 +93,12 @@ then 会隐式调用 Promise 构建函数构建新的 promise 并返回。
 ```js
 getJSON("/posts.json").then(function(json) {
   // 无论resolvet
-  return json.post;
+  return resA1;
 },function(){
   // 或者 rejec
-  return 2;
-}).then(function(res) {
-  // 上面任何一个return 作为结果 res的值
+  return resA2;
+}).then(function(resB) {
+  // 上面任何一个return 作为结果 resB 的值
 });
 
 ```
@@ -109,6 +109,27 @@ then的链式调用：
 
 ，上一个Promise的状态，只会导致它自己的then方法执行哪个函数的问题，并不会导致下一个Promise(thenable和catchable返回的Promise)的then方法执行函数的问题，也就是说then执行不出错，那么then返回的Promise状态都是resolved
 
+## Promise.prototype.catch()
+
+一般catch放在then后面。可以捕获promise和then中的err
+
+```js
+const p1 = new Promise(()=>{
+
+})
+p1.then(()=>{
+
+}).catch(()=>{
+
+})
+```
+
+Promise抛出的错误，并不会对外部代码造成影响，该运行的还是会运行
+
+## finally
+
+finally方法不接受任何参数，thenable和catchable都会走到finally，你根本没法知道它们最终的状态
+
 ## Promise.resolve()
 
 有时需要将现有对象转为 Promise 对象，Promise.resolve方法就起到这个作用。
@@ -117,15 +138,27 @@ then的链式调用：
 const jsPromise = Promise.resolve($.ajax('/whatever.json'));
 jsPromise.then();
 
-
 Promise.resolve('foo')
 // 等价于
 new Promise(resolve => resolve('foo'))
 ```
 
+根据参数不同，返回的东西也会不同
+
+参数为promise : 原样返回
+
+参数为原始值 或 不携带参数 : 返回一个状态为resolved的Promise对象，并且状态数据是我们定义的
+
+```js
+Promise.resolve();
+Promise.resolve(2);
+```
+
 ## Promise.reject()
 
 Promise.reject(reason)方法也会返回一个新的 Promise 实例，该实例的状态为rejected。
+
+与Promise.resolve() 类似
 
 ```js
 const p = Promise.reject('出错了');
@@ -138,11 +171,25 @@ p.then(null, function (s) {
 // 出错了
 ```
 
-## Promise.all
+## Promise.all(iterable)
 
 等待所有resolve
 
+参数为一个迭代器(这里可以先认为是一个数组)，并返回一个新的Promise对象。数组中必须都为Promise对象，如果有不是的，会自动调用Promise.resolve转换成Promise对象，并且状态为resolved
+
+all会返回一个新的Promise对象
+
 Promise.all 先创建一个新的 promise，然后先、初始化一个空的结果数组和一个计数器来对已经 resolve 的 promise进行计数，之后会进行迭代，对于每个迭代值它都会为其创造一个promise，并设定这个promise的then为向结果数组里添加结果以及计数器--，当计数器减至0时就会resolve最终结果。
+
+### 结果状态
+
+1. 数组中所有的Promise实例的状态为resolved时。就会触发thenable函数，thenable的参数为一个数组，它们是由所有Promise实例的状态数据构成
+
+2. 当数组中的Promise实例出现rejected状态时。只要出现了rejected，就不会触发all的thenable函数，而是触发catchable函数，catchable函数的参数为第一个出现rejected状态的Promise实例的状态数据
+
+### 错误处理
+
+如果存进的数组中的Promise自己带有catch，那么如果出错了，就不会触发all方法的catch。如果自己没有catch，那么才会触发all方法的catch
 
 ## Promise.race
 
