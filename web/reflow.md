@@ -4,7 +4,7 @@
 
 <https://juejin.im/post/5a9923e9518825558251c96a>
 
-## 重绘
+## 重绘 Repaint
 
 重绘: 当页面中元素样式的改变并不影响它在文档流中的位置时（例如：color、background-color、visibility等），浏览器会将新样式赋予给元素并重新绘制它。
 
@@ -17,7 +17,7 @@ outline-color outline outline-style border-radius
 outline-width box-shadow background-size
 ```
 
-## 回流
+## 回流 Reflow
 
 回流：当渲染树中的一部分（或全部）因为元素的规模尺寸、布局、隐藏等改变而需要重新构建的操作，会影响到布局的操作，这样的操作我们称为回流。
 

@@ -72,6 +72,7 @@
   - [模块化规范](./JavaScript/module.md)
   - [前端鉴权](./JavaScript/auth.md)
   - [cookie](./JavaScript/cookie.md)
+  - [虚拟列表](./JavaScript/virtuallist.md)
 - [html](./html)
   - [html5](./html/html5.md)
   - [离线缓存](./html/mainfest.md)

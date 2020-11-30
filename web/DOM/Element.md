@@ -92,7 +92,7 @@ offsetWidth: 获得对象的可视区域的宽度，包括边框
 
 ### scrollWidth scrollHeight
 
-元素本身 包括滚动 只读
+滚动条元素本身 包括滚动 只读
 
 content + padding + 溢出内容的尺寸
 
@@ -102,9 +102,9 @@ Element.scrollHeight: 获取对象的滚动高度。
 
 ### scrollLeft scrollTop
 
-元素距离视口 包括元素外部滚动  读写
+读写
 
-距离content顶部 左边的滚动距离
+滚动条元素内 可见内容 距离content顶部 左边的 滚动距离
 
 Element.scrollLeft: 这个元素的顶部到视口可见内容（的顶部）的距离的度量
 

@@ -91,6 +91,8 @@ array.reduce(
 
 //slice() 方法返回一个从开始到结束（不包括结束）选择的数组的一部分浅拷贝到一个新数组对象。
 //原始数组不会被修改。
+
+```js
 array.slice();// [0, end]
 array.slice(begin);// [begin, end]
 array.slice(begin, end);// [begin, end)
@@ -102,6 +104,7 @@ function list() {
   //[].slice.call(arguments)也可以
 }
 var list1 = list(1, 2, 3); // [1, 2, 3]
+```
 
 ## array.splice
 
