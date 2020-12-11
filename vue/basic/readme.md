@@ -8,7 +8,6 @@
 - [VueCli](#VueCli)
 - [webpack,懒加载,代码分离](#webpack,懒加载,代码分离)
 - [el](#el)
-- [组件通信](#组件通信)
 - [props](#props)
 - [filters](#filters)
 - [组合](#组合)
@@ -39,124 +38,9 @@
 
 <https://alexjoverm.github.io/2017/07/16/Lazy-load-in-Vue-using-Webpack-s-code-splitting/>
 
-## el
+## this.$el
 
 this.$el 指当前挂载的组件，mounted才有，created没有
-
-## 组件通信
-
-<https://segmentfault.com/a/1190000019208626?utm_source=tag-newest>
-
-1. vuex
-全局
-
-2. v-model
-父子组件
-组件使用v-model
-
-```javascript
-Vue.component('base-checkbox', {
-  model: {
-    // 默认prop是value 默认event是input
-    prop: 'checked',
-    event: 'change'
-  },
-  props: {
-    checked: Boolean
-  },
-  template: `
-    <input
-      type="checkbox"
-      v-bind:checked="checked"
-      v-on:change="$emit('change', $event.target.checked)"
-    >
-  `
-})
-<base-checkbox
-  v-model="lovingVue"
-  @change=""
->
-</base-checkbox>
-```
-
-3. $parent $children $root  
-较高耦合，一般不推荐
-
-4. provide inject  
-
-适合大型独立性组件，组件内需求耦合性较高
-
-可以传递给子孙 深层次
-
-基本是不可响应式的
-
-核心用法是调用祖父等级别的方法
-
-适合未知深层次
-
-```js
-//  provide 选项允许我们指定我们想要提供给后代组件的数据/方法。在这个例子中，就是 <google-map> 内部的 getMap 方法：
-
-provide: function () {
-  return {
-    getMap: this.getMap
-  }
-}
-
-// 然后在任何后代组件里，我们都可以使用 inject 选项来接收指定的我们想要添加在这个实例上的属性：
-inject: ['getMap']
-
-
-示例
-// 父级组件提供 'foo'
-var Provider = {
-  provide: {
-    foo: 'bar'
-  },
-  // ...
-  // 另外写法
-  provide:function(){
-    return {
-      setFun:this.setFun
-    }
-  }
-}
-
-
-// 子组件注入 'foo'
-var Child = {
-  inject: ['foo'],
-  created () {
-    console.log(this.foo) // => "bar"
-  }
-  // ...
-}
-
-```
-
-5. props  $emit  @on  
-是响应式的,父子传递prop和event
-
-6. $attrs和$listeners  
-适用于第三方复杂组件构建，a -> b -> c 深层次传递prop 和 event  
-简单来说：$attrs与$listeners 是两个对象，$attrs 里存放的是父组件中绑定的非 Props 属性，$listeners里存放的是父组件中绑定的非原生事件。
-
-```javascript
-a:
-<B :messagec="messagec" v-on:getCData="getCData"></B>
-getCData(val){
-  console.log("这是来自C组件的数据："+val)
-}
-b:
-<C v-bind="$attrs" v-on="$listeners"></C>
-// <!-- C组件中能直接触发getCData的原因在于 B组件调用C组件时 使用 v-on 绑定了$listeners 属性 -->
-// <!-- 通过v-bind 绑定$attrs属性，C组件可以直接获取到A组件中传递下来的props（除了B组件中props声明的） -->
-c:
-v-model="$attrs.messagec" @input="passCData($attrs.messagec)"
-passCData(){
-  this.$emit('getCData',val)
-}
-```
 
 ## props
 
@@ -210,13 +94,15 @@ Object.keys(custom).forEach(key => Vue.filter(key, custom[key]))
 
 ```
 
-## 组合
+## Vue.mixin mixins
 
-### mixin
-
-minxin适合有公用 类似react hoc，可以抽离template 和js 的还是抽离成组件比较合适
+mixin适合有公用 类似react hoc，可以抽离template 和js 的还是抽离成组件比较合适
 
 如果你要在 mixin 中定义生命周期 hook，那么它在执行时将优先于组件自己的 hook 。
+
+Vue.mixin 用于全局混入，会影响到每个组件实例。
+
+mixins 应该是我们最常使用的扩展组件的方式了。如果多个组件中有相同的业务逻辑，就可以将这些逻辑剥离出来，通过 mixins 混入代码，比如上拉下拉加载数据这种逻辑等等。另外需要注意的是 mixins 混入的钩子函数会先于组件内的钩子函数执行，并且在遇到同名选项的时候也会有选择性的进行合并
 
 ## 样式
 
@@ -605,19 +491,21 @@ v-leave-to: 2.1.8版及以上 定义离开过渡的结束状态。在离开过�
 }
 ```
 
-## 事件
+## 事件修饰符
 
 ```js
-.stop:阻止冒泡
-.prevent:阻止默认行为
-.self:仅绑定元素自身触发
+.stop: 阻止冒泡
+
+.prevent: 阻止默认行为。提交事件不再重载页面
+
+.self: 仅绑定元素自身触发，子元素不会
+
 .once: 2.1.4 新增,只触发一次
+
 .passive: 2.3.0 新增,滚动事件的默认行为 (即滚动行为) 将会立即触发,不能和.prevent 一起使用
 ```
 
-## 其他技巧知识
-
-### img加载失败
+## img加载失败
 
 ```html
 // page 代码
@@ -639,3 +527,13 @@ export default{
 ```
 
 ## nextTick 原理
+
+## vue中的key
+
+第一种情况是 v-if 中使用 key ： 由于 Vue 会尽可能高效地渲染元素，通常会复用已有元素而不是从头开始渲染。因此当我们使用 v-if 来实现元素切换的时候，如果切换前后含有相同类型的元素，那么这个元素就会被复用。如果是相同的 input 元素，那么切换前后用户的输入不会被清除掉，这样是不符合需求的。因此我们可以通过使用 key 来唯一的标识一个元素，这个情况下，使用 key 的元素不会被复用。这个时候 key 的作用是用来标识一个独立的元素。
+
+第二种情况是 v-for 中使用 key ：用 v-for 更新已渲染过的元素列表时，它默认使用“就地复用”的策略。如果数据项的顺序发生了改变，Vue 不会移动 DOM 元素来匹配数据项的顺序，而是简单复用此处的每个元素。因此通过为每个列表项提供一个 key 值，来以便 Vue 跟踪元素的身份，从而高效的实现复用。这个时候 key 的作用是为了高效的更新渲染虚拟 DOM。
+
+## keep-alive
+
+如果你需要在组件切换的时候，保存一些组件的状态防止多次渲染，就可以使用 keep-alive 组件包裹需要保存的组件。

@@ -66,9 +66,9 @@ HTML5提出Web Worker: 允许JavaScript脚本创建多个线程，但是子线�
 
 macrotask 和 microtask 表示异步任务的两种分类。
 
-微任务包括了 promise 的回调、node 中的 process.nextTick 、对 Dom 变化监听的 MutationObserver。
+微任务 : 包括了 promise 的回调、node 中的 process.nextTick 、对 Dom 变化监听的 MutationObserver。
 
-宏任务包括了 script 脚本的执行、setTimeout ，setInterval ，setImmediate 一类的定时事件，还有如 I/O 操作、UI 渲染等。
+宏任务 : 包括了 script 脚本的执行、setTimeout ，setInterval ，setImmediate 一类的定时事件，还有如 I/O 操作、UI 渲染等。
 
 执行顺序 :script(主程序代码)—> process.nextTick —> Promises… ——> setTimeout ——> setInterval ——> setImmediate——> I/O——> UI rendering
 
@@ -129,3 +129,7 @@ setTimeout(function() {
 ## setInterval
 
 对于setInterval(fn,ms)来说，我们已经知道不是每过ms秒会执行一次fn，而是每过ms秒，会有fn进入Event Queue
+
+setInterval 的作用是每隔一段指定时间执行一个函数，但是这个执行不是真的到了时间立即执行，它真正的作用是每隔一段时间将事件加入事件队列中去，只有当当前的执行栈为空的时候，才能去从事件队列中取出事件执行。所以可能会出现这样的情况，就是当前执行栈执行的时间很长，导致事件队列里边积累多个定时器加入的事件，当执行栈结束的时候，这些事件会依次执行，因此就不能到间隔一段时间执行的效果。
+
+针对 setInterval 的这个缺点，我们可以使用 setTimeout 递归调用来模拟 setInterval，这样我们就确保了只有一个事件结束了，我们才会触发下一个定时器事件，这样解决了 setInterval 的问题。

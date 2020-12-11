@@ -1,4 +1,6 @@
-: import export default
+# es6 module语法
+
+import export default
 
 ```javascript
 // 正常写法:

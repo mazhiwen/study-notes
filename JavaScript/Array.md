@@ -87,10 +87,12 @@ array.reduce(
     initialValue
 );
 
-## array.slice*
+## array.slice
 
 //slice() 方法返回一个从开始到结束（不包括结束）选择的数组的一部分浅拷贝到一个新数组对象。
 //原始数组不会被修改。
+
+数组截取办法 slice()，用于截取数组中的一部分返回，不影响原数组。
 
 ```js
 array.slice();// [0, end]
@@ -117,10 +119,6 @@ var list1 = list(1, 2, 3); // [1, 2, 3]
 // itemn 添加的元素
 
 array.splice(start,deleteCount,item1, item2,itemn);
-
-## array.slice
-
-数组截取办法 slice()，用于截取数组中的一部分返回，不影响原数组。
 
 ## array.sort
 

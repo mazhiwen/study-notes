@@ -1,3 +1,29 @@
+# 资源
+
+## 论坛
+
+[掘金](https://juejin.im/timeline)
+
+## 博客
+
+[Javascript标准参考 - ruanyifeng](https://wangdoc.com/javascript/elements/index.html)
+
+[Javascript标准参考 - ruanyifeng 旧地址](<https://javascript.ruanyifeng.com/bom/performance.html>)
+
+[前端精读周刊](https://github.com/dt-fe/weekly)
+
+[前端面试之道](https://juejin.cn/book/6844733763675488269/section/6844733763805511693)
+
+[前端性能清单](https://github.com/JohnsenZhou/Front-End-Performance-Checklist)
+
+[css-protips](https://github.com/AllThingsSmitty/css-protips)
+
+[ruanyifeng](http://www.ruanyifeng.com/blog/javascript/)
+
+[vajoy](https://www.cnblogs.com/vajoy/p/3589717.html)
+
+[zhangxinxu](https://www.zhangxinxu.com/wordpress/category/js/)
+
 ## 面试题
 
 [前端 100 问](https://juejin.im/post/5d23e750f265da1b855c7bbe)
@@ -31,15 +57,3 @@
 ## 书
 
 [新时代下前端工程师的推荐书籍和必备知识](https://juejin.im/post/5c7129b0f265da2d9710f7ca)
-
-## 论坛
-
-掘金:<https://juejin.im/timeline>
-
-## 博客
-
-<https://www.cnblogs.com/vajoy/p/3589717.html>
-
-<http://www.ruanyifeng.com/blog/javascript/>
-
-https://www.zhangxinxu.com/wordpress/category/js/

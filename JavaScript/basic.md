@@ -341,3 +341,69 @@ console.log(url) //"http://www.cnblogs.com?next=http%3A%2F%2Fwww.cnblogs.com%2Fs
 js动画适合复杂
 
 css动画适合简单的
+
+## 事件流管理 EventEmitter
+
+<https://zhuanlan.zhihu.com/p/77876876>
+
+```js
+class EventEmitter {
+  constructor() {
+    this.events = {};
+  }
+
+  on(event, callback) {
+    let callbacks = this.events[event] || [];
+    callbacks.push(callback);
+    this.events[event] = callbacks;
+
+    return this;
+  }
+
+  off(event, callback) {
+    let callbacks = this.events[event];
+    this.events[event] = callbacks && callbacks.filter(fn => fn !== callback);
+
+    return this;
+  }
+
+  emit(event, ...args) {
+    let callbacks = this.events[event];
+    callbacks.forEach(fn => {
+      fn(...args);
+    });
+
+    return this;
+  }
+
+  once(event, callback) {
+    let wrapFun = function(...args) {
+      callback(...args);
+
+      this.off(event, wrapFun);
+    };
+    this.on(event, wrapFun);
+
+    return this;
+  }
+}
+```
+
+## js的命名规则
+
+（1）第一个字符必须是字母、下划线（_）或美元符号（$）
+（2）余下的字符可以是下划线、美元符号或任何字母或数字字符
+
+一般我们推荐使用驼峰法来对变量名进行命名，因为这样可以与 ECMAScript 内置的函数和对象命名格式保持一致。
+
+## 定时器偏差
+
+<https://juejin.cn/post/6844903685458231303>
+
+在前端实现中我们一般通过 setTimeout 和 setInterval 方法来实现一个倒计时效果。但是使用这些方法会存在时间偏差的问题，这是由于 js 的程序执行机制造成的，setTimeout 和 setInterval 的作用是隔一段时间将回调事件加入到事件队列中，因此事件并不是立即执行的，它会等到当前执行栈为空的时候再取出事件执行，因此事件等待执行的时间就是造成误差的原因。
+
+一般解决倒计时中的误差的有这样两种办法：
+
+（1）第一种是通过前端定时向服务器发送请求获取最新的时间差，以此来校准倒计时时间。
+
+（2）第二种方法是前端根据偏差时间来自动调整间隔时间的方式来实现的。这一种方式首先是以 setTimeout 递归的方式来实现倒计时，然后通过一个变量来记录已经倒计时的秒数。每一次函数调用的时候，首先将变量加一，然后根据这个变量和每次的间隔时间，我们就可以计算出此时无偏差时应该显示的时间。然后将当前的真实时间与这个时间相减，这样我们就可以得到时间的偏差大小，因此我们在设置下一个定时器的间隔大小的时候，我们就从间隔时间中减去这个偏差大小，以此来实现由于程序执行所造成的时间误差的纠正。

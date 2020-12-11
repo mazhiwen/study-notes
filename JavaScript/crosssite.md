@@ -104,6 +104,8 @@ Content-Type: text/html
 
 ## 跨域请求：JSONP
 
+<https://segmentfault.com/a/1190000007665361#articleHeader1>
+
 JSONP只支持GET请求
 
 js 文件不受浏览器同源策略的影响，所以通过 Script 便签可以进行跨域的请求
@@ -134,6 +136,8 @@ jsonp(
 ```
 
 - 后端
+
+解析请求的js资源ulr，并做处理返回。返回带着前端需要回调的函数名
 
 ```javascript
 //返回content

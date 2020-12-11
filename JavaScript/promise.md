@@ -239,3 +239,7 @@ mergePromise([ajax1, ajax2, ajax3]).then(data => {
   console.log(data) //[1,2,3]
 });
 ```
+
+## Promises/A+ 规范
+
+Promises/A+ 规范是 JavaScript Promise 的标准，规定了一个 Promise 所必须具有的特性。

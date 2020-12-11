@@ -236,21 +236,62 @@ typeof(null) // object
 
 ## 类型检测
 
+<https://github.com/mqyqingfeng/Blog/issues/28>
+
+typeof : 先做基本类型检测，再对null和其他Object用Object内部属性toString检测
+
+typeof检测结果： 7种。undefined、object、boolean、number、string、object, symbol
+
 ```javascript
 //常规检测
 var arr=[1,'a'];
 Array.isArray(arr);
 arr instanceof Array;
-//安全检测
-Object. prototype. toString. call( arr ) == "[object Object]";
-Object. prototype. toString. call( arr ) == "[object Array]";
-Object. prototype. toString. call( arr ) == "[object Function]";
-Object. prototype. toString. call( arr ) == "[object RegExp]";
-window. JSON && Object. prototype. toString. call( JSON) == "[object JSON]";
 // 数字检测另外一种方式
 typeof value === 'number' && !isNaN(value);
+```
 
+Object.prototype.toString : 可以检测至少14种object：
 
+```js
+// 以下是11种：
+var number = 1;          // [object Number]
+var string = '123';      // [object String]
+var boolean = true;      // [object Boolean]
+var und = undefined;     // [object Undefined]
+var nul = null;          // [object Null]
+var obj = {a: 1}         // [object Object]
+var array = [1, 2, 3];   // [object Array]
+var date = new Date();   // [object Date]
+var error = new Error(); // [object Error]
+var reg = /a/g;          // [object RegExp]
+var func = function a(){}; // [object Function]
+console.log(Object.prototype.toString.call(Math)); // [object Math]
+console.log(Object.prototype.toString.call(JSON)); // [object JSON]
+```
+
+检测类型的方法封装：
+
+```js
+function getType(value) {
+  // 判断数据是 null 的情况
+  if (value === null) {
+    return value + "";
+  }
+
+  // 判断数据是引用类型的情况
+  if (typeof value === "object") {
+    let valueClass = Object.prototype.toString.call(value),
+      type = valueClass.split(" ")[1].split("");
+
+    type.pop();
+
+    return type.join("").toLowerCase();
+  } else {
+    // 判断数据是基本数据类型的情况和函数的情况
+    return typeof value;
+  }
+}
 ```
 
 ## typeof

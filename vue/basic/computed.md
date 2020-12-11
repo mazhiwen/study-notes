@@ -2,7 +2,11 @@
 
 <https://github.com/ljianshu/Blog/issues/68>
 
-https://juejin.im/entry/6844903910654607373
+<https://juejin.im/entry/6844903910654607373>
+
+<https://juejin.cn/post/6844903678533451783>
+
+<https://juejin.cn/post/6844903678533451783>
 
 ## get和set
 
