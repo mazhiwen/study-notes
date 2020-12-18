@@ -32,6 +32,7 @@
   - [性能-http](./web/performancehttp.md)
   - [websocket](./web/websocket.md)
   - [https](./web/https.md)
+  - [requestAnimationFrame](./web/requestAnimationFrame.md)
 - JavaScript
   - [知识大全](./JavaScript/basic.md)
   - [应用题](./JavaScript/apply.md)
@@ -109,6 +110,7 @@
 - [vue](./vue)
   - [vue知识点](./vue/basic/readme.md)
   - [vue源码学习](./vue/sourcecode/readme.md)
+  - [vue3](./vue/vue3.md)
   - [computed](./vue/basic/computed.md)
   - [vue插件](./vue/basic/plugin.md)
   - [watch](./vue/basic/watch.md)

@@ -115,32 +115,6 @@ Performance
 
 <https://developers.google.com/web/tools/chrome-devtools/evaluate-performance/>
 
-## requestAnimationFrame
-
-<https://blog.csdn.net/vhwfr2u02q/article/details/79492303>
-
-与setTimeout相比，requestAnimationFrame最大的优势是由系统来决定回调函数的执行时机。具体一点讲，如果屏幕刷新率是60Hz,那么回调函数就每16.7ms被执行一次，如果刷新率是75Hz，那么这个时间间隔就变成了1000/75=13.3ms，换句话说就是，requestAnimationFrame的步伐跟着系统的刷新步伐走。它能保证回调函数在屏幕每一次的刷新间隔中只被执行一次，这样就不会引起丢帧现象，也不会导致动画出现卡顿的问题。
-
-```js
-var progress = 0;
-//回调函数
-function render() {
-    progress += 1; //修改图像的位置
-    if (progress < 100) {
-    //在动画没有结束前，递归渲染
-    window.requestAnimationFrame(render);
-  }
-}
-//第一帧渲染
-window.requestAnimationFrame(render);
-```
-
-**优点：**
-
-cpu节能：当页面处理未激活的状态下，该页面的屏幕刷新任务也会被系统暂停
-
-函数节流：使用requestAnimationFrame可保证每个刷新间隔内，函数只被执行一次，这样既能保证流畅性，也能更好的节省函数执行的开销。一个刷新间隔内函数执行多次时没有意义的，因为显示器每16.7ms刷新一次，多次绘制并不会在屏幕上体现出来。
-
 ## DOMContentLoaded 事件和 Load 事件的区别
 
 当初始的 HTML 文档被完全加载和解析完成之后，DOMContentLoaded 事件被触发，而无需等待样式表、图像和子框架的加载完成。
