@@ -42,6 +42,8 @@ Math.round(-20.51) // -21
 
 ## .max
 
+Math.max([value1[,value2, ...]])
+
 ## .min
 
 返回最小值

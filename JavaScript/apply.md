@@ -41,3 +41,7 @@ class Cash {
   }
 }
 ```
+
+## 数组扁平化
+
+<https://github.com/mqyqingfeng/Blog/issues/36>
