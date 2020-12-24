@@ -1,6 +1,8 @@
 # Set 与 WeakSet
 
-Set无序，不可重复。 区别与Array
+<https://juejin.cn/post/6844903882162700301>
+
+不可重复。 区别与Array
 
 ES6 提供了新的数据结构 Set。它类似于数组，但是成员的值都是唯一的，没有重复的值。
 
@@ -12,7 +14,7 @@ a.add(2)
 a.delete(2);
 ```
 
-## Set 与 Array
+## Set 与 Array转换
 
 ### 数组转Set
 
@@ -30,27 +32,31 @@ Set可以传入数组，实现去重 new Set(array)
 
 2. Array.from(set)
 
-## Set.add(value)
+## Set与Array对比
 
-## Set.has(value)
+相比Array之下，set是一个键的集合。set不使用索引，而是使用键对数据排序。set 中的元素按插入顺序是可迭代的，它不能包含任何重复的数据。换句话说，set中的每一项都必须是惟一的。
 
-## Set.delete(value)
+## set.add(value)
+
+## set.has(value)
+
+## set.delete(value)
 
 删除某个值，返回一个布尔值，表示删除是否成功。
 
-## Set.forEach()
+## set.forEach()
 
 使用回调函数遍历每个成员
 
-## Set.keys()
+## set.keys()
 
 Set.keys()：返回键名的遍历器
 
-## Set.values()
+## set.values()
 
 返回键值的遍历器
 
-## Set.entries()
+## set.entries()
 
 返回键值对的遍历器
 
