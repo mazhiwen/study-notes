@@ -75,6 +75,7 @@ var newArray = array.filter(function callback(currentValue, index, array){
 
 ## array.reduce()
 
+```js
 //array从左到右执行callback
 // 返回最终return
 array.reduce(
@@ -86,6 +87,14 @@ array.reduce(
     //initialValue
     initialValue
 );
+```
+
+initialValue可选:作为第一次调用 callback函数时的第一个参数的值。 如果没有提供初始值，则将使用数组中的第一个元素。 在没有初始值的空数组上调用 reduce 将报错。
+
+```js
+// 例如： reduce实现扁平化数组
+arr.reduce((acc, val) => acc.concat(val), []);
+```
 
 ## array.slice
 
@@ -242,6 +251,30 @@ console.log(array1.fill(6));
 // expected output: [6, 6, 6, 6]
 ```
 
+## array.flat()
+
+var newArray = arr.flat(depth)
+
+flat() 方法会按照一个可指定的深度递归遍历数组，并将所有元素与遍历到的子数组中的元素合并为一个新数组返回。
+
+depth 使用 Infinity，可展开任意深度的嵌套数组
+
+flat() 方法会移除数组中的空项:
+
+```js
+// flat 等效于 使用扩展运算符 ...。
+// 也就是扩展运算符可以扁平化数组
+const flattened = arr => [].concat(...arr);
+```
+
+## Array.from
+
+Array.from() 方法从一个类似数组或可迭代对象创建一个新的，浅拷贝的数组实例。
+
+Array.from(arrayLike[, mapFn[, thisArg]])
+
+mapFn(x), 对每个元素执行函数
+
 ## 类数组对象
 
 一个拥有 length 属性和若干索引属性的对象就可以被称为类数组对象，类数组对象和数组类似，但是不能调用数组的方法。
@@ -264,3 +297,19 @@ Array.prototype.concat.apply([], arrayLike);
 
 Array.from(arrayLike);
 ```
+
+## 从Chrome V8源码看JavaScript数组
+
+<https://github.com/sisterAn/JavaScript-Algorithms/issues/2>
+
+JavaScript 中， JSArray 继承自 JSObject ，或者说它就是一个特殊的对象，内部是以 key-value 形式存储数据，所以 JavaScript 中的数组可以存放不同类型的值。
+
+它有两种存储方式，快数组与慢数组，初始化空数组时，使用快数组，快数组使用连续的内存空间，当数组长度达到最大时，JSArray 会进行动态的扩容，以存储更多的元素，相对慢数组，性能要好得多。当数组中 hole 太多时，会转变成慢数组，即以哈希表的方式（ key-value 的形式）存储数据，以节省内存空间。
+
+## 数组里面有10万个数据，取第一个元素和第10万个元素的时间
+
+<https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/124>
+
+数组可以直接根据索引取的对应的元素，所以不管取哪个位置的元素的时间复杂度都是 O(1)。得出结论：消耗时间几乎一致，差异可以忽略不计
+
+JavaScript 没有真正意义上的数组，所有的数组其实是对象，其“索引”看起来是数字，其实会被转换成字符串，作为属性名（对象的 key）来使用。所以无论是取第 1 个还是取第 10 万个元素，都是用 key 精确查找哈希表的过程，其消耗时间大致相同。

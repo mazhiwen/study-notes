@@ -12,27 +12,45 @@ a.add(2)
 a.delete(2);
 ```
 
-## Set.prototype.add(value)
+## Set 与 Array
 
-## Set.prototype.has(value)
+### 数组转Set
 
-## Set.prototype.delete(value)
+new Set(array)
+
+Set可以传入数组，实现去重 new Set(array)
+
+### set转数组
+
+1. `[...set]`
+
+```js
+[...new Set([1,2])]
+```
+
+2. Array.from(set)
+
+## Set.add(value)
+
+## Set.has(value)
+
+## Set.delete(value)
 
 删除某个值，返回一个布尔值，表示删除是否成功。
 
-## Set.prototype.forEach()
+## Set.forEach()
 
 使用回调函数遍历每个成员
 
-## Set.prototype.keys()
+## Set.keys()
 
-Set.prototype.keys()：返回键名的遍历器
+Set.keys()：返回键名的遍历器
 
-## Set.prototype.values()
+## Set.values()
 
 返回键值的遍历器
 
-## Set.prototype.entries()
+## Set.entries()
 
 返回键值对的遍历器
 
@@ -45,3 +63,22 @@ Set可以存储值类型和对象引用类型，而WeakSet只能存储对象引�
 WeakSet 中的对象都是弱引用，即垃圾回收机制不考虑 WeakSet 对该对象的引用，允许从内存中清除不再需要的被这些集合所引用的对象。
 
 WeakSet对象是不可枚举的，也就是说无法获取大小，也无法获取其中包含的元素。
+
+## 测试set性能
+
+```js
+let now = Date.now();
+let i = 0;
+var arr = [];
+while(i++<10000) {
+  arr.push(i+Math.random());
+}
+console.log(Date.now() - now);
+now = Date.now();
+let set = new Set(arr);
+console.log(Date.now() - now);
+now = Date.now();
+let setarr = Array.from(set);
+console.log(Date.now() - now);
+now = Date.now();
+```

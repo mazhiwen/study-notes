@@ -4,6 +4,12 @@
 
 <https://github.com/CavsZhouyou/Front-End-Interview-Notebook/blob/master/%E7%AE%97%E6%B3%95/%E7%AE%97%E6%B3%95.md#7-%E6%96%90%E6%B3%A2%E9%82%A3%E5%A5%91%E6%95%B0%E5%88%97>
 
+<https://juejin.cn/post/6844903621105041416#heading-14>
+
+<https://www.jianshu.com/p/8876704ea9c8>
+
+<https://juejin.cn/post/6844903669490515975>
+
 ***
 
 ## 斐波那契数列
@@ -119,19 +125,6 @@ pop：当pop操作的时候，我们就把s1的元素都压入到s2中，然后�
 
 front ：前面也有提到，这个队列的front就是stack2的栈顶元素，只要stack2不为空我们返回stack2的栈顶就可以，为空的话还是像之前一样，我们把stack1的所有数据全部压入stack2中再取栈顶
 
-## 数组去重
-
-```javascript
-let arr = [1,2,1,2,3,5,4,5,3,4,4,4,4];
-let result = arr.sort().reduce((init, current)=>{
-    if(init.length===0 || init[init.length-1]!==current){
-        init.push(current);
-    }
-    return init;
-}, []);
-console.log(result); //[1,2,3,4,5]
-```
-  
 ## 计算数组中每个元素出现的次数
 
 ```javascript

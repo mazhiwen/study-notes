@@ -91,3 +91,16 @@ window.onresize = throttle(function(){
   console.log(1);
 },500);
 ```
+
+## vue写法
+
+```js
+methods: {
+  throttleInit: throttle(function(){
+    this.init();
+  }),
+  init(){
+    
+  }
+}
+```
