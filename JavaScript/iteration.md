@@ -95,8 +95,13 @@ console.log(Object.entries(anObj));
 console.log(Object.entries('foo')); // [ ['0', 'f'], ['1', 'o'], ['2', 'o'] ]
 ```
 
-## iterator    iterator.next  
+## iterator
 
+<https://juejin.cn/post/6844904025167495181#heading-19>
+
+### iterator.next
+
+```js
 //next方法 用来更新iterator 的迭代
 console.log(iterator.next());
 //二维数组排序
@@ -123,3 +128,4 @@ sortArr(arr);
 //   3:(4) [1, 23, 34, 78]
 //   length:4
 //   __proto__:Array(0)
+```

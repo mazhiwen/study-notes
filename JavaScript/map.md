@@ -6,6 +6,8 @@
 
 <https://juejin.cn/post/6846687604042104845>
 
+<https://wangdoc.com/es6/set-map.html#map>
+
 键值对按照插入顺序排列，如果插入重复的键值，后面的键值会覆盖前者
 
 Map 数据结构。它类似于对象，也是键值对的集合
@@ -68,3 +70,34 @@ Map的查询 添加 删除 性能要优与Object
 「Map」是一个纯哈希结构，而「Object」不是（它拥有自己的内部逻辑）。Map 在频繁增删键值对的场景下表现更好，性能更高。因此当你需要频繁操作数据的时候也可以优先考虑 Map
 
 ## map.forEach
+
+## map.keys()
+
+keys() 返回一个引用的 Iterator 对象。它包含按照顺序插入 Map 对象中每个元素的key值。
+
+```js
+const map1 = new Map();
+
+map1.set('0', 'foo');
+map1.set(1, 'bar');
+
+const iterator1 = map1.keys();
+
+console.log(iterator1.next().value);
+// expected output: "0"
+
+console.log(iterator1.next().value);
+// expected output: 1
+```
+
+## 测试代码
+
+```js
+let map = new Map();
+map.set(1,'a');
+map.set(2,'b');
+let iterator = map.keys();
+
+console.log(iterator.next().value);
+map.delete(2,'b');
+```

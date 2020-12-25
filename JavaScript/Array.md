@@ -75,6 +75,12 @@ var newArray = array.filter(function callback(currentValue, index, array){
 
 ## array.reduce()
 
+reduce() 方法对数组中的每个元素执行一个由您提供的reducer函数(升序执行)，将其结果汇总为单个返回值。
+
+reducer 函数的返回值分配给累计器 accumulator ，该返回值 accumulator 在数组的每个迭代中被记住，并最后成为最终的单个结果值。
+
+返回 ： 函数累计处理的结果 accumulator
+
 ```js
 //array从左到右执行callback
 // 返回最终return
@@ -88,6 +94,8 @@ array.reduce(
     initialValue
 );
 ```
+
+accumulator: 累计器累计回调的返回值; 它是上一次调用回调时返回的累积值，或initialValue（见于下方）。
 
 initialValue可选:作为第一次调用 callback函数时的第一个参数的值。 如果没有提供初始值，则将使用数组中的第一个元素。 在没有初始值的空数组上调用 reduce 将报错。
 

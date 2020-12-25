@@ -1,10 +1,13 @@
-## 链表
+# 链表
 
-**单向链表**
+## 单向链表
 
 链表是由一组节点组成的集合。每个节点都使用一个对象的引用指向它的后继。  
+
 指向另一个节点的引用叫做链。  
+
 尾元素指向null  
+
 Head->节点->节点->null  
 
 ```javascript
@@ -64,7 +67,7 @@ function remove( item) {
 }
 ```
 
-**双向链表**
+## 双向链表
 
 null<-Head-><-节点-><-节点->null
 
@@ -119,7 +122,7 @@ function dispReverse() {
 }
 ```
 
-**循环链表**
+## 循环链表
 
 类似单向链表  
 在创建循环链表时，Head.next指向Head  
@@ -146,45 +149,4 @@ function display() {
 
 ```
 
-**判断链表中是否有环**
 
-<https://leetcode-cn.com/problems/linked-list-cycle/solution/pan-duan-yi-ge-dan-lian-biao-shi-fou-you-huan-by-u/>
-
-- 1.标志法
-
-- 2.利用JSON.stringify()不能序列化含有循环引用的结构
-
-```js
-var hasCycle = function(head) {
-    try{
-        JSON.stringify(head);
-        return false;
-    }
-    catch(err){
-        return true;
-    }
-};
-```
-
-时间复杂度：O(n);空间复杂度：O(n)
-
-- 3.快慢指针（双指针法）
-
-设置快慢两个指针，遍历单链表，快指针一次走两步，慢指针一次走一步，如果单链表中存在环，则快慢指针终会指向同一个节点，否则直到快指针指向 null 时，快慢指针都不可能相遇
-
-```js
-var hasCycle = function(head) {
-  if(!head || !head.next) {
-      return false
-  }
-  let fast = head.next.next, slow = head
-  while(fast !== slow) {
-      if(!fast || !fast.next) return false
-      fast = fast.next.next
-      slow = slow.next
-  }
-  return true
-};
-```
-
-时间复杂度：O(n);空间复杂度：O(1)

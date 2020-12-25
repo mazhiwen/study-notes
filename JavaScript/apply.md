@@ -1,3 +1,4 @@
+# js相关题集
 
 ## ['1', '2', '3'].map(parseInt)
 
@@ -101,5 +102,80 @@ const twoSum = function(nums, target) {
         map.set(nums[i], i)
     }
     return [];
+};
+```
+
+## 合并两个有序数组
+
+<https://github.com/sisterAn/JavaScript-Algorithms/issues/3>
+
+```js
+const merge = function(nums1, m, nums2, n) {
+    let len1 = m - 1,
+        len2 = n - 1,
+        len = m + n - 1
+    while(len2 >= 0) {
+        if(len1 < 0) {
+            nums1[len--] = nums2[len2--]
+            continue
+        }
+        nums1[len--] = nums1[len1] >= nums2[len2] ? nums1[len1--]: nums2[len2--]
+    }
+};
+```
+
+## LRU 缓存机制
+
+运用你所掌握的数据结构，设计和实现一个 LRU (最近最少使用) 缓存机制。它应该支持以下操作： 获取数据 get 和写入数据 put 。
+
+获取数据 get(key) - 如果密钥 ( key ) 存在于缓存中，则获取密钥的值（总是正数），否则返回 -1 。
+
+写入数据 put(key, value) - 如果密钥不存在，则写入数据。当缓存容量达到上限时，它应该在写入新数据之前删除最久未使用的数据，从而为新数据留出空间。
+
+利用 Map 既能保存键值对，并且能够记住键的原始插入顺序
+
+```js
+var LRUCache = function(capacity) {
+    this.cache = new Map()
+    this.capacity = capacity
+}
+
+LRUCache.prototype.get = function(key) {
+    if (this.cache.has(key)) {
+        // 存在即更新
+        let temp = this.cache.get(key)
+        this.cache.delete(key)
+        this.cache.set(key, temp)
+        return temp
+    }
+    return -1
+}
+
+LRUCache.prototype.put = function(key, value) {
+    if (this.cache.has(key)) {
+        // 存在即更新（删除后加入）
+        this.cache.delete(key)
+    } else if (this.cache.size >= this.capacity) {
+        // 不存在即加入
+        // 缓存超过最大值，则移除最近没有使用的
+        this.cache.delete(this.cache.keys().next().value)
+    }
+    this.cache.set(key, value)
+}
+```
+
+## 多个数组的交集
+
+```js
+const intersection = function(...args) {
+    if (args.length === 0) {
+    return []
+  }
+  if (args.length === 1) {
+    return args[0]
+  }
+  return [...new Set(args.reduce((result, arg) => {
+    return result.filter(item => arg.includes(item))
+  }))]
 };
 ```

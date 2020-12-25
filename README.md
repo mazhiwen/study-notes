@@ -19,11 +19,12 @@
   - [页面可见性](./web/PageVisibility.md)
   - [跨域攻击](./web/cyber-attack.md)
   - [nginx](./web/nginx)
-  - [前端监控和埋点方案](./web/monitor.md)
+  - [前端日志,监控,埋点,错误收集](./web/monitor.md)
   - [绘图](./web/绘图.md)
   - [图片](./web/StaticFile.md)
   - [URL](./web/url.md)
   - [history](./web/history.md)
+  - [前端可视化](./web/visual.md)
   - [其他](./web/basic.md)
 - web
   - [TCP/IP-HTTP](./web/TCP-HTTP/)

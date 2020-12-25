@@ -4,6 +4,8 @@
 
 <http://es6.ruanyifeng.com/>
 
+<https://wangdoc.com/es6/>
+
 ### 默认参数
 
 ```js

@@ -263,32 +263,4 @@ else
 
 ### 数组最大不连续递增子序列
 
-arr[] = {3,1,4,1,5,9,2,6,5}的最长递增子序列长度为4。即为：1,4,5,9
-
-思路：设置一个数组temp，长度为原数组长度，数组第i个位置上的数字代表0...i上最长递增子序列，当增加一个数字时，最大递增子序列可能变成前面最大的递增子序列+1，也可能就是前面最大递增子序列，这需要让新增加进来的数字arr[i]跟前面所有数字比较大小，即当 arr[i] > arr[j]，temp[i] = max{temp[j]}+1，其中，j 的取值范围为：0,1...i-1，当 arr[i] < arr[j]，temp[i] = max{temp[j]}，j 的取值范围为：0,1...i-1，所以在状态转换方程为temp[i]=max{temp[i-1], temp[i-1]+1}
-
-```java
-public static int MaxChildArrayOrder(int a[]) {
-  int n = a.length;
-  int temp[] = new int[n];//temp[i]代表0...i上最长递增子序列
-  for(int i=0;i<n;i++){
-    temp[i] = 1;//初始值都为1
-  }
-  for(int i=1;i<n;i++){
-    for(int j=0;j<i;j++){
-      if(a[i]>a[j]&&temp[j]+1>temp[i]){
-        //如果有a[i]比它前面所有的数都大，则temp[i]为它前面的比它小的数的那一个temp+1取得的最大值
-        temp[i] = temp[j]+1;
-      }
-    }
-  }
-  int max = temp[0];
-  //从temp数组里取出最大的值
-  for(int i=1;i<n;i++){
-    if(temp[i]>max){
-      max = temp[i];
-    }
-  }
-  return max;
-}
-```
+[见算法题集](../jstopic.md)
