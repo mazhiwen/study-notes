@@ -28,6 +28,7 @@
   - [其他](./web/basic.md)
 - web
   - [TCP/IP-HTTP](./web/TCP-HTTP/)
+  - [HTTP2](./web/http2.md)
   - [前端性能-谷歌文档](./web/performance.md)
   - [前端性能-实践应用](./web/performanceapply.md)
   - [性能-http](./web/performancehttp.md)
