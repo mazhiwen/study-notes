@@ -1,4 +1,4 @@
-# iterations 迭代相关
+# 迭代相关
 
 ## for
 
@@ -21,7 +21,7 @@ while (n < 3) {//条件检测会在每次 statement 执行之前发生
 
 ## break
 
-//break中止循环(for,do...while,while,label)，switch
+break中止循环(for,do...while,while,label)，switch
 
 ## continue  
 
@@ -41,19 +41,45 @@ for (let key in arr) {
 ## for...of  
 
 //遍历value  遍历arr
+
+```js
 for (let value of arr) {
     console.log(value); // logs "3", "5", "7" // 注意这里没有 hello
 }
+```
 
-## entries
+```js
+for (let e of iterator) {
+    console.log(e);
+}
+for (const [key, value] of Object.entries(obj)) {
+  console.log(`${key} ${value}`); // "a 5", "b 7", "c 9"
+}
 
-### array.entries()  返回一个Array Iterator
+//*******forEach
+Object.entries(obj).forEach(([key, value]) => {
+    console.log(`${key} ${value}`); // "a 5", "b 7", "c 9"
+});
+
+//*******转为 Map
+var obj = { foo: "bar", baz: 42 };
+var map = new Map(Object.entries(obj));
+console.log(map); // Map { foo: "bar", baz: 42 }
+Object.entries(obj).map(([key, value],index) => {
+    console.log(`${key} ${value}`); // "a 5", "b 7", "c 9"
+});
+
+```
+
+## array.entries()  
+
+返回一个Array Iterator
 
 var arr = ["a", "b", "c"];
 var iterator = arr.entries();
 console.log(iterator);
 
-### Object.entries(object)
+## Object.entries(object)
 
 ```js
 // 返回一个给定对象自身可枚举属性的键值对数组
@@ -69,7 +95,7 @@ console.log(Object.entries(anObj));
 console.log(Object.entries('foo')); // [ ['0', 'f'], ['1', 'o'], ['2', 'o'] ]
 ```
 
-### iterator    iterator.next  
+## iterator    iterator.next  
 
 //next方法 用来更新iterator 的迭代
 console.log(iterator.next());
@@ -97,28 +123,3 @@ sortArr(arr);
 //   3:(4) [1, 23, 34, 78]
 //   length:4
 //   __proto__:Array(0)
-
-### for of
-
-```js
-for (let e of iterator) {
-    console.log(e);
-}
-for (const [key, value] of Object.entries(obj)) {
-  console.log(`${key} ${value}`); // "a 5", "b 7", "c 9"
-}
-
-//*******forEach
-Object.entries(obj).forEach(([key, value]) => {
-    console.log(`${key} ${value}`); // "a 5", "b 7", "c 9"
-});
-
-//*******转为 Map
-var obj = { foo: "bar", baz: 42 };
-var map = new Map(Object.entries(obj));
-console.log(map); // Map { foo: "bar", baz: 42 }
-Object.entries(obj).map(([key, value],index) => {
-    console.log(`${key} ${value}`); // "a 5", "b 7", "c 9"
-});
-
-```

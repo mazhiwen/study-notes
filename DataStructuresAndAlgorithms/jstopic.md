@@ -238,6 +238,8 @@ console.log(longestSeq(input1,input2,n1,n2));
 
 ## 背包问题
 
+<https://segmentfault.com/a/1190000012829866>
+
 转换为表格 行为物品，列为容量，从左到右，从上到下计算值。
 
 ```
@@ -254,6 +256,11 @@ i 吉他
 ```java
 public static int PackageHelper2(int n,int w[],int p[],int v) {
   //设置一个二维数组，横坐标代表从第一个物品开始放到第几个物品，纵坐标代表背包还有多少容量，dp代表最大价值
+  // n 表示物品个数 
+  // w 表示物品重量数组
+  // p 表示物品价值数组
+  // v 表示总空间
+  // dp 表示空间对应的最大价值物品
   int dp[] = new int[v+1];
   for(int i=1;i<=n;i++){
    for(int j=v;j>0;j--){
@@ -266,6 +273,38 @@ public static int PackageHelper2(int n,int w[],int p[],int v) {
   }
   return dp[v];
  }
+```
+
+不同写法：
+
+```js
+//by 司徒正美
+ function knapsack(weights, values, W){
+    var n = weights.length -1
+    var f = [[]]
+    for(var j = 0; j <= W; j++){
+        if(j < weights[0]){ //如果容量不能放下物品0的重量，那么价值为0
+           f[0][j] = 0
+        }else{ //否则等于物体0的价值
+           f[0][j] = values[0]
+        }
+    }
+    for(var j = 0; j <= W; j++){
+        for(var i = 1; i <= n; i++ ){
+            if(!f[i]){ //创建新一行
+                f[i] = []
+            }
+            if(j < weights[i]){ //等于之前的最优值
+                f[i][j] = f[i-1][j]
+            }else{
+                f[i][j] = Math.max(f[i-1][j], f[i-1][j-weights[i]] + values[i]) 
+            }
+        }
+    }
+    return f[n][W]
+}
+var a = knapsack([2,2,6,5,4],[6,3,5,4,6],10)
+console.log(a)
 ```
 
 ## 全排列
@@ -321,3 +360,46 @@ console.log(ret);
 ## 排列组合
 
 <https://juejin.im/post/6844904021510062094>
+
+## 回文子串
+
+<https://github.com/sisterAn/JavaScript-Algorithms/issues/107>
+
+给定一个字符串，你的任务是计算这个字符串中有多少个回文子串。
+
+具有不同开始位置或结束位置的子串，即使是由相同的字符组成，也会被视作不同的子串。
+
+显然，一个子串由两端的 i 、j 指针确定，就是描述子问题的变量，子串 s[i...j] （ dp[i][j] ） 是否是回文串，就是子问题。
+
+最佳子结构公式：
+
+```js
+i === j： dp[i][j]=true
+j - i == 1 && s[i] == s[j]： dp[i][j] = true
+j - i > 1 && s[i] == s[j] && dp[i + 1][j - 1]： dp[i][j] = true
+```
+
+实现：
+
+```js
+let countSubstrings = function(s) {
+  const len = s.length
+  let count = 0
+  const dp = new Array(len)
+
+  for (let i = 0; i < len; i++) {
+    dp[i] = new Array(len).fill(false)
+  }
+  for (let j = 0; j < len; j++) {
+    for (let i = 0; i <= j; i++) {
+      if (s[i] == s[j] && (j - i <= 1 || dp[i + 1][j - 1])) {
+        dp[i][j] = true
+        count++
+      } else {
+        dp[i][j] = false
+      }
+    }
+  }
+  return count
+}
+```
