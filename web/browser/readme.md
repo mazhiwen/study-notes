@@ -6,7 +6,6 @@
 - [浏览器内核](#浏览器内核)
 - [URL](#URL)
 - [devtools](#devtools)
-- [requestAnimationFrame](#requestAnimationFrame)
 - [DOMContentLoaded事件和Load事件的区别](#DOMContentLoaded事件和Load事件的区别)
 - [Canvas和SVG有什么区别](#Canvas和SVG有什么区别)
 - [浏览器端的存储技术](#浏览器端的存储技术)

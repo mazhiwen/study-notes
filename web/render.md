@@ -4,8 +4,6 @@
 
 <https://mp.weixin.qq.com/s?__biz=MzUyMTMxMTc1Ng==&mid=2247483712&idx=1&sn=545325dc5a3e84be44554809264ba39b&chksm=f9dc4223ceabcb3566be4689fb49d9868712e572eb2a6bb08cb159dc4c4f0d55b22e0b667c92&scene=21#wechat_redirect>
 
-![](./640.webp)
-
 ## 浏览器渲染
 
 浏览器使用流式布局模型 (Flow Based Layout)。
