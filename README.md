@@ -37,6 +37,7 @@
   - [性能-http](./network/performancehttp.md)
   - [websocket](./network/websocket.md)
   - [https](./network/https.md)
+  - [前端鉴权](./network/auth.md)
 - JavaScript
   - [知识大全](./JavaScript/basic.md)
   - [应用题](./JavaScript/apply.md)
@@ -76,7 +77,6 @@
   - [防抖和节流](./JavaScript/debounce.md)
   - [富文本编辑器开发原理](./JavaScript/editor.md)
   - [模块化规范](./JavaScript/module.md)
-  - [前端鉴权](./JavaScript/auth.md)
   - [cookie](./JavaScript/cookie.md)
   - [虚拟列表](./JavaScript/virtuallist.md)
   - [PerformanceAPI](./JavaScript/PerformanceAPI.md)
