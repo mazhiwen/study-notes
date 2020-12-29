@@ -142,7 +142,7 @@
   - [算法-递归](./DataStructuresAndAlgorithms/DSA/recursion.md)
   - [算法-回溯](./DataStructuresAndAlgorithms/DSA/backtracking.md)
   - [算法-贪心](./DataStructuresAndAlgorithms/DSA/greedy.md)
-  - [算法-分治](./DataStructuresAndAlgorithms/DSA/divide.md)
+  - [算法-分治/归并](./DataStructuresAndAlgorithms/DSA/divide.md)
   - [算法-动态规划](./DataStructuresAndAlgorithms/DSA/dynamic.md)
 - [node](./node)
 - [前端工程化](./integration)

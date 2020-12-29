@@ -1,4 +1,4 @@
-# 分治法
+# 分治 归并
 
 <https://juejin.im/post/6844904190578278414>
 
@@ -34,6 +34,27 @@ Divide-and-Conquer(P)
             do yi ← Divide-and-Conquer(Pi) △ 递归解决Pi
         T ← MERGE(y1,y2,...,yk) △ 合并子问题
     return(T)
+```
+
+## 通用思路
+
+```js
+
+function divide(array){
+  let length = array.length;
+  if (length === 1) {
+    return array;
+  }
+  let mid = parseInt(length >> 1), // 找到中间索引值
+      left = array.slice(0, mid), // 截取左半部分
+      right = array.slice(mid, length); // 截取右半部分
+  return mergeDivide(divide(left),divide(right));
+}
+
+function mergeDivide(left,right){
+  // 处理...
+  return left和right处理结果
+}
 ```
 
 ## 实例

@@ -76,11 +76,11 @@ var orig = '   foo  ';
 console.log(orig.trim()); // 'foo'
 ```
 
-## replace
+## str.replace
 
-// str.replace(regexp|substr, newSubStr|function)
+str.replace(regexp|substr, newSubStr|function)
 
-#### newSubStr参数
+### newSubStr参数
 
 $$ 插入一个 "$"。
 $& 插入匹配的子串。
@@ -97,7 +97,7 @@ var newstr = str.replace(re, "$2, $1");
 console.log(newstr);
 ```
 
-#### function参数
+### function参数
 
 ```js
 function replacer(match, p1, p2, p3, offset, string) {
@@ -173,3 +173,7 @@ console.log(numArr)  // => ["123", "456", "789"]
 console.log(+numArr.join('')) // => 123456789
 
 ```
+
+## str.charAt()
+
+charAt(index) 方法从一个字符串中返回指定的字符。
