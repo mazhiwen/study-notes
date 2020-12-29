@@ -28,7 +28,7 @@
   - [前端可视化](./web/visual.md)
   - [其他](./web/basic.md)
 - 网络知识
-  - [web网络知识](./network/readme.md)
+  - [web网络知识](./network/README.md)
   - [HTTP](./network/http.md)
   - [HTTP2](./network/http2.md)
   - [HTTP3](./network/http3.md)
@@ -39,7 +39,7 @@
   - [https](./network/https.md)
   - [前端鉴权](./network/auth.md)
 - JavaScript
-  - [知识大全](./JavaScript/basic.md)
+  - [知识大全](./JavaScript/README.md)
   - [应用题](./JavaScript/apply.md)
   - [变量](./JavaScript/var.md)
   - [作用域](./JavaScript/scope.md)
