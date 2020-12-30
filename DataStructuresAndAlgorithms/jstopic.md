@@ -12,22 +12,6 @@
 
 ***
 
-## 全排列
-
-<https://blog.csdn.net/qq_41056506/article/details/82659524>
-
-<https://www.cnblogs.com/sooner/p/3264882.html>
-
-<https://juejin.im/post/6844903907575988238>
-
-<https://juejin.im/post/6844903809701904397>
-
-<https://www.bilibili.com/video/av9830088/>
-
-<https://juejin.im/post/6844903502121009160>
-
-n个元素全排列为n！= n*(n-1)* .... *1;
-
 ### 递归法
 
 ```js
@@ -488,3 +472,69 @@ var hasCycle = function(head) {
 ### 合并两个有序链表
 
 <https://github.com/sisterAn/JavaScript-Algorithms/issues/11>
+
+## 回溯算法
+
+### 全排列
+
+<https://blog.csdn.net/qq_41056506/article/details/82659524>
+
+<https://www.cnblogs.com/sooner/p/3264882.html>
+
+<https://juejin.im/post/6844903907575988238>
+
+<https://juejin.im/post/6844903809701904397>
+
+<https://www.bilibili.com/video/av9830088/>
+
+<https://juejin.im/post/6844903502121009160>
+
+n个元素全排列为n！= n*(n-1)* .... *1;
+
+题目：给定一个 没有重复 数字的序列，返回其所有可能的全排列。
+
+```
+输入: [1,2,3]
+输出:
+[
+  [1,2,3],
+  [1,3,2],
+  [2,1,3],
+  [2,3,1],
+  [3,1,2],
+  [3,2,1]
+]
+```
+
+```js
+let permute = function(nums) {
+    // 使用一个数组保存所有可能的全排列
+    let res = []
+    if (nums.length === 0) {
+        return res
+    }
+    let used = {}, path = []
+    dfs(nums, nums.length, 0, path, used, res)
+    return res
+}
+let dfs = function(nums, len, depth, path, used, res) {
+  // 所有数都填完了
+  if (depth === len) {
+    res.push([...path])
+    return
+  }
+  for (let i = 0; i < len; i++) {
+    if (!used[i]) {
+      // 动态维护数组
+      path.push(nums[i])
+      used[i] = true
+      // 继续递归填下一个数
+      dfs(nums, len, depth + 1, path, used, res)
+      // 撤销操作
+      used[i] = false
+      path.pop()
+    }
+    
+  }
+}
+```
