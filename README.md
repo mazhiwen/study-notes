@@ -6,7 +6,7 @@
 ***
 
 - WebAPI
-  - [浏览器以及BOM](./web/browser)
+  - [WebAPI](./web/browser)
   - [DOM](./web/DOM/)
   - [window](./web/window.md)
   - [Element](./web/DOM/Element.md)
@@ -14,6 +14,8 @@
   - [重绘和回流](./web/reflow.md)
   - [canvas](./web/canvas.md)
   - [svg](./web/svg.md)
+  - [前端性能-谷歌文档](./web/performance.md)
+  - [前端性能-实践应用](./web/performanceapply.md)
   - [浏览器端的缓存](./web/cache.md)
   - [Chrome调试工具](./web/chrome.md)
   - [浏览器存储](./web/storage.md)
@@ -34,8 +36,6 @@
   - [HTTP](./network/http.md)
   - [HTTP2](./network/http2.md)
   - [HTTP3](./network/http3.md)
-  - [前端性能-谷歌文档](./network/performance.md)
-  - [前端性能-实践应用](./network/performanceapply.md)
   - [性能-http](./network/performancehttp.md)
   - [websocket](./network/websocket.md)
   - [https](./network/https.md)

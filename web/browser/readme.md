@@ -171,3 +171,39 @@ SVG 是一种使用 XML 描述 2D 图形的语言。SVG 基于 XML，这意味�
     * 网络异步线程
     * 定时器线程
 ```
+
+## 监听视窗激活状态
+
+```js
+// 窗口激活状态监听
+let vEvent = 'visibilitychange';
+if (document.webkitHidden != undefined) {
+    vEvent = 'webkitvisibilitychange';
+}
+
+function visibilityChanged() {
+    if (document.hidden || document.webkitHidden) {
+        document.title = '客官，别走啊~'
+        console.log("Web page is hidden.")
+    } else {
+        document.title = '客官，你又回来了呢~'
+        console.log("Web page is visible.")
+    }
+}
+
+document.addEventListener(vEvent, visibilityChanged, false);
+```
+
+## 监听网络变化
+
+```js
+var connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+var type = connection.effectiveType;
+
+function updateConnectionStatus() {
+  console.log("Connection type changed from " + type + " to " + connection.effectiveType);
+  type = connection.effectiveType;
+}
+
+connection.addEventListener('change', updateConnectionStatus);
+```
