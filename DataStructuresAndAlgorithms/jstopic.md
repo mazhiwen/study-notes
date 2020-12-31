@@ -538,3 +538,50 @@ let dfs = function(nums, len, depth, path, used, res) {
   }
 }
 ```
+
+### 数组的子集
+
+```
+leetcode Q78（子集）：
+给定一组不含重复元素的整数数组 nums，返回该数组所有可能的子集（幂集）。
+
+说明：解集不能包含重复的子集。
+示例:
+输入: nums = [1,2,3]
+输出:
+[
+  [3],
+  [1],
+  [2],
+  [1,2,3],
+  [1,3],
+  [2,3],
+  [1,2],
+  []
+]
+```
+
+```js
+var subsets = function(nums) {
+    //最终结果存在res
+    var res = [];
+    //返回二维数组，temp用于存储每一个结果的数组形式
+    var temp = [];
+    //调用回溯方法
+    backtrack(res,nums,0,temp);
+    return res;
+};
+
+var backtrack = function(res,nums,index,temp){
+    //这里每次探索都是结果，所以res不用条件判断
+    res.push(temp.slice());
+    //对我们的nums进行探索，这里的i的起始点变化，是为了去重
+    for(let i = index; i < nums.length; i ++){
+        //往下探索的过程
+        temp.push(nums[i]);
+        backtrack(res,nums,i + 1,temp);
+        //回溯
+        temp.pop();
+    }
+}
+```

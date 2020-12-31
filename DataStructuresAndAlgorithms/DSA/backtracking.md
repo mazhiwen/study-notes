@@ -8,22 +8,30 @@
 
 <https://juejin.cn/post/6844903748456677389>
 
+<https://juejin.cn/post/6844904037934972936>
+
 [例子见算法题集](../jstopic.md)
 
 ## 适用场景
 
 回溯算法很简单，它就是不断的尝试，直到拿到解。它的这种算法思想，使它通常用于解决广度的搜索问题，即从一组可能的解中，选择一个满足要求的解
 
-## 通用代码
+## 通用大概逻辑
 
-```
-dfs(){
-  for (){
-    if ...
-    if ...
-      dfs()
+```js
+let result = []
+backTrace(depth,temp){
+  if(depth == len){
+    result.push(temp);
+  }
+  for (let i = index; i < nums.length; i ++){
+    temp.push(nums[i]);
+    backTrace(depth+1,temp)
+    //回溯
+    temp.pop();
   }
 }
+return result;
 ```
 
 ## 例子：电话号码字母组合
