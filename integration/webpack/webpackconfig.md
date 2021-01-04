@@ -107,122 +107,6 @@ runtime mainfest 是webpack用来管理所有模块的交互
 
 配置多个entry可以实现分离
 
-### SplitChunksPlugin
-
-<https://juejin.im/post/5af1677c6fb9a07ab508dabb>
-<https://segmentfault.com/a/1190000013476837>
-<https://blog.51cto.com/13869008/2164811>
-
-相比CommonsChunkPlugin更支持深度的定制optimizations 优化
-
-```javascript
-module.exports = {
-  //...默认配置
-  optimization: {
-    splitChunks: {
-      // 默认只作用于异步模块，为`all`时对所有模块生效,`initial`对同步模块有效
-      chunks: 'async',
-      // 形成一个新代码块最小的体积 30k
-      minSize: 30000,
-      maxSize: 0,
-      // 在分割之前，这个代码块最小应该被引用的次数
-      minChunks: 1,
-      // 按需加载时候最大的并行请求数
-      maxAsyncRequests: 5,
-      //  一个入口最大的并行请求数
-      maxInitialRequests: 3,
-      // 自动命名连接符 chunk链接符
-      automaticNameDelimiter: '~',
-      name: true,
-      // cacheGroups会继承splitChunks配置
-      cacheGroups: {
-        vendors: {
-
-          // name赋值时，打出的包命名为一个name包，
-          // 没有赋值name 时，打出的包会根据各个组合包命名
-          // name:"vendors",
-          // 用于控制哪些模块被这个缓存组匹配到。原封不动传递出去的话，它默认会选择所有的模块。可以传递的值类型：RegExp、String和Function
-          test: /[\\/]node_modules[\\/]/,
-          // 有时候需要自定义cachegroup的时候需要设置高值 才有效
-          // 目前不清楚为什么
-          // 因为不设置高值 默认配置并没有加载
-          priority: -10
-        },
-        default: {
-          minChunks: 2,
-          priority: -20,
-          // 可设置是否重用该chunk
-          reuseExistingChunk: true
-        }
-      }
-    }
-  }
-};
-
-// 一般配置:
-{
-  cacheGroups: {
-    // 打包nodemodule
-    vendors: {
-      name:"vendors",
-      chunks:"all",
-      // name赋值时，打出的包命名为一个name包，
-      // 没有赋值name 时，打出的包会根据各个组合包命名
-      // name:"vendors",
-      test: /[\\/]node_modules[\\/]/,
-      // 有时候需要自定义cachegroup的时候需要设置高值 才有效
-      // 目前不清楚为什么
-      // 因为不设置高值 默认配置并没有加载
-      priority: 10
-    },
-    // 打包公用js
-    common: {
-      name:"common",
-      chunks:"all",
-      priority: 9,
-      minChunks: 2,
-
-    }
-  }
-}
-```
-
-***注意***:
-
-- cacheGroups 里的每一项最好都要加上chunks参数，不然可能打包不出来你想要的东西。
-- minSize 默认是30KB（注意这个体积是压缩之前的）在小于30kb的情况下一定要设置一个值，否则也可能打包不出来你想要的东西，而且这东西要加在cacheGroups里面。
-- priority 在某些情况下，还是挺有用的，可以设置打包chunks的优先级。
-
-### 异步 动态引入 懒加载
-
-SplitChunksPlugin 会对asyc import.then等动态分离动态chunk
-
-```javascript
-//
-import(/* webpackChunkName: "lodash" */ 'lodash').then(_ => {
-  var element = document.createElement('div');
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-  return element;
-}).catch(error => 'An error occurred while loading the component');
-
-//async优化
-async function getComponent() {
-  const _ = await import(/* webpackChunkName: "lodash" */ 'lodash');
-  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
-  return element;
-}
-getComponent().then(component => {
-  document.body.appendChild(component);
-});
-
-button.onclick = e => import(/* webpackChunkName: "print" */ './print').then(module => {
-  var print = module.default;
-  print();
-});
-
-// 注意当调用 ES6 模块的 import() 方法（引入模块）时，必须指向模块的 .default 值，因为它才是 promise 被处理后返回的实际的 module 对象。
-```
-
 ### 预取/预加载模块(prefetch/preload module)
 
 ```js
@@ -501,3 +385,167 @@ webpack配置中字符串格式的 路径'' 一般是以webpack执行命令的�
 ## webpack-dev-middleware
 
 <https://juejin.im/entry/574f95922e958a00683e402d>
+
+## SplitChunksPlugin
+
+<https://juejin.im/post/5af1677c6fb9a07ab508dabb>
+<https://segmentfault.com/a/1190000013476837>
+<https://blog.51cto.com/13869008/2164811>
+
+<https://juejin.cn/post/6844904198023168013#heading-1>
+
+```javascript
+module.exports = {
+  //...默认配置
+  optimization: {
+    splitChunks: {
+      // 默认只作用于异步模块，为`all`时对所有模块生效,`initial`对同步模块有效
+      chunks: 'async',
+      // 形成一个新代码块最小的体积 30k
+      minSize: 30000,
+      maxSize: 0,
+      // 在分割之前，这个代码块最小应该被引用的次数
+      minChunks: 1,
+      // 按需加载时候最大的并行请求数
+      maxAsyncRequests: 5,
+      //  一个入口最大的并行请求数
+      maxInitialRequests: 3,
+      // 自动命名连接符 chunk链接符
+      automaticNameDelimiter: '~',
+      name: true,
+      // cacheGroups会继承splitChunks配置
+      cacheGroups: {
+        vendors: {
+
+          // name赋值时，打出的包命名为一个name包，
+          // 没有赋值name 时，打出的包会根据各个组合包命名
+          // name:"vendors",
+          // 用于控制哪些模块被这个缓存组匹配到。原封不动传递出去的话，它默认会选择所有的模块。可以传递的值类型：RegExp、String和Function
+          test: /[\\/]node_modules[\\/]/,
+          // 有时候需要自定义cachegroup的时候需要设置高值 才有效
+          // 目前不清楚为什么
+          // 因为不设置高值 默认配置并没有加载
+          priority: -10
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          // 可设置是否重用该chunk
+          reuseExistingChunk: true
+        }
+      }
+    }
+  }
+};
+
+// 一般配置:
+{
+  cacheGroups: {
+    // 打包nodemodule
+    vendors: {
+      name:"vendors",
+      chunks:"all",
+      // name赋值时，打出的包命名为一个name包，
+      // 没有赋值name 时，打出的包会根据各个组合包命名
+      // name:"vendors",
+      test: /[\\/]node_modules[\\/]/,
+      // 有时候需要自定义cachegroup的时候需要设置高值 才有效
+      // 目前不清楚为什么
+      // 因为不设置高值 默认配置并没有加载
+      priority: 10
+    },
+    // 打包公用js
+    common: {
+      name:"common",
+      chunks:"all",
+      priority: 9,
+      minChunks: 2,
+
+    }
+  }
+}
+```
+
+### chunks
+
+选项，决定要提取那些模块。
+
+默认是async：只提取异步加载的模块出来打包到一个文件中。
+
+异步加载的模块：通过import('xxx')或require(['xxx'],() =>{})加载的模块。
+
+initial：提取同步加载和异步加载模块，如果xxx在项目中异步加载了，也同步加载了，那么xxx这个模块会被提取两次，分别打包到不同的文件中。
+
+同步加载的模块：通过 import xxx或require('xxx')加载的模块。
+
+all：不管异步加载还是同步加载的模块都提取出来，打包到一个文件中。
+
+### minChunks
+
+选项：表示要被提取的模块最小被引用次数，引用次数超过或等于minChunks值，才能被提取。
+
+### minSize
+
+默认是30KB（注意这个体积是压缩之前的）在小于30kb的情况下一定要设置一个值，否则也可能打包不出来你想要的东西，而且这东西要加在cacheGroups里面。
+
+### priority
+
+方案的优先级，值越大表示提取模块时优先采用此方案。默认值为0。
+
+### cacheGroups
+
+里的每一项最好都要加上chunks参数，不然可能打包不出来你想要的东西。
+
+reuseExistingChunk选项：true/false。为true时，如果当前要提取的模块，在已经在打包生成的js文件中存在，则将重用该模块，而不是把当前要提取的模块打包生成新的js文件。
+
+priority同外面
+
+## 异步加载 按需加载 懒加载
+
+<https://juejin.cn/post/6895546761255845901>
+
+### webpack 的 require.ensure 异步加载
+
+### ES6的 import() 按需加载
+
+SplitChunksPlugin 会对asyc import.then等动态分离动态chunk
+
+```javascript
+//
+import(/* webpackChunkName: "lodash" */ 'lodash').then(_ => {
+  var element = document.createElement('div');
+  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+  return element;
+}).catch(error => 'An error occurred while loading the component');
+
+//async优化
+async function getComponent() {
+  const _ = await import(/* webpackChunkName: "lodash" */ 'lodash');
+  element.innerHTML = _.join(['Hello', 'webpack'], ' ');
+  return element;
+}
+getComponent().then(component => {
+  document.body.appendChild(component);
+});
+```
+
+例子： 两个按钮分别触发不同事件.
+
+生成两个按需加载的js文件，需要时加载对应js
+
+```js
+document.getElementById('aBtn').onclick = function () {
+  //异步加载A.js
+  import(/* webpackChunkName: "A" */ './A').then((data) => {
+    alert(data.A)
+  })
+}
+
+document.getElementById('bBtn').onclick = function () {
+  //异步加载B.js
+  import(/* webpackChunkName: "B" */ './B').then((data) => {
+    alert(data.B)
+  })
+}
+// 注意当调用 ES6 模块的 import() 方法（引入模块）时，必须指向模块的 .default 值，因为它才是 promise 被处理后返回的实际的 module 对象。
+```

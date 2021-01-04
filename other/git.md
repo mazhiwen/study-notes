@@ -113,3 +113,7 @@ git config core.ignorecase true  忽略大小写
 ## 撤销commit
 
 git reset --soft HEAD～1
+
+## 强制远程覆盖本地
+
+git fetch --all &&  git reset --hard origin/master && git pull

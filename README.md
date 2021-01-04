@@ -149,7 +149,7 @@
 - [node](./node)
 - [前端工程化](./integration)
   - [webpack原理](./integration/webpack/README.md)
-  - [webpack配置](./integration/webpackconfig.md)
+  - [webpack配置](./integration/webpack/webpackconfig.md)
   - [微前端](./integration/微前端.md)
   - [Docker](./integration/Docker.md)
   - [代码检查](./integration/codecheck.md)
