@@ -99,10 +99,6 @@ runtimeChunk: {
 }
 runtime mainfest 是webpack用来管理所有模块的交互
 
-### 代码分离code-splitting
-
-<https://webpack.docschina.org/guides/code-splitting/>
-
 ### 根据不同entry
 
 配置多个entry可以实现分离
@@ -112,8 +108,6 @@ runtime mainfest 是webpack用来管理所有模块的交互
 ```js
 import(/* webpackPrefetch: true */ 'LoginModal');
 ```
-
-## mode配置  
 
 ## shimming  
 
