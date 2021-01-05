@@ -44,9 +44,12 @@ array.forEach(function callback(currentValue, index, array) {
 // 为数组中的每个元素执行一次 callback 函数
 // 直到它找到一个使 callback 返回 false（表示可转换为布尔值 false 的值）的元素,否则返回true
 // 不修改原数组
+
+```js
 var bool=array.every(function callback(currentValue, index, array){
     return currentValue>0;
 });
+```
 
 ## array.some()*
 

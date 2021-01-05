@@ -3,22 +3,7 @@
 基于webpack官网教程  
 本项目可直接用作webpack项目demo
 
-- [import规则](#import规则)
-- [配置](#配置)
-- [tree-shaking](#tree-shaking)
-- [optimization](#webpack.optimization)
-- [mode配置](#mode配置)
-- [shimming](#shimming)
-- [devtool](#devtool)
-- [代码检测](#代码检测)
-- [resolve](#resolve)
-- [html-webpack-plugin](#html-webpack-plugin)
-- [output](#output)
-- [ProvidePlugin](#ProvidePlugin)
-- [import中间件](#import中间件)
-- [externals](#externals)
-- [mini-css-extract-plugin](#mini-css-extract-plugin)
-- [地址路径问题](#地址路径问题)
+<https://juejin.cn/post/6844903782581534727#heading-22>
 
 ***
 
@@ -40,7 +25,7 @@
 
 如果不存在package.json就会找index.js文件，然后读取文件，查找到此结束；如果还没有就会抛出异常；
 
-## 配置config
+## 配置文件
 
 执行webpack默认获取webpack.config.js配置
 
@@ -60,33 +45,9 @@
 "build": "webpack"
 ```
 
-***
+## noparse
 
-## tree-shaking
-
-死代码 dead code ，按需加载
-
-目前发现对node_modules 无效  
-如果所有代码都不包含副作用，我们就可以简单地将该属性标记为 false，来告知 webpack，它可以安全地删除未用到的 export 导出。  
-"sideEffects": false  
-如果你的代码确实有一些副作用，那么可以改为提供一个数组：
-
-```
-{
-  "name": "your-project",
-  "sideEffects": [
-    "./src/some-side-effectful-file.js"
-  ]
-}
-```
-
-[tree-shaking](https://webpack.docschina.org/guides/tree-shaking/)
-
-注意：  
-
-* 使用 ES2015 模块语法（即 import 和 export）  
-* 在项目 package.json 文件中，添加一个 "sideEffects" 入口。  
-* 引入一个能够删除未引用代码(dead code)的压缩工具(minifier)（例如 UglifyJSPlugin）。
+module.noParse 配置项可以让 Webpack 忽略对部分没采用模块化的文件的递归解析处理
 
 ## webpack.optimization
 
@@ -543,3 +504,25 @@ document.getElementById('bBtn').onclick = function () {
 }
 // 注意当调用 ES6 模块的 import() 方法（引入模块）时，必须指向模块的 .default 值，因为它才是 promise 被处理后返回的实际的 module 对象。
 ```
+
+## DllPlugin 提升构建速度
+
+<https://juejin.cn/post/6844903951410659341>
+
+## 打包优化思路
+
+优化思路：
+
+1. 初次加载，优化为每个1m以内大小的5个包
+
+2. 继续优化，可以把部分比较大的包，如700k的echarts ，放到不同域下的CDN，提升初次请求速度
+
+3. 不需要初次加载的包，放到按需加载。如路由按需加载，动态组建按需加载
+
+4. 把公共文件抽离出来，单独打包chunk，方便长期缓存
+
+## webpack优化
+
+<https://juejin.cn/post/6877354359940874254#heading-4>
+
+<https://juejin.cn/post/6844903782581534727#heading-26>

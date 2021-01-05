@@ -6,6 +6,8 @@
 
 ## 博客
 
+[腾讯IVWEB技术周刊](https://github.com/iv-web/weekly)
+
 [Javascript标准参考 - ruanyifeng](https://wangdoc.com/javascript/elements/index.html)
 
 [Javascript标准参考 - ruanyifeng 旧地址](<https://javascript.ruanyifeng.com/bom/performance.html>)

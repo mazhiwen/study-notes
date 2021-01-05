@@ -52,20 +52,9 @@ CDN服务，来提高用户对于资源请求时的响应速度
 
 ### 启用Gzip
 
+具体配置见主目录，nginx下相关配置
+
 服务器端启用 Gzip、Deflate 等方式对于传输的资源进行压缩，减小文件的体积
-
-从HTTP/1.1开始，web客户端就有了支持压缩的Accept-Encoding HTTP请求头。
-
-```
-Accept-Encoding: gzip, deflate
-```
-
-如果web服务器看到这个请求头，它就会用客户端列出的一种方式来压缩响应。web服务器通过Content-Encoding响应头来通知客户端。
-
-```
-Content-Encoding: gzip
-
-```
 
 ### Ajax请求使用GET方法
 
@@ -130,8 +119,4 @@ JavaScript 操作 DOM 很慢，尤其是 DOM 节点很多时。
 
 ## webpack
 
-### DllPlugin 提升构建速度
-
-<https://juejin.cn/post/6844903951410659341>
-
-### splitChunks 拆包
+见主目录webpack优化

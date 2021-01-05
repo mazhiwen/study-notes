@@ -310,7 +310,7 @@ export default class {}
 import customName from
 ```
 
-## es6 module 对比 CommonJS 模块、AMD、CMD
+## es6 module 对比 CommonJS 模块
 
 1. CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。
 
