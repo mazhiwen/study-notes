@@ -32,14 +32,14 @@ var newArray = array.map(function callback(currentValue, index, array) {
 })
 ```
 
-## array.forEach() *
+## array.forEach()
 
 // 为每个数组元素执行callback函数 没有返回值
 // 不修改原数组
 array.forEach(function callback(currentValue, index, array) {  
 })
 
-## array.every()*
+## array.every()
 
 // 为数组中的每个元素执行一次 callback 函数
 // 直到它找到一个使 callback 返回 false（表示可转换为布尔值 false 的值）的元素,否则返回true
@@ -51,7 +51,7 @@ var bool=array.every(function callback(currentValue, index, array){
 });
 ```
 
-## array.some()*
+## array.some()
 
 // 测试数组中的某些元素是否通过由提供的函数实现的测试
 [1, 2, 3, 4, 5].some(function(currentValue, index, array) {
@@ -173,16 +173,24 @@ arr.includes(searchElement, fromIndex)
 //fromIndex :
 //从该索引处开始查找 searchElement。如果为负值，则按升序从 array.length + fromIndex 的索引开始搜索。默认为 0。
 
-## array.findIndex*
+## array.findIndex
 
+findIndex()方法返回数组中满足提供的测试函数的第一个元素的索引。若没有找到对应元素则返回-1。
+
+```js
 // 查询满足callback的index并返回
 findindex = fileList.findIndex((value,index,thisarr)=>{
     return value.uid===file.uid
 })
+```
 
-## Array.indexOf*
+## Array.indexOf
 
 返回在数组中可以找到一个给定元素的第一个索引，如果不存在，则返回-1。
+
+```js
+[1,2,3].indexOf(2);
+```
 
 ## array.shift
 

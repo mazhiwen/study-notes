@@ -12,7 +12,7 @@
 
 ***
 
-### 递归法
+## 递归法
 
 ```js
 // arr即表示问题的输入，from 表示从哪里开始全排列。
@@ -384,46 +384,6 @@ console.log(longestSeq(input1,input2,n1,n2));
 
 ```
 
-## 其他
-
-### 假设你有8个球，其中一个略微重一些，但是找出这个球的惟一方法是将两个球放在天平上对比。最少要称多少次才能找出这个较重的球
-
-最少两次可以称出。
-
-首先将 8 个球分为 3 组，其中两组为 3 个球，一组为 2 个球。
-
-第一次将两组三个的球进行比较，如果两边相等，则说明重的球在最后一组里。第二次将最后一组的球进行比较即可。如
-果两边不等，则说明重的球在较重的一边，第二次只需从这一组中随机取两球出来比较即可判断。
-
-### 两个栈实现一个队列
-
-栈的最大特点就是先进后出，让我们用两个先进后出的栈来实现一个先进先出的队列
-
-那么我们把数据压入第一个栈，此时我们很清楚它的出战顺序是与我们想要的队列的出队顺序是相反的，如果再把这个栈里面的元素依次压入第二个栈，此时我们想想栈2里面的元素的顺序，相当于对一组数据进行了两次倒序，此时对第二个栈进行的出栈操作的顺序就相当于这组数据进入队列的顺序了。
-
-push：当有数据要入队的时候，我们就让它压入stack1。
-
-pop：当pop操作的时候，我们就把s1的元素都压入到s2中，然后对s2进行pop操作就相当于对队列的pop了。pop 操作时，首先判断栈2是否为空，如果不为空则直接 pop 元素。如果栈2为空，则将栈1中的所有元素 pop 然后 push 到栈2中，然后再执行栈2的 pop 操作
-
-front ：前面也有提到，这个队列的front就是stack2的栈顶元素，只要stack2不为空我们返回stack2的栈顶就可以，为空的话还是像之前一样，我们把stack1的所有数据全部压入stack2中再取栈顶
-
-### 计算数组中每个元素出现的次数
-
-```javascript
-var names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice'];
-var countedNames = names.reduce(function (allNames, name) {
-  if (name in allNames) {
-    allNames[name]++;
-  }
-  else {
-    allNames[name] = 1;
-  }
-  return allNames;
-}, {});
-// countedNames is:
-// { 'Alice': 2, 'Bob': 1, 'Tiff': 1, 'Bruce': 1 }
-```
-
 ## 链表
 
 ### 判断链表中是否有环
@@ -472,6 +432,196 @@ var hasCycle = function(head) {
 ### 合并两个有序链表
 
 <https://github.com/sisterAn/JavaScript-Algorithms/issues/11>
+
+确定解题思路： 从链表头开始比较，l1 与 l2 是有序递增的，所以比较 l1.val 与 l2.val 的较小值就是合并后链表的最小值，次小值就是小节点的 next.val 与大节点的 val 比较的较小值，依次递归，直到递归到 l1 l2 均为 null
+
+```js
+function mergeTwoLists(l1, l2) {
+    if(l1 === null) {
+        return l2
+    }
+    if(l2 === null) {
+        return l1
+    }
+    if(l1.val <= l2.val) {
+        l1.next = mergeTwoLists(l1.next, l2)
+        return l1
+    } else {
+        l2.next = mergeTwoLists(l2.next, l1)
+        return l2
+    }
+}
+
+```
+
+### 反转链表
+
+<https://github.com/sisterAn/JavaScript-Algorithms/issues/14>
+
+有很多方法
+
+迭代：
+
+```js
+var reverseList = function(head) {
+    if(!head || !head.next) return head
+    var prev = null, curr = head
+    while(curr) {
+        // 用于临时存储 curr 后继节点
+        var next = curr.next
+        // 反转 curr 的后继指针
+        curr.next = prev
+        // 变更prev、curr 
+        // 待反转节点指向下一个节点 
+        prev = curr
+        curr = next
+    }
+    head = prev
+    return head
+};
+```
+
+### 求链表的中间节点
+
+解法：快慢指针
+
+解题思路： 快指针一次走两步，慢指针一次走一步，当快指针走到终点时，慢指针刚好走到中间
+
+```js
+const middleNode = function(head) {
+    let fast = head, slow = head
+    while(fast && fast.next) {
+        slow = slow.next
+        fast = fast.next.next
+    }
+    return slow
+};
+```
+
+### 删除链表中的倒数第 n 个节点
+
+使用 2 个指针：
+
+fast 快指针提前走 n+1 步
+slow 指针指向当前距离 fast 倒数第 n 个节点， 初始为 head
+
+## 栈
+
+### 最小栈
+
+<https://github.com/sisterAn/JavaScript-Algorithms/issues/23>
+
+在常数时间内检索到最小元素的栈，即仅需保证 getMin 的时间复杂度为 O(1) 即可
+
+```js
+var MinStack = function() {
+    this.items = []
+    this.min = null
+};
+
+// 进栈
+MinStack.prototype.push = function(x) {
+    if(!this.items.length) this.min = x 
+    this.min = Math.min(x, this.min)
+    this.items.push(x) 
+};
+
+// 出栈
+MinStack.prototype.pop = function() {
+    let num = this.items.pop() 
+    this.min = Math.min(...this.items)
+    return num
+};
+
+// 获取栈顶元素
+MinStack.prototype.top = function() {
+    if(!this.items.length) return null
+    return this.items[this.items.length -1] 
+};
+
+// 检索栈中的最小元素
+MinStack.prototype.getMin = function() {
+    return this.min
+};
+```
+
+### 有效闭合括号
+
+给定一个只包括 '(' ，')' ，'{' ，'}' ，'[' ，']' 的字符串，判断字符串是否有效。
+
+有效字符串需满足：
+
+左括号必须用相同类型的右括号闭合。
+
+左括号必须以正确的顺序闭合。
+
+如： `{[]}`
+
+利用栈结构
+
+```js
+const isValid = function(s) {
+    let map = {
+        '{': '}',
+        '(': ')',
+        '[': ']'
+    }
+    let stack = []
+    for(let i = 0; i < s.length ; i++) {
+        if(map[s[i]]) {
+            stack.push(s[i])
+        } else if(s[i] !== map[stack.pop()]){
+            return false
+        }
+    }
+    return stack.length === 0
+};
+```
+
+### 删除字符串中的所有相邻重复项
+
+<https://github.com/sisterAn/JavaScript-Algorithms/issues/26>
+
+反复确认删除重复
+
+```
+输入："abbaca"
+输出："ca"
+解释：
+例如，在 "abbaca" 中，我们可以删除 "bb" 由于两字母相邻且相同，这是此时唯一可以执行删除操作的重复项。之后我们得到字符串 "aaca"，其中又只有 "aa" 可以执行重复项删除操作，所以最后的字符串为 "ca"。
+```
+
+解题思路： 遍历字符串，依次入栈，入栈时判断与栈头元素是否一致，如果一致，即这两个元素相同相邻，则需要将栈头元素出栈，并且当前元素也无需入栈
+
+解题步骤： 遍历字符串，取出栈头字符，判断当前字符与栈头字符是否一致:
+
+不一致，栈头字符进栈，当前字符进栈
+
+一致，即栈头字符与当前字符相同相邻，都不需要进栈，直接进入下次遍历即可
+
+## 队列
+
+### 滑动窗口中的最大值
+
+给定一个数组 nums 和滑动窗口的大小 k，请找出所有滑动窗口里的最大值。
+
+```
+输入: nums = [1,3,-1,-3,5,3,6,7], 和 滑动窗口k = 3
+输出: [3,3,5,5,6,7] 
+```
+
+```
+解释:
+
+滑动窗口的位置 最大值
+
+[1 3 -1] -3 5 3 6 7 3
+1 [3 -1 -3] 5 3 6 7 3
+1 3 [-1 -3 5] 3 6 7 5
+1 3 -1 [-3 5 3] 6 7 5
+1 3 -1 -3 [5 3 6] 7 6
+1 3 -1 -3 5 [3 6 7] 7
+```
 
 ## 回溯算法
 
@@ -584,4 +734,35 @@ var backtrack = function(res,nums,index,temp){
         temp.pop();
     }
 }
+```
+
+## 其他
+
+### 两个栈实现一个队列
+
+栈的最大特点就是先进后出，让我们用两个先进后出的栈来实现一个先进先出的队列
+
+那么我们把数据压入第一个栈，此时我们很清楚它的出战顺序是与我们想要的队列的出队顺序是相反的，如果再把这个栈里面的元素依次压入第二个栈，此时我们想想栈2里面的元素的顺序，相当于对一组数据进行了两次倒序，此时对第二个栈进行的出栈操作的顺序就相当于这组数据进入队列的顺序了。
+
+push：当有数据要入队的时候，我们就让它压入stack1。
+
+pop：当pop操作的时候，我们就把s1的元素都压入到s2中，然后对s2进行pop操作就相当于对队列的pop了。pop 操作时，首先判断栈2是否为空，如果不为空则直接 pop 元素。如果栈2为空，则将栈1中的所有元素 pop 然后 push 到栈2中，然后再执行栈2的 pop 操作
+
+front ：前面也有提到，这个队列的front就是stack2的栈顶元素，只要stack2不为空我们返回stack2的栈顶就可以，为空的话还是像之前一样，我们把stack1的所有数据全部压入stack2中再取栈顶
+
+### 计算数组中每个元素出现的次数
+
+```javascript
+var names = ['Alice', 'Bob', 'Tiff', 'Bruce', 'Alice'];
+var countedNames = names.reduce(function (allNames, name) {
+  if (name in allNames) {
+    allNames[name]++;
+  }
+  else {
+    allNames[name] = 1;
+  }
+  return allNames;
+}, {});
+// countedNames is:
+// { 'Alice': 2, 'Bob': 1, 'Tiff': 1, 'Bruce': 1 }
 ```

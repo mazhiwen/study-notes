@@ -21,9 +21,11 @@ outline-width box-shadow background-size
 
 ## 回流 Reflow
 
-回流这一阶段主要是计算节点的位置和几何信息。那么当页面布局和几何信息发生变化的时候，就需要回流。
+回流这一阶段主要是计算节点的位置和几何信息。那么当页面`布局和几何信息`发生变化的时候，就需要回流。
 
 回流：当渲染树中的一部分（或全部）因为元素的规模尺寸、布局、隐藏等改变而需要重新构建的操作，会影响到布局的操作，这样的操作我们称为回流。
+
+现代浏览器会使用`队列来储存多次修改`，进行优化。当我们访问元素的一些属性的时候，会导致浏览器强制清空队列，进行强制同步布局。如：clientWidth
 
 引起回流的操作：
 
@@ -57,7 +59,20 @@ scrollTo()
 
 ## 减少重绘和回流-CSS
 
-- 使用 transform 替代 top
+### css3硬件加速（GPU加速）
+
+使用css3硬件加速，可以让transform、opacity、filters这些动画不会引起回流重绘
+
+常见的触发硬件加速的css属性：
+
+```
+transform
+opacity
+filters
+Will-change
+```
+
+1. 使用 transform 替代 top
 
 ```js
 setTimeout(() => {
@@ -66,55 +81,100 @@ setTimeout(() => {
 }, 1000)
 ```
 
-- 不要使用table布局
+2. opacity
 
-- 将动画效果应用到position属性为absolute或fixed的元素上
+3. filters
 
-- 避免使用CSS表达式（例如：calc()）
+4. Will-change
 
-- 避免设置多层内联样式。CSS 选择符从右往左匹配查找，避免节点层级过多
+### 不要使用table布局
+
+### 将动画效果应用到position属性为absolute或fixed的元素上
+
+### 避免使用CSS表达式（例如：calc()）
+
+### 避免设置多层内联样式。CSS 选择符从右往左匹配查找，避免节点层级过多
 
 ## 减少重绘和回流-JavaScript
 
-- 不要把节点的属性值放在一个循环里当成循环里的变量
-
-```js
-for(let i = 0; i < 1000; i++) {
-    // 获取 offsetTop 会导致回流，因为需要去获取正确的值
-    console.log(document.querySelector('.test').style.offsetTop)
-}
-```
-
-- 使用 visibility 替换 display: none
-
-因为前者只会引起重绘，后者会引发回流（改变了布局）。也可以先为元素设置display: none，操作结束后再把它显示出来。因为在display属性为none的元素上进行的DOM操作不会引发回流和重绘。
-
-- 动画实现的速度的选择
-
-动画速度越快，回流次数越多，也可以选择使用 requestAnimationFrame
-
-- 将频繁重绘或者回流的节点设置为图层
-
-图层能够阻止该节点的渲染行为影响别的节点。比如对于 video 标签来说，浏览器会自动将该节点变为图层。
-
-  will-change： will-change属性可以提前通知浏览器我们要对元素做什么动画，这样浏览器可以提前准备合适的优化设置。这样可以避免对页面响应速度有重要影响的昂贵成本。元素可以更快的被改变，渲染的也更快，这样页面可以快速更新，表现的更加流畅。
-  
-  video、iframe 标签
-
-- 避免频繁操作DOM
-
-创建一个documentFragment，在它上面应用所有DOM操作，最后再把它添加到文档中。
-
-- 不要一条一条地修改 DOM 的样式
+### 一次性修改 DOM 的样式
 
 与其这样，还不如预先定义好 css 的 class，然后修改 DOM 的 className。
 
-- 对具有复杂动画的元素使用绝对定位
+可以一次性设置 `el.className` 或者 `el.style.cssText`
 
-使它脱离文档流，否则会引起父元素及后续元素频繁回流。
+### 修改DOM时,先脱离文档流
 
-- 获取位置API时进行缓存
+步骤：
+
+```
+1. 使元素脱离文档流（如：使用绝对定位）
+2. 对其进行多次修改
+3. 将元素带回到文档中。
+```
+
+该过程的第一步和第三步可能会引起回流，但是经过第一步之后，对DOM的所有修改都不会引起回流重绘，因为它已经不在渲染树了。
+
+有三种方式可以让DOM脱离文档流：
+
+1. 隐藏元素，应用修改，重新显示(如：display:none)
+
+2. 使用文档片段(createDocumentFragment)在当前DOM之外构建一个子树，再把它拷贝回文档。
+
+```js
+function appendDataToElement(appendToElement, data) {
+    let li;
+    for (let i = 0; i < data.length; i++) {
+     li = document.createElement('li');
+        li.textContent = 'text';
+        appendToElement.appendChild(li);
+    }
+}
+
+const ul = document.getElementById('list');
+const fragment = document.createDocumentFragment();
+appendDataToElement(fragment, data);
+ul.appendChild(fragment);
+```
+
+3. 将原始元素拷贝到一个脱离文档的节点中，修改节点后，再替换原始的元素。
+
+```js
+const ul = document.getElementById('list');
+const clone = ul.cloneNode(true);
+appendDataToElement(clone, data);
+ul.parentNode.replaceChild(clone, ul);
+```
+
+### 获取位置API时进行缓存
 
 获取位置属性，方法，如：getBoundingClientRect等等时
 
 如果要使用它们，最好将值缓存起来, 因为会引起回流
+
+```js
+const width = box.offsetWidth;
+function initP() {
+    for (let i = 0; i < paragraphs.length; i++) {
+      // paragraphs[i].style.width = box.offsetWidth + 'px';
+      // 优化后：
+      paragraphs[i].style.width = width + 'px';
+    }
+}
+```
+
+### 使用 visibility 替换 display: none
+
+因为前者只会引起重绘，后者会引发回流（改变了布局）。也可以先为元素设置display: none，操作结束后再把它显示出来。因为在display属性为none的元素上进行的DOM操作不会引发回流和重绘。
+
+### 动画实现的速度的选择
+
+动画速度越快，回流次数越多，也可以选择使用 requestAnimationFrame
+
+### 将频繁重绘或者回流的节点设置为图层
+
+图层能够阻止该节点的渲染行为影响别的节点。比如对于 video 标签来说，浏览器会自动将该节点变为图层。
+
+will-change： will-change属性可以提前通知浏览器我们要对元素做什么动画，这样浏览器可以提前准备合适的优化设置。这样可以避免对页面响应速度有重要影响的昂贵成本。元素可以更快的被改变，渲染的也更快，这样页面可以快速更新，表现的更加流畅。
+  
+video、iframe 标签

@@ -1,5 +1,4 @@
-# TypeScript 学习笔记
-
+# TypeScript
 
 ## 泛型
 

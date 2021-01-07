@@ -6,6 +6,8 @@
 
 ## 博客
 
+腾讯alloyteam公众号
+
 [腾讯IVWEB技术周刊](https://github.com/iv-web/weekly)
 
 [Javascript标准参考 - ruanyifeng](https://wangdoc.com/javascript/elements/index.html)
@@ -20,11 +22,19 @@
 
 [css-protips](https://github.com/AllThingsSmitty/css-protips)
 
-[ruanyifeng](http://www.ruanyifeng.com/blog/javascript/)
+[阮一峰](http://www.ruanyifeng.com/blog/javascript/)
 
 [vajoy](https://www.cnblogs.com/vajoy/p/3589717.html)
 
-[zhangxinxu](https://www.zhangxinxu.com/wordpress/category/js/)
+[张鑫旭](https://www.zhangxinxu.com/wordpress/category/js/)
+
+[2020前端资源](https://juejin.cn/post/6844904035888168974)
+
+[廖雪峰官网](https://www.liaoxuefeng.com/)
+
+[聂微东](https://www.cnblogs.com/Darren_code/tag/JavaScript/)
+
+github js ：<https://github.com/search?l=JavaScript&q=followers%3A%3E500&ref=advsearch&type=Users>
 
 ## 面试题
 

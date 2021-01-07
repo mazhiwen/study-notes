@@ -29,18 +29,27 @@ break中止循环(for,do...while,while,label)，switch
 
 ## for...in
 
-//遍历key 遍历arr object
+遍历key
+
+可遍历Array,Object
+
 // 这个 for...in 语句循环一个指定的变量来循环一个对象所有可枚举的属性
-//array 返回index,object 返回key
+
+Array  返回index, object 返回key
+
+```js
 let arr = [3, 5, 7];
 arr.foo = "hello";
 for (let key in arr) {
     console.log(key); // logs "0", "1", "2", "foo"
 }
-  
+```
+
 ## for...of  
 
-//遍历value  遍历arr
+遍历value
+
+可遍历Array , 不可Oject
 
 ```js
 for (let value of arr) {

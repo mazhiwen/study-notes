@@ -5,8 +5,6 @@
 
 <https://juejin.cn/post/6844903782581534727#heading-22>
 
-***
-
 ## import规则
 
 工作机制
@@ -45,11 +43,17 @@
 "build": "webpack"
 ```
 
-## noparse
+## module
+
+### noparse
 
 module.noParse 配置项可以让 Webpack 忽略对部分没采用模块化的文件的递归解析处理
 
-## webpack.optimization
+### rules
+
+rules: exclude优先级高于test和include
+
+## optimization
 
 ### runtimeChunk
 
@@ -99,51 +103,18 @@ module.exports = {
 
 <https://github.com/webpack/webpack/tree/master/examples/source-map>
 
-## 代码检测
-
-[eslint](https://github.com/webpack-contrib/eslint-loader)
-
 ## resolve
 
-alias:{
-  'vue': 'vue/dist/vue.esm.js',
-  'api': path.resolve(__dirname, 'src/api')
+```js
+resolve: {
+  alias:{
+    'vue': 'vue/dist/vue.esm.js',
+    'api': path.resolve(__dirname, 'src/api')
+  }
 }
+```
 
 import api from 'api';
-
-## html-webpack-plugin
-
-### 单页面
-
-默认output将所有bundle 添加到生成的index.html
-
-### 多页面配置
-
-在config多建立 plugin实例就可以
-
-plugins: [
-  new HtmlWebpackPlugin({
-    chunks: ['app1js']
-  }),
-  new HtmlWebpackPlugin({
-    chunks: ['app2js']
-  })
-]
-
-### template
-
-- ejs  
-rule配置ejsloader
-{
-  test: /\.ejs$/,
-  loader: 'ejs-loader',
-  query: {
-
-  },
-},
-
-ejsloader采用lodash.template编译函数的规则
 
 ## output
 
@@ -280,6 +251,73 @@ module.exports = {
 
 ```
 
+## import中间件
+
+```js
+a.js
+import {paramaterA} from "config.js"
+paramaterA=2;
+
+b.js
+import {paramaterA} from "config.js"
+console.log(paramaterA);
+// 此处会对a.js变更做出响应
+```
+
+## 地址路径问题
+
+webpack配置中字符串格式的 路径'' 一般是以webpack执行命令的路径 ，pkgjson路径;
+
+## externals
+
+防止将某些 import 的包(package)打包到 bundle 中，而是在运行时(runtime)再去从外部获取这些扩展依赖(external dependencies)。  
+例如：cdn
+
+```js
+// 1. html script引入
+// 2.webpack
+externals: {
+  jquery: 'jQuery'
+}
+// 3.js引用
+import $ from 'jquery';
+
+$('.my-element').animate(...);
+```
+
+## html-webpack-plugin
+
+### 单页面
+
+默认output将所有bundle 添加到生成的index.html
+
+### 多页面配置
+
+在config多建立 plugin实例就可以
+
+plugins: [
+  new HtmlWebpackPlugin({
+    chunks: ['app1js']
+  }),
+  new HtmlWebpackPlugin({
+    chunks: ['app2js']
+  })
+]
+
+### template
+
+- ejs  
+rule配置ejsloader
+{
+  test: /\.ejs$/,
+  loader: 'ejs-loader',
+  query: {
+
+  },
+},
+
+ejsloader采用lodash.template编译函数的规则
+
 ## ProvidePlugin
 
 自动加载模块，而不必到处 import 或 require 。
@@ -301,41 +339,7 @@ new webpack.ProvidePlugin({
 });
 ```
 
-## import中间件
-
-```js
-a.js
-import {paramaterA} from "config.js"
-paramaterA=2;
-
-b.js
-import {paramaterA} from "config.js"
-console.log(paramaterA);
-// 此处会对a.js变更做出响应
-```
-
-## externals
-
-防止将某些 import 的包(package)打包到 bundle 中，而是在运行时(runtime)再去从外部获取这些扩展依赖(external dependencies)。  
-例如：cdn
-
-```js
-// 1. html script引入
-// 2.webpack
-externals: {
-  jquery: 'jQuery'
-}
-// 3.js引用
-import $ from 'jquery';
-
-$('.my-element').animate(...);
-```
-
 ## mini-css-extract-plugin
-
-## 地址路径问题
-
-webpack配置中字符串格式的 路径'' 一般是以webpack执行命令的路径 ，pkgjson路径;
 
 ## webpack-dev-middleware
 
@@ -520,6 +524,10 @@ document.getElementById('bBtn').onclick = function () {
 3. 不需要初次加载的包，放到按需加载。如路由按需加载，动态组建按需加载
 
 4. 把公共文件抽离出来，单独打包chunk，方便长期缓存
+
+## 代码检测
+
+[eslint](https://github.com/webpack-contrib/eslint-loader)
 
 ## webpack优化
 
