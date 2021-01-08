@@ -136,6 +136,7 @@
   - [算法题](./DataStructuresAndAlgorithms/jstopic.md)
   - [列表](./DataStructuresAndAlgorithms/DSA/list.md)
   - [队列](./DataStructuresAndAlgorithms/DSA/Queue.md)
+  - [堆](./DataStructuresAndAlgorithms/DSA/heap.md)
   - [栈](./DataStructuresAndAlgorithms/DSA/stack.md)
   - [链表](./DataStructuresAndAlgorithms/DSA/llist.md)
   - [字典](./DataStructuresAndAlgorithms/DSA/Dictionary.md)

@@ -601,7 +601,9 @@ const isValid = function(s) {
 
 ## 队列
 
-### 滑动窗口中的最大值
+### 滑动窗口中的最大值(优先队列)
+
+<https://leetcode-cn.com/problems/sliding-window-maximum/solution/hua-dong-chuang-kou-zui-da-zhi-by-leetco-ki6m/>
 
 给定一个数组 nums 和滑动窗口的大小 k，请找出所有滑动窗口里的最大值。
 
