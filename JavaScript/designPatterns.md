@@ -32,38 +32,23 @@ Javascript设计模式与开发实践
 
 <https://juejin.cn/post/6844903503266054157#heading-4>
 
-<https://juejin.cn/post/6844903607452581896>
+<https://blog.csdn.net/LoveLion/article/details/17517213>
 
-## 单例模式
+**六个创建型模式**
+
+## 创建型-简单工厂模式
+
+## 创建型-工厂方法
+
+## 创建型-抽象工厂
+
+## 创建型-单例模式
 
 定义：保证一个类仅有一个实例，并提供一个访问它的全局访问点.  
+
 比如线程池，全局缓存，浏览器中的Window对象。
 
-> function内部this,并赋值function一个变量，可以实现私有变量。prototype又可以操作私有变量.
-
-**实现一**
-
-```js
-
-var Singleton = function (name){
-  this.name=name;
-  this.instance = null;
-}
-Singleton.prototype.getName=function(){
-  alert(this.name);
-}
-Singleton.getInstance = function(name){
-  if(!this.instance){
-    this.instance = new Singleton(name);
-  }
-  return this.instance;
-}
-var a = Singleton.getInstance('sven1');
-var b = Singleton.getInstance('sven2');
-// a === b
-```
-
-**实现二**
+### 实现
 
 ```js
 var Singleton = function (name){
@@ -86,32 +71,7 @@ var b = Singleton.getInstance('sven2');
 // a === b
 ```
 
-**实现三 透明的单例模式**
-
-```js
-var CreateDiv = (function(){
-  var instance;
-  var CreateDiv = function(html){
-    if(instance){
-      return instance;
-    }
-    this.html=html;
-    this.init();
-    return instance = this;
-  }
-  CreateDiv.prototype.init=function(){
-    var div=document.createElement('div');
-    div.innerHTML=this.html;
-    document.body.appendChild(div);
-  }
-  return CreateDiv;
-})();
-var a = new CreateDiv('sven1');
-var b = new CreateDiv('sven2');
-// a === b
-```
-
-**实现四 用代理实现单例模式**
+### 用代理实现单例模式
 
 ```js
 // 原始函数:需要被代理转换单例的
@@ -141,14 +101,19 @@ var b = new ProxySingletonCreateDiv('sven2');
 // a === b
 ```
 
-**单例在js实现的问题**  
+### 单例在js实现的问题
 
 全局变量不是单例模式，但在js中，我们经常会这么做  
+
 全局变量会造成命名空间污染  
-js的创造者是Brendan Eich ， 认为全局变量是js设计上的失误  
+
+js的创造者是Brendan Eich ， 认为全局变量是js设计上的失误
+
+```
 解决全局变量污染:  
   1.命名空间  
   2.使用闭包封装私有变量
+```
 
 ```js
 var user = (function(){
@@ -163,9 +128,11 @@ var user = (function(){
 )()
 ```
 
-**惰性单例**
+### 惰性单例
 
 在需要的时候才创建对象实例。
+
+是一种优先实现
 
 ```js
 // 实现思路
@@ -204,62 +171,540 @@ var createLoginLayer =function(){
 }
 ```
 
-## 策略模式
+## 创建型-原型模式
 
-<https://juejin.cn/post/6844903751225081864>
+## 创建型-建造者模式
 
-### 定义
+**七个结构型模式**
 
-策略模式的目的就是将算法的使用与算法的实现分离开来。
+## 结构型-适配器模式
 
-定义一系列的算法，把他们一个个封装起来，并且使他们可以相互替换。
+适配器模式(Adapter Pattern)：将一个接口转换成客户希望的另一个接口，使接口不兼容的那些类可以一起工作，其别名为包装器(Wrapper)。
 
-将不变的部分和变化的部分隔开是每个设计模式的主题
+当我们试图调用模块或者对象的某个接口时，却发现这个接口的格式并不符合目前的需求。这时候有两种解决办法，第一种是修改原来的接口实现，但如果原来的模块很复杂，或者我们拿到的模块是一段别人编写的经过压缩的代码，修改原接口就显得不太现实了。第二种方法是创建一个适配器，将原接口转换为客户希望的另一个接口，客户只需要和适配器打交道。
 
-一个基于策略模式的程序至少有两部分:  
+没有人会在程序的设计之初就使用它，因为没有人可以完全预料到未来的事情。
+
+适配器模式可以将一个类的接口和另一个类的接口匹配起来，而无须修改原来的适配者接口和抽象目标类接口。适配器模式定义如下：
+
+客户端代码 -> 适配器 -> 被适配对象
+
+无需更改客户端代码 与 被适配代码
 
 ```
-1. 策略类:封装具体算法，负责具体计算 ;  
-2. 环境类:接收客户请求，把请求委托给策略类
+在以下情况下可以考虑使用适配器模式：
+
+(1) 系统需要使用一些现有的类，而这些类的接口（如方法名）不符合系统的需要，甚至没有这些类的源代码。
+
+(2) 想创建一个可以重复使用的类，用于与一些彼此之间没有太大关联的一些类，包括一些可能在将来引进的类一起工作。
 ```
-
-### 实现计算不同策略下的年终奖
-
-去掉本来的 一堆 if else 的情况
-
-做法：
-
-else 的执行情况封装在一个策略类
-
-if 旧的条件 改为 在调用时直接 选择/注册 else 对应的策略执行
 
 ```js
-// 策略
-var strategies = {
-  "S":function(salary){
-    return salary*4;
-  },
-  "A":function(salary){
-    return salary*3;
-  },
-  "B":function(salary){
-    return salary*2;
-  },
+var googleMap = {
+  show: function(){
+    console.log('开始渲染谷歌地图');
+  }
 }
-// 环境
-var calculateBonus = function(level,salary){
-  return strategies[level](salary);
+
+var baiduMap = {
+  show: function(){
+    console.log('开始渲染百度地图');
+  }
+}
+
+var baiduMapAdapter = {
+  show: function(){
+    return baiduMap.display();
+  }
+}
+
+renderMap( googleMap );
+renderMap( baiduMapAdapter );
+
+```
+
+## 结构型-桥接
+
+## 结构型-组合模式
+
+组合模式就是用小的子对象来构建更大的对象，而这些小的对象本身也是由更小的“孙对象”构成的。
+
+### 组合模式的用途
+
+1. 表示树形结构,组合模式可以很方便地描述对象部分-整体层次结构  
+2. 利用对象多态性 统一对待组合对象和单个对象
+
+### 实现
+
+例如上述命令模式，宏命令的例子中，我们可以组合Acommand = commandA1 + commandA2 + commandA3 ，Bcommand类似, 最终 command = Acommand + Bcommand 。 调用步骤只需要调用最上层对象的 execute 方法。
+
+- 抽象类在组合模式中应用
+
+Java中，基于一个Component来编写程序，不用去区分到底是组合对象还是叶对象。我们在同一个对象的add中，既可以添加组合对象，也可以添加叶对象。
+
+- 透明性带来的安全问题
+
+组合模式的透明性使得发起请求的客户不用去顾忌树中组合对象和叶对象的区别，但它们在本质上是有区别的。  
+组合对象可以拥有子节点，叶对象下面就没有子节点，所以我们也许会发生误操作，比如试图往叶对象中添加子节点。解决方法是给叶对象增加add 判断叶节点不可以添加子节点。
+
+### 实例 - 文件夹
+
+```js
+//Folder
+var Folder = function(name){
+  this.name = name;
+  this.files = [];
+}
+Folder.prototype.add = function(file){
+  this.file.push(file);
+}
+Folder.prototype.scan = function(file){
+  console.log( '开始扫描文件夹:'+this.name );
+  for ( var i = 0, file, files = this.files; file = files[ i++ ]){
+    file.scan();
+  }
+}
+// File
+var File = function(name){
+  this.name = name;
+}
+File.prototype.add = function(file){
+  throw new Error( '文件下面不能再添加文件' );
+}
+File.prototype.scan = function(file){
+  console.log( '开始扫描文件:' + this.name );
+}
+// 组合
+var folder = new Folder( '学习资料' );
+var folder1 = new Folder( 'javascript' );
+var folder2 = new Folder( 'jQuery' );
+
+var file1 = new File( 'xxxx' );
+var file2 = new File( 'xxxx' );
+var file3 = new File( 'xxxx' );
+
+folder1.add( file1 );
+folder2.add( file2 );
+
+folder.add( folder1 );
+folder.add( folder2 );
+folder.add( file3 );
+
+folder.scan();
+
+```
+
+### 一些应该注意的点
+
+组合模式不是父子关系： HAS-A 而不是 IS-A
+
+对叶对象操作的一致性：组合模式除了要求组合对象和叶对象拥有相同的接口之外，还有一个必要条件，就是对一组叶对象的操作必须具有一致性
+
+双向映射关系
+
+用职责链模式提高组合模式性能
+
+### 组合模式应用场景
+
+表示对象的部分-整体层次结构。组合模式可以方便地构造一棵树来表示对象的部分-整体结构。特别是我们在开发期间不确定这棵树到底存在多少层次。只需要通过请求树的最顶层对象，便能对整棵树做统一的操作。
+
+客户希望统一对待树中的所有对象，组合模式使客户可以忽略组合对象和叶对象的区别，客户在面对这棵树的时候，不用关心当前处理的对象是组合对象还是叶对象，也不用写一堆if else分别处理他们
+
+## 结构型-装饰者模式
+
+decorator
+
+装饰模式(Decorator Pattern)：动态地给一个对象增加一些额外的职责，就增加对象功能来说，装饰模式比生成子类实现更为灵活。装饰模式是一种对象结构型模式。
+
+装饰者模式能够在不改变对象自身的基础上，在程序运行期间给对象动态地添加职责。跟继承者相比，装饰者是一种更轻便灵活的做法，这是一种“即用即付”的方式，比如天冷来就多穿一件衣服
+
+### 模拟传统面向对象语言的装饰者模式
+
+```js
+// 基本类
+var Plane = function(){
+
+}
+Plane.prototype.fire = function(){
+  console.log('发射普通子弹');
+}
+// 装饰类一
+var MissileDecrator = function(plane){
+  this.plane = plane;
+}
+MissileDecrator.prototype.fire = function(){
+  this.plane.fire();
+  console.log('发射导弹');
+}
+// 装饰类二
+var AtomDecrator = function(plane){
+  this.plane = plane;
+}
+AtomDecrator.prototype.fire = function(){
+  this.plane.fire();
+  console.log('发射原子弹');
+}
+// 调用
+var plane = new Plane();
+plane = new MissileDecrator(plane);
+plane = new AtomDecrator(plane);
+plane.fire();
+// 分别输出: 发射普通子弹，发射导弹，发射原子弹
+```
+
+装饰者模式将一个对象嵌入另一个对象之中，实际上相当于这个对象被另一个对象包装起来，形成一条包装链。请求随着这条链依次传递到所有的对象，每个对象都有处理这条请求的机会。
+
+### 装饰js函数**
+
+```js
+
+var _getElementById = document.getElementById;
+document.getElementById = function(){
+  alert(1);
+  return _getElementById.apply(ducument,arguments);
+}
+var button = document.getElementById('button');
+
+```
+
+### 用AOP实现装饰函数**
+
+1. 实现一
+
+```js
+Function.prototype.before = function( beforefn ){
+  var _self = this;//保持原函数的引用
+  return function(){//返回了包含了原函数和新函数的“代理”函数
+    beforefn.apply(this,arguments);//执行新函数，且保证this不被劫持，新函数接受的参数，也会被原封不动地传入原函数，新函数在原函数之前执行
+    return _self.apply(this,arguments);//执行原函数并返回原函数的执行结果
+    //并且保证this不被劫持
+  }
+}
+
+Function.prototype.after = function( afterfn ){
+  var _self = this;
+  return function(){
+    var ret = _self.apply(this,arguments);
+    afterfn.apply(this,arguments);
+    return ret;
+  }
+}
+
+// 应用
+// 给函数添加 装饰的before
+document.getElementById = document.getElementById.before(function(){
+  alert(1);
+})
+//执行函数
+var button = document.getElementById('button');
+console.log(button);
+```
+
+2. 实现二
+
+```js
+window.onload = function(){
+  alert(1);
+}
+
+window.onload = ( window.onload || function(){} ).after(function(){
+  alert(2);
+}).after(function(){
+  alert(3);
+}).after(function(){
+  alert(4);
+});
+```
+
+3. 改进实现一
+
+实现一的AOP是在Function.prototype上，这样会污染原型，我们做改进
+
+```js
+// 把一个fn装饰为 装饰后的fn
+var before = function( fn, beforefn ){
+  return function(){//装饰后的fn
+    beforefn.apply( this, arguments );
+    return fn.apply( this, arguments );
+  }
+}
+var a = before(
+  function(){alert(3)},
+  function(){alert(2)}
+);
+a = before( a,function(){
+  alert(1);
+});
+a();
+
+```
+
+### AOP的应用实例**
+
+用AOP装饰函数的技巧在实际开发中非常有用。不论是业务业务代码的编写，还是在框架层面，我们都可以把行为依照职责分成粒度更细的函数，随后通过装饰把它们合并到一起，这有助于我们编写一个松耦合和高复用性的系统。
+
+数据统计上报:
+
+分离业务代码和数据统计代码，是AOP的经典应用之一
+
+```js
+//点击按钮打开浮层，数据上报
+
+Function.prototype.after = function(afterfn){
+  var _self = this;
+  return function(){
+    var ret = _self.apply(this,arguments);
+    afterfn.apply(this,arguments);
+    return ret;
+  }
+}
+
+var showLogin = function(){
+  console.log('打开登录浮层');
+}
+
+var log = function(){
+  console.log('上报标签为'+this.getAttribute('tag'));
+}
+
+showLogin = showLogin.after(log);//打开浮框后上报数据
+
+document.getElementById('button').onclick = showLogin;
+```
+
+用AOP动态改变函数的参数:
+
+给ajax更好的添加参数
+
+```js
+/////////////////// 原函数
+var ajax = function(type,url,param){
+  console.dir(param);
+}
+ajax('get','http://xxx',{name:'sven'});
+
+/////////////////// 给原函数添加token
+var getToken = function(){
+
+}
+var ajax = function(type,url,param){
+  param = param || {};
+  param.Token = geToken();
+}
+//上面的做法使ajax函数相对变得僵硬了，不方便移植，移植时Token是多余的
+/////////////////// 用AOP的方式优化
+//还原ajax函数
+ajax = ajax.before(function(type,url,param){
+  param.Token = getToken();
+})
+ajax('get','http://xxx',{name:'sven'});
+
+```
+
+用AOP的方式给ajax函数动态装饰TOken参数，保证了ajax函数是一个相对纯净的函数，提高了ajax函数的可复用性，它在被迁往其他项目的时候，不需要做任何修改。
+
+插件式的表单验证:
+
+实现表单验证
+
+```js
+formSubmit = function(){
+  if(username.value === ''){
+    return alert('xxx');
+  }
+  var param = {
+    username:username.value
+  }
+  ajax('http://ds',param);
+}
+// 此处提交函数承担了两个职责，提交ajax请求 和 验证输入合法性
+// 会造成函数臃肿，职业混用，谈不上任何复用性
+
+
+// 下面进行分离 校验validate
+var validate = function(){
+  if(username.value === ''){
+    alert('xxx')
+    return false;
+  }
+}
+var formSubmit = function(){
+  if(validate() === false){
+    return;
+  }
+  var param = {
+    username:username.value
+  }
+  ajax('http://ds',param);
+}
+
+
+// 进一步优化代码
+// 使validate和formsubmit完全分离开来
+Function.prototype.before = function( beforefn ){
+  var _self = this;
+  return function(){
+    if( beforefn.apply(this,arguments) === false ){
+      //beforefn返回false的情况直接return,不再执行后面的原函数
+      return ;
+    }
+    _self.apply(this,arguments);
+  }
+}
+var validate = function(){
+  if( username.value === '' ){
+    alert('用户名不能空');
+    return false;
+  }
+}
+var formSubmit = function(){
+  var param = {
+    username : username,value
+  }
+  ajax('http',param);
+}
+formSubmit = formSubmit.before( validate );
+
+submitBtn.onclick = function(){
+  formSubmit();
 }
 
 ```
 
-### 策略模式的优点
+最后的优化中，校验输入和提交表单的代码完全分离开来，它们不再有耦合关系。formSubmit = formSubmit.before( validate )这句代码，如果把校验规则动态接在formSubmit函数之前，validate成为一个即插即用的函数，甚至可以被写成配置文件的形式，这有利于我们分开维护这两个函数。
 
-1. 策略模式利用组合，委托和多态等技术和思想，可以有效避免多重条件选择语句  
-2. 提供了对开放-封闭原则的完美支持，算法封装在独立的strategy中。使得他们易于切换，理解，扩展。  
-3. 策略模式中的算法，可以复用在系统其他地方。避免重复。
+## 结构型-外观模式
 
-## 代理模式
+## 结构型-享元模式
+
+> 享元模式是一种用于性能优化的模式
+> 以时间换空间的方式
+
+- 内部状态与外部状态
+
+享元模式要求将对象的属性划分为内部状态与外部状态。目标是尽量减少共享对象的数量。
+
+内部状态存储与对象内部
+
+内部状态可以被一些对象共享
+
+内部状态独立于具体的场景，通常不会改变
+
+外部状态取决于具体的场景，并根据场景变化，外部状态不能被共享
+
+- 实例:文件上传
+
+```js
+var Upload = function( uploadType ){
+  // 内部状态
+  this.uploadType = uploadType;
+}
+Upload.prototype.delFile = function( id ){
+  //给当前upload对象的this赋值 并操作新的值
+  // 新值为文件对象的数据以及dom
+  // 获取了外部状态，并操作外部状态
+  uploadManager.setExternalState(id,this);
+  if( this.file < 3000 ){
+    return this.dom.parentNode.removeChild( this.dom );
+  }
+  if( window.confirm('确定要删除该文件吗？'+this.fileName)){
+    return this.dom.parentNode.removeChild(this.dom);
+  }
+}
+
+// 创建享元对象的工厂函数
+// 实际最后只会根据 uploadType 分别只生成一个对象
+var UploadFactory = ( function(){
+  var createFlyWeightObjs = {};
+  return {
+    create: function( uploadType ){
+      if(createFlyWeightObjs[uploadType]){
+        return createFlyWeightObjs[uploadType]
+      }
+      return createFlyWeightObjs[uploadType] = new Upload(uploadType);
+    }
+  }
+} )()
+
+// 管理器存储外部状态
+var uploadManager = (function(){
+  var uploadDatabase = {};
+  return {
+    add : function( id, uploadType, fileName, fileSize){
+      var flyWeightObj = UploadFactory.create( uploadType );
+      var dom = document.createElement('div');
+      dom.innerHtml = '<span>文件名称:'+fileName+',文件大小:'+ fileSize +'</span>' + '<button class="delFile">删除</button>';
+      dom.querySelector('.delFile').onclick = function(){
+        flyWeightObj.delFile( id );
+      }
+      document.body.appendChild(dom);
+      uploadDatabase[ id ] = {
+        fileName:fileName,
+        fileSize:fileSize,
+        dom:dom
+      }
+      return flyWeightObj;
+    },
+    setExternalState: function(id,flyWeightObj){
+      var uploadData = uploadDatabase[ id ];
+      for( var i in uploadData ){
+        flyWeightObj[i] = uploadData[i];
+      }
+    }
+  }
+})()
+
+// 实际操作方法，遍历通过 管理器操作对象
+var id = 0 ;
+window.startUpload = function( uploadType,files ){
+  for(var i = 0,file;file = files[ i++ ];){
+    var uploadObj = uploadManager.add( ++id,uploadType,file.fileName,file.fileSize);
+  }  
+}
+
+// 使用
+startUpload('plugin',[
+  {
+    fileName:'1.txt',
+    fileSize:1000
+  },
+  {
+    fileName:'2.html',
+    fileSize:3000
+  },
+  {
+    fileName:'3.txt',
+    fileSize:5000
+  }
+]);
+startUpload('flash',[
+  {
+    fileName:'4.txt',
+    fileSize:1000
+  },
+  {
+    fileName:'5.html',
+    fileSize:3000
+  },
+  {
+    fileName:'6.txt',
+    fileSize:5000
+  }
+]);
+
+```
+
+- 享元模式的适用性 适用场景
+
+一个程序中适用了大量的相似对象
+
+由于适用了大量的对象，造成很大的内存开销
+
+对象的大多数状态都可以变为外部状态
+
+剥离出对象的外部状态后，可以用相对较少的共享对象取代大量对象
+
+## 结构型-代理模式
 
 代理模式是为一个对象提供一个代用品或占位符，以便控制对它的访问  
 
@@ -412,6 +857,63 @@ var createProxyFactory = function(fn){
 var proxyMult = createProxyFactory( mult ),
 
 ```
+
+**十一个行为型模式**
+
+## 策略模式
+
+<https://juejin.cn/post/6844903751225081864>
+
+### 定义
+
+策略模式的目的就是将算法的使用与算法的实现分离开来。
+
+定义一系列的算法，把他们一个个封装起来，并且使他们可以相互替换。
+
+将不变的部分和变化的部分隔开是每个设计模式的主题
+
+一个基于策略模式的程序至少有两部分:  
+
+```
+1. 策略类:封装具体算法，负责具体计算 ;  
+2. 环境类:接收客户请求，把请求委托给策略类
+```
+
+### 实现计算不同策略下的年终奖
+
+去掉本来的 一堆 if else 的情况
+
+做法：
+
+else 的执行情况封装在一个策略类
+
+if 旧的条件 改为 在调用时直接 选择/注册 else 对应的策略执行
+
+```js
+// 策略
+var strategies = {
+  "S":function(salary){
+    return salary*4;
+  },
+  "A":function(salary){
+    return salary*3;
+  },
+  "B":function(salary){
+    return salary*2;
+  },
+}
+// 环境
+var calculateBonus = function(level,salary){
+  return strategies[level](salary);
+}
+
+```
+
+### 策略模式的优点
+
+1. 策略模式利用组合，委托和多态等技术和思想，可以有效避免多重条件选择语句  
+2. 提供了对开放-封闭原则的完美支持，算法封装在独立的strategy中。使得他们易于切换，理解，扩展。  
+3. 策略模式中的算法，可以复用在系统其他地方。避免重复。
 
 ## 迭代器模式
 
@@ -936,90 +1438,6 @@ macrocommand.execute();
 
 ```
 
-## 组合模式
-
-> 组合模式就是用小的子对象来构建更大的对象，而这些小的对象本身也是由更小的“孙对象”构成的。
-
-- 组合模式的用途:
-
-1. 表示树形结构,组合模式可以很方便地描述对象部分-整体层次结构  
-2. 利用对象多态性 统一对待组合对象和单个对象
-
-- 实现
-
-例如上述命令模式，宏命令的例子中，我们可以组合Acommand = commandA1 + commandA2 + commandA3 ，Bcommand类似, 最终 command = Acommand + Bcommand 。 调用步骤只需要调用最上层对象的 execute 方法。
-
-- 抽象类在组合模式中应用
-
-Java中，基于一个Component来编写程序，不用去区分到底是组合对象还是叶对象。我们在同一个对象的add中，既可以添加组合对象，也可以添加叶对象。
-
-- 透明性带来的安全问题
-
-组合模式的透明性使得发起请求的客户不用去顾忌树中组合对象和叶对象的区别，但它们在本质上是有区别的。  
-组合对象可以拥有子节点，叶对象下面就没有子节点，所以我们也许会发生误操作，比如试图往叶对象中添加子节点。解决方法是给叶对象增加add 判断叶节点不可以添加子节点。
-
-- 实例 - 文件夹
-
-```js
-//Folder
-var Folder = function(name){
-  this.name = name;
-  this.files = [];
-}
-Folder.prototype.add = function(file){
-  this.file.push(file);
-}
-Folder.prototype.scan = function(file){
-  console.log( '开始扫描文件夹:'+this.name );
-  for ( var i = 0, file, files = this.files; file = files[ i++ ]){
-    file.scan();
-  }
-}
-// File
-var File = function(name){
-  this.name = name;
-}
-File.prototype.add = function(file){
-  throw new Error( '文件下面不能再添加文件' );
-}
-File.prototype.scan = function(file){
-  console.log( '开始扫描文件:' + this.name );
-}
-// 组合
-var folder = new Folder( '学习资料' );
-var folder1 = new Folder( 'javascript' );
-var folder2 = new Folder( 'jQuery' );
-
-var file1 = new File( 'xxxx' );
-var file2 = new File( 'xxxx' );
-var file3 = new File( 'xxxx' );
-
-folder1.add( file1 );
-folder2.add( file2 );
-
-folder.add( folder1 );
-folder.add( folder2 );
-folder.add( file3 );
-
-folder.scan();
-
-```
-
-- 一些应该注意的点
-
-> 组合模式不是父子关系： HAS-A 而不是 IS-A
-> 对叶对象操作的一致性：组合模式除了要求组合对象和叶对象拥有相同的接口之外，还有一个必要条件，就是对一组叶对象的操作必须具有一致性
-> 双向映射关系
-> 用职责链模式提高组合模式性能
-
-- 引用父对象
-
-- 何时引用组合模式
-
-表示对象的部分-整体层次结构。组合模式可以方便地构造一棵树来表示对象的部分-整体结构。特别是我们在开发期间不确定这棵树到底存在多少层次。只需要通过请求树的最顶层对象，便能对整棵树做统一的操作。
-
-客户希望统一对待树中的所有对象，组合模式使客户可以忽略组合对象和叶对象的区别，客户在面对这棵树的时候，不用关心当前处理的对象是组合对象还是叶对象，也不用写一堆if else分别处理他们
-
 ## 模版方法模式
 
 - 定义
@@ -1146,135 +1564,6 @@ tea.init();
 
 > 模版方法是一种典型的通过封装变化提高系统扩展性的设计模式。
 > 在JavaScript中，我们用高阶函数是更好的实现选择。
-
-## 享元模式
-
-> 享元模式是一种用于性能优化的模式
-> 以时间换空间的方式
-
-- 内部状态与外部状态
-
-享元模式要求将对象的属性划分为内部状态与外部状态。目标是尽量减少共享对象的数量。
-
-内部状态存储与对象内部
-
-内部状态可以被一些对象共享
-
-内部状态独立于具体的场景，通常不会改变
-
-外部状态取决于具体的场景，并根据场景变化，外部状态不能被共享
-
-- 实例:文件上传
-
-```js
-var Upload = function( uploadType ){
-  // 内部状态
-  this.uploadType = uploadType;
-}
-Upload.prototype.delFile = function( id ){
-  //给当前upload对象的this赋值 并操作新的值
-  // 新值为文件对象的数据以及dom
-  // 获取了外部状态，并操作外部状态
-  uploadManager.setExternalState(id,this);
-  if( this.file < 3000 ){
-    return this.dom.parentNode.removeChild( this.dom );
-  }
-  if( window.confirm('确定要删除该文件吗？'+this.fileName)){
-    return this.dom.parentNode.removeChild(this.dom);
-  }
-}
-
-// 创建享元对象的工厂函数
-// 实际最后只会根据 uploadType 分别只生成一个对象
-var UploadFactory = ( function(){
-  var createFlyWeightObjs = {};
-  return {
-    create: function( uploadType ){
-      if(createFlyWeightObjs[uploadType]){
-        return createFlyWeightObjs[uploadType]
-      }
-      return createFlyWeightObjs[uploadType] = new Upload(uploadType);
-    }
-  }
-} )()
-
-// 管理器存储外部状态
-var uploadManager = (function(){
-  var uploadDatabase = {};
-  return {
-    add : function( id, uploadType, fileName, fileSize){
-      var flyWeightObj = UploadFactory.create( uploadType );
-      var dom = document.createElement('div');
-      dom.innerHtml = '<span>文件名称:'+fileName+',文件大小:'+ fileSize +'</span>' + '<button class="delFile">删除</button>';
-      dom.querySelector('.delFile').onclick = function(){
-        flyWeightObj.delFile( id );
-      }
-      document.body.appendChild(dom);
-      uploadDatabase[ id ] = {
-        fileName:fileName,
-        fileSize:fileSize,
-        dom:dom
-      }
-      return flyWeightObj;
-    },
-    setExternalState: function(id,flyWeightObj){
-      var uploadData = uploadDatabase[ id ];
-      for( var i in uploadData ){
-        flyWeightObj[i] = uploadData[i];
-      }
-    }
-  }
-})()
-
-// 实际操作方法，遍历通过 管理器操作对象
-var id = 0 ;
-window.startUpload = function( uploadType,files ){
-  for(var i = 0,file;file = files[ i++ ];){
-    var uploadObj = uploadManager.add( ++id,uploadType,file.fileName,file.fileSize);
-  }  
-}
-
-// 使用
-startUpload('plugin',[
-  {
-    fileName:'1.txt',
-    fileSize:1000
-  },
-  {
-    fileName:'2.html',
-    fileSize:3000
-  },
-  {
-    fileName:'3.txt',
-    fileSize:5000
-  }
-]);
-startUpload('flash',[
-  {
-    fileName:'4.txt',
-    fileSize:1000
-  },
-  {
-    fileName:'5.html',
-    fileSize:3000
-  },
-  {
-    fileName:'6.txt',
-    fileSize:5000
-  }
-]);
-
-```
-
-- 享元模式的适用性 适用场景
-
-一个程序中适用了大量的相似对象
-
-由于适用了大量的对象，造成很大的内存开销
-
-对象的大多数状态都可以变为外部状态
-
-剥离出对象的外部状态后，可以用相对较少的共享对象取代大量对象
 
 ## 职责链模式
 
@@ -1472,269 +1761,6 @@ numberInput.onInput = function(){
 
 中介者模式是迎合迪米特法则的一种实现。**迪米特法则**也叫最少知识原则，是指一个对象应该尽可能少地了解另外的对象（类似不和陌生人说话）。如果对象之间的耦合性太高，一个对象发生改变之后，难免会影响到其他的对象，跟“城门失火，殃及池鱼”的道理是一样的。而在中介者模式里，对象之间几乎不知道彼此的存在，它们只能通过中介者对象来互相影响对方。
 
-## 装饰者模式
-
-decorator
-
-装饰者模式：给对象动态地增加职责的方式
-
-装饰者模式能够在不改变对象自身的基础上，在程序运行期间给对象动态地添加职责。跟继承者相比，装饰者是一种更轻便灵活的做法，这是一种“即用即付”的方式，比如天冷来就多穿一件衣服
-
-**模拟传统面向对象语言的装饰者模式**
-
-```js
-// 基本类
-var Plane = function(){
-
-}
-Plane.prototype.fire = function(){
-  console.log('发射普通子弹');
-}
-// 装饰类一
-var MissileDecrator = function(plane){
-  this.plane = plane;
-}
-MissileDecrator.prototype.fire = function(){
-  this.plane.fire();
-  console.log('发射导弹');
-}
-// 装饰类二
-var AtomDecrator = function(plane){
-  this.plane = plane;
-}
-AtomDecrator.prototype.fire = function(){
-  this.plane.fire();
-  console.log('发射原子弹');
-}
-// 调用
-var plane = new Plane();
-plane = new MissileDecrator(plane);
-plane = new AtomDecrator(plane);
-plane.fire();
-// 分别输出: 发射普通子弹，发射导弹，发射原子弹
-```
-
-装饰者模式将一个对象嵌入另一个对象之中，实际上相当于这个对象被另一个对象包装起来，形成一条包装链。请求随着这条链依次传递到所有的对象，每个对象都有处理这条请求的机会。
-
-**装饰js函数**
-
-```js
-
-var _getElementById = document.getElementById;
-document.getElementById = function(){
-  alert(1);
-  return _getElementById.apply(ducument,arguments);
-}
-var button = document.getElementById('button');
-
-```
-
-**用AOP实现装饰函数**
-
-1. 实现一
-
-```js
-Function.prototype.before = function( beforefn ){
-  var _self = this;//保持原函数的引用
-  return function(){//返回了包含了原函数和新函数的“代理”函数
-    beforefn.apply(this,arguments);//执行新函数，且保证this不被劫持，新函数接受的参数，也会被原封不动地传入原函数，新函数在原函数之前执行
-    return _self.apply(this,arguments);//执行原函数并返回原函数的执行结果
-    //并且保证this不被劫持
-  }
-}
-
-Function.prototype.after = function( afterfn ){
-  var _self = this;
-  return function(){
-    var ret = _self.apply(this,arguments);
-    afterfn.apply(this,arguments);
-    return ret;
-  }
-}
-
-// 应用
-// 给函数添加 装饰的before
-document.getElementById = document.getElementById.before(function(){
-  alert(1);
-})
-//执行函数
-var button = document.getElementById('button');
-console.log(button);
-```
-
-2. 实现二
-
-```js
-window.onload = function(){
-  alert(1);
-}
-
-window.onload = ( window.onload || function(){} ).after(function(){
-  alert(2);
-}).after(function(){
-  alert(3);
-}).after(function(){
-  alert(4);
-});
-```
-
-3. 改进实现一
-
-实现一的AOP是在Function.prototype上，这样会污染原型，我们做改进
-
-```js
-// 把一个fn装饰为 装饰后的fn
-var before = function( fn, beforefn ){
-  return function(){//装饰后的fn
-    beforefn.apply( this, arguments );
-    return fn.apply( this, arguments );
-  }
-}
-var a = before(
-  function(){alert(3)},
-  function(){alert(2)}
-);
-a = before( a,function(){
-  alert(1);
-});
-a();
-
-```
-
-**AOP的应用实例**
-
-用AOP装饰函数的技巧在实际开发中非常有用。不论是业务业务代码的编写，还是在框架层面，我们都可以把行为依照职责分成粒度更细的函数，随后通过装饰把它们合并到一起，这有助于我们编写一个松耦合和高复用性的系统。
-
-数据统计上报:
-
-分离业务代码和数据统计代码，是AOP的经典应用之一
-
-```js
-//点击按钮打开浮层，数据上报
-
-Function.prototype.after = function(afterfn){
-  var _self = this;
-  return function(){
-    var ret = _self.apply(this,arguments);
-    afterfn.apply(this,arguments);
-    return ret;
-  }
-}
-
-var showLogin = function(){
-  console.log('打开登录浮层');
-}
-
-var log = function(){
-  console.log('上报标签为'+this.getAttribute('tag'));
-}
-
-showLogin = showLogin.after(log);//打开浮框后上报数据
-
-document.getElementById('button').onclick = showLogin;
-```
-
-用AOP动态改变函数的参数:
-
-给ajax更好的添加参数
-
-```js
-/////////////////// 原函数
-var ajax = function(type,url,param){
-  console.dir(param);
-}
-ajax('get','http://xxx',{name:'sven'});
-
-/////////////////// 给原函数添加token
-var getToken = function(){
-
-}
-var ajax = function(type,url,param){
-  param = param || {};
-  param.Token = geToken();
-}
-//上面的做法使ajax函数相对变得僵硬了，不方便移植，移植时Token是多余的
-/////////////////// 用AOP的方式优化
-//还原ajax函数
-ajax = ajax.before(function(type,url,param){
-  param.Token = getToken();
-})
-ajax('get','http://xxx',{name:'sven'});
-
-```
-
-用AOP的方式给ajax函数动态装饰TOken参数，保证了ajax函数是一个相对纯净的函数，提高了ajax函数的可复用性，它在被迁往其他项目的时候，不需要做任何修改。
-
-插件式的表单验证:
-
-实现表单验证
-
-```js
-formSubmit = function(){
-  if(username.value === ''){
-    return alert('xxx');
-  }
-  var param = {
-    username:username.value
-  }
-  ajax('http://ds',param);
-}
-// 此处提交函数承担了两个职责，提交ajax请求 和 验证输入合法性
-// 会造成函数臃肿，职业混用，谈不上任何复用性
-
-
-// 下面进行分离 校验validate
-var validate = function(){
-  if(username.value === ''){
-    alert('xxx')
-    return false;
-  }
-}
-var formSubmit = function(){
-  if(validate() === false){
-    return;
-  }
-  var param = {
-    username:username.value
-  }
-  ajax('http://ds',param);
-}
-
-
-// 进一步优化代码
-// 使validate和formsubmit完全分离开来
-Function.prototype.before = function( beforefn ){
-  var _self = this;
-  return function(){
-    if( beforefn.apply(this,arguments) === false ){
-      //beforefn返回false的情况直接return,不再执行后面的原函数
-      return ;
-    }
-    _self.apply(this,arguments);
-  }
-}
-var validate = function(){
-  if( username.value === '' ){
-    alert('用户名不能空');
-    return false;
-  }
-}
-var formSubmit = function(){
-  var param = {
-    username : username,value
-  }
-  ajax('http',param);
-}
-formSubmit = formSubmit.before( validate );
-
-submitBtn.onclick = function(){
-  formSubmit();
-}
-
-```
-
-最后的优化中，校验输入和提交表单的代码完全分离开来，它们不再有耦合关系。formSubmit = formSubmit.before( validate )这句代码，如果把校验规则动态接在formSubmit函数之前，validate成为一个即插即用的函数，甚至可以被写成配置文件的形式，这有利于我们分开维护这两个函数。
-
 ## 状态模式
 
 **状态模式的部分定义:**
@@ -1833,36 +1859,6 @@ var fsm = StateMachine.create({
 
 <https://github.com/jakesgordon/javascript-state-machine>
 
-## 适配器模式
-
-当我们试图调用模块或者对象的某个接口时，却发现这个接口的格式并不符合目前的需求。这时候有两种解决办法，第一种是修改原来的接口实现，但如果原来的模块很复杂，或者我们拿到的模块是一段别人编写的经过压缩的代码，修改原接口就显得不太现实了。第二种方法是创建一个适配器，将原接口转换为客户希望的另一个接口，客户只需要和适配器打交道。
-
-没有人会在程序的设计之初就使用它，因为没有人可以完全预料到未来的事情。
-
-```js
-var googleMap = {
-  show: function(){
-    console.log('开始渲染谷歌地图');
-  }
-}
-
-var baiduMap = {
-  show: function(){
-    console.log('开始渲染百度地图');
-  }
-}
-
-var baiduMapAdapter = {
-  show: function(){
-    return baiduMap.display();
-  }
-}
-
-renderMap( googleMap );
-renderMap( baiduMapAdapter );
-
-```
-
 ## 模式区别
 
 适配器模式主要用来解决两个已有接口之间不匹配的问题，它不考虑这些接口是怎样实现的，也不考虑他们将来可能会如何演化。适配器模式不需要改变已有的接口，就能够使他们协同作用。
@@ -1878,395 +1874,3 @@ renderMap( baiduMapAdapter );
 装饰者：包装链
 
 适配器：
-
-## 设计原则和编程技巧
-
-**单一职业原则（SRP）**
-
-修改代码总是一件危险的事情，特别是当两个职责耦合在一起的时候，一个职责发生变化可能会影响到其他职责的实现，造成意想不到的破坏，这种耦合性得到的是低内聚和脆弱的设计。
-
-SRP的原则体现为： 一个对象（方法）只做一件事情。
-
-- 设计模式中的SRP原则
-
-代理模式:
-
-把添加img标签的功能和预加载图片的职责分开放到两个对象中，这两个对象各自都只有一个被修改的动机。在它们各自发生改变的时候，也不会影响另外的对象。
-
-迭代器模式:
-
-```js
-// 把迭代 和 操作dom 分开
-var each = function(obj,callback){
-
-}
-var appendDiv = function(data){
-  each(data,function(i,n){
-    var div = document.createElement('div');
-    div.innerHTML = n;
-    document.body.appendChild(div);
-  })
-}
-appendDiv([1,2,3,4,5,6]);
-appendDiv({
-  a:1,
-  b:2,
-  c:3
-});
-```
-
-- 何时应该分离职责
-
-> 一方面，如果随着需求的变化，有两个职责总是同时变化，那就不必分离他们。比如在ajax请求的时候，创建xhr对象和发送xhr请求几乎总是在一起的，那么创建xhr对象的职责和发送xhr请求的职责就没有必要分开。
-> 另一方面，职责的变化轴线仅当他们确定会发生变化时才具有意义，即使两个职责已经被耦合在一起，但它们还没有发生改变的征兆，那么也许没有必要主动分离它们，在代码需要重构的时候再进行分离也不迟。
-
-- 违反SRP原则
-
-在方便性与稳定性之间要有一些取舍
-
-- SRP原则的优缺点
-
-优点：降低了单个类或者对象的复杂度，按照职责把对象分解成更小的粒度，这有助于代码的复用，也有利于进行单元测试。当一个职责需要变更的时候，不会影响到其他的职责。
-
-缺点：会增加编写代码的复杂度。当我们按照职责把对象分解成更小的粒度之后，实际上也增大了这些对象之间相互联系的难度。
-
-**最少知识原则(LKP)**
-
-- 减少对象之间的联系
-
-最少知识原则要求我们在设计程序时，应当尽量减少对象之间的交互。如果两个对象之间不必彼此直接通信，那么这两个对象就不要发生直接的相互联系。常见的做法是引入一个第三者对象，来承担这些对象之间的通信作用。如果一些对象需要向另一些对象发起请求，可以通过第三者对象来转发这些请求。
-
-- 设计模式中的最少知识原则
-
-中介者模式：博彩公司，
-
-- 封装在最少知识原则中的体现
-
-封装变量
-
-**开发-封闭原则(OCP)**
-
-定义如下：软件实体（类，模块，函数）等应该是可以扩展的，但是不可修改。
-
-- window.onload 扩展
-
-例如之前window.onload 的扩展，使用Function.prototype.after扩展方法。
-
-通过动态函数的方式，我们完全不用理会从前window.onload函数的内部实现，无论它的实现优雅或是丑陋。只要它从前是个稳定运行的函数，那么以后也不会因为我们的新增需求而产生错误。
-
-- 开放和封闭
-
-上个window.onload函数，扩展时，可用两种方式，一种是修改原有代码，一种是增加一段新的代码。
-
-思想：当需要改变一个程序的功能或者给这个程序增加新功能的时候，可以使用增加代码的方式，但是不允许改动程序的源代码。
-
-- 用对象的多态性消除条件分支
-
-当看到过多的if else,就应该考虑，能否利用对象的多态性来重构它们。
-
-- 找出变化的地方
-
-最明显的规律是： 把系统中稳定不变的部分和容易变化的部分离开来。在系统的演变过程中，我们只需要替换那些容易变化的部分，如果这部分是封装好的，那么替换起来相对容易。而变化部分之外就是稳定的部分。
-
-其他方式帮助我们编写遵守开放-封闭原则的代码
-
-放置挂钩
-
-放置挂钩也是分离变化的一种方式。我们在程序有可能发生变化的地方放置一个挂钩，挂钩的返回结果决定了程序的下一步走向。这样一来，原本的代码执行路径上就出现了一个分叉路口，程序未来的执行方向被预埋下多种可能性。
-
-使用回调函数
-
-回调函数是一种特殊的挂钩。我们可以把一部分易于变化的逻辑封装在回调函数里，然后把回调函数当作参数传入一个稳定和封闭的函数中。当回调函数被执行的时候，程序就可以因为回调函数的内部逻辑不同，而产生不同的结果。
-
-- 设计模式中体现的开放-封闭原则
-
-开放-封闭原则是编写一个好程序的目标，其他设计原则都是达到这个目标的过程。不管是具体的各种设计模式，还是更抽象的面向对象设计原则，比如单一职责原则，最少知识原则，依赖倒置原则等，都是为了让程序遵守开放-封闭原则而出现
-
-.......
-
-- 相对性
-
-实际上，让程序保持完全封闭是不容易做到的。
-
-至少，我们可以做到一下两点：
-
-挑选出最容易发生变化的地方，然后构造抽象来封闭这些变化。
-
-在不可避免发生修改的时候，尽量修改那些相对容易修改的地方。拿一个开源库来说，修改它提供的配置文件，总比修改它的源代码来得简单。
-
-**接口和面向对象编程**
-
-**代码重构**
-
-- 提炼函数
-
-如果一个函数过长，不得不加上若干注释才能让这个函数显得易读一些，那这些函数就很有必要进行重构。
-
-如果在函数中有一段代码可以被独立出来，那我们最好把这些代码放进另外一个独立的函数中。这是一种常见的优化。优点：
-
-避免出现超大函数
-
-独立出来的函数有助于代码复用
-
-独立出来的函数更容易被覆写
-
-独立出来的函数如果拥有一个良好的命名，它本身就起到了注释的作用
-
-- 合并重复的条件判断
-
-函数体内有一些条件分支语句，并且条件分支语句内都散布了重复的代码。那这段代码可以在条件分支语句外执行。
-
-```js
-if(){
-  //..
-  jump()
-}else{
-  //..
-  jump()
-}
-
-// 优化
-if(){
-  //..
-}else{
-  //..
-}
-jump()
-```
-
-- 把条件分支语句提炼成函数
-
-把条件分支语句的条件 提炼为函数，更易读
-
-```js
-if(data.getMonth() >= 6 && data.getMonth() <= 9){
-  // ...
-}
-// 优化为
-var isSummer = function(){
-  return data.getMonth() >= 6 && data.getMonth() <= 9;
-}
-if(isSummer()){
-  //...
-}
-
-```
-
-- 合理使用循环
-
-如果有些代码实际上负责的是一些重复性的工作，那么合理利用循环不仅可以完成同样的功能，还可以使代码量更少
-
-```js
-var createXHR = function(){
-  var xhr;
-  try(
-    xhr = new ActiveXObject('MSXML2.XMLHttp.6.0');
-  )catch(e){
-    try(
-      xhr = new ActiveXObject('MSXML2.XMLHttp.3.0');
-    )catch(e){
-      xhr = new ActiveXObject('MSXML2.XMLHttp');
-    }
-  }
-  return xhr;
-}
-var xhr = createXHR();
-
-// 优化后
-
-var createXHR = function(){
-  var versions = ['MSXML2.XMLHttp.6.0','MSXML2.XMLHttp.3.0','MSXML2.XMLHttp'];
-  for( var i=0,version;version = versions[i++];){
-    try(
-      return new ActiveXObject(version);
-    )catch(e){
-    }
-  }
-}
-```
-
-- 提前让函数退出代替嵌套条件分支
-
-避免嵌套的if else ；常见的做法是进行反转if表达式
-
-```js
-var del = function(obj){
-  var ret;
-  if( !obj.isReadOnly ){
-    if( obj.isFolder ){
-      ret = deleteFolder( obj );
-    }else if(obj.isFile){
-      ret = deleteFile(obj);
-    }
-  }
-  return ret;
-}
-
-// 优化
-
-var del = function(obj){
-  if(obj.isReadOnly){
-    return;
-  }
-  if(obj.isFolder){
-    return  deleteFolder( obj );
-  }
-  if(obj.isFile){
-    return  deleteFile( obj );
-  }
-}
-```
-
-- 传递对象参数代替过长的参数列表
-
-把过长的参数放到一个obj内
-
-```js
-fun(a,b,c)
-// 优化
-fun({
-  a,
-  b,
-  c
-})
-```
-
-- 尽量减少参数数量
-
-尽量减少函数接收参数数量
-
-- 少用三目运算符
-
-如果条件分支简单的情况，可以用三目运算符;如果条件分支复杂就不必要三目运算，直接if else更易读
-
-```js
-var global = typeof window !== "undefined" ? window:this;
-```
-
-- 合理使用链式调用
-
-类似jquery的链式调用方法，即让方法调用结果后，返回对象自身。
-
-```js
-var User = function(){
-  this.id = null;
-  this.name = null;
-}
-
-User.prototype.setId = function(id){
-  this.id = id;
-  return this;
-}
-
-User.prototype.setName = function(name){
-  this.name = name;
-  return this;
-}
-console.log(new User().setId(1314).setName('sven'));
-
-```
-
-如果链式不稳定，会造成调试困难，调试必须拆开，加断点。如果链式很容易发生变化，倒置调试和维护困难，建议使用普通调用的形式。
-
-```js
-var user = new User();
-user.setId('');
-user.setName('');
-
-```
-
-- 分解大型类
-
-原本的一个精灵动物类
-
-```js
-var Spirit = function( name ){
-  this.name = name;
-}
-Spirit.prototype.attack = function( type ){
-  if( type === 'waveBoxing' ){
-    console.log( this.name + ':使用波动拳' );
-  }else if( type === 'whirKick' ){
-    console.log( this.name + ':使用旋风腿' );
-  }
-}
-var spirit = new Spirit('RYU');
-spirit.attack('waveBoxing');
-spirit.attack('whirKick');
-
-```
-
-优化后:
-
-attack这个类太大，实际上它完全有必要作为一个单独的类存在。面向对象设计鼓励将行为分布在合理数量的更小对象中
-
-```js
-//攻击类
-var Attack = function( spirit ){
-  this.spirit = spirit;
-}
-Attack.prototype.start = function(type){
-  return this.list[type].call(this);
-}
-Attack.prototype.list={
-  waveBoxing: function(){
-    console.log( this.spirit.name+'使用拳');
-  },
-  whirKick: function(){
-    console.log( this.spirit.name+'使用腿');
-  }
-}
-// spirit类
-var Spirit = function( name ){
-  this.name = name;
-  this.attackObj = new Attack( this );
-}
-Spirit.prototype.attack = function(type){
-  this.attackObj.start(type);
-}
-
-var spirit = new Spirit('RYU');
-spirit.attack('waveBoxing');
-spirit.attack('whirKick');
-```
-
-- 用return退出多重循环
-
-在函数体内有一个两重循环语句，我们需要在内层循环中判断，当到达某个临界条件时退出外层的循环。
-
-常见的做法是引入外层控制变量标记 或者 设置循环条件的标记
-
-```js
-var func = function(){
-  var flag = false;
-  for( var i = 0;i<10;i++){
-    for(var j =0;j<10;j++>){
-      if(i*j>30){
-        flag = true;
-        break;
-      }
-    }
-    if(flag === true){
-      break;
-    }
-  }
-}
-```
-
-更简单的做法是在需要中止循环的时候退出整个方法, 用return，并且当此时在循环之后还有一些将被执行的代码时，如果提前return，代码就不会被执行. 此时，可以把循环后的代码放到return后面，也可以把他们提炼为一个单独的函数
-
-```js
-var print = function( i ){
-  console.log(i);
-}
-var func = function(){
-  for(var i=0;i<10;i++){
-    for(var j=0;j<10;j++){
-      if(i*j>30){
-        return print(i);
-      }
-    }
-  }
-}
-func();
-```

@@ -2,6 +2,10 @@
 
 <https://juejin.im/post/6844903582202855438#heading-3>
 
+<https://blog.csdn.net/hellowd123/article/details/99692395>
+
+## 概念
+
 树：非线性数据结构,存储层级关系数据，有序列表。
 
 由边连接的节点组成  
@@ -153,6 +157,8 @@ function inOrder( node) {
 
 访问左节点时，如果左节点有子节点，则把该左节点当作中节点，继续递归 访问中左右。
 
+递归实现：
+
 ```js
 //先序：输出:23 16 3 22 45 37 24 25 99
 function preOrder( node) {
@@ -163,6 +169,36 @@ function preOrder( node) {
   }
 }
 ```
+
+迭代实现：
+
+```js
+// 前序遍历
+const preorderTraversal = (root) => {
+    const list = [];
+    const stack = [];
+    
+    // 当根节点不为空的时候，将根节点入栈
+    if(root) stack.push(root)
+    while(stack.length > 0) {
+        const curNode = stack.pop()
+        // 第一步的时候，先访问的是根节点
+        list.push(curNode.val)
+        
+        // 我们先打印左子树，然后右子树
+        // 所以先加入栈的是右子树，然后左子树
+        if(curNode.right !== null) {
+            stack.push(curNode.right)
+        }
+        if(curNode.left !== null) {
+            stack.push(curNode.left)
+        }
+    }
+    return list
+}
+```
+
+原理相同
 
 ### 后序遍历：左右中
 
@@ -317,6 +353,10 @@ function update( data) {
 ```
 
 ## 完全二叉树
+
+若设二叉树的高度为h，除第 h 层外，其它各层 (1～h-1) 的结点数都达到最大个数，第h层有叶子结点，并且叶子结点都是从左到右依次排布，这就是完全二叉树。
+
+一维数组可以作为完全二叉树的存储结构，堆排序使用的数据结构就是完全二叉树。(二叉树从上到下，从左到右排入数组)
 
 ## 红黑树
 

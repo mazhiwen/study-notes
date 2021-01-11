@@ -79,6 +79,8 @@
   - [Ajax](./JavaScript/Ajax.md)
   - [JS性能](./JavaScript/performance.md)
   - [设计模式](./JavaScript/designPatterns.md)
+  - [设计模式-原则](./JavaScript/designPatterns-rule.md)
+  - [设计模式在vue项目应用](./JavaScript/design-vue.md)
   - [JSX](./JavaScript/JSX.md)
   - [防抖和节流](./JavaScript/debounce.md)
   - [富文本编辑器开发原理](./JavaScript/editor.md)
@@ -176,5 +178,5 @@
   - [IDE](./other/IDE)
   - [php](./other/php)
 - 学习资料
-  - [面试题博客等学习资源](./StudyResource/blog.md)
-  - [书](./StudyResource/book.md)
+  - [面试题博客等学习资源](./studyResource/blog.md)
+  - [书](./studyResource/booksite.md)
