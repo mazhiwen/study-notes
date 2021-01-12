@@ -80,7 +80,7 @@
   - [JS性能](./JavaScript/performance.md)
   - [设计模式](./JavaScript/designPatterns.md)
   - [设计模式-原则](./JavaScript/designPatterns-rule.md)
-  - [设计模式在vue项目应用](./JavaScript/design-vue.md)
+  - [设计模式在vue项目应用，以及Vue开发规范](./JavaScript/design-vue.md)
   - [JSX](./JavaScript/JSX.md)
   - [防抖和节流](./JavaScript/debounce.md)
   - [富文本编辑器开发原理](./JavaScript/editor.md)

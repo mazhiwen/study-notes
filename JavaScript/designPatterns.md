@@ -179,6 +179,8 @@ var createLoginLayer =function(){
 
 ## 结构型-适配器模式
 
+特点：只适配接口，无新增功能
+
 适配器模式(Adapter Pattern)：将一个接口转换成客户希望的另一个接口，使接口不兼容的那些类可以一起工作，其别名为包装器(Wrapper)。
 
 当我们试图调用模块或者对象的某个接口时，却发现这个接口的格式并不符合目前的需求。这时候有两种解决办法，第一种是修改原来的接口实现，但如果原来的模块很复杂，或者我们拿到的模块是一段别人编写的经过压缩的代码，修改原接口就显得不太现实了。第二种方法是创建一个适配器，将原接口转换为客户希望的另一个接口，客户只需要和适配器打交道。
@@ -310,13 +312,45 @@ folder.scan();
 
 客户希望统一对待树中的所有对象，组合模式使客户可以忽略组合对象和叶对象的区别，客户在面对这棵树的时候，不用关心当前处理的对象是组合对象还是叶对象，也不用写一堆if else分别处理他们
 
-## 结构型-装饰者模式
+## 结构型-装饰模式
+
+特点：
+
+变更功能。
+
+可以在不修改原类的基础上，扩展多个排列组合的装饰类，用于基于原类扩展自定义的功能
+
+js中用对象实现不同功能的装饰类
+
+vue组件模块化中，理解为细粒度独立功能组件拼装
 
 decorator
 
 装饰模式(Decorator Pattern)：动态地给一个对象增加一些额外的职责，就增加对象功能来说，装饰模式比生成子类实现更为灵活。装饰模式是一种对象结构型模式。
 
 装饰者模式能够在不改变对象自身的基础上，在程序运行期间给对象动态地添加职责。跟继承者相比，装饰者是一种更轻便灵活的做法，这是一种“即用即付”的方式，比如天冷来就多穿一件衣服
+
+装饰模式降低了系统的耦合度，可以动态增加或删除对象的职责，并使得需要装饰的具体构件类和具体装饰类可以独立变化，以便增加新的具体构件类和具体装饰类
+
+### 优点
+
+装饰模式的主要优点如下：
+
+(1) 对于扩展一个对象的功能，装饰模式比继承更加灵活性，不会导致类的个数急剧增加。
+
+(2) 可以通过一种动态的方式来扩展一个对象的功能，通过配置文件可以在运行时选择不同的具体装饰类，从而实现不同的行为。
+
+(3) 可以对一个对象进行多次装饰，通过使用不同的具体装饰类以及这些装饰类的排列组合，可以创造出很多不同行为的组合，得到功能更为强大的对象。
+
+(4) 具体构件类与具体装饰类可以独立变化，用户可以根据需要增加新的具体构件类和具体装饰类，原有类库代码无须改变，符合“开闭原则”
+
+### 缺点
+
+装饰模式的主要缺点如下：
+
+(1) 使用装饰模式进行系统设计时将产生很多小对象，这些对象的区别在于它们之间相互连接的方式有所不同，而不是它们的类或者属性值有所不同，大量小对象的产生势必会占用更多的系统资源，在一定程序上影响程序的性能。
+
+(2) 装饰模式提供了一种比继承更加灵活机动的解决方案，但同时也意味着比继承更加易于出错，排错也很困难，对于多次装饰的对象，调试时寻找错误可能需要逐级排查，较为繁琐。
 
 ### 模拟传统面向对象语言的装饰者模式
 
@@ -439,7 +473,7 @@ a();
 
 ```
 
-### AOP的应用实例**
+### AOP的应用实例
 
 用AOP装饰函数的技巧在实际开发中非常有用。不论是业务业务代码的编写，还是在框架层面，我们都可以把行为依照职责分成粒度更细的函数，随后通过装饰把它们合并到一起，这有助于我们编写一个松耦合和高复用性的系统。
 
@@ -577,12 +611,25 @@ submitBtn.onclick = function(){
 
 ## 结构型-享元模式
 
-> 享元模式是一种用于性能优化的模式
-> 以时间换空间的方式
+享元模式是一种用于性能优化的模式
 
-- 内部状态与外部状态
+以时间换空间的方式
+
+本质上要实现相似对象在`内存中`的复用，同时实现不需要new一个已有的重复实例
+
+对于大量相似的对象实例化，可以用原型实现保证内存唯一性，不同的部分作为外部参数传入享元池，进行相同的处理。
+
+实现相同或相似对象的重用，在逻辑上每一个出现的字符都有一个对象与之对应，然而在物理上它们却共享同一个享元对象
+
+享元模式：运用共享技术有效地支持大量细粒度对象的复用。系统只使用少量的对象，而这些对象都很相似，状态变化很小，可以实现对象的多次复用。由于享元模式要求能够共享的对象必须是细粒度对象，因此它又称为轻量级模式，它是一种对象结构型模式
+
+当系统中存在大量相同或者相似的对象时，享元模式是一种较好的解决方案，它通过共享技术实现相同或相似的细粒度对象的复用，从而节约了内存空间，提高了系统性能。相比其他结构型设计模式，享元模式的使用频率并不算太高，但是作为一种以“节约内存，提高性能”为出发点的设计模式，它在软件开发中还是得到了一定程度的应用。
+
+### 内部状态
 
 享元模式要求将对象的属性划分为内部状态与外部状态。目标是尽量减少共享对象的数量。
+
+内部状态是存储在享元对象内部并且不会随环境改变而改变的状态，内部状态可以共享
 
 内部状态存储与对象内部
 
@@ -590,9 +637,41 @@ submitBtn.onclick = function(){
 
 内部状态独立于具体的场景，通常不会改变
 
+### 外部状态
+
 外部状态取决于具体的场景，并根据场景变化，外部状态不能被共享
 
-- 实例:文件上传
+外部状态是随环境改变而改变的、不可以共享的状态
+
+客户端可以在使用时将外部状态注入享元对象中。
+
+### 享元类
+
+在享元类中要将内部状态和外部状态分开处理，通常将内部状态作为享元类的成员变量，而外部状态通过注入的方式添加到享元类中
+
+### 享元工厂类，享元池
+
+享元工厂类，用于创建并管理享元对象
+
+享元工厂类内设计享元池
+
+享元池用来存储外部状态
+
+享元池同时实现复用逻辑，如果已有对应的对象，则复用，不需要new
+
+### 缺点
+
+享元模式的主要缺点如下：
+
+(1) 享元模式使得系统变得复杂，需要分离出内部状态和外部状态，这使得程序的逻辑复杂化。
+
+(2) 为了使对象可以共享，享元模式需要将享元对象的部分状态外部化，而读取外部状态将使得运行时间变长。
+
+### 实例:文件上传
+
+所有实例 共享一个 Upload原型对象，即共享一个内存位置的对象
+
+Upload中的不同部分，采用参数传递进来，动态操作不同的逻辑。
 
 ```js
 var Upload = function( uploadType ){
@@ -694,7 +773,7 @@ startUpload('flash',[
 
 ```
 
-- 享元模式的适用性 适用场景
+### 享元模式的适用场景
 
 一个程序中适用了大量的相似对象
 
@@ -706,10 +785,41 @@ startUpload('flash',[
 
 ## 结构型-代理模式
 
-代理模式是为一个对象提供一个代用品或占位符，以便控制对它的访问  
+特点是：代理类核心功能是控制，维护，协调调用者和被调用者之间的关系
+
+代理和本体接口具有一致性
+
+可以实现在原类基础上，新增代理类中，处理的逻辑
+
+当需要新增变更类似与代理类中功能（如权限），只需要维护代理类
+
+代理模式：给某一个对象提供一个代理或占位符，并由代理对象来控制对原对象的访问。
 
 不用代理：客户-》本体  
+
 用代理: 客户 -》代理 -》本体
+
+### 优点
+
+符合单一职责原则（一个面向对象的设计原则）：
+
+例如MyImage是设置图片功能，通过代理，我们给系统添加了新的经过MyImage的行为。符合开放-封闭原则。设置图片 和 预加载两个功能被隔离在两个对象。各自变化而不影响对方。
+
+代理模式的共同优点如下：
+
+(1) 能够协调调用者和被调用者，在一定程度上降低了系统的耦合度。
+
+(2) 客户端可以针对抽象主题角色进行编程，增加和更换代理类无须修改源代码，符合开闭原则，系统具有较好的灵活性和可扩展性。
+
+此外，不同类型的代理模式也具有独特的优点，例如：
+
+(1) 远程代理为位于两个不同地址空间对象的访问提供了一种实现机制，可以将一些消耗资源较多的对象和操作移至性能更好的计算机上，提高系统的整体运行效率。
+
+(2) 虚拟代理通过一个消耗资源较少的对象来代表一个消耗资源较多的对象，可以在一定程度上节省系统的运行开销。
+
+(3) 缓冲代理为某一个操作的结果提供临时的缓存存储空间，以便在后续使用中能够共享这些结果，优化系统性能，缩短执行时间。
+
+(4) 保护代理可以控制对一个对象的访问权限，为不同用户提供不同级别的使用权限。
 
 ### 保护代理和虚拟代理
 
@@ -743,15 +853,6 @@ var proxyImage=(function(){
   }
 })();
 ```
-
-### 代理的意义
-
-- 单一职责原则（一个面向对象的设计原则）：
-就一个类而言，应该只有一个引起它变化的原因，如果一个对象承担了多项职责，就意味着这个对象将变的巨大，引起它变化的原因可能有多个。鼓励将行为分布到细粒度的对象之中。如果一个对象职责过多，职责都耦合到一起，会导致脆弱，低内聚。
-
-- 例如MyImage是设置图片功能，通过代理，我们给系统添加了新的经过MyImage的行为。符合开放-封闭原则。设置图片 和 预加载两个功能被隔离在两个对象。各自变化而不影响对方。
-
-### 代理和本体接口具有一致性
 
 ### 虚拟代理实现合并HTTP请求
 
@@ -827,7 +928,7 @@ miniConsole = {
 
 ### 缓存代理
 
-> 缓存代理可以给开销大的运算结果提供暂时的存储，在下次运算时，如果传递参数和之前一致，则可以直接返回存储的运算结果
+缓存代理可以给开销大的运算结果提供暂时的存储，在下次运算时，如果传递参数和之前一致，则可以直接返回存储的运算结果
 
 ajax异步请求数据也可以做缓存代理
 
@@ -859,6 +960,207 @@ var proxyMult = createProxyFactory( mult ),
 ```
 
 **十一个行为型模式**
+
+## 行为型-职责链模式
+
+## 行为型-命令模式
+
+有时候需要向某些对象发送请求，但是并不知道**请求的接收者**是谁，也不知道被**请求的操作**是什么。此时需要一种松耦合的方式设计程序，使得请求发送者和接受者能够消除彼此之间的耦合关系。
+
+```js
+// 简单实现
+var RefreshMenuBarCommand = function(receiver){
+  return {
+    execute: function(){
+      receiver.refresh();
+    }
+  }
+}
+var setCommand = function(button,command){
+  button.onclick = function(){
+    command.execute();
+  }
+}
+var refreshMenuBarCommand = RefreshMenuBarCommand(MenuBar);
+setCommand( button1 , refreshMenuBarCommand );
+
+```
+
+### 撤销命令
+
+```js
+// 另外一个命令模式应用场景
+var ball = document.getElementById('ball');
+var pos = document.getElementById('pos');
+var moveBtn = document.getElementById('moveBtn');
+var cancelBtn = document.getElementById('cancelBtn');
+var MoveCommand = function(receiver,pos){
+  this.recerver = recerver;
+  this.pos = pos;
+  this.oldPos = null;
+}
+MoveCommand.prototype.execute = function(){
+  this.receiver.start('left',this.pos,1000,'strongeaseout');
+  this.oldPos = this.receiver.dom.getBoundingClientRect()[this.receiver.propertyName];
+}
+MoveCommand.prototype.undo = function(){
+  this.reveiver.start('left',this.oldPos,1000,'strongEaseOut');
+}
+var moveCommand;
+moveBtn.onclick = function(){
+  var animate = new Animate(ball);
+  moveCommand = new MoveCommand(animate,pos.value);
+  moveCommand.execute();
+}
+cancelBtn.onclick = function(){
+  moveCommand.undo();
+}
+```
+
+### 撤销和重做
+
+在某些情况下，无法顺利地利用undo操作让对象回到execute之前的状态。比如在一个canvas画图程序中，画布上有一些点，我们在这些点之间画了N条线把这些点相互链接起来，用命令模式实现的。但是很难做到undo操作，因为canvas画图中擦除一条线，相对不容易。  
+最好的办法是先清楚画布，然后把刚才执行过的命令全部执行一遍，这一点同样可以利用一个历史列表堆栈办到。记录命令日志，然后重复执行它们。
+
+```js
+var Ryu = {
+  attack:function(){
+    console.log('攻击');
+  },
+  defense:function(){
+    console.log('defense');
+  },
+  jump:function(){
+    console.log('jump');
+  },
+  crouch:function(){
+    console.log('crouch');
+  }
+};
+// 创建命令
+var makeCommand = function(receiver,state){
+  return function(){
+    receiver[state]();
+  }
+}
+var commands = {
+  "119":"jump", //w
+  "115":"crouch", //s
+  "97":"defense", //a
+  "100":"attack", //d
+}
+var commandStack = [];// 保存命令的堆栈
+document.onkeypress = function(ev){
+  var keyCode = ev.keyCode,
+      command = makeCommand( Ryu,command[keyCode] );
+  if(command){
+    command();//执行命令
+    commandStack.push(command);//将刚刚执行过的命令保存进堆栈
+  }
+};
+// 点击播放录像，播放历史记录
+document.getElementById('replay').onclick = function(){
+  var command;
+  while( command = commandStack.shift() ){
+    command();
+  }
+}
+
+```
+
+### 命令队列
+
+把命令存在命令堆栈，上一个命令执行完才执行下一个命令，异步执行。将命令排队进行。  
+命令执行完，通知执行下一条命令，这个通知方式，可以是回调，也可以是发布-订阅模式。
+
+### 宏命令
+
+> 命令集合执行。操作命令集合。
+
+```js
+var ACommand = {
+  execute:function(){
+  }
+}
+var BCommand = {
+  execute:function(){
+  }
+}
+// ...
+var Macrocommand = function(){
+  return {
+    commandList: [] ,
+    add: function( command ){
+      this.commandList.push( command );
+    },
+    execute: function(){
+      for ( var i = 0,command; command = this.commandList[i++];){
+        command.execute();
+      }
+    }
+  }
+};
+var macrocommand = Macrocommand();
+macrocommand.add( ACommand );
+macrocommand.add( BCommand );
+macrocommand.add( CCommand );
+macrocommand.execute();
+
+```
+
+## 行为型-解释器模式
+
+## 行为型-迭代器模式
+
+提供一种方法顺序访问一个集合对象中的各个元素，而不需要暴露对象内部显示
+
+### 内部迭代器,外部迭代器
+
+1. 内部迭代器
+
+```js
+each(data,function(value,index){
+
+})
+```
+
+2. 外部迭代器
+
+> 外部迭代器必须显式地请求迭代下一个元素。
+> 外部迭代器: 外部迭代器增加了一些调用的复杂度，也增强了迭代器的灵活性，我们可以手工控制迭代的过程或者顺序。
+
+```js
+var Iterator = function(obj){
+  var current = 0;
+  var next = function(){
+    current += 1;
+  };
+  var isDone = function() {
+    return current >= obj.length;
+  };
+  var getCurrItem = function() {
+    return obj[current];
+  };
+  return {
+    next : next,
+    isDone : isDone,
+    getCurrItem : getCurrItem,
+    length: obj.length
+  }
+
+```
+
+### 倒序迭代器
+
+### 终止迭代器
+
+```js
+for 循环data{
+  if callback(data[i]) === false{
+    break;
+  }
+}
+```
 
 ## 策略模式
 
@@ -915,59 +1217,94 @@ var calculateBonus = function(level,salary){
 2. 提供了对开放-封闭原则的完美支持，算法封装在独立的strategy中。使得他们易于切换，理解，扩展。  
 3. 策略模式中的算法，可以复用在系统其他地方。避免重复。
 
-## 迭代器模式
+## 行为型-中介者模式
 
-> 提供一种方法顺序访问一个集合对象中的各个元素，而不需要暴露对象内部显示
+中介者模式的作用就是解除对象与对象之间的紧耦合关系。中介者使各对象之间耦合松散，而且可以独立地改变他们之间的交互。中介者模式使网状的多对多模式变成了相对简单的一对多关系。
 
-- 内部迭代器,外部迭代器
+### 现实场景
 
-1. 内部迭代器
+机场指挥塔 博彩公司
+
+### 中介者实现购买手机案例
+
+选择手机颜色
+
+选择手机数量
+
+显示选择颜色
+
+显示选择数量
+
+根据状态显示购买按钮可用和文案
 
 ```js
-each(data,function(value,index){
-
-})
-```
-
-2. 外部迭代器
-
-> 外部迭代器必须显式地请求迭代下一个元素。
-> 外部迭代器: 外部迭代器增加了一些调用的复杂度，也增强了迭代器的灵活性，我们可以手工控制迭代的过程或者顺序。
-
-```js
-var Iterator = function(obj){
-  var current = 0;
-  var next = function(){
-    current += 1;
-  };
-  var isDone = function() {
-    return current >= obj.length;
-  };
-  var getCurrItem = function() {
-    return obj[current];
-  };
+// 手机库存
+var goods = {
+  "red|32G": 3,
+  "red|16G": 0,
+  "blue|32G": 1,
+  "blue|16G": 6
+}
+//中介者
+var mediator = (function(){
+  var colorSelect = document.getElementById('colorSelect'),
+      memorySelect = document.getElementById('memorySelect'),
+      numberInput = document.getElementById('numberInput'),
+      colorInfo = document.getElementById('colorInfo'),
+      memoryInfo = document.getElementById('memoryInfo'),
+      NumberInfo = document.getElementById('NumberInfo'),
+      nextBtn = document.getElementById('nextBtn');
   return {
-    next : next,
-    isDone : isDone,
-    getCurrItem : getCurrItem,
-    length: obj.length
+    changed:function(obj){
+      var color = colorSelect.value,
+        memory = memorySelect.value,
+        number = numberInput.value,
+        // 颜色和内存对应的手机库存量
+        stock = goods[color + '|' + memory];
+      if( obj === colorSelect){
+        colorInfo.innerHtml = color;
+      }else if( obj === memorySelect ){
+        memoryInfo.innerHtml = memory;
+      }else if( obj === numberInput ){
+        NumberInfo.innerHtml = number;
+      }
+      if(!color){
+        nextBtn.disabled = true;
+        nextBtn.innerHtml = '请选择手机颜色';
+        return ;
+      }
+      if(!memory){
+        nextBtn.disabled = true;
+        nextBtn.innerHtml = '请选择手机内存';
+        return ;
+      }
+      if(((number - 0) | 0) !== number - 0){
+        nextBtn.disabled = true;
+        nextBtn.innerHtml = '请输入正确的购买数量';
+        return ;
+      }
+      nextBtn.disabled = false;
+      nextBtn.innerHtml = '放入购物车';
+    }
   }
-
-```
-
-- 倒序迭代器
-
-- 终止迭代器
-
-```js
-for 循环data{
-  if callback(data[i]) === false{
-    break;
-  }
+}())
+//  事件函数
+colorSelect.onchange = function(){
+  mediator.changed( this );
+}
+memorySelect.onchange = function(){
+  mediator.changed( this );
+}
+numberInput.onInput = function(){
+  mediator.changed( this );
 }
 ```
 
-## 发布-订阅模式(观察者模式)
+中介者模式是迎合迪米特法则的一种实现。
+
+迪米特法则：也叫最少知识原则，是指一个对象应该尽可能少地了解另外的对象（类似不和陌生人说话）。如果对象之间的耦合性太高，一个对象发生改变之后，难免会影响到其他的对象，跟“城门失火，殃及池鱼”的道理是一样的。而在中介者模式里，对象之间几乎不知道彼此的存在，它们只能通过中介者对象来互相影响对方。
+
+## 行为型-观察者模式（发布-订阅模式）
 
 定义对象间的一种一对多的依赖关系，当一个对象状态改变时，所有依赖它的对象都将得到通知。
 
@@ -1293,151 +1630,6 @@ Event.create('namespace2').trigger('click',2);
 > 发布-订阅模式的优点非常明显，一为时间上的解耦，二为对象之间的解耦。
 > 缺点：多个发布-订阅嵌套到一起时，不利于追踪bug
 
-## 命令模式
-
-> 有时候需要向某些对象发送请求，但是并不知道**请求的接收者**是谁，也不知道被**请求的操作**是什么。此时需要一种松耦合的方式设计程序，使得请求发送者和接受者能够消除彼此之间的耦合关系。
-
-```js
-// 简单实现
-var RefreshMenuBarCommand = function(receiver){
-  return {
-    execute: function(){
-      receiver.refresh();
-    }
-  }
-}
-var setCommand = function(button,command){
-  button.onclick = function(){
-    command.execute();
-  }
-}
-var refreshMenuBarCommand = RefreshMenuBarCommand(MenuBar);
-setCommand( button1 , refreshMenuBarCommand );
-
-```
-
-### 撤销命令
-
-```js
-// 另外一个命令模式应用场景
-var ball = document.getElementById('ball');
-var pos = document.getElementById('pos');
-var moveBtn = document.getElementById('moveBtn');
-var cancelBtn = document.getElementById('cancelBtn');
-var MoveCommand = function(receiver,pos){
-  this.recerver = recerver;
-  this.pos = pos;
-  this.oldPos = null;
-}
-MoveCommand.prototype.execute = function(){
-  this.receiver.start('left',this.pos,1000,'strongeaseout');
-  this.oldPos = this.receiver.dom.getBoundingClientRect()[this.receiver.propertyName];
-}
-MoveCommand.prototype.undo = function(){
-  this.reveiver.start('left',this.oldPos,1000,'strongEaseOut');
-}
-var moveCommand;
-moveBtn.onclick = function(){
-  var animate = new Animate(ball);
-  moveCommand = new MoveCommand(animate,pos.value);
-  moveCommand.execute();
-}
-cancelBtn.onclick = function(){
-  moveCommand.undo();
-}
-```
-
-### 撤销和重做
-
-在某些情况下，无法顺利地利用undo操作让对象回到execute之前的状态。比如在一个canvas画图程序中，画布上有一些点，我们在这些点之间画了N条线把这些点相互链接起来，用命令模式实现的。但是很难做到undo操作，因为canvas画图中擦除一条线，相对不容易。  
-最好的办法是先清楚画布，然后把刚才执行过的命令全部执行一遍，这一点同样可以利用一个历史列表堆栈办到。记录命令日志，然后重复执行它们。
-
-```js
-var Ryu = {
-  attack:function(){
-    console.log('攻击');
-  },
-  defense:function(){
-    console.log('defense');
-  },
-  jump:function(){
-    console.log('jump');
-  },
-  crouch:function(){
-    console.log('crouch');
-  }
-};
-// 创建命令
-var makeCommand = function(receiver,state){
-  return function(){
-    receiver[state]();
-  }
-}
-var commands = {
-  "119":"jump", //w
-  "115":"crouch", //s
-  "97":"defense", //a
-  "100":"attack", //d
-}
-var commandStack = [];// 保存命令的堆栈
-document.onkeypress = function(ev){
-  var keyCode = ev.keyCode,
-      command = makeCommand( Ryu,command[keyCode] );
-  if(command){
-    command();//执行命令
-    commandStack.push(command);//将刚刚执行过的命令保存进堆栈
-  }
-};
-// 点击播放录像，播放历史记录
-document.getElementById('replay').onclick = function(){
-  var command;
-  while( command = commandStack.shift() ){
-    command();
-  }
-}
-
-```
-
-### 命令队列
-
-把命令存在命令堆栈，上一个命令执行完才执行下一个命令，异步执行。将命令排队进行。  
-命令执行完，通知执行下一条命令，这个通知方式，可以是回调，也可以是发布-订阅模式。
-
-### 宏命令
-
-> 命令集合执行。操作命令集合。
-
-```js
-var ACommand = {
-  execute:function(){
-  }
-}
-var BCommand = {
-  execute:function(){
-  }
-}
-// ...
-var Macrocommand = function(){
-  return {
-    commandList: [] ,
-    add: function( command ){
-      this.commandList.push( command );
-    },
-    execute: function(){
-      for ( var i = 0,command; command = this.commandList[i++];){
-        command.execute();
-      }
-    }
-  }
-};
-var macrocommand = Macrocommand();
-macrocommand.add( ACommand );
-macrocommand.add( BCommand );
-macrocommand.add( CCommand );
-macrocommand.execute();
-
-```
-
 ## 模版方法模式
 
 - 定义
@@ -1675,91 +1867,6 @@ chainOrder300.setNextSuccessor(chainOrder200);
 - 异步职责链
 
 Chain添加next 方法，
-
-## 中介者模式
-
-中介者模式的作用就是解除对象与对象之间的紧耦合关系。中介者使各对象之间耦合松散，而且可以独立地改变他们之间的交互。中介者模式使网状的多对多模式变成了相对简单的一对多关系。
-
-### 现实场景
-
-机场指挥塔 博彩公司
-
-### 中介者实现购买手机案例
-
-选择手机颜色
-
-选择手机数量
-
-显示选择颜色
-
-显示选择数量
-
-根据状态显示购买按钮可用和文案
-
-```js
-// 手机库存
-var goods = {
-  "red|32G": 3,
-  "red|16G": 0,
-  "blue|32G": 1,
-  "blue|16G": 6
-}
-//中介者
-var mediator = (function(){
-  var colorSelect = document.getElementById('colorSelect'),
-      memorySelect = document.getElementById('memorySelect'),
-      numberInput = document.getElementById('numberInput'),
-      colorInfo = document.getElementById('colorInfo'),
-      memoryInfo = document.getElementById('memoryInfo'),
-      NumberInfo = document.getElementById('NumberInfo'),
-      nextBtn = document.getElementById('nextBtn');
-  return {
-    changed:function(obj){
-      var color = colorSelect.value,
-        memory = memorySelect.value,
-        number = numberInput.value,
-        // 颜色和内存对应的手机库存量
-        stock = goods[color + '|' + memory];
-      if( obj === colorSelect){
-        colorInfo.innerHtml = color;
-      }else if( obj === memorySelect ){
-        memoryInfo.innerHtml = memory;
-      }else if( obj === numberInput ){
-        NumberInfo.innerHtml = number;
-      }
-      if(!color){
-        nextBtn.disabled = true;
-        nextBtn.innerHtml = '请选择手机颜色';
-        return ;
-      }
-      if(!memory){
-        nextBtn.disabled = true;
-        nextBtn.innerHtml = '请选择手机内存';
-        return ;
-      }
-      if(((number - 0) | 0) !== number - 0){
-        nextBtn.disabled = true;
-        nextBtn.innerHtml = '请输入正确的购买数量';
-        return ;
-      }
-      nextBtn.disabled = false;
-      nextBtn.innerHtml = '放入购物车';
-    }
-  }
-}())
-//  事件函数
-colorSelect.onchange = function(){
-  mediator.changed( this );
-}
-memorySelect.onchange = function(){
-  mediator.changed( this );
-}
-numberInput.onInput = function(){
-  mediator.changed( this );
-}
-```
-
-中介者模式是迎合迪米特法则的一种实现。**迪米特法则**也叫最少知识原则，是指一个对象应该尽可能少地了解另外的对象（类似不和陌生人说话）。如果对象之间的耦合性太高，一个对象发生改变之后，难免会影响到其他的对象，跟“城门失火，殃及池鱼”的道理是一样的。而在中介者模式里，对象之间几乎不知道彼此的存在，它们只能通过中介者对象来互相影响对方。
 
 ## 状态模式
 
