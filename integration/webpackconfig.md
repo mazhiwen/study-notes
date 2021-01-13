@@ -5,6 +5,14 @@
 
 <https://juejin.cn/post/6844903782581534727#heading-22>
 
+## webbpack命令
+
+输出打包到json文件
+
+```
+--json > webpack_build_log.json
+```
+
 ## import规则
 
 工作机制
@@ -528,6 +536,10 @@ document.getElementById('bBtn').onclick = function () {
 ## 代码检测
 
 [eslint](https://github.com/webpack-contrib/eslint-loader)
+
+## tree-shaking
+
+见 当前目录 tree-shaking 文件
 
 ## webpack优化
 

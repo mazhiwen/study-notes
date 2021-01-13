@@ -6,6 +6,8 @@
 
 <https://juejin.cn/post/6911472693405548557#heading-49>
 
+<https://juejin.cn/post/6844903640902156301#heading-17>
+
 ## 网络-客户端
 
 ### 压缩JavaScript和CSS
@@ -119,4 +121,4 @@ JavaScript 操作 DOM 很慢，尤其是 DOM 节点很多时。
 
 ## webpack
 
-见主目录webpack优化
+见主目录webpack配置

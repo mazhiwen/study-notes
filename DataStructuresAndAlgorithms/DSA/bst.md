@@ -28,6 +28,98 @@
 
 非空右子树的所有键值大于其根结点的键值
 
+## 遍历
+
+前中后序命名是以遍历时根节点在 左右中 三个位置中优先遍历位置命名。
+
+一句话总结：先序(根->左->右)，中序(左->根->右)，后序(左->右->根)。如果访问有孩子的节点，先处理孩子的，随后返回
+
+前中后序的实际访问表现，会在访问时，如果子节点可以作为左中右的其中一个的起始规则，则会递归子节点进行访问规则。
+
+### 中序遍历：左中右
+
+中序遍历二叉查找树，得到的就是一个升序的数列
+
+从最左侧叶子节点开始遍历，左中右 -》 以中的父为左 继续 左中右 。 优先遍历最深的左节点，同后序遍历类似，当 访问右节点时， 如果 右节点有左子节点，则优先访问该左子节点，而不是该 右节点。但是如果 右节点没有左子节点，只有右子节点，则优先访问该右节点
+
+```js
+//中序 输出:3 16 22 23 24 25 37 45 99
+function inOrder( node) {
+  if (!(node == null)) {
+    inOrder( node.left);
+    console.log( node.show() + " ");
+    inOrder( node.right);
+  }
+}
+inOrder(root)
+```
+
+### 先序遍历：中左右
+
+从根节点开始，-》 根的左节点 -》 根的左节点的左节点 -》 左节点都为null，末尾左节点的右节点。
+
+访问左节点时，如果左节点有子节点，则把该左节点当作中节点，继续递归 访问中左右。
+
+递归实现：
+
+```js
+//先序：输出:23 16 3 22 45 37 24 25 99
+function preOrder( node) {
+  if (!(node == null)) {
+    console.log( node. show() + " ");
+    preOrder( node. left);
+    preOrder( node. right);
+  }
+}
+preOrder(root)
+```
+
+迭代实现：
+
+```js
+// 前序遍历
+const preorderTraversal = (root) => {
+    const list = [];
+    const stack = [];
+    
+    // 当根节点不为空的时候，将根节点入栈
+    if(root) stack.push(root)
+    while(stack.length > 0) {
+        const curNode = stack.pop()
+        // 第一步的时候，先访问的是根节点
+        list.push(curNode.val)
+        
+        // 我们先打印左子树，然后右子树
+        // 所以先加入栈的是右子树，然后左子树
+        if(curNode.right !== null) {
+            stack.push(curNode.right)
+        }
+        if(curNode.left !== null) {
+            stack.push(curNode.left)
+        }
+    }
+    return list
+}
+```
+
+原理相同
+
+### 后序遍历：左右中
+
+访问 右节点 时： 如果 右节点有左子节点，则优先访问该左子节点，而不是该 右节点。如果 右节点没有左子节点，只有右子节点，则优先访问该右子节点，而不是该 右节点
+
+```javascript
+//后序: 输出 3 22 16 25 24 37 99 45 23
+function postOrder( node) {
+  if (!(node == null)) {
+    postOrder( node. left);
+    postOrder( node. right);
+    console.log( node. show() + " ");
+  }
+}
+postOrder(root)
+```
+
 ## 二叉查找树(BST)
 
 <https://juejin.im/post/6844903974454165511>
@@ -124,95 +216,6 @@ bst.insert(25);
 //3   22           37   99
 //              24
 //                 25
-```
-
-### 遍历
-
-前中后序命名是以遍历时根节点在 左右中 三个位置中优先遍历位置命名。
-
-一句话总结：先序(根->左->右)，中序(左->根->右)，后序(左->右->根)。如果访问有孩子的节点，先处理孩子的，随后返回
-
-前中后序的实际访问表现，会在访问时，如果子节点可以作为左中右的其中一个的起始规则，则会递归子节点进行访问规则。
-
-### 中序遍历：左中右
-
-中序遍历二叉查找树，得到的就是一个升序的数列
-
-从最左侧叶子节点开始遍历，左中右 -》 以中的父为左 继续 左中右 。 优先遍历最深的左节点，同后序遍历类似，当 访问右节点时， 如果 右节点有左子节点，则优先访问该左子节点，而不是该 右节点。但是如果 右节点没有左子节点，只有右子节点，则优先访问该右节点
-
-```js
-//中序 输出:3 16 22 23 24 25 37 45 99
-function inOrder( node) {
-  if (!(node == null)) {
-    inOrder( node.left);
-    console.log( node.show() + " ");
-    inOrder( node.right);
-  }
-}
-```
-
-### 先序遍历：中左右
-
-从根节点开始，-》 根的左节点 -》 根的左节点的左节点 -》 左节点都为null，末尾左节点的右节点。
-
-访问左节点时，如果左节点有子节点，则把该左节点当作中节点，继续递归 访问中左右。
-
-递归实现：
-
-```js
-//先序：输出:23 16 3 22 45 37 24 25 99
-function preOrder( node) {
-  if (!(node == null)) {
-    console.log( node. show() + " ");
-    preOrder( node. left);
-    preOrder( node. right);
-  }
-}
-```
-
-迭代实现：
-
-```js
-// 前序遍历
-const preorderTraversal = (root) => {
-    const list = [];
-    const stack = [];
-    
-    // 当根节点不为空的时候，将根节点入栈
-    if(root) stack.push(root)
-    while(stack.length > 0) {
-        const curNode = stack.pop()
-        // 第一步的时候，先访问的是根节点
-        list.push(curNode.val)
-        
-        // 我们先打印左子树，然后右子树
-        // 所以先加入栈的是右子树，然后左子树
-        if(curNode.right !== null) {
-            stack.push(curNode.right)
-        }
-        if(curNode.left !== null) {
-            stack.push(curNode.left)
-        }
-    }
-    return list
-}
-```
-
-原理相同
-
-### 后序遍历：左右中
-
-访问 右节点 时： 如果 右节点有左子节点，则优先访问该左子节点，而不是该 右节点。如果 右节点没有左子节点，只有右子节点，则优先访问该右子节点，而不是该 右节点
-
-```javascript
-//后序: 输出 3 22 16 25 24 37 99 45 23
-function postOrder( node) {
-  if (!(node == null)) {
-    postOrder( node. left);
-    postOrder( node. right);
-    console.log( node. show() + " ");
-  }
-}
 ```
 
 ### 查找

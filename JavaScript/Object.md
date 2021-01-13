@@ -25,15 +25,13 @@ var person = {
 }
 ```
 
-## 其他
-
-### 键访问 属性访问
+## 键访问 属性访问
 
 varmyObject={a:2};
 myObject.a;//2
 myObject["a"];//2 接受utf8/unicode字符串
 
-### 可计算属性名 es6新增可计算属性名
+## 可计算属性名 es6新增可计算属性名
 
 ```js
 var prefix="foo";
@@ -45,11 +43,37 @@ myObject["foobar"];//hello
 myObject["foobaz"];//world
 ```
 
-### 属性描述符
+## 属性描述符
 
-1. writable:是否可以修改属性的值
+<https://juejin.cn/post/6844903640897945613>
 
-2. configurable:是否可以修改属性描述符,是否可以使用:  
+一个Object的属性描述对象可以为属性设置很多特性，例如 configurable，enumerable，get,set
+
+descriptor:属性描述符。
+
+```js
+// descriptor
+{
+  get: function () {return sth},
+  set: function (val) {/* do sth */},
+  configurable,
+  enumerable,
+  value,
+  writable
+}
+```
+
+### value
+
+当前值
+
+### writable
+
+是否可以修改属性的值
+
+### configurable
+
+是否可以修改属性描述符,是否可以使用:  
 
 ```js
 Object.defineProperty(myObj,'a',{
@@ -64,13 +88,37 @@ Object.defineProperty(myObj,'a',{
 delete myObj.a;  
 注意：configurable:false是单向操作，不可撤销
 
-3. enumerable  ：是否可以出现在for..in 循环
+### enumerable
 
-通过描述符可以实现：
+是否可以出现在for..in 循环
 
-* 常量
+通过描述符可以实现：常量
 
-## 禁止扩展（属性）：Object.preventExtensions()
+### get
+
+get 值是一个函数，当属性被访问时，会触发 get 函数
+
+### set
+
+set 值同样是一个函数，当属性被赋值时，会触发 set 函数
+
+### Object.getOwnPropertyDescriptor（obj，propName）
+
+获取属性的property descriptor
+
+### Object.defineProperty
+
+该方法允许精确地添加或修改对象的属性
+
+```js
+Object.defineProperty(obj, "hello", descriptor)
+```
+
+有一些对属性的操作，使用这种方法无法拦截，比如说通过下标方式修改数组数据或者给对象新增属性，vue 内部通过重写函数解决了这个问题。在 Vue3.0 中已经不使用这种方式了，而是通过使用 Proxy 对对象进行代理，从而实现数据劫持。使用 Proxy 的好处是它可以完美的监听到任何方式的数据改变，唯一的缺点是兼容性的问题，因为这是 ES6 的语法。
+
+## Object.preventExtensions()
+
+禁止扩展（属性）：
 
 不能添加新属性
 
@@ -79,7 +127,7 @@ delete myObj.a;
 delete myObj.a;
 不会释放内存，知识删除对象属性
 
-## keys
+## Object.keys
 
 Object.keys()
 // 方法会返回一个由一个给定对象的自身可枚举属性组成的数组
@@ -94,7 +142,9 @@ Object.values()方法返回一个给定对象自身的所有可枚举属性值�
 
 返回所有属性，包括可枚举 不可枚举
 
-## 防篡改 Extensions
+## Object.preventExtensions
+
+防篡改 Extensions
 
 var person = { name: "Nicholas" };
 Object. preventExtensions( person);
@@ -103,7 +153,9 @@ alert( person. age); //undefined
 //检测是否可扩展
 Object.isExtensible(person);
 
-## 密封 seal
+## Object.seal
+
+密封 seal
 
 不能添加，删除，重新配置,可以修改属性值
 Object.seal(person);
@@ -115,7 +167,9 @@ delete person.name;//无效
 //检测是否seal
 Object.isSealed(person);
 
-## 冻结 freeze
+## Object.freeze
+
+冻结 freeze
 
 Object.freeze(person);
 //满足isExtensible 和 isSealed
@@ -130,36 +184,9 @@ Object.isFrozen(person);
 
 不会检查prototype原型链,区别与in操作符
 
-## Object.defineProperty
+## Object.prototype.toString
 
-```js
-Object.defineProperty(obj, prop, descriptor)
-```
-
-descriptor:要定义或修改的属性描述符。
-
-该方法允许精确地添加或修改对象的属性
-
-Object.defineProperty 可以为属性设置很多特性，例如 configurable，enumerable，get,set
-
-get 值是一个函数，当属性被访问时，会触发 get 函数
-
-set 值同样是一个函数，当属性被赋值时，会触发 set 函数
-
-```js
-Object.defineProperty(obj, "hello", {
-  get: function () {return sth},
-  set: function (val) {/* do sth */},
-  configurable,
-  enumerable,
-  value,
-  writable
-})
-```
-
-有一些对属性的操作，使用这种方法无法拦截，比如说通过下标方式修改数组数据或者给对象新增属性，vue 内部通过重写函数解决了这个问题。在 Vue3.0 中已经不使用这种方式了，而是通过使用 Proxy 对对象进行代理，从而实现数据劫持。使用 Proxy 的好处是它可以完美的监听到任何方式的数据改变，唯一的缺点是兼容性的问题，因为这是 ES6 的语法。
-
-## 内部属性 [[Class]] Object.prototype.toString
+内部属性 [[Class]]
 
 所有 typeof 返回值为 "object" 的对象（如数组）都包含一个内部属性 [[Class]]（我们可以把它看作一个内部的分类，而非传统的面向对象意义上的类）。
 
@@ -220,6 +247,13 @@ console.log(auto instanceof Object);
 Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的__proto__。
 
 返回：一个新对象，带着指定的原型对象和属性。
+
+```js
+var o = Object.create( Object.prototype, {
+    a: { value: 1, writable: false },
+    b: { value: 2, writable: true }
+} );
+```
 
 ## Object.is()
 

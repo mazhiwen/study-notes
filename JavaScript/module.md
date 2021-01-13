@@ -3,6 +3,8 @@
 <https://juejin.im/post/5e3985396fb9a07cde64c489>
 <https://juejin.im/post/5c17ad756fb9a049ff4e0a62>
 
+<https://juejin.cn/post/6844903640897945614#heading-8>
+
 ## 传统的模块化开发方式
 
 ### 命名空间方案
@@ -72,11 +74,19 @@ org.CoolSite.Utils.each = function (arr) {
 
 - 可维护性：修改
 
-## CommonJS
+## CommonJS(2009)
+
+require 和 module
 
 同步加载
 
-Node.js是commonJS规范的主要实践者
+```js
+module.exports = value 或者 exports.xxx = value
+
+require(xxx)
+```
+
+Node.js是commonJS规范
 
 webpck也是commonjs规范
 
@@ -89,12 +99,6 @@ require命令的基本功能是，读入并执行一个JavaScript文件，然后
 所有代码都运行在模块作用域，不会污染全局作用域。
 
 缺点：同步的模块加载方式不适合在浏览器环境中，同步意味着阻塞加载，浏览器资源是异步加载的。不能非阻塞的并行加载多个模块
-
-```
-module.exports = value 或者 exports.xxx = value
-
-require(xxx)
-```
 
 ```js
 // 定义模块math.js
@@ -174,7 +178,19 @@ console.log(counter); // 3
 （4）抛出 "not found"
 ```
 
-## AMD
+## AMD(2009)
+
+```js
+define(function(){
+  return {
+    // ...
+  }
+})
+
+define(['modulea'],function(modulea){
+  // ...
+})
+```
 
 异步加载
 
@@ -182,13 +198,13 @@ console.log(counter); // 3
 
 require.js：异步方式加载模块。所有依赖这个模块的语句，都定义在一个回调函数中，等到加载完成之后，这个回调函数才会运行。
 
+require.js 的核心原理是通过动态创建 script 脚本来异步引入模块，然后对每个脚本的 load 事件进行监听，如果每个脚本都加载完成了，再调用回调函数。
+
 require.js在申明依赖的模块时会在第一之间加载并执行模块内的代码
 
 适合在浏览器环境中异步加载模块
 
 可以并行加载多个模块
-
-### 语法
 
 ```js
 define(["a", "b", "c", "d", "e", "f"], function(a, b, c, d, e, f) {
@@ -232,10 +248,6 @@ require(["jquery","underscore"],function($,_){
 });
 ```
 
-### requireJS 的核心原理是什么
-
-require.js 的核心原理是通过动态创建 script 脚本来异步引入模块，然后对每个脚本的 load 事件进行监听，如果每个脚本都加载完成了，再调用回调函数。
-
 ## CMD
 
 异步加载;
@@ -271,6 +283,8 @@ seajs.use(['a'], function(a) {
 ```
 
 ## ES6 Module
+
+import export
 
 需要预编译。import 是预先解析、预先加载的，不像 RequireJS 等是执行到点了再发一个请求。无法实现条件加载
 
@@ -348,7 +362,7 @@ CommonJS 模块就是对象，即在输入时是先加载整个模块，生成�
 
 模块执行时机，顺序
 
-## webpack
+## webpack模块
 
 webpack中将静态资源文件称之为模块。
 
