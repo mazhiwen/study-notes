@@ -27,10 +27,11 @@ Tree-shaking是依赖ES6模块静态分析的（即 import 和 export），必�
 在package.json中定义某个模块sideEffect: false，说明了这个模块没有副作用。那么在引入这个模块，却没有使用它时，webpack 会自动把它 Tree Shaking 丢掉：
 
 ```js
-{
-  "name": "your-module",
-  "sideEffects": false
-}
+"sideEffects": false
+
+"sideEffects": [
+  "./src/some-side-effectful-file.js"
+]
 ```
 
 ### 配置minifier插件
