@@ -272,3 +272,32 @@ gzip_http_version 1.1;
 gzip_min_length 256;
 gzip_types text/plain text/css application/json application/x-javascript text/xml application/xml application/xml+rss text/javascript application/vnd.ms-fontobject application/x-font-ttf font/opentype image/svg+xml image/x-icon;
 ```
+
+## 缓存配置
+
+<https://www.cnblogs.com/kevingrace/p/10459429.html>
+
+```sh
+if ($request_uri ~* "^/$|^/search/.+/|^/company/.+/") {
+  add_header    Cache-Control  max-age=3600;
+}
+
+location ~ .*\.(css|js|swf|php|htm|html )$ {
+      add_header Cache-Control no-store;
+}
+
+
+location ~ .*\.(js|css)$ {
+     expires 10d;
+}
+
+# 将html结尾的请求加上no-cache
+location / {
+    access_log /data/nginx/log/xxx.log api;
+    root /home/www/html;
+    if ($request_filename ~ .*\.(htm|html)$)
+     {
+            add_header Cache-Control no-cache;
+     }
+}
+```

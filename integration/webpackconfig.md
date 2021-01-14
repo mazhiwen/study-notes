@@ -7,11 +7,21 @@
 
 ## webbpack命令
 
-输出打包到json文件
+### 输出打包到json文件
 
 ```
 --json > webpack_build_log.json
 ```
+
+### 地址路径问题
+
+webpack配置中字符串格式的 路径'' 一般是以webpack执行命令的路径 ，pkgjson路径;
+
+### 配置文件
+
+执行webpack默认获取webpack.config.js配置
+
+启动webpack配置使用config 或者 dev,prod
 
 ## import规则
 
@@ -30,12 +40,6 @@
 如果以上都没找到就会返回异常，扔出not find异常
 
 如果不存在package.json就会找index.js文件，然后读取文件，查找到此结束；如果还没有就会抛出异常；
-
-## 配置文件
-
-执行webpack默认获取webpack.config.js配置
-
-启动webpack配置使用config 或者 dev,prod
 
 ### dev prod
 
@@ -272,10 +276,6 @@ console.log(paramaterA);
 // 此处会对a.js变更做出响应
 ```
 
-## 地址路径问题
-
-webpack配置中字符串格式的 路径'' 一般是以webpack执行命令的路径 ，pkgjson路径;
-
 ## externals
 
 防止将某些 import 的包(package)打包到 bundle 中，而是在运行时(runtime)再去从外部获取这些扩展依赖(external dependencies)。  
@@ -475,17 +475,25 @@ priority同外面
 
 ### ES6的 import() 按需加载
 
-SplitChunksPlugin 会对asyc import.then等动态分离动态chunk
+SplitChunksPlugin 会对asyc import().then等动态分离动态chunk
 
 ```javascript
-//
+import().then((module)=>{
+
+})
+```
+
+用法：
+
+```js
+// then写法
 import(/* webpackChunkName: "lodash" */ 'lodash').then(_ => {
   var element = document.createElement('div');
   element.innerHTML = _.join(['Hello', 'webpack'], ' ');
   return element;
 }).catch(error => 'An error occurred while loading the component');
 
-//async优化
+//async写法
 async function getComponent() {
   const _ = await import(/* webpackChunkName: "lodash" */ 'lodash');
   element.innerHTML = _.join(['Hello', 'webpack'], ' ');
@@ -496,7 +504,9 @@ getComponent().then(component => {
 });
 ```
 
-例子： 两个按钮分别触发不同事件.
+例子：
+
+两个按钮分别触发不同事件.
 
 生成两个按需加载的js文件，需要时加载对应js
 
@@ -518,6 +528,14 @@ document.getElementById('bBtn').onclick = function () {
 ```
 
 ## DllPlugin 提升构建速度
+
+在webpack脚本命令输入参数，来控制是否刷新dll文件
+
+dll文件后缀以打包时时间戳做后缀
+
+当需要更新dll包时，打包命令输入相关开关，来控制刷新dll文件
+
+也可以加入判断打包目录是否有dll文件
 
 <https://juejin.cn/post/6844903951410659341>
 

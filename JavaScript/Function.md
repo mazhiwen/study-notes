@@ -69,11 +69,9 @@ var sum = function(a,b) {
 }
 ```
 
-## 函数的属性和方法
+## arguments
 
 函数内部属性: 函数内部有两个特殊的对象: arguments和this
-
-### arguments
 
 arguments是一个类数组对象
 
@@ -100,7 +98,7 @@ function factorial(num){
 }
 ```
 
-### this
+## this
 
 this引用的是函数据以执行的环境对象
 
@@ -123,7 +121,7 @@ o.sayColor = sayColor;
 o.sayColor() // 'blue' this指向o
 ```
 
-### caller
+## caller
 
 这个属性保存着调用当前函数的函数的引用
 
@@ -139,7 +137,7 @@ function inner(){
 outer(); // 现实outer函数的源代码
 ```
 
-### length
+## length
 
 length 属性指明函数的形参个数。也就是函数希望接收的命名参数个数
 
@@ -155,11 +153,11 @@ console.log(func2.length);
 // expected output: 2
 ```
 
-### prototype
+## prototype
 
 prototype是保存引用类型对象的所有实例方法的真正所在
 
-### call()和apply()
+## call()和apply()
 
 <https://juejin.im/entry/6844903470672117774>
 
@@ -188,7 +186,7 @@ sayColor.call(o) //blue
 
 第一个参数都是在其中运行函数的作用域
 
-### call()
+## call()
 
 call()接受的是若干个参数的列表
 
@@ -203,7 +201,7 @@ var func = function( a, b, c ){
 func.call( null, 1, 2, 3 );
 ```
 
-### apply()
+## apply()
 
 apply()接受的是一个包含多个参数的数组。
 
@@ -219,11 +217,13 @@ func.apply( null, [ 1, 2, 3 ] );
 
 ```
 
-### bind()
+## bind()
 
 es5定义
 
-创建一个改变this指向的函数实例，而不是执行结果
+返回一个改变this指向的新的函数
+
+而不是执行结果
 
 ```js
 window.color = 'red';
@@ -253,9 +253,7 @@ console.log(boundGetX());
 // expected output: 42
 ```
 
-## 函数的应用
-
-### 匿名函数(立即执行函数)(IIFE)
+## 匿名函数(立即执行函数)(IIFE)
 
 ```js
 //function后面没有定义名称
@@ -284,7 +282,7 @@ var fn = function (x, y) {
 )();
 ```
 
-### 作用域安全的构造函数
+## 作用域安全的构造函数
 
 ```js
 //不用new，直接调用构造函数时会改变this为window，以下修正
@@ -312,7 +310,7 @@ Rectangle.prototype = new Polygon();
 var rect = new Rectangle(5, 10);
 ```
 
-### 函数绑定
+## 函数绑定
 
 ```js
 //this指向丢失
@@ -341,7 +339,7 @@ EventUtil.addHandler(btn, "click", bind(handler.handleClick, handler));
 EventUtil.addHandler(btn, "click", handler.handleClick.bind(handler));
 ```
 
-### 高阶函数
+## 高阶函数
 
 - js满足高阶函数
 
@@ -397,7 +395,7 @@ func();
 // 输出1 2 3
 ```  
 
-### 函数柯里化
+## 函数柯里化
 
 <https://github.com/mqyqingfeng/Blog/issues/42>
 
@@ -576,7 +574,7 @@ Array.forEach(obj, function (i, n) {
 });
 ```
 
-### 惰性载入
+## 惰性载入
 
 某些逻辑只需要加载一次  
 // 例如：事件嗅探工作  
@@ -666,9 +664,11 @@ var createXHR = (function () {
 })();
 ```
 
-### 函数节流
+## 函数节流
 
-### 分时函数
+见防抖节流
+
+## 分时函数
 
 ```js
 // 例如一次性给dom遍历挂载上千dom节点，可能会页面卡死
@@ -713,7 +713,7 @@ renderFriendList();
 
 ```
 
-### 偏函数
+## 偏函数
 
 ```js
 // bind()的另一个最简单的用法是使一个函数拥有预设的初始参数。
