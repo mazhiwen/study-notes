@@ -1,12 +1,6 @@
 # React知识
 
-## 目录
-
-***
-
-## api
-
-### refs与state的选择
+## refs与state的选择
 
 ***refs***
 
@@ -14,10 +8,9 @@ React.createRef()
 
 ***state***
 
-### 样式
+## 样式
 
 ```javascript
-
 <div
     style={{minWidth:200}}
     className=""
@@ -40,13 +33,9 @@ const StyledChip = withStyles(createStyles({
 }))(Chip);
 ```
 
-### render渲染dom
+## render渲染dom
 
 ```javascript
-
-
-
-
 {
 if true
 return <div>2</div>
@@ -57,6 +46,4 @@ return <div>2</div>
 
 <https://segmentfault.com/a/1190000010318444>
 
-## react源码学习
-
-### render
+## render

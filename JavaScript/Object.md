@@ -276,3 +276,9 @@ Object.assign() 方法用于将所有可枚举属性的值从一个或多个源�
 Object.assign(target, source1, source2)
 
 覆盖合并属性
+
+## object.valueOf()
+
+方法返回指定对象的原始值。
+
+JavaScript调用valueOf方法将对象转换为原始值。你很少需要自己调用valueOf方法；当遇到要预期的原始值的对象时，JavaScript会自动调用它。

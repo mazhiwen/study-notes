@@ -68,7 +68,7 @@ html设置no-store
 
 ### 使用CDN
 
-CDN服务，来提高用户对于资源请求时的响应速度
+见主页 CDN目录
 
 ### 启用Gzip
 

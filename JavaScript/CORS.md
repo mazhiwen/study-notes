@@ -17,7 +17,48 @@
 
 域和子域不同源，但可以设置domain达到同源
 
-## 跨域请求：CORS
+## 跨源文件
+
+crossorigin="anonymous" 的作用是引入跨域脚本
+
+在 HTML5 中有一种方式可以获取到跨域脚本的错误信息，首先跨域脚本的服务器必须通过 Access-Controll-Allow-Origin 头信息允许当前域名可以获取错误信息，然后是当前域名的 script 标签也必须声明支持跨域，也就是 crossorigin 属性。
+
+link、img 等标签均支持跨域脚本
+
+## 浏览器处理跨源
+
+XHRAPI调用相同，不过浏览器会处理请求
+
+请求：  
+GET /resource.js HTTP/1.1  
+Host: third.com  
+Origin: <http://example.com>
+...
+
+响应：  
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin：<http://example.com>
+...
+
+third.com  同意 example.com的请求，就会返回Access-Control-Allow-Origin，否则不返回对应信息。
+
+Access-Control-Allow-Origin：* 允许来自任何源的请求。
+
+## 跨域cookie
+
+CORS请求会省略cookie和HTTP认证等用户凭据：  
+
+Cookie依然遵循同源政策，只有用服务器域名设置的Cookie才会上传，其他域名的Cookie并不会上传，且（跨源）原网页代码中的document.cookie也无法读取服务器域名下的Cookie。
+
+要启用cookie和HTTP认证：
+
+1. 客户端需要XHR请求时额外发送withCredentials属性。
+
+2. 同时，服务器以适当的首部（Access-Control-Allow-Credentials）响应。不能设为星号，必须指定明确的、与请求网页一致的域名。
+
+3. cookie设置 domain+path 根域名
+
+## 跨域请求(CORS)
 
 (Cross-Origin Resource Sharing) 跨域资源共享
 
@@ -30,6 +71,11 @@
 浏览器一旦发现AJAX请求跨源，就会自动添加一些附加的头信息，有时还会多出一次附加的请求，但用户不会有感觉。
 
 因此，实现CORS通信的关键是服务器。只要服务器实现了CORS接口，就可以跨源通信。
+
+XHR允许设置自定义HTTP首部，但有些首部是应用代码不能设定的：  
+Accept-Charset, Accept-Encoding,Access-Control-*  
+Host, Upgrade, Connection, Reffer, Origin  
+Cookie, Sec-*, Proxy-*以及其他很多首部
 
 ### 简单请求
 
@@ -77,8 +123,6 @@ var xhr = new XMLHttpRequest();
 xhr.withCredentials = true;
 ```
 
-需要注意的是，如果要发送Cookie，Access-Control-Allow-Origin就不能设为星号，必须指定明确的、与请求网页一致的域名。同时，Cookie依然遵循同源政策，只有用服务器域名设置的Cookie才会上传，其他域名的Cookie并不会上传，且（跨源）原网页代码中的document.cookie也无法读取服务器域名下的Cookie。
-
 ### 非简单请求
 
 method：不是简单请求中的一种  
@@ -102,7 +146,30 @@ Access-Control-Allow-Methods: GET, POST, PUT, DELETE
 Content-Type: text/html
 ```
 
-## 跨域请求：JSONP
+## CORS的一系列安全措施
+
+客户端被限制只能发送“简单的跨源请求”，包括只能使用特定的方法（GET POST HEAD）。只能访问可以通过XHR发送并读取的HTTP首部
+
+如果客户端需要写或者读自定义的HTTP首部，想要使用“不简单的方式”发送请求，那么它必须首先要获得第三方服务器的许可，发送一个preflight请求（options）
+
+```
+//preflight请求
+OPTIONS /resource.js HTTP1.1
+Host: third.com
+Origin: http://example.com
+Access-Control-Request-Method: POST
+Access-Control-Request-Headers: My-Customer-Header
+
+//响应
+//HTTP1.1 200 OK
+Access-Control-Allow-Origin: http://example.com
+Access-Control-Allow-Methods: GET,POST,PUT
+Access-Control-Allow-Headers: My-Customer-Header
+
+//正式的CORS请求
+```
+
+## 跨域方案：JSONP
 
 <https://segmentfault.com/a/1190000007665361#articleHeader1>
 
@@ -149,7 +216,7 @@ onBack({"status": true, "user": "admin"})
 它支持 GET 请求而不支持 POST 等其它类行的 HTTP 请求。  
 它只支持跨域 HTTP 请求这种情况，不能解决不同域的两个页面或 iframe 之间进行数据通信的问题
 
-## 跨域请求：代理
+## 跨域方案：代理
 
 ```sh
 server{
@@ -185,7 +252,7 @@ server {
 }
 ```
 
-## document.domain
+## 跨域方案：document.domain
 
 实现主域名下的不同子域名的跨域操作，我们可以使用设置 document.domain
 
@@ -193,19 +260,19 @@ server {
 
 只需要给页面添加 document.domain = 'test.com' 表示二级域名都相同就可以实现跨域
 
-## Websocket
+## 跨域方案：Websocket
 
 WebSocket protocol是HTML5一种新的协议。它实现了浏览器与服务器全双工通信，同时允许跨域通讯，是server push技术的一种很好的实现。
 
 原生WebSocket API使用起来不太方便，我们使用Socket.io，它很好地封装了webSocket接口，提供了更简单、灵活的接口，也对不支持webSocket的浏览器提供了向下兼容。
 
-## postMessage
+## 跨域方案：postMessage
 
 a.） 页面和其打开的新窗口的数据传递
 b.） 多窗口之间消息传递
 c.） 页面与嵌套的iframe消息传递
 d.） 上面三个场景的跨域数据传递
 
-## location.hash + iframe
+## 跨域方案：location.hash + iframe
 
-## window.name + iframe
+## 跨域方案：window.name + iframe

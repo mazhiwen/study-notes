@@ -14,6 +14,8 @@
 
 [Javascript标准参考 - ruanyifeng 旧地址](<https://javascript.ruanyifeng.com/bom/performance.html>)
 
+[互联网公司架构](https://github.com/davideuler/architecture.of.internet-product)
+
 [前端精读周刊](https://github.com/dt-fe/weekly)
 
 [前端面试之道](https://juejin.cn/book/6844733763675488269/section/6844733763805511693)

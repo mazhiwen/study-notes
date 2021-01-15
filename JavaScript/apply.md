@@ -357,3 +357,13 @@ var lengthOfLongestSubstring = function(s) {
     return max
 };
 ```
+
+## (a === 1 && a === 2 && a === 3) 返回true
+
+== 用Object.valueOf
+
+=== 用defineProperty(window,a,{
+  get
+})
+
+<https://juejin.cn/post/6844903725442531341>
