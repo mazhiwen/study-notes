@@ -8,7 +8,7 @@
 
 <https://blog.csdn.net/qq_35393693/article/details/86597707>
 
-XSS攻击全名（Cross-Site-Script）跨域脚本攻击，为了跟CSS（Cascading-Style-Sheet）区分开来，所以缩写是XSS。
+XSS攻击全名（Cross-Site-Script）跨站脚本攻击，为了跟CSS（Cascading-Style-Sheet）区分开来，所以缩写是XSS。
 
 XSS 攻击指的是跨站脚本攻击，是一种代码注入攻击。
 
