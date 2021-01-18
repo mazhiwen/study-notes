@@ -237,8 +237,9 @@ var objectSayColor = sayColor.bind(o);
 objectSayColor() // blue
 ```
 
+语法: function.bind(thisArg[, arg1[, arg2[, ...]]])
+
 ```js
-//语法: function.bind(thisArg[, arg1[, arg2[, ...]]])
 var module = {
   x: 42,
   getX: function () {
