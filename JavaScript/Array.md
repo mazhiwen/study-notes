@@ -294,6 +294,17 @@ Array.from(arrayLike[, mapFn[, thisArg]])
 
 mapFn(x), 对每个元素执行函数
 
+```js
+console.log(Array.from('foo'));
+// expected output: Array ["f", "o", "o"]
+
+console.log(Array.from([1, 2, 3], x => x + x));
+// expected output: Array [2, 4, 6]
+
+let graph = Array.from({length:8}, () => ({outDegree:0, inDegree:0}));
+// 迭代长度为8的空数组,每个执行赋值 {outDegree:0, inDegree:0}
+```
+
 ## 类数组对象
 
 一个拥有 length 属性和若干索引属性的对象就可以被称为类数组对象，类数组对象和数组类似，但是不能调用数组的方法。
