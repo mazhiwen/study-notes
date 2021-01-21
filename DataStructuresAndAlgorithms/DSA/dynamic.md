@@ -224,38 +224,41 @@ int main(){
 
 <https://segmentfault.com/a/1190000012829866>
 
+已知 物品个数，总空间，物品重量数组，物品价值数组，求背包能放物品最大价值
+
 转换为表格 行为物品，列为容量，从左到右，从上到下计算值。
 
 ```
-
-          j
-          1     2     3      4
-i 吉他
-  音响
-  电脑
+          size
+          4     3     2    1
+num 吉他
+    音响   
+    电脑
 ```
 
 计算每个单元格的值的公式cell[i][j]：比较 上一个单元格的值cell[i-1][j] 和 当前商品的价值+剩余空间的价值(cell[i-1][j-当前商品的重量])
 
-```java
-public static int PackageHelper2(int n,int w[],int p[],int v) {
-  //设置一个二维数组，横坐标代表从第一个物品开始放到第几个物品，纵坐标代表背包还有多少容量，dp代表最大价值
-  // n 表示物品个数 
-  // w 表示物品重量数组
-  // p 表示物品价值数组
-  // v 表示总空间
-  // dp 表示空间对应的最大价值物品
-  int dp[] = new int[v+1];
-  for(int i=1;i<=n;i++){
-   for(int j=v;j>0;j--){
-    if(j>w[i]){
-     dp[j] = Math.max(dp[j], dp[j-w[i]]+p[i]);
-    }else{
-     dp[j] = dp[j];
+```js
+function PackageHelper2(goodsNums, goodsWeights, goodsPrice, maxSize) {
+  // goodsNums 表示物品个数 
+  // goodsWeights 表示物品重量数组
+  // goodsPrice 表示物品价值数组
+  // maxSize 表示总空间
+  // fixedNumPriceBySize 表示当前固定 物品数下，空间对应的最大价值物品
+  let fixedNumPriceBySize = new Array[maxSize+1];
+  for (let i=1; i <= goodsNums; i++) { // i: 物品从 1 到 n 遍历
+    for (let j=maxSize; j > 0; j--) { // j：空间从 maxSize 到 0 递减
+      if(j > goodsWeights[i]) {
+        fixedNumPriceBySize[j] = Math.max(
+          fixedNumPriceBySize[j], 
+          fixedNumPriceBySize[j-goodsWeights[i]] + goodsPrice[i]
+        );
+      } else {
+        fixedNumPriceBySize[j] = fixedNumPriceBySize[j];
+      }
     }
-   }
   }
-  return dp[v];
+  return fixedNumPriceBySize[maxSize];
  }
 ```
 

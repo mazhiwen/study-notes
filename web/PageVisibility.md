@@ -44,5 +44,19 @@ document.addEventListener('visibilitychange', function () {
     document.title = '页面可见';
   }
 });
+```
 
+## 关闭页面
+
+浏览器有两个事件可以用来监听页面关闭，beforeunload和unload
+
+beforeunload: 是在文档和资源将要关闭的时候调用的， 这时候文档还是可见的，并且在这个关闭的事件还是可以取消的。比如下面这种写法就会让用户导致在刷新或者关闭页面时候，有个弹窗提醒用户是否关闭。
+
+```js
+window.addEventListener("beforeunload", function (event) {
+  // Cancel the event as stated by the standard.
+  event.preventDefault();
+  // Chrome requires returnValue to be set.
+  event.returnValue = '';
+});
 ```

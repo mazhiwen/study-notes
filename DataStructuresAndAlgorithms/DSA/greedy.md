@@ -19,33 +19,29 @@
 
 指标存到数组， for/while 迭代处理
 
-## 例子:发饼干
+## 题目: 发饼干
 
 假设你是一位很棒的家长，想要给你的孩子们一些小饼干。但是，每个孩子最多只能给一块饼干。对每个孩子 i ，都有一个胃口值 gi ，这是能让孩子们满足胃口的饼干的最小尺寸；并且每块饼干 j ，都有一个尺寸 sj 。如果 sj >= gi ，我们可以将这个饼干 j 分配给孩子 i ，这个孩子会得到满足。你的目标是尽可能满足越多数量的孩子，并输出这个最大数值。
 
 将需求因子 g 和 s 分别从小到大进行排序，使用贪心思想配合双指针，每个饼干只尝试一次，成功则换下一个孩子来尝试。
 
 ```js
-const findContentChildren = function (g, s) {
-    g = g.sort((a, b) => a - b); // 胃口数组
-    s = s.sort((a, b) => a - b); // 饼干尺寸数组
-    let gi = 0; // 胃口值
-    let sj = 0; // 饼干尺寸
-    let res = 0;
-    while (gi < g.length && sj < s.length) {
-        if (s[sj] >= g[gi]) {
-            gi++;
-            sj++;
-            res++;
-        } else {
-            sj++;
-        }
-    }
-    return res;
-};
+const findContentChildren = (g, s) => {
+  if (!g.length || !s.length) return 0
+
+  g.sort((a, b) => a - b) // g: 胃口数组
+  s.sort((a, b) => a - b) // s: 饼干尺寸数组
+  
+  let gi = 0, // 胃口值
+      si = 0; // 饼干尺寸 
+  while (gi < g.length && si < s.length) { // 循环处理，胃口 和 尺寸从 索引0逐渐增大
+    if (g[gi] <= s[si++]) gi++
+  }
+  return gi
+}
 ```
 
-## 例子：钱币找零问题
+## 题目：钱币找零问题
 
 这是生活中很常见的问题,你的钱包中有1元,5元,10元,50元,100元,分别为a1张,a2张,a3张,a4张,a5张,你需要用这些钱去支付y元,至少需要多少张纸币.贪心算法来计算的话,很明显,每一次用最大面额的纸钞即可.
 
