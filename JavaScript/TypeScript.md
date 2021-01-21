@@ -6,6 +6,8 @@
 
 <https://juejin.cn/post/6844904013289226254>
 
+<https://blog.csdn.net/weixin_41643133/article/details/87883135?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522161122217916780266283325%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=161122217916780266283325&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_v2~hot_rank-1-87883135.pc_search_result_before_js&utm_term=webpack%20ts&spm=1018.2226.3001.4187>
+
 ## TS能做什么
 
 首先TS的定位是静态类型语言，而不是类型检查器（对比flow）。从开发工具提供的能力看也不仅仅是类型检查，很直观的就是Intellisense over Compilation Error，当一段代码有问题（比如少写了字母）时，写完马上就会有红色波浪线提示，而不是等到编译的时候才告诉你哪一行有问题。因此使用TS提供的类型系统+静态分析检查+智能感知/提示，使大规模的应用代码质量更高，运行时bug更少，更方便维护。
