@@ -1,12 +1,12 @@
 # 资源
 
-## 论坛
+## 博客论坛
 
 [掘金](https://juejin.im/timeline)
 
-## 博客
-
 腾讯alloyteam公众号
+
+[从零开始配置 TypeScript 项目](https://juejin.cn/post/6856410900577026061#heading-5)
 
 [腾讯IVWEB技术周刊](https://github.com/iv-web/weekly)
 
@@ -39,6 +39,14 @@
 [聂微东](https://www.cnblogs.com/Darren_code/tag/JavaScript/)
 
 github js ：<https://github.com/search?l=JavaScript&q=followers%3A%3E500&ref=advsearch&type=Users>
+
+## 一些文章
+
+<https://www.cnblogs.com/limbobark/p/10043769.html>
+
+<https://juejin.cn/post/6844903790580072462>
+
+<https://juejin.cn/post/6901552013717438472#heading-12>
 
 ## 面试题
 
