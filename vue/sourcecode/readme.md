@@ -10,6 +10,8 @@
 
 参考:
 
+[Vue底层架构及其应用](https://juejin.cn/post/6844903856799744013)
+
 <http://hcysun.me/vue-design/zh/essence-of-comp.html>
 
 <https://juejin.im/user/3438928101376718/posts>

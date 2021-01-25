@@ -48,4 +48,4 @@ function identity<T>(arg: T): T {
 
 ### tsconfig配置
 
-<https://www.typescriptlang.org/tsconfig>
+[typescript官网]<https://www.typescriptlang.org/tsconfig>
