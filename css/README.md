@@ -280,29 +280,38 @@ percentage|cover|contain|length
 
 参考: <https://zhuanlan.zhihu.com/p/30707916>
 
+### 单行文本溢出
+
 ```css
-/*单行文本溢出*/
 p {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
+```
 
-/*多行文本溢出*/
+### 多行文本溢出
+
+结合 scrollWidth 和 clientWidth 计算行数。
+
+配置height行高.
+
+```css
 p {
   position: relative;
   line-height: 1.5em;
   /*高度为需要显示的行数*行高，比如这里我们显示两行，则为3*/
   height: 3em;
   overflow: hidden;
+  word-break: break-all;
 }
 p:after {
   content: '...';
   position: absolute;
   bottom: 0;
   right: 0;
-  background-color: #fff;
+  background-color: transparent;
 }
 ```
 

@@ -4,7 +4,17 @@
 
 <http://www.ruanyifeng.com/blog/2013/04/processes_and_threads.html>
 
-单次1进程，1进程有多线程.
+https://juejin.cn/post/6844903937355563022
+
+
+
+单次1进程
+
+1进程有多线程.
+
+线程理解为低配的进程
+
+通俗理解：进程为流水线，线程为员工，
 
 ## 堆(heap)和栈(stack)
 

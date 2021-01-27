@@ -15,12 +15,13 @@
   - [WebAssembly](./web/WebAssembly.md)
   - [v8引擎](./web/v8.md)
   - [Web Worker](./web/webworker.md)
+  - [Service worker](./web/serviceworker.md)
   - [canvas](./web/canvas.md)
   - [svg](./web/svg.md)
   - [前端性能-谷歌文档](./web/performance.md)
   - [前端性能-综合指南](./web/performanceapply.md)
   - [浏览器端的缓存](./web/cache.md)
-  - [Chrome调试工具](./web/chrome.md)
+  - [Chrome工具](./web/chrome.md)
   - [浏览器存储](./web/storage.md)
   - [前端路由 vue-router](./web/vue-router.md)
   - [页面可见性 离开页面以及相关](./web/PageVisibility.md)
@@ -35,6 +36,8 @@
   - [Fetch](./web/Fetch.md)
   - [Excel 处理](./web/excel.md)
   - [CDN](./web/CDN.md)
+  - webRTC
+  - webGL
   - [其他](./web/basic.md)
 - 网络知识
   - [web网络知识](./network/README.md)
@@ -46,7 +49,7 @@
   - [websocket](./network/websocket.md)
   - [https](./network/https.md)
   - [前端鉴权](./network/auth.md)
-  - [跨域攻击](./network/cyber-attack.md)
+  - [web安全](./network/cyber-attack.md)
   - [XSS](./network/xss.md)
 - JavaScript
   - [知识大全](./JavaScript/README.md)
@@ -168,13 +171,18 @@
   - [mock](./integration/mock.md)
   - [grunt](./integration/grunt)
   - [gulp](./integration/gulp)
+  - [serverless](./integration/serverless.md)
 - 移动端
   - [移动端知识点](./mobile/basic.md)
   - [开发框架](./mobile/APP.md)
   - [ios](./mobile/ios)
-  - [flutter](./mobile/flutter)
-- linux
-  - [基本知识](./linux)
+  - [flutter](./mobile/flutter/README.md)
+- 计算机
+  - [计算机知识](./computer/basic.md)
+  - [linux](./computer/linux.md)
+- 项目管理
+  - [概览知识](./project/basic.md)
+  - [codereview](./project/cr.md)
 - [其他](./other)
   - [git](./other/git.md)
   - [npm-yarn](./other/npm-yarn.md)

@@ -39,14 +39,30 @@ a.com以受害者的名义执行了act=xx。
 
 ## DDoS
 
-## CSP
+## 防御思路
 
-CSP 指的是内容安全策略，它的本质是建立一个白名单，告诉浏览器哪些外部资源可以加载和执行。我们只需要配置规则，如何拦截由浏览器自己来实现。
+不信任任何外部资源
 
-```
+不信任任何用户输入
+
+## 防御: CSP
+
+<https://juejin.cn/post/6913524440718376968>
+
+<https://juejin.cn/post/6867941386025435149>
+
+CSP (Content-Security-Policy) 指的是内容安全策略，它的本质是建立一个白名单，告诉浏览器哪些外部资源可以加载和执行。我们只需要配置规则，如何拦截由浏览器自己来实现。
+
 两种方法开启配置csp：
 
-http头部：Content-Security-Policy: policy
+http头部：
 
-html-meta：<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src https://*; child-src 'none';">
+```sh
+Content-Security-Policy: policy
+```
+
+html-meta：
+
+```html
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src https://*; child-src 'none';">
 ```

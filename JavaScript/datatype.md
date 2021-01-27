@@ -2,13 +2,13 @@
 
 ECMAScript不支持任何创建自定义类型的机制
 
-理论上，而所有值都将是6中基本数据类型 加上 Object 一起的 7 种数据类型之一。
+所有值都是: 7种原始类型 + 引用类型Object = 8种数据类型之一。
 
 ***
 
-## 一：基本类型
+## 一：原始类型
 
-有6种
+有7种
 
 ### 1.null
 
@@ -67,6 +67,11 @@ undefined                          undefined
 具体见 [number文档](./Number.md)
 
 ### 6.Symbol
+
+### 7.GigInt
+
+typeof 42n;
+// → 'bigint'
 
 ## 二：引用类型
 
@@ -301,6 +306,8 @@ typeof检测给定变量的数据类型
 typeof是一个操作符而不是函数，可以不用括号
 
 typeof对基本类型返回基本类型，对引用类型返回"object"
+
+typeof 可以检测所有类型值，除了一个特殊情况： null返回的是object
 
 返回值：
 

@@ -9,7 +9,6 @@
 - [Reflect](#Reflect)
 - [typed&nbsp;arrays](#typed&nbsp;arrays)
 - [安全随机](#安全随机)
-- [Service worker](#Service&nbsp;worker)
 - [内置对象](#内置对象)
 - [ToString](#ToString)
 - [ToNumber](#ToNumber)
@@ -131,14 +130,6 @@ return array.join("");
 ```
 
 生成随机数的方法：<https://www.hangge.com/blog/cache/detail_1872.html>
-
-## Service worker
-
-<https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API>
-
-<https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API/Using_Service_Workers>
-
-<https://zhuanlan.zhihu.com/p/20040372>
 
 ## 内置对象
 

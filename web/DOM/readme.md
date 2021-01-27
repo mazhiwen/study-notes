@@ -40,14 +40,22 @@ referenceNode ： newNode 将要插在这个节点之前
 
 如果给定的子节点是对文档中现有节点的引用，insertBefore() 会将其从当前位置移动到新位置（在将节点附加到其他节点之前，不需要从其父节点删除该节点）。
 
-## document
-
 当浏览器下载到一个网页，通常是 HTML，这个 HTML 就叫 document（当然，这也是 DOM 树中的一个 node），从上图可以看到，document 通常是整个 DOM 树的根节点。这个 document 包含了标题（document.title）、URL（document.URL）等属性，可以直接在 JS 中访问到。
 
 在一个浏览器窗口中可能有多个 document，例如，通过 iframe 加载的页面，每一个都是一个 document。
+
+## document
+
+342
 
 ### document.createElement
 
 <https://developer.mozilla.org/zh-CN/docs/Web/API/Document/createElement>
 
 返回ELement
+
+### document.createDocumentFragmentent
+
+## NodeList
+
+对象是节点的集合，通常是由属性，如Node.childNodes 和 方法，如document.querySelectorAll 返回的。

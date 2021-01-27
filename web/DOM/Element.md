@@ -6,17 +6,13 @@
 
 > Element 是一个通用性非常强的基类，所有 Document 对象下的对象都继承自它。这个接口描述了所有相同种类的元素所普遍具有的方法和属性。一些接口继承自 Element 并且增加了一些额外功能的接口描述了具体的行为。例如， HTMLElement 接口是所有 HTML 元素的基本接口，而 SVGElement 接口是所有 SVG 元素的基础。大多数功能是在这个类的更深层级（hierarchy）的接口中被进一步制定的。
 
-## 方法API
+## Element 方法API
 
-## 属性
+## Element 属性
 
-## HTMLElement
+所有属性继承自它的祖先接口 Node，并且扩展了 Node 的父接口 EventTarget，并且从以下部分继承了属性：ParentNode、ChildNode、NonDocumentTypeChildNode，和 Animatable。
 
-HTMLElement 接口表示所有的 HTML 元素。一些HTML元素直接实现了HTMLElement接口，其它的间接实现HTMLElement接口.
-
-继承自父接口Element和 GlobalEventHandlers的属性  
-
-## 窗口,距离,宽高
+## Element.窗口,距离,宽高相关属性
 
 ### clientHeight clientWidth
 
@@ -96,7 +92,7 @@ offsetWidth: 获得对象的可视区域的宽度，包括边框
 
 content + padding + 溢出内容的尺寸
 
-Element.scrollWidth: 表示元素内容的宽度，包括由于滚动而未显示在屏幕中内容
+Element.scrollWidth: 表示元素内容的宽度，包括由于滚动而未显示在屏幕中内容(溢出内容的尺寸)
 
 Element.scrollHeight: 获取对象的滚动高度。
 
@@ -110,7 +106,7 @@ Element.scrollLeft: 这个元素的顶部到视口可见内容（的顶部）的
 
 Element.scrollTop: 设置或获取位于对象最顶端和窗口中可见内容的最顶端之间的距离
 
-## getBoundingClientRect()
+## Element.getBoundingClientRect()
 
 element.getBoundingClientRect()
 
@@ -129,3 +125,35 @@ element.getBoundingClientRect()
 - width
 
 - height
+
+## HTMLElement
+
+HTMLElement 接口表示所有的 HTML 元素。一些HTML元素直接实现了HTMLElement接口，其它的间接实现HTMLElement接口.
+
+继承自父接口Element和 GlobalEventHandlers的属性  
+
+### HTMLElement.style
+
+HTMLElement.style 属性返回一个 CSSStyleDeclaration 对象，表示元素的 内联style 属性（attribute），但忽略任何样式表应用的属性。 通过 style 可以访问的 CSS 属性列表，可以查看 CSS Properties Reference。
+
+CSS Properties Reference:
+
+<https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Properties_Reference>
+
+<https://developer.mozilla.org/en-US/docs/Web/CSS/Reference>
+
+设置 style 属性：
+
+```js
+// 在单个语句中设置多个样式
+elt.style.cssText = "color: blue; border: 1px solid black";
+// 或者
+elt.setAttribute("style", "color:red; border: 1px solid blue;");
+
+// 设置特定样式，同时保持其他内联样式值不变
+elt.style.color = "blue";
+```
+
+获取元素样式信息:
+
+getComputedStyle
