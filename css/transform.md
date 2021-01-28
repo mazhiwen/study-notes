@@ -1,7 +1,9 @@
-## transform
+# transform
 
 只对 block 级元素生效！
 不占用文档流
+
+## transform
 
 ```css
 /*****************matrix(矩阵)
@@ -49,3 +51,13 @@ transform:  translate(tx[, ty])
 transform:  translateX(tx)
 transform:  translateY(ty)
 ```
+
+## transform-origin
+
+transform-origin CSS属性让你更改一个元素变形的原点。
+
+参数取值：
+
+关键字
+
+则第一个值表示水平偏移量，第二个值表示垂直偏移量。第三个值必须是<length>。它始终代表Z轴偏移量。

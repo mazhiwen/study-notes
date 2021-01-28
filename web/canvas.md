@@ -8,6 +8,8 @@
 
 <https://juejin.cn/post/6888209975965909000>
 
+[看你骨骼惊奇，这里有一套 Canvas 粒子动画方案了解一下？](https://juejin.cn/post/6844903725153124359)
+
 ## canvas标签
 
 不要用css定义canvas宽高

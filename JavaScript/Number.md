@@ -118,23 +118,23 @@ numberValue instanceof Number // false
 
 Number对象是Number类型的实例，而基本类型的数值则不是
 
-### number.toString([radix])
+## number.toString([radix])
 
 返回指定 Number 对象的字符串表示形式。
 
 radix 指定要用于数字到字符串的转换的基数(从2到36)。如果未指定 radix 参数，则默认值为 10。
 
-### numObj.toFixed()
+## numObj.toFixed()
 
-toFixed() 方法使用定点表示法来格式化一个数值。
+toFixed() 方法使用定点表示法来格式化一个数值。会进行四舍五入
+
+精度是小数点后指定位数取整，从小数点开始数起 digits位。
 
 numObj.toFixed(digits)
 
 digits ： 小数点后数字的个数；介于 0 到 20 （包括）之间，实现环境可能支持更大范围。如果忽略该参数，则默认为 0。
 
-会进行四舍五入
-
-### Number.parseInt(string[, radix])
+## Number.parseInt(string[, radix])
 
 ```js
 Number.parseInt === parseInt; // true
@@ -164,10 +164,39 @@ parseInt() 第二个参数是转换时，使用的基数，即多少进制
 parseInt('0xAF',16)
 ```
 
-### numObj.toPrecision()
+## number.toPrecision()
 
 方法以指定的精度返回该数值对象的字符串表示。
+
+精度是从左至右第一个不为0的数开始数起。
 
 numObj.toPrecision(precision)
 
 precision:可选。一个用来指定有效数个数的整数。
+
+```js
+var numObj = 5.123456;
+console.log("numObj.toPrecision()  is " + numObj.toPrecision());  //输出 5.123456
+console.log("numObj.toPrecision(5) is " + numObj.toPrecision(5)); //输出 5.1235
+console.log("numObj.toPrecision(2) is " + numObj.toPrecision(2)); //输出 5.1
+```
+
+## 0.1+0.2 === 0.30000000000000004
+
+<https://juejin.cn/post/6844904020172079112>
+
+<https://github.com/camsong/blog/issues/9>
+
+在JS中, 无论整数还是小数都是Number类型, 它的实现遵循IEEE 754, 是标准的Double双精度浮点数, 使用固定的64位来表示。
+
+整数十进制转二进制时, 是除以二去余数, 这是可以除尽的! (除二取余，然后倒序排列，高位补零)
+
+小数十进制转化为二进制的计算方法是, 小数部分*2, 取整数部分, 直至小数部分为0, 如果永远不为零, 在超过精度时的最后一位时0舍入1。
+
+JS中的数字都会转化为二进制存储下来, 由于数字存储限定了64位, 但现实世界中, 数字是无穷的, 所以一定会有数字超出这个存储范围。超出这个范围的数字在存储时就会丢失精度。
+
+解决方案：
+
+1. 对于大部分业务来讲, 确定数字精度后, 使用Math.round就可以了。 例如本文最初遇到的BUG
+
+2. 而我们不太确定精度的浮点数运算, 通用的解决方案都是将小数转化为整数, 进行计算后, 再转化为小数就好了。
