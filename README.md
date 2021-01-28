@@ -131,6 +131,7 @@
 - [vue](./vue)
   - [vue知识点](./vue/basic/readme.md)
   - [vue源码学习](./vue/sourcecode/readme.md)
+  - [vue优化](./vue/optimize.md)
   - [vue3](./vue/vue3.md)
   - [computed](./vue/basic/computed.md)
   - [vue插件](./vue/basic/plugin.md)

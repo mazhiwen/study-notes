@@ -43,7 +43,7 @@ data:{ //普通属性
   msg:'浪里行舟',
 },
 computed:{ //计算属性
-  msg2:function(){ //该函数必须有返回值，用来获取属性，称为get函数
+  msg2:function(???this???){ //该函数必须有返回值，用来获取属性，称为get函数
     return '浪里行舟';
   },
   reverseMsg:function(){
