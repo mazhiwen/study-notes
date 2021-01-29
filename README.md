@@ -94,7 +94,7 @@
   - [富文本编辑器开发原理](./JavaScript/editor.md)
   - [模块化规范](./JavaScript/module.md)
   - [cookie](./JavaScript/cookie.md)
-  - [虚拟列表](./JavaScript/virtuallist.md)
+  - [虚拟滚动](./JavaScript/virtuallist.md)
   - [PerformanceAPI](./JavaScript/PerformanceAPI.md)
   - [Date](./JavaScript/Date.md)
 - [html](./html)

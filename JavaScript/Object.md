@@ -63,6 +63,16 @@ descriptor:属性描述符。
 }
 ```
 
+### Object.defineProperty
+
+该方法允许精确地添加或修改对象的属性
+
+```js
+Object.defineProperty(obj, "hello", descriptor)
+```
+
+有一些对属性的操作，使用这种方法无法拦截，比如说通过下标方式修改数组数据或者给对象新增属性，vue 内部通过重写函数解决了这个问题。在 Vue3.0 中已经不使用这种方式了，而是通过使用 Proxy 对对象进行代理，从而实现数据劫持。使用 Proxy 的好处是它可以完美的监听到任何方式的数据改变，唯一的缺点是兼容性的问题，因为这是 ES6 的语法。
+
 ### value
 
 当前值
@@ -106,16 +116,6 @@ set 值同样是一个函数，当属性被赋值时，会触发 set 函数
 
 获取属性的property descriptor
 
-### Object.defineProperty
-
-该方法允许精确地添加或修改对象的属性
-
-```js
-Object.defineProperty(obj, "hello", descriptor)
-```
-
-有一些对属性的操作，使用这种方法无法拦截，比如说通过下标方式修改数组数据或者给对象新增属性，vue 内部通过重写函数解决了这个问题。在 Vue3.0 中已经不使用这种方式了，而是通过使用 Proxy 对对象进行代理，从而实现数据劫持。使用 Proxy 的好处是它可以完美的监听到任何方式的数据改变，唯一的缺点是兼容性的问题，因为这是 ES6 的语法。
-
 ## Object.preventExtensions()
 
 禁止扩展（属性）：
@@ -130,9 +130,13 @@ delete myObj.a;
 ## Object.keys
 
 Object.keys()
-// 方法会返回一个由一个给定对象的自身可枚举属性组成的数组
+
+方法会返回一个由一个给定对象的自身可枚举属性组成的数组
+
+```js
 var arr = ['a', 'b', 'c'];
 console.log(Object.keys(arr)); // console: ['0', '1', '2']
+```
 
 ## Object.values(obj)
 

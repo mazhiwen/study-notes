@@ -1,8 +1,8 @@
 # Vue生命周期
 
-<https://juejin.im/post/5c6d48e36fb9a049eb3c84ff>
+[详解 Vue 生命周期实现](https://juejin.im/post/5c6d48e36fb9a049eb3c84ff)
 
-<https://juejin.im/entry/5aee8fbb518825671952308c>
+[vue 生命周期深入](https://juejin.im/entry/5aee8fbb518825671952308c)
 
 <https://juejin.im/post/5d1b464a51882579d824af5b>
 

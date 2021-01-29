@@ -43,3 +43,107 @@ v-show 替代 v-if
 在非优化场景下，我们每次点击按钮切换路由视图，都会重新渲染一次组件，渲染组件就会经过组件初始化，render、patch 等过程，如果组件比较复杂，或者嵌套较深，那么整个渲染耗时就会很长。
 
 而在使用 KeepAlive 后，被 KeepAlive 包裹的组件在经过第一次渲染后，的 vnode 以及 DOM 都会被缓存起来，然后再下一次再次渲染该组件的时候，直接从缓存中拿到对应的 vnode 和 DOM，然后渲染，并不需要再走一次组件初始化，render 和 patch 等一系列流程，减少了 script 的执行时间，性能更好。
+
+## 使用 Deferred 组件延时分批渲染组件
+
+在应用页用v-if(defer(优先级数字)) 对迭代渲染的组件进行分组，分批次渲染
+
+解决一次性加载太多，导致慢的问题
+
+requestAnimationFrame 周期执行依次累加可以渲染的迭代组件个数（优先级）
+
+defer mixin具体实现：
+
+```js
+export default function (count = 10) {
+  return {
+    data () {
+      return {
+        displayPriority: 0
+      }
+    },
+
+    mounted () {
+      this.runDisplayPriority()
+    },
+
+    methods: {
+      runDisplayPriority () {
+        const step = () => {
+          requestAnimationFrame(() => {
+            this.displayPriority++
+            if (this.displayPriority < count) {
+              step()
+            }
+          })
+        }
+        step()
+      },
+
+      defer (priority) {
+        return this.displayPriority >= priority
+      }
+    }
+  }
+}
+```
+
+## Time slicing 时间片切割技术
+
+对一次执行耗时较大的js逻辑，会造成页面卡死
+
+这时候可以用 例如requestAnimationFrame 分批处理js，避免页面卡死
+
+## 使用 Non-reactive data 非响应式数据
+
+### defineProperty configurable
+
+对于大数据量，部分不需要影响的。或者 参数不需要响应。
+
+```js
+const data = items.map(
+  item => ({
+    id: uid++,
+    data: item,
+    vote: 0
+  })
+)
+```
+
+优化后：
+
+```js
+const data = items.map(
+  item => optimizeItem(item)
+)
+
+function optimizeItem (item) {
+  const itemData = {
+    id: uid++,
+    vote: 0
+  }
+  Object.defineProperty(itemData, 'data', {
+    // Mark as non-reactive
+    configurable: false,
+    value: item
+  })
+  return itemData
+}
+```
+
+### 不挂在组件data
+
+对应不需要响应的不挂在组件data
+
+而是 挂在this.
+
+```js
+export default {
+  created() {
+    this.scroll = null
+  },
+  mounted() {
+    this.scroll = new BScroll(this.$el)
+  }
+}
+```
