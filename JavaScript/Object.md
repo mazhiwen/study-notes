@@ -94,8 +94,10 @@ Object.defineProperty(myObj,'a',{
 })  
 ```
 
-或者  
+或者
+
 delete myObj.a;  
+
 注意：configurable:false是单向操作，不可撤销
 
 ### enumerable

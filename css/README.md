@@ -13,7 +13,6 @@
 - [overflow](#overflow)
 - [media媒体查询](#media)
 - [继承属性](#继承属性)
-- [background](#background)
 - [文字溢出](#文字溢出)
 - [等宽字体](#等宽字体)
 - [浏览器css前缀](#浏览器css前缀)
@@ -254,26 +253,6 @@ visibility
 当一个属性不是继承属性的时候，我们也可以通过将它的值设置为inherit来使它从父元素那获取同名的属性值来继承。
 ```
 
-## background
-
-### background属性
-
-url('../../static/images/home_logo.png') no-repeat center left / auto 80% ;
-
-### background-size
-
-percentage|cover|contain|length
-
-### background-image
-
-元素本身设置 display:none，会请求图片
-
-父级元素设置 display:none，不会请求图片
-
-样式没有元素使用，不会请求
-
-:hover 样式下，触发时请求
-
 ## 文字溢出
 
 省略号
@@ -305,13 +284,16 @@ p {
   height: 3em;
   overflow: hidden;
   word-break: break-all;
+  width:100px;
 }
 p:after {
   content: '...';
   position: absolute;
   bottom: 0;
   right: 0;
-  background-color: transparent;
+  width: 50%;
+  text-align: right;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
 }
 ```
 
