@@ -14,10 +14,6 @@ DOM 是为了操作文档出现的 API，document 是其的一个对象；
 
 ## Node
 
-**NodeList**
-
-<https://developer.mozilla.org/zh-CN/docs/Web/API/NodeList/item>
-
 ### Node.nextSibling
 
 是一个只读属性，返回其父节点的 childNodes 列表中紧跟在其后面的节点，如果指定的节点为最后一个节点，则返回 null。
@@ -44,9 +40,11 @@ referenceNode ： newNode 将要插在这个节点之前
 
 在一个浏览器窗口中可能有多个 document，例如，通过 iframe 加载的页面，每一个都是一个 document。
 
-## document
+### Node.appendChild()
 
-342
+div.appendChild(text);
+
+## document
 
 ### document.createElement
 
@@ -56,6 +54,14 @@ referenceNode ： newNode 将要插在这个节点之前
 
 ### document.createDocumentFragmentent
 
+### document.createTextNode
+
+let text = document.createTextNode("Hi there and greetings!");
+
+div.appendChild(text);
+
 ## NodeList
+
+<https://developer.mozilla.org/zh-CN/docs/Web/API/NodeList/item>
 
 对象是节点的集合，通常是由属性，如Node.childNodes 和 方法，如document.querySelectorAll 返回的。

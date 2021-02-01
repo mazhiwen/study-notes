@@ -2,7 +2,9 @@
 
 <https://github.com/jawil/blog/issues/21>
 
-## 设备像素(device pixel, DP)
+## DP和pt - 设备像素(device pixel)
+
+DP: 设备像素(device pixel)
 
 又称为物理像素。
 
@@ -10,7 +12,7 @@
 
 pt 在 css 单位中属于真正的绝对单位，1pt = 1/72(inch), inch及英寸，而1英寸等于2.54厘米。所以设备像素的特点就是大小固定，不可变。比如 iPhone 5 的分辨率为 640 x 1136px.
 
-## CSS像素(css pixel, px)
+## px - CSS像素(css pixel)
 
 是虚拟像素，也可以理解为直觉像素。
 
@@ -24,7 +26,7 @@ CSS 像素是 Web 编程的概念，指的是 CSS 样式代码中使用的逻辑
 
 所以，CSS中的1px（CSS像素 可变）!== 设备的1px（设备像素 不可变）。
 
-## 每英寸像素(pixel per inch)(PPI)
+## PPI - 每英寸像素(pixel per inch)
 
 每英寸像素取值，更确切的说法应该是像素密度，也就是衡量单位物理面积内拥有像素值的情况。
 

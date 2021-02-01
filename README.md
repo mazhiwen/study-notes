@@ -7,9 +7,9 @@
 
 - Web开发
   - [WebAPI](./web/browser)
-  - [DOM](./web/DOM/)
   - [window](./web/window.md)
-  - [Element](./web/DOM/Element.md)
+  - [DOM](./web/DOM/basic.md)
+  - [DOM/Element](./web/DOM/Element.md)
   - [浏览器解析渲染](./web/render.md)
   - [重绘和回流](./web/reflow.md)
   - [WebAssembly](./web/WebAssembly.md)
@@ -104,7 +104,6 @@
   - [知识点大全](./css/README.md)
   - [css3](./css/css3.md)
   - [css性能优化](./css/performance.md)
-  - [像素单位概念，viewport](./css/pixel.md)
   - [尺寸单位rem,em等](./css/unit.md)
   - [雪碧图csssprite](./css/sprite.md)
   - [块级元素和行内元素](./css/blockinline.md)
@@ -179,6 +178,8 @@
 - 移动端
   - [移动端知识点](./mobile/basic.md)
   - [App开发方式](./mobile/APP.md)
+  - [H5适配](./mobile/h5.md)
+  - [像素单位概念，viewport](./mobile/pixel.md)
   - [ios](./mobile/ios)
   - [flutter](./mobile/flutter/README.md)
   - [React Native](./mobile/rn.md)
