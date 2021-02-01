@@ -97,6 +97,7 @@
   - [虚拟滚动](./JavaScript/virtuallist.md)
   - [PerformanceAPI](./JavaScript/PerformanceAPI.md)
   - [Date](./JavaScript/Date.md)
+  - [ArrayBuffer](./JavaScript/ArrayBuffer.md)
 - [html](./html)
   - [html5](./html/html5.md)
   - [离线缓存](./html/mainfest.md)

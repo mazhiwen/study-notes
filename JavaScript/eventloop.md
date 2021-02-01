@@ -2,11 +2,11 @@
 
 <http://www.ruanyifeng.com/blog/2014/10/event-loop.html>
 
-[从 Promise 对象讲解事件循环机制](https://mp.weixin.qq.com/s/nJsM05Yp50HDH1hqEen2eQ)
-
 [如何解释Event Loop面试官才满意？](https://zhuanlan.zhihu.com/p/72507900)
 
 [这一次，彻底弄懂 JavaScript 执行机制](https://juejin.im/post/6844903512845860872)
+
+[从 Promise 对象讲解事件循环机制](https://mp.weixin.qq.com/s/nJsM05Yp50HDH1hqEen2eQ)
 
 [w3c](https://html.spec.whatwg.org/multipage/webappapis.html#event-loop-processing-model)
 

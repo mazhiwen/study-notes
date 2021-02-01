@@ -13,6 +13,10 @@ HTML5标准
 if (window.Worker) {…… your code ……}
 ```
 
+## 实践方案
+
+[像Event Emitter一样使用Web Worker](https://juejin.cn/post/6844904029349216264)
+
 ## 创建
 
 一个worker是使用一个构造函数 Worker() 创建的一个对象
