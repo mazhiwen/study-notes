@@ -65,7 +65,7 @@ descriptor:属性描述符。
 
 ### Object.defineProperty
 
-该方法允许精确地添加或修改对象的属性
+该方法允许精确地添加或修改对象的属性, 以及对应属性的描述符
 
 ```js
 Object.defineProperty(obj, "hello", descriptor)

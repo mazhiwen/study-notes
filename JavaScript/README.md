@@ -6,8 +6,6 @@
 - [深浅拷贝](#深浅拷贝)
 - [定时器](#定时器)
 - [Error](#Error)
-- [Reflect](#Reflect)
-- [typed&nbsp;arrays](#typed&nbsp;arrays)
 - [安全随机](#安全随机)
 - [内置对象](#内置对象)
 - [ToString](#ToString)
@@ -103,23 +101,6 @@ function deepCopy(obj) {
 throw new Error();
 ```
 
-## Reflect
-
-js内置对象，提供拦截javascript 操作的方法
-
-## typed arrays
-
-类型数组:
-
-JavaScript类型化数组是一种类似数组的对象，并提供了一种用于访问原始二进制数据的机制。 正如你可能已经知道，Array 存储的对象能动态增多和减少，并且可以存储任何JavaScript值。JavaScript引擎会做一些内部优化，以便对数组的操作可以很快。然而，随着Web应用程序变得越来越强大，尤其一些新增加的功能例如：音频视频编辑，访问WebSockets的原始数据等，很明显有些时候如果使用JavaScript代码可以快速方便地通过类型化数组来操作原始的二进制数据将会非常有帮助。
-
-### ArrayBuffer
-
-ArrayBuffer 是一种数据类型，用来表示一个通用的、固定长度的二进制数据缓冲区。你不能直接操纵一个ArrayBuffer中的内容；你需要创建一个类型化数组的视图或一个描述缓冲数据格式的DataView，使用它们来读写缓冲区中的内容.
-
-### 类型数组视图
-
-类型化数组视图具有自描述性的名字和所有常用的数值类型像Int8，Uint32，Float64 等等。有一种特殊类型的数组Uint8ClampedArray。它仅操作0到255之间的数值。例如，这对于Canvas数据处理非常有用。
 
 ## 安全随机
 
