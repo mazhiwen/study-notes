@@ -36,6 +36,8 @@ sideEffect: false 表示全部没有副作用
 
 sideEffect: [] 。数组表示 有副作用的文件
 
+注意这个文件地址，写的是最终被引用的文件。而不是入口
+
 ```js
 "sideEffects": [
   "./src/some-side-effectful-file.js"
