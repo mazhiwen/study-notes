@@ -6,9 +6,7 @@
 
 > Element 是一个通用性非常强的基类，所有 Document 对象下的对象都继承自它。这个接口描述了所有相同种类的元素所普遍具有的方法和属性。一些接口继承自 Element 并且增加了一些额外功能的接口描述了具体的行为。例如， HTMLElement 接口是所有 HTML 元素的基本接口，而 SVGElement 接口是所有 SVG 元素的基础。大多数功能是在这个类的更深层级（hierarchy）的接口中被进一步制定的。
 
-## Element 方法API
-
-## Element 属性
+## Element继承关系
 
 所有属性继承自它的祖先接口 Node，并且扩展了 Node 的父接口 EventTarget，并且从以下部分继承了属性：ParentNode、ChildNode、NonDocumentTypeChildNode，和 Animatable。
 
@@ -157,3 +155,15 @@ elt.style.color = "blue";
 获取元素样式信息:
 
 getComputedStyle
+
+## Element.classList
+
+Element.classList 是一个只读属性，返回一个元素的类属性的实时 DOMTokenList 集合。
+
+相比将 element.className 作为以空格分隔的字符串来使用，classList 是一种更方便的访问元素的类列表的方法。
+
+虽然 element.classList 本身是只读的，但是你可以使用 add() 和 remove() 方法修改它。
+
+```
+remove add toggle contains replace
+```
