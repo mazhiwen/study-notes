@@ -23,7 +23,9 @@ webpack配置中字符串格式的 路径'' 一般是以webpack执行命令的�
 
 启动webpack配置使用config 或者 dev,prod
 
-## import规则
+## webpack模块解析规则 import规则
+
+<https://v4.webpack.docschina.org/concepts/module-resolution/>
 
 工作机制
 
