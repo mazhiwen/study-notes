@@ -177,6 +177,8 @@
   - [grunt](./integration/grunt)
   - [codereview](./integration/cr.md)
   - [gulp](./integration/gulp)
+  - [rollup](./integration/rollup.md)
+  - [组件库打包方案](./integration/libpack.md)
 - 移动端
   - [移动端知识点](./mobile/basic.md)
   - [App开发方式](./mobile/APP.md)

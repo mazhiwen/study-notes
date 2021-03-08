@@ -1,10 +1,18 @@
 # tree-shaking
 
+[你的Tree-Shaking并没什么卵用](https://zhuanlan.zhihu.com/p/32831172)
+
+## 什么是有副作用
+
+有副作用： 例如，函数修改外部参数。被认为有副作用，不能删除
+
+## webpack 的 treeshaking 问题
+
 webpack中实现的Tree-shaking
 
 所谓Tree-shaking就是‘摇’的意思，作用是把项目中没必要的模块全部抖掉，用于在不同的模块之间消除无用的代码，可列为性能优化的范畴。
 
-目前发现对node_modules 无效  
+对node_modules 不支持的无效  
 
 webpack4: webpack从第2版本就开始支持Tree-shaking的功能，但是至今也并不能实现的那么完美。凡是具有副作用的模块，webpack的Tree-shaking就歇菜了。
 
