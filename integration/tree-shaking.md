@@ -16,13 +16,13 @@ webpack中实现的Tree-shaking
 
 webpack4: webpack从第2版本就开始支持Tree-shaking的功能，但是至今也并不能实现的那么完美。凡是具有副作用的模块，webpack的Tree-shaking就歇菜了。
 
-## 用法
+## webpack treeshaking 用法
 
-### 1.引用的模块都是ES6规范
+### 1.需要引用的模块都是ES6规范
 
 Tree-shaking是依赖ES6模块静态分析的（即 import 和 export），必然要保证引用的模块都是ES6规范的。比如： 引入的是lodash-es而不是lodash。
 
-### 2.sideEffects 属性
+### 2.配置sideEffects 属性
 
 在项目 package.json 文件中，添加一个 "sideEffects" 入口。
 
