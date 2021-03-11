@@ -169,6 +169,7 @@
 - [前端工程化](./integration)
   - [webpack原理](./integration/webpacksource.md)
   - [webpack配置](./integration/webpackconfig.md)
+  - [webpack5](./integration/webpack5.md)
   - [tree-shaking](./integration/tree-shaking.md)
   - [微前端](./integration/微前端.md)
   - [Docker](./integration/Docker.md)
@@ -179,6 +180,7 @@
   - [gulp](./integration/gulp)
   - [rollup](./integration/rollup.md)
   - [组件库打包方案](./integration/libpack.md)
+  - 服务端渲染
 - 移动端
   - [移动端知识点](./mobile/basic.md)
   - [App开发方式](./mobile/APP.md)
@@ -192,7 +194,8 @@
   - [linux](./computer/linux.md)
 - [其他](./other)
   - [git](./other/git.md)
-  - [npm-yarn](./other/npm-yarn.md)
+  - [yarn](./other/yarn.md)
+  - [npm](./other/npm.MD)
   - [正则表达式](./other/regExp.MD)
   - [IDE](./other/IDE)
   - [php](./other/php)
