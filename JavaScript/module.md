@@ -282,6 +282,10 @@ seajs.use(['a'], function(a) {
 
 ```
 
+## UMD
+
+根据当前运行环境的判断，如果是 Node 环境 就是使用 CommonJS 规范， 如果不是就判断是否为 AMD 环境， 最后导出全局变量。这样代码可以同时运行在Node和浏览器环境中。目前大部分库都是打包成UMD规范，Webpack也支持UMD打包，配置API是output.libraryTarget。详细案例可以看笔者封装的npm工具包：cache-manage-js
+
 ## ES6 Module
 
 import export

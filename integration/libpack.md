@@ -2,9 +2,19 @@
 
 # 组件库打包方案
 
+## 按需打包
+
+打包出支持按需加载的库
+
 ## 参考antd - gulp
 
 babel编译，但是不进行module 编译，保留es6 模块语法
+
+打包后目录按照 babel-plugin-import 的引用规范
+
+打包后的 入口index.js，以及模块js 内用es2015模块语法引入模块
+
+打包后的style。用style.js引入样式文件
 
 ## rollup
 

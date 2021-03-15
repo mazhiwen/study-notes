@@ -20,7 +20,7 @@ webpack4: webpack从第2版本就开始支持Tree-shaking的功能，但是至wp
 
 ## webpack treeshaking 新用法
 
-### 1.需要引用的模块都是ES6规范
+### 1.语法：需要引用的模块都是ES6规范
 
 Tree-shaking是依赖ES6模块静态分析的（即 import 和 export），必然要保证引用的模块都是ES6规范的。比如： 引入的是lodash-es而不是lodash。
 
@@ -89,3 +89,7 @@ mode: production情况下
 腾讯：<https://juejin.cn/post/6844903669100445710>
 
 ## webpack-deep-scope-analysis-plugin
+
+## 实践应用
+
+[参考本目录打包方案](./libpack.md)

@@ -475,7 +475,7 @@ priority同外面
 
 ### webpack 的 require.ensure 异步加载
 
-### ES6的 import() 按需加载
+### 最新的推荐：ES6的 import() 按需加载
 
 SplitChunksPlugin 会对asyc import().then等动态分离动态chunk
 

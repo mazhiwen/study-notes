@@ -15,13 +15,15 @@
 
 <https://juejin.cn/post/6844903586942451726>
 
-## 编译入口流程
+## 编译入口以及流程
 
 获取到index.js的文件内容之后，并不能直接使用，需要通过将其解析成抽象语法树进行处理，需要使用一个插件@babel/parser将模块代码解析成AST，然后插件@babel/traverse配合着使用，将AST的节点进行替换，替换完成之后，使用插件@babel/generator将AST转换成模块的原有代码，改变的只是将require变成__webpack_require__，需要注意的是需要将路径处理一下，因为此时的路径是相对于src下面的。处理完index之后需要递归调用处理全部的模块，并声称bundle中自执行函数的参数modules
 
 ## modules
 
 webpack对代码模块生成webpack可识别的模块，以及模块组，key-value形式存储
+
+chunk 由 module 组成
 
 ## bundle
 
@@ -55,7 +57,11 @@ loader的入口需要导出一个函数，这个函数要干的事情就是转�
 
 [官方插件文档](https://v4.webpack.docschina.org/contribute/writing-a-plugin/)
 
+[Webpack原理-编写Plugin](https://juejin.cn/post/6844903550623940621#heading-0)
+
 插件能够 钩入(hook) 到在每个编译(compilation)中触发的所有关键事件。在编译的每一步，插件都具备完全访问 compiler 对象的能力，如果情况合适，还可以访问当前 compilation 对象。
+
+Webpack 启动后，在读取配置的过程中会先执行 new BasicPlugin(options) 初始化一个 BasicPlugin 获得其实例。在初始化 compiler 对象后，再调用 basicPlugin.apply(compiler) 给插件实例传入 compiler 对象。插件实例在获取到 compiler 对象后，就可以通过 compiler.plugin(事件名称, 回调函数) 监听到 Webpack 广播出来的事件。并且可以通过 compiler 对象去操作 Webpack。
 
 ```
 实现plugin需要:
@@ -113,25 +119,31 @@ module.exports = {
 
 ```
 
-## 插件异步钩子
+## 同步与异步的插件钩子
 
 根据所使用的 钩子(hook) 和 tap 方法，插件可以以多种不同的方式运行。
 
-### 异步类型的事件钩子
+同步类型，用 tap()
 
+异步类型的事件钩子，用tapAsync tapPromise：
+
+```
 tapAsync:执行callback()
 
 tapPromise:返回promise
+```
 
-## Compiler 和 Compilattion 的区别
+## Compiler 和 Compilation 的区别
 
 compile: 从webpack启动到退出只存在一个Compiler，Compiler存放着webpack配置
 
 compilation: 由于webpack的监听文件变化自动编译机制，Compilation代表一次编译。
 
+具体这两个实例的内部api现在还没找到全面的文档
+
 ## plugin的事件钩子列表
 
-官方文档 api目录查看
+相关内容在官方文档 api目录查看
 
 ## loader和plugin区别
 
