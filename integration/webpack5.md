@@ -2,9 +2,11 @@
 
 [构建效率大幅提升，webpack5 在企鹅辅导的升级实践](https://mp.weixin.qq.com/s/P3foOrcu4StJDGdX9xavng)
 
+[Webpack5 上手测评](https://juejin.cn/post/6844904169405415432)
+
 [官方文档](https://webpack.js.org/configuration/other-options/#cache)
 
-## 编译缓存
+## 编译缓存(cache配置)
 
 ```js
 module.exports = {
@@ -26,9 +28,9 @@ module.exports = {
 }
 ```
 
-## 长效缓存
+## 长效缓存(浏览器缓存)
 
-使浏览器不必要更新的缓存 保持长效
+使浏览器不必要更新的缓存 保持长效。打包后的文件无变化的保留文件hash名称，使浏览器缓存生效。
 
 webpack4 中可以根据如下配置来解决此问题：
 

@@ -1,13 +1,12 @@
 # webpack原理
 
-基于webpack官网教程  
-本项目可直接用作webpack项目demo
-
 [Webpack 原理浅析](https://juejin.cn/post/6854818576470933512)
 
 [webpack原理](https://juejin.cn/post/6844903957769224206)
 
 [webpack原理](https://imweb.io/topic/59324940b9b65af940bf58ae)
+
+[某博主webpack进阶系列](https://juejin.cn/post/6937086236926410783)
 
 <https://juejin.cn/post/6844903573675835400#heading-8>
 

@@ -561,7 +561,27 @@ dll文件后缀以打包时时间戳做后缀
 
 见 当前目录 tree-shaking 文件
 
+## babel-loader
+
+cacheDirectory 选项可以提升编译速度。
+
+会将转译的结果缓存到文件系统中。之后的编译会尝试读取缓存。
+
+```js
+{
+  test: /\.js$/,
+  use: 'babel-loader?cacheDirectory',
+  include: [resolve('src'), resolve('test') ,resolve('node_modules/webpack-dev-server/client')]
+}
+```
+
+## HardSourceWebpackPlugin
+
+优化打包速度
+
 ## webpack优化
+
+[【webpack 性能优化】编译速度从 50S 到 7S](https://juejin.cn/post/6887863430510968839#heading-0)
 
 <https://juejin.cn/post/6877354359940874254#heading-4>
 
