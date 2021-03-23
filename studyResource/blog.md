@@ -12,6 +12,8 @@
 
 腾讯alloyteam公众号
 
+[腾讯alloyteam博客](http://www.alloyteam.com/)
+
 [从零开始配置 TypeScript 项目](https://juejin.cn/post/6856410900577026061#heading-5)
 
 [腾讯IVWEB技术周刊](https://github.com/iv-web/weekly)
@@ -44,7 +46,7 @@
 
 [聂微东](https://www.cnblogs.com/Darren_code/tag/JavaScript/)
 
-github js ：<https://github.com/search?l=JavaScript&q=followers%3A%3E500&ref=advsearch&type=Users>
+github 搜索 js ：<https://github.com/search?l=JavaScript&q=followers%3A%3E500&ref=advsearch&type=Users>
 
 ## 一些文章
 

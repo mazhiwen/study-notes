@@ -8,6 +8,8 @@
 
 ## 编译缓存(cache配置)
 
+构建时对没有发生变化的文件，进行读取缓存
+
 ```js
 module.exports = {
     cache: {
@@ -48,8 +50,20 @@ optimization.chunkIds = 'named'
 
 ## Node Polyfill 脚本被移除
 
+v4会自动把node polifill，加载到包中
+
+v5移除了
+
 ## 对treeshaking 进行了优化
 
-## Module Federation
+V5可以识别没有进行引用的部分包，从而只引入一个模块内，只被引入的导出模块。
+
+## 微前端：Module Federation
 
 Module Federation 使得使 JavaScript 应用得以从另一个 JavaScript 应用中动态地加载代码 —— 同时共享依赖
+
+runtime场景，直接将一个应用的 runtime 子模 bundle，应用于另一个应用
+
+应用到微前端的概念
+
+把包放到其他线上环境，不需要本项目环境打包改资源，通过线上动态加载引入依赖

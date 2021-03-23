@@ -105,7 +105,7 @@
 - css
   - [知识点大全](./css/README.md)
   - [css3](./css/css3.md)
-  - [css性能优化](./css/performance.md)
+  - [css性能提升](./css/performance.md)
   - [尺寸单位rem,em等](./css/unit.md)
   - [雪碧图csssprite](./css/sprite.md)
   - [块级元素和行内元素](./css/blockinline.md)
@@ -127,7 +127,7 @@
   - [flex布局](./css/flex.md)
   - [transform](./css/transform.md)
   - [css初始化](./css/cssreset.md)
-  - [动画transition,animation](./css/transition.md)
+  - [transition,animation](./css/transition.md)
   - [clip-path元素裁切](./css/clip.md)
   - [z-index](./css/zindex.md)
 - [vue](./vue)

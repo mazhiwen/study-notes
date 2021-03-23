@@ -1,38 +1,5 @@
 # css
 
-目录
-
-- [visibility](#visibility)
-- [box-shadow](#box-shadow)
-- [角度单位](#角度单位)
-- [white-space](#white-space)
-- [word-break](#word-break)
-- [height，padding，margin百分比参照](#height_padding_margin百分比参照)
-- [选择器](#选择器)
-- [0.5px的边](#0.5px的边)
-- [overflow](#overflow)
-- [media媒体查询](#media)
-- [继承属性](#继承属性)
-- [文字溢出](#文字溢出)
-- [等宽字体](#等宽字体)
-- [浏览器css前缀](#浏览器css前缀)
-- [css实现三角形](#css实现三角形)
-- [伪元素与伪类](#伪元素与伪类)
-- [li 与 li 之间有看不见的空白间隔是什么原因引起的？有什么解决办法？](#li-与-li-之间有看不见的空白间隔是什么原因引起的有什么解决办法)
-- ['display'、'position'和'float'的相互关系？](#'display'、'position'和'float'的相互关系)
-- [响应式设计](#响应式设计)
-- [视差滚动效果](#视差滚动效果)
-- [修改 chrome 记住密码后自动填充表单的黄色背景](#修改chrome记住密码后自动填充表单的黄色背景)
-- [让Chrome 支持小于 12px 的文字](#让Chrome支持小于12px的文字)
-- [动画最小时间间隔是多久，为什么](#动画最小时间间隔是多久为什么)
-- [去除 inline-block 元素间间距](#去除-inline-block-元素间间距)
-- [overflow:scroll时不能平滑滚动](#overflow:scroll时不能平滑滚动)
-- [为什么 height:100%会无效](#为什么height:100%会无效)
-- [text-indent](#text-indent)
-- [letter-spacing](#letter-spacing)
-- [word-spacing](#word-spacing)
-- [常见的元素隐藏方式](#常见的元素隐藏方式)
-
 参考：
 
 布局相关:<https://segmentfault.com/a/1190000013565024?utm_source=channel-hottest#item-1>
@@ -41,19 +8,6 @@
 
 <https://github.com/CavsZhouyou/Front-End-Interview-Notebook/blob/master/Css/Css.md>
 
-***
-
-## visibility
-
-### visibility:collapse
-
-对于一般的元素，它的表现跟visibility：hidden;是一样的。元素是不可见的，但此时仍占用页面空间。
-
-但例外的是，如果这个元素是table相关的元素，例如table行，table group，table列，table column group，它的表现却跟display:none一样，也就是说，它们占用的空间也会释放。
-
-### visibility:hidden和display:none
-
-简单提一句，请注意 visibility: hidden 与 display: none 是不一样的。前者隐藏元素，但元素仍占据着布局空间（即将其渲染成一个空框），而后者 (display: none) 将元素从渲染树中完全移除，元素既不可见，也不是布局的组成部分。
 
 ## 角度单位
 
