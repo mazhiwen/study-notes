@@ -161,10 +161,10 @@ html {
 3D transforms (transform: translateZ(), rotate3d()，等)，
 animating， 
 transform 
-opacity, 
+opacity/filter, 
 position: fixed，
 will-change，
-filter。
+
  
 一些元素，例如 
 
@@ -175,4 +175,28 @@ filter。
 也位于各自的图层上。 将元素提升为图层（也称为合成）时，动画转换属性将在GPU中完成，从而改善性能，尤其是在移动设备上。
 ```
 
+## 减少渲染阻止时间
 
+只让主CSS文件阻塞关键路径，并以高优先级下载它，而让其他样式表以低优先级方式下载
+
+```html
+<!-- style.css contains only the minimal styles needed for the page rendering -->
+<link rel="stylesheet" href="styles.css" media="all" />
+
+<!-- Following stylesheets have only the styles necessary for the form factor -->
+<link rel="stylesheet" href="sm.css" media="(min-width: 20em)" />
+<link rel="stylesheet" href="md.css" media="(min-width: 64em)" />
+<link rel="stylesheet" href="lg.css" media="(min-width: 90em)" />
+<link rel="stylesheet" href="ex.css" media="(min-width: 120em)" />
+<link rel="stylesheet" href="print.css" media="print" />
+```
+
+默认情况下，浏览器假设每个指定的样式表都是阻塞渲染的。通过添加 media属性附加媒体查询，告诉浏览器何时应用样式表。当浏览器看到一个它知道只会用于特定场景的样式表时，它仍会下载样式，但不会阻塞渲染。
+
+## 避免@import包含多个样式表
+
+@import ，它是一个阻塞调用，因为它必须通过网络请求来获取文件，解析文件，并将其包含在样式表中。如果我们在样式表中嵌套了 @import，就会妨碍渲染性能。
+
+也就是@import会发起网络请求
+
+与使用 @import 相比，我们可以通过多个 link 来实现同样的功能，但性能要好得多，因为它允许我们并行加载样式表。
