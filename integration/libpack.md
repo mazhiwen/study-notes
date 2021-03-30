@@ -1,6 +1,15 @@
-[你的Tree-Shaking并没什么卵用](https://zhuanlan.zhihu.com/p/32831172)
 
 # 组件库打包方案
+
+参考:
+
+[你的Tree-Shaking并没什么卵用](https://zhuanlan.zhihu.com/p/32831172)
+
+[JS SDK 构建实现 Webpack VS Rollup](https://juejin.cn/post/6859539849972711437)
+
+## 策略
+
+使用 Rollup 作为 production 打包工具，Webpack5 作为 development 打包工具。
 
 ## 按需打包
 

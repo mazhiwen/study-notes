@@ -105,10 +105,6 @@ console.log(a2.__proto__ === a1);// true
 console.log(a2.__proto__ === a2.constructor.prototype); //false（此处即为图1中的例外情况）
 ```
 
-
-
-
-
 ### 原型属性的查找链
 
 - 基本原型链顺序
@@ -411,8 +407,6 @@ var person1 = new Person("james"，9，"student");
 
 <http://cavszhouyou.top/JavaScript%E6%B7%B1%E5%85%A5%E7%90%86%E8%A7%A3%E4%B9%8B%E7%BB%A7%E6%89%BF.html>
 
-### 原型链
-
 ### 借用构造函数
 
 ### 组合继承  (原型链 和 借用构造函数共同构成)
@@ -583,5 +577,3 @@ foo. awesome(); // LET ME INTRODUCE: HIPPO
 // import export 语法
 
 ```
-
-
