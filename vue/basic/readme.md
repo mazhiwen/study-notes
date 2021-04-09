@@ -552,3 +552,78 @@ export default{
 ## v-show 和 v-if
 
 具体见 vue优化
+
+## async
+
+```html
+<!--parent组件-->
+<child :propA.async="parentPropA">
+
+</child>
+
+<script>
+export default {
+  data() {
+    return {
+      parentPropA
+    }
+  }
+}
+</script>
+```
+
+```html
+<!--child组件-->
+<div :propA.async="parentPropA">
+
+</div>
+
+<script>
+export default {
+  props:{
+    propA,
+  },
+  data() {
+    return {
+      parentPropA
+    }
+  },
+  methods:{
+    updatePropA(){
+      this.$emit('update:propA', 'propA')
+    }
+  }
+}
+</script>
+```
+
+## v-model
+
+```js
+// 子组件
+Vue.component('base-checkbox', {
+  model: {
+    prop: 'checked',
+    event: 'change'
+  },
+  props: {
+    checked: Boolean
+  },
+  template: `
+    <input
+      type="checkbox"
+      v-bind:checked="checked"
+      v-on:change="$emit('change', $event.target.checked)"
+    >
+  `
+})
+```
+
+```html
+<!-- 父组件 -->
+<base-checkbox v-model="lovingVue"></base-checkbox>
+```
+
+父组件 data的lovingVue  通过子组件props的checked【子组件model可定义字段】 传递给子组件
+
+子组件 emit:change【model可定义】, 可以更新 父组件的data的lovingVue

@@ -197,6 +197,14 @@ mousemove: 指针在元素内移动时持续触发。
 
 它提供事件发生时的应用客户端区域的水平坐标 (与页面坐标不同)
 
+## hover效果
+
+父元素到子元素移动路径覆盖父元素盒子范围
+
+父元素 mouseleave mouseover
+
+子元素 mouseout
+
 ## 键盘按键
 
 **keyDown**
