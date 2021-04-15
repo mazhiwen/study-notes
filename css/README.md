@@ -8,7 +8,6 @@
 
 <https://github.com/CavsZhouyou/Front-End-Interview-Notebook/blob/master/Css/Css.md>
 
-
 ## 角度单位
 
 \<angle>
@@ -52,6 +51,10 @@ blur 可选。模糊距离。
 spread 可选。阴影的尺寸。  
 color 可选。阴影的颜色。请参阅 CSS 颜色值。  
 inset 可选。将外部阴影 (outset) 改为内部阴影。  
+
+```
+box-shadow: 0px 0px 5px 1px gray;
+```
 
 ## 选择器
 
@@ -484,3 +487,11 @@ letter-spacing作用于所有字符，但word-spacing仅作用于空格字符。
 ## 滚动条样式
 
 <https://segmentfault.com/a/1190000003708894>
+
+## 巧妙地制作背景色渐变动画
+
+巧妙地制作背景色渐变动画：
+
+这篇文章内有说：
+
+<https://juejin.cn/post/6951201528543707150>

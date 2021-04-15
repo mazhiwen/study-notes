@@ -574,7 +574,7 @@ export default {
 
 ```html
 <!--child组件-->
-<div :propA.async="parentPropA">
+<div>
 
 </div>
 
