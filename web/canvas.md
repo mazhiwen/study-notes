@@ -10,6 +10,10 @@
 
 [看你骨骼惊奇，这里有一套 Canvas 粒子动画方案了解一下？](https://juejin.cn/post/6844903725153124359)
 
+## 手动实现echarts
+
+[手动实现echarts](https://juejin.cn/post/6950684708443258894)
+
 ## canvas标签
 
 不要用css定义canvas宽高

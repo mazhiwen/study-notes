@@ -40,6 +40,7 @@
   - [Fetch](./web/Fetch.md)
   - [Excel 处理](./web/excel.md)
   - [CDN](./web/CDN.md)
+  - [地图开发](./web/map.md)
   - [其他](./web/basic.md)
 - 网络知识
   - [web网络知识](./network/README.md)
@@ -99,6 +100,7 @@
   - [Date](./JavaScript/Date.md)
   - [ArrayBuffer,TypedArray,DataView](./JavaScript/ArrayBuffer.md)
   - [Proxy Reflect](./JavaScript/Proxy.md)
+  - [let const var的区别](./JavaScript/let.md)
 - [html](./html)
   - [html5](./html/html5.md)
   - [离线缓存](./html/mainfest.md)
@@ -130,6 +132,7 @@
   - [transition,animation](./css/transition.md)
   - [clip-path元素裁切](./css/clip.md)
   - [z-index](./css/zindex.md)
+  - [css渐变](./css/gradient.md)
   - [css property](./css/property.md)
 - [vue](./vue)
   - [vue知识点](./vue/basic/readme.md)
