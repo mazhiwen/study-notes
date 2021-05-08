@@ -6,6 +6,8 @@
 
 <https://juejin.cn/post/6896438269291347976>
 
+[Vue3发布半年我不学，摸鱼爽歪歪，哎~就是玩儿](https://juejin.cn/post/6955129410705948702)
+
 ## Object.defineProperty => Proxy
 
 Object.defineProperty => Proxy
@@ -41,7 +43,6 @@ OptionApi => Composition API
 ### toRef
 
 ### nextTick
-
 
 ## 生命周期
 
