@@ -203,6 +203,8 @@
   - [正则表达式](./other/regExp.MD)
   - [IDE](./other/IDE)
   - [php](./other/php)
+- python
+  - [学习资料](./python/source.md)
 - 学习资料
   - [面试题博客等学习资源](./studyResource/blog.md)
   - [书](./studyResource/booksite.md)
