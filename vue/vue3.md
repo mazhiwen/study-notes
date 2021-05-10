@@ -16,9 +16,21 @@
 
 做了一下特性变化：
 
-## Object.defineProperty => Proxy
+## Object.defineProperty 替换为 Proxy
+
+[实现双向绑定Proxy比defineproperty优劣如何?](https://juejin.cn/post/6844903601416978439)
 
 Object.defineProperty => Proxy
+
+简单对比一下Object.defineProperty 与 Proxy
+
+1. Object.defineProperty只能劫持对象的属性， 而 Proxy 是直接代理对象
+
+由于Object.defineProperty只能劫持对象属性，需要遍历对象的每一个属性，如果属性值也是对象，就需要递归进行深度遍历。但是 Proxy 直接代理对象， 不需要遍历操作
+
+2. Object.defineProperty对新增属性需要手动进行Observe
+
+因为Object.defineProperty劫持的是对象的属性，所以新增属性时，需要重新遍历对象， 对其新增属性再次使用Object.defineProperty进行劫持。也就是 Vue2.x 中给数组和对象新增属性时，需要使用$set才能保证新增的属性也是响应式的, $set内部也是通过调用Object.defineProperty去处理的。
 
 ## 重构了虚拟DOM
 
@@ -42,16 +54,6 @@ toRefs： 把一个响应式对象转换成普通对象，该普通对象的每�
 
 watch 函数用来侦听特定的数据源，并在回调函数中执行副作用。默认情况是惰性的，也就是说仅在侦听的源数据变更时才执行回调。
 
-### createApp
-
-### onMounted
-
-### computed
-
-### toRef
-
-### nextTick
-
 ## 生命周期钩子
 
 ```
@@ -67,3 +69,9 @@ beforeDestroy    onBeforeUnmount
 destroyed       onUnmounted
 errorCaptured   onErrorCaptured
 ```
+
+## 自定义 Hooks
+
+把vue2的data computed method 通过 compositionAPI 封装为一个return 对应vue2属性的 function 也即是hooks。
+
+在组件中导入hooks即可。
