@@ -146,6 +146,7 @@
   - [生命周期](./vue/basic/life.md)
   - [响应式原理](./vue/basic/reactivity.md)
   - [组件通信](./vue/basic/communication.md)
+  - [vue指令](./vue/basic/directive.md)
 - [React](./React)
   - [React知识点](./React/basic.md)
 - 数据结构与算法
