@@ -19,7 +19,11 @@ Vue3.0可能会用ES6中Proxy 作为实现数据代理的主要方式
 基本实现逻辑：
 
 ```js
-//////////////  属性监听对象集中器
+/************
+ * Dep
+ * 属性监听对象集中器,
+ * 存放每个vue data属性的对应的 属性变化渲染动作列表 和 属性被get时添加动作接口方法
+ * **/
 // 对data每个属性新创建new dep主题对象
 // 属性变化时，会对注册的依赖属性的dep列表 watcher 依次更新 watcher.update
 Dep(){
@@ -37,7 +41,11 @@ Dep.prototype = {
   }
 }
 
-////////////// 对文本节点属性的监听
+/**************
+ * watcher
+ * 对文本节点属性的监听，
+ * 即每个watcher实例表示 ： 某个属性更新触发vue组件节点变化的具体渲染动作，
+ * */
 // 每个文本类型节点都会新建 new watcher实例
 watcher(vm,node,name){
   Dep.target = this; // 全局属性Dep.target
@@ -51,7 +59,11 @@ watcher.prototype= {
   }
 }
 
-////////////// 对data每个属性定义 set get 拦截
+/**************
+ * observe
+ * 对data每个属性定义 set get 拦截,
+ * 即每个属性新建一个dep消息对象管理器
+ * */
 observe(){
   遍历 data 进行 defineReactive(){
     var dep = new Dep();
@@ -66,7 +78,12 @@ observe(){
   }
 }
 
-////////////// 编译 DOM 入口
+/**************
+ * 
+ * compile
+ * 编译 DOM 入口
+ * 
+ * */
 // 对App DOM 编译，并对 attrs 文本节点等，组建双向绑定的属性注册到监听器
 compile(){
   if(node.nodeType === 1){
