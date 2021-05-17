@@ -163,9 +163,7 @@ function defineReactive(obj, key, val) {
 
 如果遇到了绑定的文本节点，我们使用 Model 中对应的属性的值来替换这个文本。对于文本节点的更新，我们使用了发布订阅者模式，属性作为一个主题，我们为这个节点设置一个订阅者对象，将这个订阅者对象加入这个属性主题的订阅者列表中。当 Model 层数据发生改变的时候，Model 作为发布者向主题发出通知，主题收到通知再向它的所有订阅者推送，订阅者收到通知后更改自己的数据。
 
-## 数据劫持 / 数据代理 ： 监测数据变化
-
-- 方法一：Object.defineProperty
+## 方案一： Object.defineProperty 数据劫持
 
 会递归子属性进行 defineReactive
 
@@ -199,7 +197,7 @@ const defineReactive = function(obj, key) {
 }
 ```
 
-- 方法二： Proxy实现
+## 方案二： Proxy 数据代理
 
 Proxy 的代理是针对整个对象的，而不是对象的某个属性。因此不同于 Object.defineProperty 的必须遍历对象每个属性，Proxy 只需要做一层代理就可以监听同级结构下的所有属性变化
 
