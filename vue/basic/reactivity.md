@@ -14,7 +14,7 @@
 
 Vue3.0可能会用ES6中Proxy 作为实现数据代理的主要方式
 
-## Vue双向绑定实现逻辑代码
+## Vue双向绑定实现简易逻辑代码
 
 基本实现逻辑：
 
@@ -163,9 +163,9 @@ function defineReactive(obj, key, val) {
 
 如果遇到了绑定的文本节点，我们使用 Model 中对应的属性的值来替换这个文本。对于文本节点的更新，我们使用了发布订阅者模式，属性作为一个主题，我们为这个节点设置一个订阅者对象，将这个订阅者对象加入这个属性主题的订阅者列表中。当 Model 层数据发生改变的时候，Model 作为发布者向主题发出通知，主题收到通知再向它的所有订阅者推送，订阅者收到通知后更改自己的数据。
 
-## 数据劫持 / 数据代理 ： 监测数据变化
+## 数据劫持原理
 
-- 方法一：Object.defineProperty
+### 方法一：Object.defineProperty
 
 会递归子属性进行 defineReactive
 
@@ -199,7 +199,7 @@ const defineReactive = function(obj, key) {
 }
 ```
 
-- 方法二： Proxy实现
+### 方法二： Proxy实现
 
 Proxy 的代理是针对整个对象的，而不是对象的某个属性。因此不同于 Object.defineProperty 的必须遍历对象每个属性，Proxy 只需要做一层代理就可以监听同级结构下的所有属性变化
 
@@ -237,7 +237,7 @@ console.log(proxy.arr) // 模拟视图的更新 ['浪里行舟', 2, 3 ]
 proxy.arr.length-- // 无效
 ```
 
-## 收集依赖
+## dep - 收集依赖 消息管理
 
 data 中的声明的每个属性，都拥有一个数组，保存着 谁依赖（使用）了 它
 
@@ -313,13 +313,13 @@ const Watcher = function(vm, fn) {
 }
 ```
 
-## 对象
+## vue对监听对象的处理
 
-- Vue 无法检测 property 的添加或移除。
+### Vue 无法检测 property 的添加或移除
 
 这是因为 Vue 通过Object.defineProperty来将对象的key转换成getter/setter的形式来追踪变化，但getter/setter只能追踪一个数据是否被修改，无法追踪新增属性和删除属性。
 
-- property 必须在 data 对象上存在才能让 Vue 将它转换为响应式的
+### property 必须在 data 对象上存在才能让 Vue 将它转换为响应式的
 
 由于 Vue 会在初始化实例时对 property 执行 getter/setter 转化，所以 property 必须在 data 对象上存在才能让 Vue 将它转换为响应式的。
 
@@ -337,7 +337,7 @@ vm.b = 2
 
 ```
 
-- 向嵌套对象添加响应式 property
+### 向嵌套对象添加响应式 property
 
 对于已经创建的实例，Vue 不允许动态添加根级别的响应式 property。但可以用Vue.set(object, propertyName, value) 方法向嵌套对象添加响应式 property
 
@@ -347,16 +347,20 @@ Vue.set(vm.someObject, 'b', 2)
 this.$set(this.someObject,'b',2)
 ```
 
-- 给对象赋值多个新的property
+### 给对象赋值多个新的property
 
 ```js
 // 代替 `Object.assign(this.someObject, { a: 1, b: 2 })`
 this.someObject = Object.assign({}, this.someObject, { a: 1, b: 2 })
 ```
 
-## 数组
+## vue对监听数组的处理
 
-Vue将数组的常用方法进行重写，进而覆盖掉原生的数组方法，重写之后的数组方法需要能够被拦截。
+Vue将数组的常用方法进行重写，覆盖掉原生的数组方法，重写之后的数组方法需要能够被拦截。
+
+`vm.items[indexOfItem] = newValue` 这种是无法检测的
+
+### 有以下八种数组方法，是进行了拦截监听
 
 ```js
 let methods = ['pop', 'shift', 'unshift', 'sort', 'reverse', 'splice', 'push']
@@ -390,3 +394,9 @@ vm.items.splice(indexOfItem, 1, newValue)
 ## 声明响应式 property
 
 由于 Vue 不允许动态添加根级响应式 property，所以你必须在初始化实例前声明所有根级响应式 property，哪怕只是一个空值：在 data 选项中声明
+
+## Object.defineProperty 的缺陷
+
+1. Object.defineProperty 的第一个缺陷,无法监听数组变化
+
+2. Object.defineProperty 的第二个缺陷,只能劫持对象的属性,因此我们需要对每个对象的每个属性进行遍历，如果属性值也是对象那么需要深度遍历,显然能劫持一个完整的对象是更好的选择
