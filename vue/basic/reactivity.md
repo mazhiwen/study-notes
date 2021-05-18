@@ -163,9 +163,9 @@ function defineReactive(obj, key, val) {
 
 如果遇到了绑定的文本节点，我们使用 Model 中对应的属性的值来替换这个文本。对于文本节点的更新，我们使用了发布订阅者模式，属性作为一个主题，我们为这个节点设置一个订阅者对象，将这个订阅者对象加入这个属性主题的订阅者列表中。当 Model 层数据发生改变的时候，Model 作为发布者向主题发出通知，主题收到通知再向它的所有订阅者推送，订阅者收到通知后更改自己的数据。
 
-## 数据劫持原理
+## 方案一： Object.defineProperty 数据劫持
 
-### 方法一：Object.defineProperty
+### 代码例子
 
 会递归子属性进行 defineReactive
 
@@ -199,11 +199,19 @@ const defineReactive = function(obj, key) {
 }
 ```
 
-### 方法二： Proxy实现
+### Object.defineProperty 的缺陷
+
+1. Object.defineProperty 的第一个缺陷,无法监听数组变化
+
+2. Object.defineProperty 的第二个缺陷,只能劫持对象的属性,因此我们需要对每个对象的每个属性进行遍历，如果属性值也是对象那么需要深度遍历,显然能劫持一个完整的对象是更好的选择
+
+## 方案二： Proxy 数据代理
 
 Proxy 的代理是针对整个对象的，而不是对象的某个属性。因此不同于 Object.defineProperty 的必须遍历对象每个属性，Proxy 只需要做一层代理就可以监听同级结构下的所有属性变化
 
 Proxy支持代理数组的变化
+
+### 代码例子
 
 ```js
 function render() {
@@ -236,6 +244,14 @@ proxy.arr[0] = '浪里行舟' //支持数组的内容发生变化
 console.log(proxy.arr) // 模拟视图的更新 ['浪里行舟', 2, 3 ]
 proxy.arr.length-- // 无效
 ```
+
+### Proxy可以直接监听对象而非属性
+
+我们可以看到,Proxy直接可以劫持整个对象,并返回一个新对象,不管是操作便利程度还是底层功能上都远强于Object.defineProperty。
+
+proxy监听整个对象，Object.defineProperty需要对每个属性进行监听
+
+### Proxy可以直接监听数组的变化
 
 ## dep - 收集依赖 消息管理
 
@@ -394,9 +410,3 @@ vm.items.splice(indexOfItem, 1, newValue)
 ## 声明响应式 property
 
 由于 Vue 不允许动态添加根级响应式 property，所以你必须在初始化实例前声明所有根级响应式 property，哪怕只是一个空值：在 data 选项中声明
-
-## Object.defineProperty 的缺陷
-
-1. Object.defineProperty 的第一个缺陷,无法监听数组变化
-
-2. Object.defineProperty 的第二个缺陷,只能劫持对象的属性,因此我们需要对每个对象的每个属性进行遍历，如果属性值也是对象那么需要深度遍历,显然能劫持一个完整的对象是更好的选择

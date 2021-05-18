@@ -16,7 +16,9 @@
 
 做了一下特性变化：
 
-## Object.defineProperty 替换为 Proxy
+## Proxy
+
+Object.defineProperty 替换为 Proxy
 
 [实现双向绑定Proxy比defineproperty优劣如何?](https://juejin.cn/post/6844903601416978439)
 
