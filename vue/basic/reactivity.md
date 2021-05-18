@@ -203,6 +203,8 @@ Proxy 的代理是针对整个对象的，而不是对象的某个属性。因�
 
 Proxy支持代理数组的变化
 
+### 代码例子
+
 ```js
 function render() {
   console.log('模拟视图的更新')
@@ -234,6 +236,14 @@ proxy.arr[0] = '浪里行舟' //支持数组的内容发生变化
 console.log(proxy.arr) // 模拟视图的更新 ['浪里行舟', 2, 3 ]
 proxy.arr.length-- // 无效
 ```
+
+### Proxy可以直接监听对象而非属性
+
+我们可以看到,Proxy直接可以劫持整个对象,并返回一个新对象,不管是操作便利程度还是底层功能上都远强于Object.defineProperty。
+
+proxy监听整个对象，Object.defineProperty需要对每个属性进行监听
+
+### Proxy可以直接监听数组的变化
 
 ## 收集依赖
 
