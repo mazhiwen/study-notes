@@ -276,6 +276,16 @@ const moduleB = {
 
 
 //////////////////////////////申明注册Module
+
+// 可以用 this.$store.stata.a.statea
+// this.$store.commit()
+
+/*
+this.$store.commit(
+  'modulea/mutationa',
+  data,
+);
+*/
 const store = new Vuex.Store({
   modules: {
     a: moduleA,
