@@ -14,7 +14,7 @@
 
 Vue3.0可能会用ES6中Proxy 作为实现数据代理的主要方式
 
-## Vue双向绑定实现逻辑代码
+## Vue双向绑定实现简易逻辑代码
 
 基本实现逻辑：
 
@@ -165,6 +165,8 @@ function defineReactive(obj, key, val) {
 
 ## 方案一： Object.defineProperty 数据劫持
 
+### 代码例子
+
 会递归子属性进行 defineReactive
 
 ```js
@@ -196,6 +198,12 @@ const defineReactive = function(obj, key) {
   });
 }
 ```
+
+### Object.defineProperty 的缺陷
+
+1. Object.defineProperty 的第一个缺陷,无法监听数组变化
+
+2. Object.defineProperty 的第二个缺陷,只能劫持对象的属性,因此我们需要对每个对象的每个属性进行遍历，如果属性值也是对象那么需要深度遍历,显然能劫持一个完整的对象是更好的选择
 
 ## 方案二： Proxy 数据代理
 
@@ -245,7 +253,7 @@ proxy监听整个对象，Object.defineProperty需要对每个属性进行监听
 
 ### Proxy可以直接监听数组的变化
 
-## 收集依赖
+## dep - 收集依赖 消息管理
 
 data 中的声明的每个属性，都拥有一个数组，保存着 谁依赖（使用）了 它
 
@@ -321,13 +329,13 @@ const Watcher = function(vm, fn) {
 }
 ```
 
-## 对象
+## vue对监听对象的处理
 
-- Vue 无法检测 property 的添加或移除。
+### Vue 无法检测 property 的添加或移除
 
 这是因为 Vue 通过Object.defineProperty来将对象的key转换成getter/setter的形式来追踪变化，但getter/setter只能追踪一个数据是否被修改，无法追踪新增属性和删除属性。
 
-- property 必须在 data 对象上存在才能让 Vue 将它转换为响应式的
+### property 必须在 data 对象上存在才能让 Vue 将它转换为响应式的
 
 由于 Vue 会在初始化实例时对 property 执行 getter/setter 转化，所以 property 必须在 data 对象上存在才能让 Vue 将它转换为响应式的。
 
@@ -345,7 +353,7 @@ vm.b = 2
 
 ```
 
-- 向嵌套对象添加响应式 property
+### 向嵌套对象添加响应式 property
 
 对于已经创建的实例，Vue 不允许动态添加根级别的响应式 property。但可以用Vue.set(object, propertyName, value) 方法向嵌套对象添加响应式 property
 
@@ -355,16 +363,20 @@ Vue.set(vm.someObject, 'b', 2)
 this.$set(this.someObject,'b',2)
 ```
 
-- 给对象赋值多个新的property
+### 给对象赋值多个新的property
 
 ```js
 // 代替 `Object.assign(this.someObject, { a: 1, b: 2 })`
 this.someObject = Object.assign({}, this.someObject, { a: 1, b: 2 })
 ```
 
-## 数组
+## vue对监听数组的处理
 
-Vue将数组的常用方法进行重写，进而覆盖掉原生的数组方法，重写之后的数组方法需要能够被拦截。
+Vue将数组的常用方法进行重写，覆盖掉原生的数组方法，重写之后的数组方法需要能够被拦截。
+
+`vm.items[indexOfItem] = newValue` 这种是无法检测的
+
+### 有以下八种数组方法，是进行了拦截监听
 
 ```js
 let methods = ['pop', 'shift', 'unshift', 'sort', 'reverse', 'splice', 'push']
