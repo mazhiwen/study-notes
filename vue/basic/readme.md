@@ -106,6 +106,18 @@ Object.keys(custom).forEach(key => Vue.filter(key, custom[key]))
 
 Vue.mixin 用于全局混入，会影响到每个组件实例。
 
+```js
+var mixin = {
+  created: function () { console.log(1) }
+}
+var vm = new Vue({
+  created: function () { console.log(2) },
+  mixins: [mixin]
+})
+// => 1
+// => 2
+```
+
 ## 样式
 
 vue 有时候局部样式组件 有时候全局控制
