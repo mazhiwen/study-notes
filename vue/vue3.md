@@ -74,6 +74,92 @@ errorCaptured   onErrorCaptured
 
 ## 自定义 Hooks
 
-把vue2的data computed method 通过 compositionAPI 封装为一个return 对应vue2属性的 function 也即是hooks。
+hooks:
 
-在组件中导入hooks即可。
+1. 通过 compositionAPI 封装为一个 把vue2的data computed method 这些属性 return 出来的function。
+
+2. 在组件中导入这个 hooks function 即可。在setup中return 这些属性
+
+```html
+<template>
+  <p>count: {{ count }}</p>
+  <p>倍数： {{ multiple }}</p>
+  <div>
+    <button @click="increase()">加1</button>
+    <button @click="decrease()">减一</button>
+  </div>
+</template>
+
+<script lang="ts">
+import useCount from "../hooks/useCount";
+ setup() {
+    const { count, multiple, increase, decrease } = useCount(10);
+        return {
+            count,
+            multiple,
+            increase,
+            decrease,
+        };
+    },
+</script>
+```
+
+## Teleport
+
+Teleport: 即希望继续在组件内部使用Dialog, 又希望渲染的 DOM 结构不嵌套在组件的 DOM 中
+
+我们可以用`<Teleport>`包裹 需要独立DOM结构的 如`Dialog`, 此时就建立了一个传送门，可以将Dialog渲染的内容传送到任何指定的地方
+
+```html
+<!-- 容器 -->
+<body>
+  <div id="app"></div>
+  <div id="dialogDom"></div>
+</body>
+```
+
+```html
+<!-- Dialog.vue -->
+<template>
+  <teleport to="#dialogDom">
+    <div class="dialog">
+      <div class="dialog_wrapper">
+        <div class="dialog_header" v-if="title">
+          <slot name="header">
+            <span>{{ title }}</span>
+          </slot>
+        </div>
+      </div>
+      <div class="dialog_content">
+        <slot></slot>
+      </div>
+      <div class="dialog_footer">
+        <slot name="footer"></slot>
+      </div>
+    </div>
+  </teleport>
+</template>
+```
+
+正常引入Dialog组件
+
+## Suspense
+
+Suspense 只是一个带插槽的组件，只是它的插槽指定了default 和 fallback 两种状态。
+
+```html
+ <Suspense>
+  <template #default>
+      <async-component></async-component>
+  </template>
+  <template #fallback>
+      <div>
+          Loading...
+      </div>
+  </template>
+</Suspense>
+```
+
+## Fragment
+
+但是在 Vue3.x 中，可以直接写多个根节点
