@@ -333,7 +333,7 @@ const Watcher = function(vm, fn) {
 
 ### Vue 无法检测 property 的添加或移除
 
-这是因为 Vue 通过Object.defineProperty来将对象的key转换成getter/setter的形式来追踪变化，但getter/setter只能追踪一个数据是否被修改，无法追踪新增属性和删除属性。
+这是因为 Vue 通过 Object.defineProperty 来将对象的key转换成getter/setter的形式来追踪变化，但getter/setter只能追踪一个数据是否被修改，无法追踪新增属性和删除属性。
 
 ### property 必须在 data 对象上存在才能让 Vue 将它转换为响应式的
 
