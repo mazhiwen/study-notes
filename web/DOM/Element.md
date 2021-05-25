@@ -106,6 +106,8 @@ Element.scrollTop: 设置或获取位于对象最顶端和窗口中可见内容�
 
 ## Element.getBoundingClientRect()
 
+方法返回元素的大小及其相对于视口的位置
+
 element.getBoundingClientRect()
 
 ![](./getboundingclientrect.jpg)

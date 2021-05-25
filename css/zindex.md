@@ -16,28 +16,28 @@ z-index属性值并不是在任何元素上都有效果。它仅在定位元素�
 
 1. HTML中的根元素本身j就具有层叠上下文，称为“根层叠上下文”。
 
-2. 普通元素设置position属性为非static值并设置z-index属性为具体数值(非auto)，产生层叠上下文。
+2. 普通元素设置 position 属性为非 static 值并设置 z-index 属性为具体数值(非auto)，产生层叠上下文。
 
 3. CSS3中的新属性也可以产生层叠上下文。
 
 你可以把层叠上下文元素理解为理解为该元素当了官，而其他非层叠上下文元素则可以理解为普通群众。凡是“当了官的元素”就比普通元素等级要高，也就是说元素在Z轴上更靠上，更靠近观察者。
 
-css3新属性产生层叠上下文：
+css3 新属性产生层叠上下文：
 
 ```
-父元素的display属性值为flex|inline-flex，子元素z-index属性值不为auto的时候，子元素为层叠上下文元素；
+父元素的display属性值为flex | inline-flex，子元素z-index属性值不为auto的时候，子元素为层叠上下文元素；
 
 元素的opacity属性值不是1；
 
 元素的transform属性值不是none；
 
-元素mix-blend-mode属性值不是normal`；
+元素 mix-blend-mode 属性值不是normal`；
 
 元素的filter属性值不是none；
 
 元素的isolation属性值是isolate；
 
-will-change指定的属性值为上面任意一个；
+will-change 指定的属性值为上面任意一个；
 
 元素的-webkit-overflow-scrolling属性值设置为touch。
 ```
