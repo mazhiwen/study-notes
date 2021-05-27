@@ -24,7 +24,7 @@ git push origin :refs/tags/v1.0.2 :删除远程tag
 
 git push origin --force
 
-## 分支
+## 删除远程分支
 
 删除远程分支 git push origin --delete <BranchName>
 

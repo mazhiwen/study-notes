@@ -60,7 +60,7 @@ github 搜索 js ：<https://github.com/search?l=JavaScript&q=followers%3A%3E500
 
 ## 面试题
 
-[17K star 仓库，解决 90% 的大厂基础面试题](https://juejin.cn/post/6947860760840110088#heading-49) : 关联网站: [面试题](https://jsgodroad.com/interview) : 关联网站: [知识点](https://yuchengkai.cn/docs/frontend/react.html#redux-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90)
+[面试题](https://jsgodroad.com/interview) : 关联网站: [知识点](https://yuchengkai.cn/docs/frontend/react.html#redux-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90)
 
 [js算法题](https://github.com/sisterAn/JavaScript-Algorithms)
 
