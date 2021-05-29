@@ -229,28 +229,41 @@ p {
 
 ### 多行文本溢出
 
-结合 scrollWidth 和 clientWidth 计算行数。
+结合 scrollWidth > clientWidth 计算行数。
 
 配置height行高.
 
+初始样式：
+
 ```css
 p {
-  position: relative;
-  line-height: 1.5em;
-  /*高度为需要显示的行数*行高，比如这里我们显示两行，则为3*/
+  width:100px;
+  overflow: scroll;
+  white-space: nowrap;
   height: 3em;
+  width:100px;
+  line-height: 1.5em;
+  position: relative;
+}
+```
+
+计算后，加跨行溢出样式：
+
+```less
+p.moreline {
+  white-space: initial;
+  /*高度为需要显示的行数*行高，比如这里我们显示两行，则为3*/
   overflow: hidden;
   word-break: break-all;
-  width:100px;
-}
-p:after {
-  content: '...';
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 50%;
-  text-align: right;
-  background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
+  &:after {
+    content: '...';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 50%;
+    text-align: right;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 50%);
+  }
 }
 ```
 

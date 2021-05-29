@@ -54,6 +54,7 @@
   - [前端鉴权](./network/auth.md)
   - [web安全](./network/cyber-attack.md)
   - [XSS](./network/xss.md)
+  - [CSRF](./network/CSRF.md)
 - JavaScript
   - [知识大全](./JavaScript/README.md)
   - [应用题](./JavaScript/apply.md)
