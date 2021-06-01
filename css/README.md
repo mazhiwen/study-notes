@@ -250,11 +250,12 @@ p {
 计算后，加跨行溢出样式：
 
 ```less
-p.moreline {
-  white-space: initial;
-  /*高度为需要显示的行数*行高，比如这里我们显示两行，则为3*/
-  overflow: hidden;
+p..breakline {
   word-break: break-all;
+  white-space: initial;
+  overflow: hidden;
+}
+p.moreline {
   &:after {
     content: '...';
     position: absolute;
