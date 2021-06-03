@@ -60,11 +60,15 @@ DOM型XSS：不经过后端，DOM-XSS漏洞是基于文档对象模型(Document 
 
 在 style 属性和标签中，包含类似 background-image:url("javascript:..."); 的代码（新版本浏览器已经可以防范）
 
-### onload、onerror、onclick等
+### 内联事件：onload、onerror、onclick等
 
 在 onload、onerror、onclick 等事件中，注入不受控制代码。
 
-DOM 中的内联事件监听器，如 location、onclick、onerror、onload、onmouseover 等，<a> 标签的 href 属性，JavaScript 的 eval()、setTimeout()、setInterval() 等，都能把字符串作为代码运行。如果不可信的数据拼接到字符串中传递给这些 API，很容易产生安全隐患，请务必避免。
+DOM 中的内联事件监听器，如 location、onclick、onerror、onload、onmouseover 等，<a> 标签的 href 属性，
+
+### 某些JS API
+
+JavaScript 的 eval()、setTimeout()、setInterval() 等，都能把字符串作为代码运行。如果不可信的数据拼接到字符串中传递给这些 API，很容易产生安全隐患，请务必避免。
 
 ### 其他html操作的方法
 
