@@ -32,7 +32,7 @@ white-space: nowrap;
 
 /*空白字符不合并，并且内容只在有换行符的地方换行。*/
 white-space: pre;
-x`
+
 /*空白字符不合并，并且内容只在有换行符的地方换行，同时允许文本环绕。*/
 white-space: pre-wrap;
 

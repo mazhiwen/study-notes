@@ -4,9 +4,9 @@
 
 <https://segmentfault.com/a/1190000013440764>
 
-<https://juejin.im/post/6844903685122703367>
-
 <https://blog.csdn.net/qq_35393693/article/details/86597707>
+
+[前端安全系列（一）：如何防止XSS攻击？](https://juejin.cn/post/6844903685122703367)
 
 XSS攻击全名（Cross-Site-Script）跨站脚本攻击，为了跟CSS（Cascading-Style-Sheet）区分开来，所以缩写是XSS。
 
@@ -64,6 +64,14 @@ DOM型XSS：不经过后端，DOM-XSS漏洞是基于文档对象模型(Document 
 
 在 onload、onerror、onclick 等事件中，注入不受控制代码。
 
+DOM 中的内联事件监听器，如 location、onclick、onerror、onload、onmouseover 等，<a> 标签的 href 属性，JavaScript 的 eval()、setTimeout()、setInterval() 等，都能把字符串作为代码运行。如果不可信的数据拼接到字符串中传递给这些 API，很容易产生安全隐患，请务必避免。
+
+### 其他html操作的方法
+
+在使用 .innerHTML、.outerHTML、document.write() 时要特别小心，不要把不可信的数据作为 HTML 插到页面上，而应尽量使用 .textContent、.setAttribute() 等。
+
+如果用 Vue/React 技术栈，并且不使用 v-html/dangerouslySetInnerHTML 功能，就在前端 render 阶段避免 innerHTML、outerHTML 的 XSS 隐患。
+
 ### style + expression
 
 ```html
@@ -80,7 +88,9 @@ XSS防御的总体思路是：对用户的输入(和URL参数)进行过滤，对
 
 ### 对输入的内容进行过滤或转义
 
-一般建议在服务端做
+包括上述所说的XSS载体输入的内容进行转义
+
+一般建议在服务端做,前端对输入做转义后，在输出到html与js中时容易造成混乱
 
 对用户输入的内容进行过滤或转义，如： URL的每一个参数，URL本身，表单，搜索框
 
@@ -88,11 +98,15 @@ XSS防御的总体思路是：对用户的输入(和URL参数)进行过滤，对
 
 可以分为黑名单过滤和白名单过滤。黑名单过滤虽然可以拦截大部分的XSS攻击，但是还是存在被绕过的风险。白名单过滤虽然可以基本杜绝XSS攻击，但是真实环境中一般是不能进行如此严格的白名单过滤的。
 
-前端 ，后端都可以对请求数据做标签过滤和检查。
+### 纯前端渲染（前后分离）
 
-### 对输出进行html编码
+代码和数据分离开。有利于输出转义
+
+### 对html转义
 
 就是通过函数，将用户的输入的数据进行html编码，使其不能作为脚本运行。
+
+对必要的拼接html时，进行转义
 
 如：encodeURI
 
