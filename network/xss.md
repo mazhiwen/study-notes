@@ -64,7 +64,7 @@ DOM型XSS：不经过后端，DOM-XSS漏洞是基于文档对象模型(Document 
 
 在 onload、onerror、onclick 等事件中，注入不受控制代码。
 
-DOM 中的内联事件监听器，如 location、onclick、onerror、onload、onmouseover 等，<a> 标签的 href 属性，
+DOM 中的内联事件监听器，如 location、onclick、onerror、onload、onmouseover 等，`<a>` 标签的 href 属性，
 
 ### 某些JS API
 
