@@ -471,11 +471,47 @@ priority同外面
 
 ## 异步加载 按需加载 懒加载
 
-<https://juejin.cn/post/6895546761255845901>
+[webpack的异步加载原理及分包策略](https://juejin.cn/post/6895546761255845901)
+
+### vue 异步组件
+
+vue路由懒加载:
+
+这种方法主要是使用了 resolve 的异步机制，用 require 代替了 import 实现按需加载
+
+```js
+export default new Router({
+  routes: [
+    {
+      path: '/home',',
+      component: (resolve) => require(['@/components/home'], resolve),
+    },
+    {
+      path: '/about',',
+      component: (resolve) => require(['@/components/about'], resolve),
+    },
+  ],
+})
+```
 
 ### webpack 的 require.ensure 异步加载
 
 ### 最新的推荐：ES6的 import() 按需加载
+
+```js
+export default new Router({
+  routes: [
+    {
+      path: '/home',
+      component: () => import('@/components/home'),
+    },
+    {
+      path: '/about',
+      component: () => import('@/components/home'),
+    },
+  ],
+})
+```
 
 SplitChunksPlugin 会对asyc import().then等动态分离动态chunk
 

@@ -53,12 +53,18 @@ var bool=array.every(function callback(currentValue, index, array){
 
 ## array.some()
 
-// 测试数组中的某些元素是否通过由提供的函数实现的测试
+测试数组中的某些元素是否通过由提供的函数实现的测试
+
+检测到返回true的结果，就会停止遍历
+
+```js
 [1, 2, 3, 4, 5].some(function(currentValue, index, array) {
 // checks whether an element is even
     return currentValue % 2 === 0;
 });
-//只要有某些通过函数测试返回true 则结果为true
+```
+
+只要有某些通过函数测试返回true 则结果为true
 
 ## array.filter()
 

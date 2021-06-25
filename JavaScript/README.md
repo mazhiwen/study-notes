@@ -95,12 +95,37 @@ function deepCopy(obj) {
 
 1.resObject = Object.assign(target,origina,originb,...)
 
+## 深度合并对象
+
+```js
+const deepMerge = (function() {
+  function isIteration(obj){
+    let objType = Object.prototype.toString.call(obj);
+    return objType=='[object Object]'||objType=='[object Array]'
+  }
+  return function _deepMerge(source, atrget) { 
+    if (!isIteration(atrget)) {
+      throw new Error('error arguments');
+    }
+    for (let key in atrget) {
+      //只对对象自有属性进行拷贝
+      if (atrget.hasOwnProperty(key)) {
+        if (isIteration(atrget[key])) {
+          _deepMerge(source[key], atrget[key]);
+        } else {
+          source[key] = atrget[key];
+        }
+      }
+    }  
+  } 
+})()
+```
+
 ## Error
 
 ```javascript
 throw new Error();
 ```
-
 
 ## 安全随机
 

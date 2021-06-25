@@ -9,13 +9,13 @@
 <https://juejin.cn/post/6844904049800642568>
 
 ```
-应用层
+应用层 [FTP DNS HTTP SMTP POP3 SSH]
 表示层
 会话层
 
-传输层
+传输层 [TCP UDP]
 
-网络层
+网络层 [IP ICMP ARP RARP]
 
 数据链路层
 物理层

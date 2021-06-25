@@ -2,7 +2,17 @@
 
 watch中可以执行任何逻辑，如函数节流，Ajax异步获取数据
 
-https://juejin.cn/post/6844903605485436941
+<https://juejin.cn/post/6844903605485436941>
+
+## watch 属性值
+
+```js
+watch: {
+  'obj.a': function() {
+    
+  }
+}
+```
 
 ## immediate和deep
 
