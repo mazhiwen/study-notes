@@ -68,7 +68,7 @@ DOM 中的内联事件监听器，如 location、onclick、onerror、onload、on
 
 ### 某些JS API
 
-JavaScript 的 eval()、setTimeout()、setInterval() 等，都能把字符串作为代码运行。如果不可信的数据拼接到字符串中传递给这些 API，很容易产生安全隐患，请务必避免。
+JavaScript 的 eval()、setTimeout()、setInterval() 等，都能把**字符串作为代码运行**。如果不可信的数据拼接到字符串中传递给这些 API，很容易产生安全隐患，请务必避免。
 
 ### 其他html操作的方法
 
