@@ -52,6 +52,8 @@ github 搜索 js ：<https://github.com/search?l=JavaScript&q=followers%3A%3E500
 
 ## 一些文章
 
+[写给中高级前端关于性能优化的9大策略和6大指标 | 网易四年实践](https://juejin.cn/post/6981673766178783262?utm_source=gold_browser_extension)
+
 <https://www.cnblogs.com/limbobark/p/10043769.html>
 
 <https://juejin.cn/post/6844903790580072462>

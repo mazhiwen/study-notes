@@ -162,6 +162,7 @@ computed: {
   ...mapState({
     // 箭头函数可使代码更简练
     count: state => state.count,
+    // 带module
     // 传字符串参数 'count' 等同于 `state => state.count`
     countAlias: 'count',
     // 为了能够使用 `this` 获取局部状态，必须使用常规函数
@@ -169,6 +170,8 @@ computed: {
       return state.count + this.localCount
     }
   }),
+  // 带module
+  ...mapState({data:state=>state.modulea.previewData})
   // mapState 或者当计算属性名称 = 子节点名称时 如下操作
   mapState({
     // 映射 this.count 为 store.state.countA

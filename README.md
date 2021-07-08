@@ -6,6 +6,7 @@
 ***
 
 - Web开发
+  - [前端性能优化大全](./web/performanceapply.md)
   - [WebAPI](./web/browser)
   - [window](./web/window.md)
   - [DOM](./web/DOM/basic.md)
@@ -20,7 +21,6 @@
   - webGL
   - [serverless](./web/serverless.md)
   - [前端性能-谷歌文档](./web/performance.md)
-  - [前端性能-综合指南](./web/performanceapply.md)
   - [浏览器端的缓存](./web/cache.md)
   - [Chrome工具](./web/chrome.md)
   - [浏览器存储](./web/storage.md)
