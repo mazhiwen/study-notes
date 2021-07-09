@@ -90,11 +90,9 @@ Cache-Control描述的是一个相对时间，在进行缓存命中的时候，�
 
 主要是利用该字段的 max-age 值来进行判断
 
-- max-age：
+- no-store：
 
-max-age=xxx (xxx is numeric)表示缓存内容将在xxx秒后失效。
-
-它是一个相对时间，例如 Cache-Control:max-age=3600，代表着资源的有效期是 3600 秒。
+禁止使用缓存，每一次都要重新请求数据。
 
 - no-cache：
 
@@ -104,9 +102,11 @@ max-age=xxx (xxx is numeric)表示缓存内容将在xxx秒后失效。
 
 设置了no-cache之后，并不是说浏览器就不再缓存数据，只是浏览器在使用缓存数据时，需要先确认一下数据是否还跟服务器保持一致。
 
-- no-store：
+- max-age：
 
-禁止使用缓存，每一次都要重新请求数据。
+max-age=xxx (xxx is numeric)表示缓存内容将在xxx秒后失效。
+
+它是一个相对时间，例如 Cache-Control:max-age=3600，代表着资源的有效期是 3600 秒。
 
 - public：
 

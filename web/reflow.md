@@ -97,9 +97,44 @@ setTimeout(() => {
 
 ## 优化策略-JavaScript
 
-### 一次性修改 DOM 的样式
+### 获取位置API时进行缓存
 
-与其这样，还不如预先定义好 css 的 class，然后修改 DOM 的 className。
+获取位置属性，方法，如：getBoundingClientRect等等时
+
+如果要使用它们，最好将值缓存起来, 因为会引起回流
+
+```js
+const width = box.offsetWidth;
+function initP() {
+    for (let i = 0; i < paragraphs.length; i++) {
+      // paragraphs[i].style.width = box.offsetWidth + 'px';
+      // 优化后：
+      paragraphs[i].style.width = width + 'px';
+    }
+}
+```
+
+### 动画实现的速度的选择
+
+动画速度越快，回流次数越多，也可以选择使用 requestAnimationFrame
+
+### 将频繁重绘或者回流的节点设置为图层
+
+图层能够阻止该节点的渲染行为影响别的节点。比如对于 video 标签来说，浏览器会自动将该节点变为图层。
+
+will-change： will-change属性可以提前通知浏览器我们要对元素做什么动画，这样浏览器可以提前准备合适的优化设置。这样可以避免对页面响应速度有重要影响的昂贵成本。元素可以更快的被改变，渲染的也更快，这样页面可以快速更新，表现的更加流畅。
+  
+video、iframe 标签
+
+## 优化策略-DOM操作
+
+缓存DOM计算属性
+
+### 使用类合并样式，避免逐条改变样式
+
+一次性修改 DOM 的样式
+
+预先定义好 css 的 class，然后修改 DOM 的 className。
 
 可以一次性设置 `el.className` 或者 `el.style.cssText`
 
@@ -146,43 +181,8 @@ appendDataToElement(clone, data);
 ul.parentNode.replaceChild(clone, ul);
 ```
 
-### 获取位置API时进行缓存
+### 使用display控制DOM显隐，将DOM离线化
 
-获取位置属性，方法，如：getBoundingClientRect等等时
-
-如果要使用它们，最好将值缓存起来, 因为会引起回流
-
-```js
-const width = box.offsetWidth;
-function initP() {
-    for (let i = 0; i < paragraphs.length; i++) {
-      // paragraphs[i].style.width = box.offsetWidth + 'px';
-      // 优化后：
-      paragraphs[i].style.width = width + 'px';
-    }
-}
-```
-
-### 使用 visibility 替换 display: none
+使用 visibility 替换 display: none
 
 因为前者只会引起重绘，后者会引发回流（改变了布局）。也可以先为元素设置display: none，操作结束后再把它显示出来。因为在display属性为none的元素上进行的DOM操作不会引发回流和重绘。
-
-### 动画实现的速度的选择
-
-动画速度越快，回流次数越多，也可以选择使用 requestAnimationFrame
-
-### 将频繁重绘或者回流的节点设置为图层
-
-图层能够阻止该节点的渲染行为影响别的节点。比如对于 video 标签来说，浏览器会自动将该节点变为图层。
-
-will-change： will-change属性可以提前通知浏览器我们要对元素做什么动画，这样浏览器可以提前准备合适的优化设置。这样可以避免对页面响应速度有重要影响的昂贵成本。元素可以更快的被改变，渲染的也更快，这样页面可以快速更新，表现的更加流畅。
-  
-video、iframe 标签
-
-## 优化策略-DOM操作
-
-缓存DOM计算属性
-
-使用类合并样式，避免逐条改变样式
-
-使用display控制DOM显隐，将DOM离线化
