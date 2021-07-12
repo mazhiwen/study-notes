@@ -116,7 +116,9 @@ git stash show 查看差异
 
 ## 大小写
 
-git config core.ignorecase true  忽略大小写
+git默认忽略大小写
+
+git config core.ignorecase false  区分大小写
 
 ## 撤销commit
 

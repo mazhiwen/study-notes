@@ -201,21 +201,20 @@ base64代替小图
 
 ## JS脚本/DOM优化
 
-使用DOMFragment缓存批量化DOM操作
-
 ### 缓存数组长度
 
 ### 缓存DOM计算属性
 
 ### 避免过多DOM操作
 
-减少DOM操作
-
-JavaScript 操作 DOM 很慢，尤其是 DOM 节点很多时。
+减少DOM操作:JavaScript 操作 DOM 很慢，尤其是 DOM 节点很多时。
 
 缓存已经访问过的元素；
+
 使用DocumentFragment暂存DOM，整理好以后再插入DOM树；
+
 操作className，而不是多次读写style；
+
 避免使用JavaScript修复布局。
 
 ### 使用高效的事件处理

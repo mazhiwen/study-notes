@@ -181,8 +181,6 @@ appendDataToElement(clone, data);
 ul.parentNode.replaceChild(clone, ul);
 ```
 
-### 使用display控制DOM显隐，将DOM离线化
+### 使用display控制DOM显隐
 
-使用 visibility 替换 display: none
-
-因为前者只会引起重绘，后者会引发回流（改变了布局）。也可以先为元素设置display: none，操作结束后再把它显示出来。因为在display属性为none的元素上进行的DOM操作不会引发回流和重绘。
+使用 visibility 替换 display: none。因为前者只会引起重绘，后者会引发回流（改变了布局）。
