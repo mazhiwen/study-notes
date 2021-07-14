@@ -141,7 +141,7 @@ meta预热的方式：
 
 [用 preload 预加载页面资源](https://juejin.cn/post/6844903562070196237)
 
-[preload详细解释](https://juejin.cn/post/6844903621155356685)
+[preload详细解释以及应用场景](https://juejin.cn/post/6844903621155356685)
 
 提前加载资源，确保使用时已加载。让浏览器提前加载指定资源（这里预加载完成后并不执行），在需要执行的时候在执行，这样将加载和执行分开，可以不阻塞渲染和 window.onload事件。
 
@@ -150,6 +150,8 @@ meta预热的方式：
 带有 onload 事件，可以自定义资源在预加载完毕后的回调函数。
 
 preload 将提升资源加载的优先级
+
+link一个preload只是加载资源(如a.js)，当把a.js以script标签添加到html中，才会解析js
 
 1. 使用 link 标签创建
 
