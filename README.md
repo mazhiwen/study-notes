@@ -41,6 +41,7 @@
   - [Excel 处理](./web/excel.md)
   - [CDN](./web/CDN.md)
   - [地图开发](./web/map.md)
+  - [PerformanceAPI](./web/PerformanceAPI.md)
   - [其他](./web/basic.md)
 - 网络知识
   - [web网络知识](./network/README.md)
@@ -97,7 +98,6 @@
   - [模块化规范](./JavaScript/module.md)
   - [cookie](./JavaScript/cookie.md)
   - [虚拟滚动](./JavaScript/virtuallist.md)
-  - [PerformanceAPI](./JavaScript/PerformanceAPI.md)
   - [Date](./JavaScript/Date.md)
   - [ArrayBuffer,TypedArray,DataView](./JavaScript/ArrayBuffer.md)
   - [Proxy Reflect](./JavaScript/Proxy.md)

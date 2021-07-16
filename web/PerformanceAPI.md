@@ -9,10 +9,6 @@ Performance API 用于精确度量、控制、增强浏览器的性能表现。�
 为了解决这两个不足之处，ECMAScript 5引入“高精度时间戳”这个 API，部署在performance 对象上。它的精度可以达到1毫秒
 的千分之一（1秒的百万分之一）。
 
-navigationStart：当前浏览器窗口的前一个网页关闭，发生 unload 事件时的 Unix 毫秒时间戳。如果没有前一个网页，则等于 fetchStart 属性。
-
-loadEventEnd：返回当前网页 load 事件的回调函数运行结束时的 Unix 毫秒时间戳。如果该事件还没有发生，返回 0。
-
 ## performance.timing
 
 performance对象的timing属性指向一个对象，它包含了各种与浏览器性能有关的时间数据，提供浏览器处理网页各个阶段的耗时。
@@ -90,3 +86,28 @@ console.log('耗时：' + (end - start) + '毫秒。');
 （2）performance.navigation.redirectCount
 
 该属性表示当前网页经过了多少次重定向跳转。
+
+## 应用
+
+```js
+//拿到Performance并且初始化一些参数
+let timing = performance.timing,
+    start = timing.navigationStart,
+    dnsTime = 0,
+    tcpTime = 0,
+    firstPaintTime = 0,
+    domRenderTime = 0,
+    loadTime = 0;
+//根据提供的api和属性，拿到对应的时间
+dnsTime = timing.domainLookupEnd - timing.domainLookupStart;
+tcpTime = timing.connectEnd - timing.connectStart;
+firstPaintTime = timing.responseStart - start;
+domRenderTime = timing.domContentLoadedEventEnd - start;
+loadTime = timing.loadEventEnd - start;
+
+console.log('DNS解析时间:', dnsTime, 
+            '\nTCP建立时间:', tcpTime, 
+            '\n首屏时间:', firstPaintTime,
+            '\ndom渲染完成时间:', domRenderTime, 
+            '\n页面onload时间:', loadTime);
+```
