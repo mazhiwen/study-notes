@@ -264,36 +264,6 @@ use strict 是一种 ECMAscript5 添加的（严格）运行模式，这种模�
 
 为未来新版本的 Javascript 做好铺垫。
 
-## js 延迟加载的方式
-
-js 延迟加载，也就是等页面加载完成之后再加载 JavaScript 文件。 js 延迟加载有助于提高页面加载速度。
-
-一般有以下几种方式：
-
-defer 属性
-async 属性
-动态创建 DOM 方式
-使用 setTimeout 延迟方法
-让 JS 最后加载
-
-## defer async
-
-[浅谈script标签的defer和async](https://segmentfault.com/a/1190000006778717)
-
-<https://juejin.im/post/59c60691518825396f4f71a1>
-
-（1）脚本没有 defer 或 async，浏览器会立即加载并执行指定的脚本，也就是说不等待后续载入的文档元素，读到就加载并执行。
-
-【js请求加载与DOM解析串行，加载完立即执行】
-
-（2）defer 属性表示延迟执行引入的 JavaScript，即这段 JavaScript 加载时 HTML 并未停止解析，这两个过程是并行的。当整个 document 解析完毕后再执行脚本文件，在DOMContentLoaded 事件触发之前完成。多个脚本按顺序执行。
-
-【js请求加载与DOM解析并行，DOMContentLoaded完毕后执行, 顺序执行】
-
-（3）async 属性表示异步执行引入的 JavaScript，与 defer 的区别在于，如果已经加载好，就会开始执行，也就是说它的执行仍然会阻塞文档的解析，只是它的加载过程不会阻塞。多个脚本的执行顺序无法保证。
-
-【js请求加载与DOM解析并行，加载好就执行, 执行顺序无序】
-
 ## escape,encodeURI,encodeURIComponent
 
 ### escape

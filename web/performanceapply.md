@@ -12,8 +12,6 @@
 
 <https://juejin.cn/post/6844903640902156301#heading-17>
 
-<https://juejin.cn/post/6844903640902156301#heading-1>
-
 ## 优化网络
 
 ### 无阻塞加载
@@ -111,19 +109,79 @@ base64代替小图
 
 ## 首屏优化
 
-### 预解析
+```
+preload   是告诉浏览器页面必定需要的资源，浏览器一定会加载这些资源；
+prefetch 是告诉浏览器页面可能需要的资源，浏览器不一定会加载这些资源。
+```
+
+### 预解析DNS
 
 预先解析DNS获取域名对应IP
 
 通过 DNS 缓存等机制来减少 DNS 的查询次数
 
-### 预加载
+当我们访问过一次域名之后，就会在每个节点上生成DNS缓存，即完成DNS预热，这样同一地区（或网络服务商）的其他用户再次访问该域名时就不需要重新回源，直接读取最近的DNS缓存，从而减少请求次数，提升了网站访问速度。
 
-延后加载资源，确保使用时已加载
+一个站点有多个域名时，这个优化效果明显
+
+meta预热的方式：
+
+```html
+<meta http-equiv="x-dns-prefetch-control" content="on" />
+<link rel="dns-prefetch" href="//webresource.english.c-ctrip.com" />
+<link rel="dns-prefetch" href="//webresource.c-ctrip.com" />
+<link rel="dns-prefetch" href="//s.c-ctrip.com" />
+<link rel="dns-prefetch" href="//pic.english.c-ctrip.com" />
+<link rel="dns-prefetch" href="//m.ctrip.com" />
+```
+
+### 预加载 preload
+
+[用 preload 预加载页面资源](https://juejin.cn/post/6844903562070196237)
+
+[preload详细解释以及应用场景](https://juejin.cn/post/6844903621155356685)
+
+提前加载资源，确保使用时已加载。让浏览器提前加载指定资源（这里预加载完成后并不执行），在需要执行的时候在执行，这样将加载和执行分开，可以不阻塞渲染和 window.onload事件。
+
+提前预加载指定资源，特别是字体文件，不会再出现 font 字体在页面渲染出来后，才加载完毕，然后页面字体闪一下变成预期字体。
+
+带有 onload 事件，可以自定义资源在预加载完毕后的回调函数。
+
+preload 将提升资源加载的优先级
+
+link一个preload只是加载资源(如a.js)，当把a.js以script标签添加到html中，才会解析js
+
+1. 使用 link 标签创建
+
+```html
+<!-- 使用 link 标签静态标记需要预加载的资源 -->
+<link rel="preload" href="/path/to/style.css" as="style">
+
+<!-- 或使用脚本动态创建一个 link 标签后插入到 head 头部 -->
+<script>
+const link = document.createElement('link');
+link.rel = 'preload';
+link.as = 'style';
+link.href = '/path/to/style.css';
+document.head.appendChild(link);
+</script>
+```
+
+2. 使用 HTTP 响应头的 Link 字段创建
+
+```sh
+Link: <https://example.com/other/styles.css>; rel=preload; as=style
+```
+
+对跨域的文件进行 preload 的时候，我们必须加上 crossorigin 属性：
+
+```
+<link rel="preload" as="font" crossorigin href="https://at.alicdn.com/t/font_zck90zmlh7hf47vi.woff">
+```
 
 ### 预渲染
 
-延后渲染无需立即打开的页面，确保使用时已渲染
+提前渲染无需立即打开的页面，确保使用时已渲染
 
 ### 懒加载
 
