@@ -1,1 +1,1 @@
-print('Hello 木木')
+print('木木');

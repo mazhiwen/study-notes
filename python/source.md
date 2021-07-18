@@ -2,6 +2,8 @@
 
 [Python 系列教程（入门系列已写完）](https://juejin.cn/post/6844903567715729415)
 
+[Python 自动化操作 Excel 看这一篇就够了](https://juejin.cn/post/6876704014050787341)
+
 [基础入门](https://www.readwithu.com/Article/PythonBasis/python1/The_first_procedure.html)
 
 [教你如何用python轻轻松松操作Excel、Word、CSV，一文就够了，赶紧码住！！！](https://juejin.cn/post/6868073137263607821#heading-0)
