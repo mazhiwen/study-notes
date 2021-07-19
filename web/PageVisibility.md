@@ -60,3 +60,25 @@ window.addEventListener("beforeunload", function (event) {
   event.returnValue = '';
 });
 ```
+
+## IntersectionObserver API
+
+[IntersectionObserver API 使用教程 - 阮一峰](https://www.ruanyifeng.com/blog/2016/11/intersectionobserver_api.html)
+
+```js
+var io = new IntersectionObserver(callback, option);
+
+// 开始观察
+io.observe(document.getElementById('example'));
+
+// 停止观察
+io.unobserve(element);
+
+// 关闭观察器
+io.disconnect();
+
+```
+
+上面代码中，IntersectionObserver是浏览器原生提供的构造函数，接受两个参数：
+callback是可见性变化时的回调函数，
+option是配置对象（该参数可选）。

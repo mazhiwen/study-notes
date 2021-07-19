@@ -4,11 +4,13 @@
 
 参考：
 
+[浏览器页面资源加载过程与优化 - 考拉团队](https://juejin.cn/post/6844903545016156174)
+
 [写给中高级前端关于性能优化的9大策略和6大指标 | 网易四年实践](https://juejin.cn/post/6981673766178783262?utm_source=gold_browser_extension)
 
 [前端性能优化之雅虎35条军规 ：](https://juejin.im/post/6844903657318645767#heading-10)
 
-<https://juejin.cn/post/6911472693405548557#heading-49>
+[聊一聊前端性能优化](https://juejin.cn/post/6911472693405548557#heading-49)
 
 <https://juejin.cn/post/6844903640902156301#heading-17>
 
@@ -114,7 +116,7 @@ preload   是告诉浏览器页面必定需要的资源，浏览器一定会加�
 prefetch 是告诉浏览器页面可能需要的资源，浏览器不一定会加载这些资源。
 ```
 
-### 预解析DNS
+### 预解析DNS prefetch
 
 预先解析DNS获取域名对应IP
 
@@ -186,6 +188,10 @@ Link: <https://example.com/other/styles.css>; rel=preload; as=style
 ### 懒加载
 
 使用延迟加载的方式，来减少页面首屏加载时需要请求的资源。延迟加载的资源当用户需要访问时，再去请求加载
+
+用可视化API判断，如果出现在视口内，才渲染组件，或者DOM
+
+[原生JavaScript三种方法实现懒加载lazyLoad](https://juejin.cn/post/6980320082698174478)
 
 ### 懒执行
 
