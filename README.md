@@ -108,7 +108,7 @@
 - css
   - [知识点大全](./css/README.md)
   - [css3](./css/css3.md)
-  - [css性能提升](./css/performance.md)
+  - [css性能优化](./css/performance.md)
   - [尺寸单位rem,em等](./css/unit.md)
   - [雪碧图csssprite](./css/sprite.md)
   - [块级元素和行内元素](./css/blockinline.md)

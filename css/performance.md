@@ -153,27 +153,34 @@ html {
 }
 ```
 
-## 开启GPU渲染动画
+## 开启GPU渲染加速
+
+[GPU加速在前端的应用](https://juejin.cn/post/6965810210283716644)
 
 浏览器针对处理CSS动画和不会很好地触发重排（因此也导致绘）的动画属性进行了优化。为了提高性能，可以将被动画化的节点从主线程移到GPU上。将导致合成的属性包括 :
 
+transform、opacity、filters这些动画不会引起回流重绘
+
+常见的触发硬件加速的css属性：
+
+1. 使用 transform 替代 top
+
+```js
+setTimeout(() => {
+  // 引起回流
+  document.querySelector('.test').style.top = '100px'
+}, 1000)
 ```
-3D transforms (transform: translateZ(), rotate3d()，等)，
-animating， 
-transform 
-opacity/filter, 
-position: fixed，
-will-change，
 
- 
-一些元素，例如 
+2. opacity
 
-<video>, 
-<canvas>
-<iframe>
+3. filters
 
-也位于各自的图层上。 将元素提升为图层（也称为合成）时，动画转换属性将在GPU中完成，从而改善性能，尤其是在移动设备上。
-```
+4. Will-change
+
+5. 一些元素
+
+例如:`<video>, <canvas> <iframe>`也位于各自的图层上。 将元素提升为图层（也称为合成）时，动画转换属性将在GPU中完成，从而改善性能，尤其是在移动设备上。
 
 ## 减少渲染阻止时间
 

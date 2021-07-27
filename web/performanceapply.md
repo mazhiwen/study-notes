@@ -209,25 +209,27 @@ Link: <https://example.com/other/styles.css>; rel=preload; as=style
 
 ## 渲染优化
 
-### 设置viewport
+### 设置 viewport
 
 ### 优化动画
 
-```
 优先使用css动画
-开启GPU加速
+
+开启GPU加速,见css性能文档
+
 使用canvas动画
+
 使用requestAnimationFrame代替settimeout
-```
 
 ### 优化高频事件
 
-```
 节流throttle
+
 防抖
+
 增加响应变化的时间间隔
+
 用 requestAnimationFrame 监听帧变化
-```
 
 ### 减少DOM元素数量
 

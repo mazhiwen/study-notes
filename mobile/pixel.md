@@ -66,6 +66,10 @@ CSS像素就可以看做是设备的独立像素，所以通过window.devicePixe
 
 ## viewport
 
+[viewport移动端适配](https://juejin.cn/post/6844903721697017864)
+
+[viewport详解](https://juejin.cn/post/6900407534679818253)
+
 ### 概念
 
 layout viewport: 浏览器默认的viewport,通过document.documentElement.clientWidth获取。如果把移动设备上浏览器的可视区域设为viewport的话，某些网站就会因为viewport太窄而显示错乱，所以这些浏览器就决定默认情况下把viewport设为一个较宽的值，比如980px，这样的话即使是那些为桌面设计的网站也能在移动浏览器上正常显示了。ppk把这个浏览器默认的viewport叫做layout viewport。

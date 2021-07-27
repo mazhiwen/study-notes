@@ -61,31 +61,7 @@ scrollTo()
 
 ### css3硬件加速（GPU加速）
 
-使用css3硬件加速，可以让transform、opacity、filters这些动画不会引起回流重绘
-
-常见的触发硬件加速的css属性：
-
-```
-transform
-opacity
-filters
-Will-change
-```
-
-1. 使用 transform 替代 top
-
-```js
-setTimeout(() => {
-  // 引起回流
-  document.querySelector('.test').style.top = '100px'
-}, 1000)
-```
-
-2. opacity
-
-3. filters
-
-4. Will-change
+见css 性能文档
 
 ### 不要使用table布局
 
