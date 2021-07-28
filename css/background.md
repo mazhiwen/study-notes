@@ -29,3 +29,11 @@ a{
     linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
 }
 ```
+
+## background-attachment
+
+如何设置固定的背景图像：
+
+scroll 默认值。背景图像会随着页面其余部分的滚动而移动。
+
+fixed 当页面的其余部分滚动时，背景图像不会移动。

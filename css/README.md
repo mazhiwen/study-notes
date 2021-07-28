@@ -2,7 +2,9 @@
 
 参考：
 
-布局相关:<https://segmentfault.com/a/1190000013565024?utm_source=channel-hottest#item-1>
+[灵活运用CSS开发技巧](https://juejin.cn/post/6844903926110617613)
+
+[CSS布局解决方案（终结版）](https://segmentfault.com/a/1190000013565024?utm_source=channel-hottest#item-1)
 
 《css权威指南》
 
@@ -69,7 +71,7 @@ box-shadow: 0px 0px 5px 1px gray;
 （4）后代选择器（h1p）
 （5）相邻后代选择器（子）选择器（ul>li）
 （6）兄弟选择器（li~a）
-（7）相邻兄弟选择器（li+a）
+（7）相邻后一个兄弟选择器（li+a）
 （8）属性选择器（a[rel="external"]）
 （9）伪类选择器（a:hover,li:nth-child）
 （10）伪元素选择器（::before、::after）
@@ -509,3 +511,192 @@ letter-spacing作用于所有字符，但word-spacing仅作用于空格字符。
 这篇文章内有说：
 
 <https://juejin.cn/post/6951201528543707150>
+
+## will-change
+
+使用will-change表示该元素在未来会发生变化。
+
+不要使用非动画元素。否则会带来资源浪费
+
+浏览器渲染will-change属性的代码时，将为该元素创建一个单独的层。之后，它将该元素的渲染与其他优化一起委托给GPU，即，浏览器会识别will-change属性，并优化未来与will-change属性相关的变化。这将使动画变得更加流畅，因为GPU加速接管了动画的渲染。
+
+与动画同时使用时，建议在父元素上使用will-change，在子元素上使用动画。
+
+### 属性值
+
+will-change的使用并不复杂，它能接受的值有：
+
+auto：默认值，浏览器会根据具体情况，自行进行优化
+
+scroll-position：表示开发者将要改变元素的滚动位置，比如浏览器通常仅渲染可滚动元素“滚动窗口”中的内容。而某些内容超过该窗口（不在浏览器的可视区域内）。如果will-change显式设置了该值，将扩展渲染“滚动窗口”周围的内容，从而顺利地进行更长，更快的滚动（让元素的滚动更流畅）
+
+content：表示开发者将要改变元素的内容，比如浏览器常将大部分不经常改变的元素缓存下来。但如果一个元素的内容不断发生改变，那么产生和维护这个缓存就是在浪费时间。如果will-change显式设置了该值，可以减少浏览器对元素的缓存，或者完全避免缓存。变为从始至终都重新渲染元素。使用该值时需要尽量在文档树最末尾上使用，因为该值会被应用到它所声明元素的子节点，要是在文档树较高的节点上使用的话，可能会对页面性能造成较大的影响
+
+`<custom-ident>`：表示开发者将要改变的元素属性。如果给定的值是缩写，则默认被扩展全，比如，will-change设置的值是padding，那么会补全所有padding的属性，如 will-change: padding-top, padding-right, padding-bottom, padding-left;
+
+### 使用限制 场景
+
+不要将 will-change 应用到太多元素上：浏览器已经尽力尝试去优化一切可以优化的东西了。有一些更强力的优化，如果与 will-change 结合在一起的话，有可能会消耗很多机器资源，如果过度使用的话，可能导致页面响应缓慢或者消耗非常多的资源。比如 *{will-change: transform, opacity;}
+
+有节制地使用：通常，当元素恢复到初始状态时，浏览器会丢弃掉之前做的优化工作。但是如果直接在样式表中显式声明了 will-change 属性，则表示目标元素可能会经常变化，浏览器会将优化工作保存得比之前更久。所以最佳实践是当元素变化之前和之后通过脚本来切换 will-change 的值
+
+不要过早应用 will-change 优化：如果你的页面在性能方面没什么问题，则不要添加 will-change 属性来榨取一丁点的速度。 will-change 的设计初衷是作为最后的优化手段，用来尝试解决现有的性能问题。它不应该被用来预防性能问题。过度使用 will-change 会导致大量的内存占用，并会导致更复杂的渲染过程，因为浏览器会试图准备可能存在的变化过程。这会导致更严重的性能问题。
+
+给它足够的工作时间：这个属性是用来让页面开发者告知浏览器哪些属性可能会变化的。然后浏览器可以选择在变化发生前提前去做一些优化工作。所以给浏览器一点时间去真正做这些优化工作是非常重要的。使用时需要尝试去找到一些方法提前一定时间获知元素可能发生的变化，然后为它加上 will-change 属性。
+
+## 文字排版方向
+
+`writing-mode` 可以控制文字排版方向
+
+场景：竖行文字、文言文、诗词
+
+## 使用text-align-last对齐两端文本
+
+通过 `text-align-last:justify` 设置文本两端对齐
+
+场景：未知字数中文对齐
+
+## 使用object-fit规定图像尺寸
+
+通过`object-fit`使图像脱离background-size的约束，使用`<img>`来标记图像背景尺寸
+
+有cover contain fill 等
+
+## 0.5px 1px 的 精确边
+
+transform 伪元素
+
+```html
+<div class="bruce flex-ct-y" data-title="使用transform描绘像素边框">
+ <div class="onepx-border normal">1px</div>
+ <div class="onepx-border thin">0.5px</div>
+</div>
+
+<style>
+.onepx-border {
+ width: 200px;
+ height: 80px;
+ cursor: pointer;
+ line-height: 80px;
+ text-align: center;
+ font-weight: bold;
+ font-size: 50px;
+ color: #f66;
+ & + .onepx-border {
+  margin-top: 10px;
+ }
+ &.normal {
+  border: 1px solid #f66;
+ }
+ &.thin {
+  position: relative;
+  &::after {
+   position: absolute;
+   left: 0;
+   top: 0;
+   border: 1px solid #f66;
+   width: 200%;
+   height: 200%;
+   content: "";
+   transform: scale(.5);
+   transform-origin: left top;
+  }
+ }
+}
+</style>
+```
+
+## 使用margin-left排版左重右轻列表
+
+要点：使用flexbox横向布局时，最后一个元素通过margin-left:auto实现向右对齐
+
+场景：右侧带图标的导航栏。左右两侧布局，左侧多个左对齐，右侧一个右对齐。左右相反同理。
+
+```html
+<div class="bruce flex-ct-y" data-title="使用margin排版凸显布局">
+ <ul class="highlight-list left">
+  <li>Alibaba</li>
+  <li>Tencent</li>
+  <li>Baidu</li>
+  <li>Jingdong</li>
+  <li>Ant</li>
+  <li>Netease</li>
+ </ul>
+ <ul class="highlight-list right">
+  <li>Alibaba</li>
+  <li>Tencent</li>
+  <li>Baidu</li>
+  <li>Jingdong</li>
+  <li>Ant</li>
+  <li>Netease</li>
+ </ul>
+</div>
+
+<style>
+.highlight-list {
+ display: flex;
+ align-items: center;
+ padding: 0 10px;
+ width: 600px;
+ height: 60px;
+ background-color: #3c9;
+ & + .highlight-list {
+  margin-top: 10px;
+ }
+ li {
+  padding: 0 10px;
+  height: 40px;
+  background-color: #3c9;
+  line-height: 40px;
+  font-size: 16px;
+  color: #fff;
+ }
+ &.left li {
+  & + li {
+   margin-left: 10px;
+  }
+  &:last-child {
+   margin-left: auto;
+  }
+ }
+ &.right li {
+  & + li {
+   margin-left: 10px;
+  }
+  &:first-child {
+   margin-right: auto;
+  }
+ }
+}
+</style>
+```
+
+## 巧用 + 相邻后一个兄弟选择器
+
+可以选择非首元素
+
+相邻下一个
+
+## overflow-scrolling:touch支持弹性滚动
+
+iOS页面非body元素的滚动操作会非常卡(Android不会出现此情况)，通过overflow-scrolling:touch调用Safari原生滚动来支持弹性滚动，增加页面滚动的流畅度
+
+## 伪元素content可以赋值attr(属性值)
+
+伪元素的 `content: attr(data-xxx)` 写法可以取元素的data-xxx属性值作为内容
+
+## 校验相关的样式
+
+`<input>` 使用伪类:valid和:invalid配合pattern校验表单输入的内容
+
+## 禁用事件触发
+
+通过pointer-events:none禁用事件触发(默认事件、冒泡事件、鼠标事件、键盘事件等)，相当于`<button>`的disabled
+
+## max-height实现折叠效果
+
+简单实现折叠效果： 通过 max-height 和 hover 定义收起的最小高度和展开的最大高度，设置两者间的过渡切换。
+
+## 视差滚动
+
+通过`background-attachment:fixed`或`transform:translateZ`让多层背景以不同的速度移动，形成立体的运动效果
