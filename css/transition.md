@@ -35,3 +35,7 @@ ease-in-out :规定以慢速开始和结束的过渡效果（等于 cubic-bezier
 ### transition-delay 定义过渡效果何时开始
 
 ## animation
+
+### animation-delay
+
+定义动画于何时开始，即从动画应用在元素上到动画开始的这段时间的长度。

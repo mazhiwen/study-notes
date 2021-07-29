@@ -49,13 +49,7 @@ E:nth-last-of-type(n)
 
 ## 颜色渐变
 
-线性渐变：
-
-background-image: linear-gradient(direction, color-stop1, color-stop2, ...);
-
-径向渐变：
-
-background-image: radial-gradient(shape size at position, start-color, ..., last-color);
+见 background 文档
 
 ## 2D变换
 

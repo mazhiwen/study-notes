@@ -93,9 +93,11 @@ box-shadow: 0px 0px 5px 1px gray;
 
 比如说特殊性值为1000的的规则优先级就要比特殊性值为0999的规则高。如果两个规则的特殊性值相等的时候，那么就会根据它们引入的顺序，后出现的规则的优先级最高。
 
-## 0.5px的边
+## 0.5px 1px 的精确边
 
 ### transform: scale
+
+- 例子1:
 
 ```css
 .thinner-border {
@@ -114,6 +116,50 @@ box-shadow: 0px 0px 5px 1px gray;
   transform: scale(0.5, 0.5);
   box-sizing: border-box;
 }
+```
+
+- 例子2：
+
+transform 伪元素
+
+```html
+<div class="bruce flex-ct-y" data-title="使用transform描绘像素边框">
+ <div class="onepx-border normal">1px</div>
+ <div class="onepx-border thin">0.5px</div>
+</div>
+
+<style>
+.onepx-border {
+ width: 200px;
+ height: 80px;
+ cursor: pointer;
+ line-height: 80px;
+ text-align: center;
+ font-weight: bold;
+ font-size: 50px;
+ color: #f66;
+ & + .onepx-border {
+  margin-top: 10px;
+ }
+ &.normal {
+  border: 1px solid #f66;
+ }
+ &.thin {
+  position: relative;
+  &::after {
+   position: absolute;
+   left: 0;
+   top: 0;
+   border: 1px solid #f66;
+   width: 200%;
+   height: 200%;
+   content: "";
+   transform: scale(.5);
+   transform-origin: left top;
+  }
+ }
+}
+</style>
 ```
 
 ### border-image
@@ -500,10 +546,6 @@ letter-spacing作用于所有字符，但word-spacing仅作用于空格字符。
 
 -（7）通过 transform:scale(0,0)来将元素缩放为 0，以此来实现元素的隐藏。这种方法下，元素仍在页面中占据位置，但是不会响应绑定的监听事件。
 
-## 滚动条样式
-
-<https://segmentfault.com/a/1190000003708894>
-
 ## 巧妙地制作背景色渐变动画
 
 巧妙地制作背景色渐变动画：
@@ -561,50 +603,6 @@ content：表示开发者将要改变元素的内容，比如浏览器常将大�
 通过`object-fit`使图像脱离background-size的约束，使用`<img>`来标记图像背景尺寸
 
 有cover contain fill 等
-
-## 0.5px 1px 的 精确边
-
-transform 伪元素
-
-```html
-<div class="bruce flex-ct-y" data-title="使用transform描绘像素边框">
- <div class="onepx-border normal">1px</div>
- <div class="onepx-border thin">0.5px</div>
-</div>
-
-<style>
-.onepx-border {
- width: 200px;
- height: 80px;
- cursor: pointer;
- line-height: 80px;
- text-align: center;
- font-weight: bold;
- font-size: 50px;
- color: #f66;
- & + .onepx-border {
-  margin-top: 10px;
- }
- &.normal {
-  border: 1px solid #f66;
- }
- &.thin {
-  position: relative;
-  &::after {
-   position: absolute;
-   left: 0;
-   top: 0;
-   border: 1px solid #f66;
-   width: 200%;
-   height: 200%;
-   content: "";
-   transform: scale(.5);
-   transform-origin: left top;
-  }
- }
-}
-</style>
-```
 
 ## 使用margin-left排版左重右轻列表
 
@@ -700,3 +698,49 @@ iOS页面非body元素的滚动操作会非常卡(Android不会出现此情况)�
 ## 视差滚动
 
 通过`background-attachment:fixed`或`transform:translateZ`让多层背景以不同的速度移动，形成立体的运动效果
+
+## transform-delay animation-delay负值
+
+通过transform-delay或animation-delay设置负值时延保留动画起始帧，让动画进入页面不用等待即可运行
+
+## resize
+
+resize CSS 属性允许你控制一个元素的可调整大小性。
+
+## border-color 默认取 color
+
+border没有定义border-color时，设置color后，border-color会被定义成color
+
+## ::selection
+
+通过::selection根据主题颜色自定义文本选择颜色
+
+## 背景渐变 移动效果
+
+通过 linear-gradient 400%的背景渐变色
+
+加animation，background-position控制视觉口背景位置实现效果
+
+## 文本渐变
+
+通过linear-gradient设置背景渐变色，配合background-clip:text对背景进行文本裁剪，添加滤镜动画
+
+## 光标颜色
+
+通过caret-color根据主题颜色自定义光标颜色
+
+## 滚动条样式
+
+使用::scrollbar改变滚动条样式
+
+通过scrollbar的scrollbar-track和scrollbar-thumb等属性来自定义滚动条样式
+
+<https://segmentfault.com/a/1190000003708894>
+
+## 滤镜
+
+css-gram插件 + filter
+
+## css实现各种图形
+
+<https://css-tricks.com/the-shapes-of-css/>
