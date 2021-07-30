@@ -35,12 +35,17 @@ percentage|cover|contain|length
 ```css
 background-image: linear-gradient(direction, color-stop1, color-stop2, ...);
 
+/* 从右下到左上、从蓝色渐变到红色 */
+linear-gradient(to left top, blue, red);
 
-a{
-  background: linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
-    linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
-    linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
-}
+/* 从下到上，从蓝色开始渐变、到高度40%位置是绿色渐变开始、最后以红色结束 */
+linear-gradient(0deg, blue, green 40%, red);
+
+background: 
+  linear-gradient(217deg, rgba(255,0,0,.8), rgba(255,0,0,0) 70.71%),
+  linear-gradient(127deg, rgba(0,255,0,.8), rgba(0,255,0,0) 70.71%),
+  linear-gradient(336deg, rgba(0,0,255,.8), rgba(0,0,255,0) 70.71%);
+
 ```
 
 ## radial-gradient
@@ -64,3 +69,15 @@ fixed 当页面的其余部分滚动时，背景图像不会移动。
 background-position-x: 设置水平方向的位置
 
 background-position-y
+
+```css
+/*
+多背景图片：每个图片依次和相应的 `background-position` 匹配
+*/
+.examplethree {
+    background-image:    url("https://developer.mozilla.org/samples/cssref/images/startransparent.gif"),
+                         url("https://mdn.mozillademos.org/files/7693/catfront.png");
+    background-position: 0px 0px,
+                         center;
+}
+```

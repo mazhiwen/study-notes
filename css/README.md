@@ -54,8 +54,21 @@ spread 可选。阴影的尺寸。
 color 可选。阴影的颜色。请参阅 CSS 颜色值。  
 inset 可选。将外部阴影 (outset) 改为内部阴影。  
 
-```
-box-shadow: 0px 0px 5px 1px gray;
+```css
+/* x偏移量 | y偏移量 | 阴影颜色 */
+box-shadow: 60px -16px teal;
+
+/* x偏移量 | y偏移量 | 阴影模糊半径 | 阴影颜色 */
+box-shadow: 10px 5px 5px black;
+
+/* x偏移量 | y偏移量 | 阴影模糊半径 | 阴影扩散半径 | 阴影颜色 */
+box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+
+/* 插页(阴影向内) | x偏移量 | y偏移量 | 阴影颜色 */
+box-shadow: inset 5em 1em gold;
+
+/* 任意数量的阴影，以逗号分隔 */
+box-shadow: 3px 3px red, -1em 0 0.4em olive;
 ```
 
 ## 选择器
@@ -744,3 +757,44 @@ css-gram插件 + filter
 ## css实现各种图形
 
 <https://css-tricks.com/the-shapes-of-css/>
+
+## 使用mask雕刻镂空背景
+
+## 格子渐变色样式
+
+```css
+.square-bg {
+ width: 500px;
+ height: 300px;
+ background-image: linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%),
+  linear-gradient(45deg, #eee 25%, transparent 25%, transparent 75%, #eee 75%);
+ background-position: 0 0, 20px 20px;
+ background-size: 40px 40px;
+}
+```
+
+## outline
+
+```css
+/* 样式 */
+outline: solid;
+
+/* 颜色 | 样式 */
+outline: #f66 dashed;
+
+/* 样式 | 宽度 */
+outline: inset thick;
+
+/* 颜色 | 样式 | 宽度 */
+outline: green solid 3px;
+```
+
+- outline-offset:
+
+CSS 属性用于设置 outline 与一个元素边缘或边框之间的间隙。
+
+## css实现进度条
+
+用父元素伪类背景白色，将作为实际底色。绝对定位
+
+内容元素右上渐变，高为内容高度减实际高度
