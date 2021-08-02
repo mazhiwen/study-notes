@@ -798,3 +798,23 @@ CSS 属性用于设置 outline 与一个元素边缘或边框之间的间隙。
 用父元素伪类背景白色，将作为实际底色。绝对定位
 
 内容元素右上渐变，高为内容高度减实际高度
+
+## clip-path
+
+clip-path CSS 属性使用裁剪方式创建元素的可显示区域。区域内的部分显示，区域外的隐藏。
+
+## css实现特殊动画图形可用的参考方案
+
+```
+linear-gradient: 渐变色，其他渐变色
+background: 背景的相关属性
+border-radius: 控制图形形状
+伪元素: ::before, ::after
+clip-path
+animation
+transform
+keyframes:百分比精准控制动画
+filter
+text-shadow
+box-shadow
+```

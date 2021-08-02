@@ -57,7 +57,7 @@
   - [XSS](./network/xss.md)
   - [CSRF](./network/CSRF.md)
 - JavaScript
-  - [知识大全](./JavaScript/README.md)
+  - [js知识点技巧](./JavaScript/README.md)
   - [应用题](./JavaScript/apply.md)
   - [TypeScript](./JavaScript/TypeScript.md)
   - [变量](./JavaScript/var.md)
