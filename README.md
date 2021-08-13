@@ -201,6 +201,7 @@
   - [linux](./computer/linux.md)
 - [其他](./other)
   - [git](./other/git.md)
+  - [github](./other/github.md)
   - [yarn](./other/yarn.md)
   - [npm](./other/npm.MD)
   - [正则表达式](./other/regExp.MD)
