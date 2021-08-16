@@ -1,19 +1,5 @@
 # javascript基础知识点
 
-- [技巧](#技巧)
-- [运算规则](#运算规则)
-- [in运算符](#in运算符)
-- [深浅拷贝](#深浅拷贝)
-- [定时器](#定时器)
-- [Error](#Error)
-- [安全随机](#安全随机)
-- [内置对象](#内置对象)
-- [ToString](#ToString)
-- [ToNumber](#ToNumber)
-- [ToBoolean](#ToBoolean)
-- [DOM 和 BOM](#DOM-和-BOM)
-- [严格模式](#严格模式)
-
 ## 技巧
 
 数据初始化null
@@ -390,4 +376,26 @@ class EventEmitter {
 ```js
 let b = '22';
 let a = +b;
+```
+
+## 随机id
+
+```js
+const RandomId = len => Math.random().toString(36).substr(3, len);
+const id = RandomId(10);
+// id => "jg7zpgiqva"
+```
+
+## 生成随机HEX色值
+
+```js
+// 好像有问题 随机函数不包括边界值
+const RandomColor = () => {
+  return "#" + 
+    Math.floor( Math.random() * 0xffffff ) // 得到十六进制0x000000 - 0xffffff的数字
+    .toString(16) // 把上述数字转为十六进制表示的字符串
+    .padEnd(6, "0"); // 末尾补0
+}
+const color = RandomColor();
+// color => "#f03665"
 ```
