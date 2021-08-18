@@ -78,14 +78,22 @@ console.log(orig.trim()); // 'foo'
 
 str.replace(regexp|substr, newSubStr|function)
 
-### newSubStr参数
+### 第一个参数为正则
 
+str.replace(regexp, newSubStr)
+
+第一个参数为正则: 一个RegExp 对象或者其字面量。该正则所匹配的内容会被第二个参数的返回值替换掉。
+
+第二个参数: newSubStr参数。用于替换掉第一个参数在原字符串中的匹配部分的字符串。该字符串中可以内插一些特殊的变量名。参考下面
+
+```
 $$ 插入一个 "$"。
 $& 插入匹配的子串。
 $` 插入当前匹配的子串左边的内容。
 $' 插入当前匹配的子串右边的内容。
 $n
 假如第一个参数是 RegExp对象，并且 n 是个小于100的非负整数，那么插入第 n 个括号匹配的字符串。提示：索引是从1开始
+```
 
 ```js
 var re = /(\w+)\s(\w+)/;

@@ -1,5 +1,15 @@
 # 资源
 
+## 一些比较好的文章
+
+<https://www.cnblogs.com/limbobark/p/10043769.html>
+
+<https://juejin.cn/post/6844903790580072462>
+
+<https://juejin.cn/post/6901552013717438472#heading-12>
+
+[大屏适配解决方案](https://juejin.cn/post/6972416642600927246)
+
 ## 博客论坛
 
 [崔小瑞网课老师](https://github.com/cuixiaorui?tab=repositories)
@@ -49,14 +59,6 @@
 [聂微东](https://www.cnblogs.com/Darren_code/tag/JavaScript/)
 
 github 搜索 js ：<https://github.com/search?l=JavaScript&q=followers%3A%3E500&ref=advsearch&type=Users>
-
-## 一些文章
-
-<https://www.cnblogs.com/limbobark/p/10043769.html>
-
-<https://juejin.cn/post/6844903790580072462>
-
-<https://juejin.cn/post/6901552013717438472#heading-12>
 
 ## 面试题
 

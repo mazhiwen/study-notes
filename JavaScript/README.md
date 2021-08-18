@@ -399,3 +399,62 @@ const RandomColor = () => {
 const color = RandomColor();
 // color => "#f03665"
 ```
+
+## 精确位数小数
+
+```js
+const RoundNum = (num, decimal) => Math.round(num * 10 ** decimal) / 10 ** decimal;
+const num = RoundNum(1.69, 1);
+// num => 1.7
+```
+
+## 判断奇偶
+
+```js
+const OddEven = num => !!(num & 1) ? "odd" : "even";
+const num = OddEven(2);
+// num => "even"
+```
+
+## 生成范围随机数
+
+```js
+const RandomNum = (min, max) => 
+  Math.floor(
+    Math.random() * (max - min + 1)
+  ) 
+  + min;
+const num = RandomNum(1, 10);
+```
+
+## 对象不为空时执行
+
+```js
+const obj = { a: 0, b: 1, c: 2 };
+Object.keys(obj).length && Func();
+```
+
+## 过滤空值
+
+```js
+const arr = [undefined, null, "", 0, false, NaN, 1, 2].filter(Boolean);
+// arr => [1, 2]
+```
+
+Boolean 也是一个function
+
+## 解构对象属性别名
+
+```js
+const obj = { a: 0, b: 1, c: 2 };
+const { a, b: d, c: e } = obj;
+// a d e => 0 1 2
+```
+
+## 解构对象属性默认值
+
+```js
+const obj = { a: 0, b: 1, c: 2 };
+const { a, b = 2, d = 3 } = obj;
+// a b d => 0 1 3
+```
