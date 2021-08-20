@@ -745,3 +745,11 @@ var result2 = addThirtySeven(5);
 var result3 = addThirtySeven(5, 10);
 // 37 + 5 = 42 ，第二个参数被忽略
 ```
+
+## 字符串创建函数
+
+字符串形式，动态创建一个函数
+
+```js
+const Func = new Function("name", "console.log(\"I Love \" + name)");
+```
