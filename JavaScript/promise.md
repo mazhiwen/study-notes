@@ -103,6 +103,8 @@ getJSON("/posts.json").then(function(json) {
 
 then的链式调用：上面的代码使用then方法，依次指定了两个回调函数。第一个回调函数完成以后，会将then函数中的返回结果`return`的值作为参数，传入第二个回调函数。
 
+当return的是promise对象时，下一个then会等待这个promise对象的异步执行结果
+
 上一个Promise的状态，只会导致它自己的then方法执行哪个函数的问题，并不会导致下一个Promise(thenable和catchable返回的Promise)的then方法执行函数的问题，也就是说then执行不出错，那么then返回的Promise状态都是resolved
 
 ## Promise.prototype.catch()
