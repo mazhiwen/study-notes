@@ -4,11 +4,9 @@
 
 [灵活运用JS开发技巧](https://juejin.cn/post/6844903838449664013)
 
-<https://www.cnblogs.com/limbobark/p/10043769.html>
+[CSS @font-face性能优化](https://juejin.cn/post/6844903790580072462)
 
-<https://juejin.cn/post/6844903790580072462>
-
-<https://juejin.cn/post/6901552013717438472#heading-12>
+[搭建自己的 typescript 项目 + 开发自己的脚手架工具 ts-cli](https://juejin.cn/post/6901552013717438472#heading-12)
 
 [大屏适配解决方案](https://juejin.cn/post/6972416642600927246)
 
