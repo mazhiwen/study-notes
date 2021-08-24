@@ -1,12 +1,10 @@
 # async await
 
-<https://juejin.im/post/5b1ffff96fb9a01e345ba704>
-<https://segmentfault.com/a/1190000007535316>
-<http://www.ruanyifeng.com/blog/2015/05/async.html>
+[一次性让你懂async/await，解决回调地狱](https://juejin.im/post/5b1ffff96fb9a01e345ba704)
 
-async 是“异步”的简写，async 用于申明一个 function 是异步的，
+[理解 JavaScript 的 async/await](https://segmentfault.com/a/1190000007535316)
 
-而 await 用于等待一个异步方法执行完成，
+[async 函数的含义和用法 -  ruanyifeng](http://www.ruanyifeng.com/blog/2015/05/async.html)
 
 ```js
 /**************** async/await ****************/
@@ -30,13 +28,11 @@ async 函数是 Generator 函数的语法糖。使用 关键字 async 来表示�
 - 更广的适用性。co 模块约定，yield 命令后面只能是 Thunk 函数或 Promise对象。而 async 函数的 await 命令后面则可以是 Promise 或者 原始类型的值（Number，string，boolean，但这时等同于同步操作）
 ```
 
-假设一个业务需要分步完成，每个步骤都是异步的，而且依赖上一步的执行结果，甚至依赖之前每一步的结果，就可以使用Async Await来完成
-
 ## async
 
-返回值是 Promise。async 函数返回值是 Promise 对象，比 Generator 函数返回的 Iterator 对象方便，可以直接使用 then() 方法进行调用
+async函数返回值是 Promise 对象，比 Generator 函数返回的 Iterator 对象方便，可以直接使用 then() 方法进行调用
 
-async 表示函数里有异步操作
+async 用于申明一个 function 是异步的
 
 async 表明当前函数是异步函数，不会阻塞线程导致后续代码停止运行。例如，多个async 执行，async1 和 async2 是同步执行的。
 
@@ -48,6 +44,8 @@ async function e() {
 }
 e().then(success => console.log('成功', success))
    .catch(error => console.log('失败', error));
+
+// 函数内部抛出了一个异常，返回reject，async函数接收到之后，判定执行失败进入catch，该返回的错误打印了出来。
 ```
 
 ```

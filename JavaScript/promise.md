@@ -1,13 +1,11 @@
 
 # promise
 
-<http://es6.ruanyifeng.com/#docs/promise>
+[Promise 对象 - ruanyifeng](http://es6.ruanyifeng.com/#docs/promise)
 
-<https://juejin.cn/post/6892555927770103822>
+[jsliang 求职系列 - 07 - Promise](https://juejin.cn/post/6892555927770103822)
 
-<https://juejin.cn/post/6869573288478113799>
-
-<https://juejin.cn/post/6844904054225633288#heading-28>
+[简述Promise](https://juejin.cn/post/6844904054225633288#heading-28)
 
 Promise 中只有涉及到状态变更后才需要被执行的回调才算是微任务，比如说 then、 catch 、finally ，其他所有的代码执行都是宏任务（同步执行）。
 
@@ -103,15 +101,13 @@ getJSON("/posts.json").then(function(json) {
 
 ```
 
-then的链式调用：
+then的链式调用：上面的代码使用then方法，依次指定了两个回调函数。第一个回调函数完成以后，会将then函数中的返回结果`return`的值作为参数，传入第二个回调函数。
 
-上面的代码使用then方法，依次指定了两个回调函数。第一个回调函数完成以后，会将返回结果作为参数，传入第二个回调函数。
-
-，上一个Promise的状态，只会导致它自己的then方法执行哪个函数的问题，并不会导致下一个Promise(thenable和catchable返回的Promise)的then方法执行函数的问题，也就是说then执行不出错，那么then返回的Promise状态都是resolved
+上一个Promise的状态，只会导致它自己的then方法执行哪个函数的问题，并不会导致下一个Promise(thenable和catchable返回的Promise)的then方法执行函数的问题，也就是说then执行不出错，那么then返回的Promise状态都是resolved
 
 ## Promise.prototype.catch()
 
-一般catch放在then后面。可以捕获promise和then中的err
+Promise.prototype.catch()方法是.then(null, rejection)或.then(undefined, rejection)的别名，用于指定发生错误时的回调函数。
 
 ```js
 const p1 = new Promise(()=>{
