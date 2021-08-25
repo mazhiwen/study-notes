@@ -2,11 +2,11 @@
 
 参考：
 
-<https://www.cnblogs.com/seeks/p/7710977.html>
+[javascript操作符(~、&、|、^、>>、<<) 计算机里的数字表示形式](https://www.cnblogs.com/seeks/p/7710977.html)
+
+[JavaScript 中的位运算和权限设计](https://juejin.im/post/5dc36f39e51d4529ed292910)
 
 ## 左移 << 右移 >>
-
-<https://juejin.im/post/5dc36f39e51d4529ed292910>
 
 右移 ： `>>`
 
@@ -28,11 +28,10 @@ a >> n
 
 ```js
 const a = 5;     // 0000000000000101
-const b = -3;    // 1111111111111101
-
 console.log(~a); // 1111111111111010
 // expected output: -6
 
+const b = -3;    // 1111111111111101
 console.log(~b); // 0000000000000010
 // expected output: 2
 

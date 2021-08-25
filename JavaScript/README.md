@@ -458,3 +458,11 @@ const obj = { a: 0, b: 1, c: 2 };
 const { a, b = 2, d = 3 } = obj;
 // a b d => 0 1 3
 ```
+
+## 显示全部DOM边框
+
+```js
+[].forEach.call($$("*"), dom => {
+    dom.style.outline = "1px solid #" + (~~(Math.random() * (1 << 24))).toString(16);
+});
+```
