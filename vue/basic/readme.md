@@ -1,34 +1,9 @@
 
 # 关于vue的文档
 
-可参考:<https://juejin.im/post/5d9d386fe51d45784d3f8637>
+[Vue 常考基础知识点万字总结](https://juejin.cn/post/6901162042628636686#heading-16)
 
-## 目录
-
-- [VueCli](#VueCli)
-- [webpack,懒加载,代码分离](#webpack,懒加载,代码分离)
-- [el](#el)
-- [props](#props)
-- [filters](#filters)
-- [组合](#组合)
-- [样式](#样式)
-- [slot](#slot)
-- [模版语法](#模版语法)
-- [组件注册](#组件注册)
-- [渲染函数,render函数](#渲染函数,render函数)
-- [函数式组件](#函数式组件)
-- [虚拟DOM](#虚拟DOM)
-- [keep-alive](#keep-alive)
-- [异步组件](#异步组件)
-- [$root](#$root)
-- [.sync](#.sync)
-- [递归组件](#递归组件)
-- [SSR-Vue](#SSR-Vue)
-- [动画](#动画)
-- [事件](#事件)
-- [其他技巧知识](#其他技巧知识)
-
-***
+[Vue 开发必须知道的 36 个技巧【近1W字】](https://juejin.im/post/5d9d386fe51d45784d3f8637)
 
 ## VueCli
 
