@@ -92,11 +92,11 @@ var Child = {
 
 ```
 
-## 5. props  $emit  @on  
+## 5. props $emit @on  
 
 是响应式的,父子传递prop和event
 
-## 6. $attrs和$listeners  
+## 6. $attrs 和 $listeners  
 
 适用于第三方复杂组件构建，a -> b -> c 深层次传递prop 和 event  
 简单来说：$attrs与$listeners 是两个对象，$attrs 里存放的是父组件中绑定的非 Props 属性，$listeners里存放的是父组件中绑定的非原生事件。

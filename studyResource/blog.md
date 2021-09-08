@@ -2,6 +2,8 @@
 
 ## 一些比较好的文章
 
+[最新的前端大厂面经（详解答案）](https://juejin.cn/post/7004638318843412493#heading-54)
+
 [灵活运用JS开发技巧](https://juejin.cn/post/6844903838449664013)
 
 [CSS @font-face性能优化](https://juejin.cn/post/6844903790580072462)
