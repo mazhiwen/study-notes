@@ -49,6 +49,7 @@ concat方法与slice也存在这样的情况，他们都不是真正的深拷贝
 2. 递归赋值 ??????错误需修正
 
 ```javascript
+// 实现1
 //判断是否是可迭代对象
 function isIteration(obj){
   let objType = Object.prototype.toString.call(obj);
@@ -71,8 +72,6 @@ function deepCopy(obj) {
       }
     }
   }
-  
-  
   return targetObj;
 }
 ```
