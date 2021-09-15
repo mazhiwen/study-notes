@@ -1,9 +1,13 @@
 
 # let const var 的相关概念
 
-<https://juejin.cn/post/6844903752139276301>
+[var和let/const的区别](https://juejin.cn/post/6844903752139276301)
+
+[面试官：说说 let 和 const 吧](https://juejin.cn/post/6844904154133970951)
 
 ## let const 对比 var 的特点
+
+let const:
 
 1. 声明的变量只在声明时的代码块内有效
 2. 不存在声明提升
@@ -14,12 +18,6 @@
 ## 块级作用域
 
 见 作用域文档
-
-### 形式
-
-1. 函数内部
-
-2. 块中(字符 { 和 } 之间的区域)
 
 ## let const 的区别
 
