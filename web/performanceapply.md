@@ -12,7 +12,7 @@
 
 [聊一聊前端性能优化](https://juejin.cn/post/6911472693405548557#heading-49)
 
-<https://juejin.cn/post/6844903640902156301#heading-17>
+[React 16 加载性能优化指南](https://juejin.cn/post/6844903640902156301#heading-17)
 
 ## 优化网络
 

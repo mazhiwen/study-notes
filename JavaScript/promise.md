@@ -55,6 +55,41 @@ getData().then((res) => {
 });
 ```
 
+```js
+// 一个例子
+// return 会中断js， resolve不会
+var thisPromise1 = new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve('p1,resolve');
+      
+    }, 1000);
+    
+  });
+var p3= null;
+var thisPromise2 = new Promise((resolve, reject) => {
+    p3 = thisPromise1.then(()=>{
+      console.log(1);
+            resolve('p2,resolve');
+
+      console.log(2);
+            return 'p2,return成功';
+
+      console.log(3);
+    })
+})    
+//输出1: 1
+//输出2: 2
+thisPromise2.then((value)=>{
+  // 输出3: p2,resolve
+  console.log('p2value',value);
+})  
+
+p3.then((value)=>{
+  // 输出4： p2,return成功
+  console.log('p3value',value);
+}) 
+```
+
 ## 状态
 
 ```
@@ -251,3 +286,41 @@ mergePromise([ajax1, ajax2, ajax3]).then(data => {
 ## Promises/A+ 规范
 
 Promises/A+ 规范是 JavaScript Promise 的标准，规定了一个 Promise 所必须具有的特性。
+
+## 用IIFE实现promise缓存数据
+
+```js
+import {
+  getData,
+} from 'apis';
+
+const getDataPromiseIIFE = (function() {
+  let thePromise = null;
+  return function getDataPromise(baseURL, store) {
+    if (thePromise) {
+      console.log('p 存在');
+      return thePromise;
+    } else {
+      console.log('p 不存在');
+      return new Promise(function(resolve) {
+        console.log('n');
+        thePromise = getData({
+          baseURL
+        }).then((res) => {
+          let categoryData = res;
+          resolve({
+            categoryData
+          })
+          return {
+            categoryData
+          }
+        });
+
+      })
+    }
+  }
+})()
+
+
+export default getDataPromiseIIFE
+```

@@ -3,6 +3,8 @@
 基于webpack官网教程  
 本项目可直接用作webpack项目demo
 
+[带你深度解锁Webpack系列(进阶篇)](https://juejin.cn/post/6844904084927938567#heading-0)
+
 <https://juejin.cn/post/6844903782581534727#heading-22>
 
 ## webbpack命令
@@ -46,7 +48,6 @@ webpack配置中字符串格式的 路径'' 一般是以webpack执行命令的�
 ### dev prod
 
 ```
-
 "start": "webpack-dev-server --open --config webpack.dev.js",
 "build": "webpack --config webpack.prod.js"
 ```
@@ -63,11 +64,87 @@ webpack配置中字符串格式的 路径'' 一般是以webpack执行命令的�
 
 module.noParse 配置项可以让 Webpack 忽略对部分没采用模块化的文件的递归解析处理
 
+```js
+{
+  module: {
+    noParse: (content) => {
+      console.log(1111, content, /oparse/.test(content), content.includes('noparse'));
+      return /oparse/.test(content);
+    },
+  }
+}
+```
+
 ### rules
 
 rules: exclude优先级高于test和include
 
+```js
+rules: [
+  {
+    test: /\.js$/,
+    // exclude: /(node_modules|bower_components)/,
+    include: /(node_modules\/vue-editor-mar|src)/,
+    use: {
+      loader: 'babel-loader',
+      options: {
+        rootMode: 'upward',
+      },
+    },
+  },
+  // 处理资源路径
+  {
+    test: /\.(png|svg|jpg|gif|woff|ttf|eot)$/,
+    // use: ['file-loader']
+    // 可以用fileloader 和 urlloader
+    // urlloader 将limit大小的文件转为dataurl
+    // 超过则配置默认file-loader
+    oneOf: [
+      {
+        // resourceQuery: /external/, // foo.css?external
+        include: [
+          path.resolve(__dirname, '../src/static'),
+        ],
+        use: {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[contenthash].[ext]',
+            outputPath: 'static/',
+            publicPath: 'static/',
+          },
+        },
+      },
+      {
+        use: [{
+          loader: 'url-loader',
+          options: {
+            fallback: 'file-loader',
+          },
+        }],
+      },
+    ],
+  },
+]
+```
+
 ## optimization
+
+### minimizer
+
+```js
+minimizer: [
+  new TerserPlugin({
+    // 是对chunk进行压缩
+    chunkFilter: (chunk) => {
+      // Exclude uglification for the `SYSOUTCONFIG` chunk
+      if (chunk.name === 'SYSOUTCONFIG') {
+        return false;
+      }
+      return true;
+    },
+  }),
+],
+```
 
 ### runtimeChunk
 
@@ -88,13 +165,14 @@ runtime mainfest 是webpack用来管理所有模块的交互
 import(/* webpackPrefetch: true */ 'LoginModal');
 ```
 
-## shimming  
+## shimming resolve
 
 让 webpack 打包时自动发现关键的全局变量并自动的引入。它是一种隐性的全局变量。  
 
-```
+```js
 module.exports = {
   resolve: {
+    // 配置默认import index的文件扩展名
     extensions: ['.js', '.json'],
     alias: {
       Config: path.resolve(__dirname, '../src/utils/Config')
@@ -614,6 +692,74 @@ cacheDirectory 选项可以提升编译速度。
 ## HardSourceWebpackPlugin
 
 优化打包速度
+
+## HtmlWebpackPlugin
+
+```js
+new HtmlWebpackPlugin({
+  // 如果设置了templeta 则tile等可能以template配置为主
+  // title: 'marjovenprogram',
+  // template html 模版html
+  // 可以使用ejs jade 等template,需要配置对应loader
+  //  详情查看HtmlWebpackPlugin官方
+  // template: './index.html',
+  template: path.resolve(__dirname, './index.ejs'),
+  // ejs template参数
+  // 参数可以在ejs文件中以es template字符 :${title}
+  // 或者其他查看lodash template相关配置
+  templateParameters: {
+    title: '系统',
+  },
+}),
+```
+
+## CopyWebpackPlugin
+
+```js
+new CopyWebpackPlugin([
+  // {
+  //   from: './webpackConfig/public/*',
+  //   to: path.resolve(__dirname, '../dist'),
+  //   flatten: true,
+  // },
+]),
+```
+
+## HtmlWebpackTagsPlugin
+
+```js
+new HtmlWebpackTagsPlugin({
+  // 生产环境开启这个选项 并且配置path 为 cdn地址
+  // usePublicPath: false,
+  // path: 'http://cdn.test/echarts.min.js',
+  tags: [
+    // {
+    //   path: 'echarts.min.js',
+    // },
+  ],
+  append: false,
+}),
+```
+
+## VueLoaderPlugin
+
+```js
+// vueloader需要的plugin
+// 相关options选项:
+// https://vue-loader.vuejs.org/zh/options.html#transformasseturls
+new VueLoaderPlugin(),
+```
+
+## DllReferencePlugin
+
+```js
+// dllplugin 搭配 build:dll
+// html 加下面脚本
+// <script type="text/javascript" src="./vendor.dll.js"></script>
+new webpack.DllReferencePlugin({
+  manifest: require('../dist/vendor-manifest.json'),
+}),
+```
 
 ## webpack优化
 
