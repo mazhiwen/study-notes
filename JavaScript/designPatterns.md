@@ -4,11 +4,13 @@
 
 Javascript设计模式与开发实践  
 
+[工厂模式](https://www.cnblogs.com/tugenhua0707/p/5198407.html)
+
 书籍相关的url：<https://github.com/lukehoban/es6features#symbols>
 
-<https://juejin.cn/post/6844903503266054157#heading-4>
+[JavaScript设计模式](https://juejin.cn/post/6844903503266054157#heading-4)
 
-<https://blog.csdn.net/LoveLion/article/details/17517213>
+[史上最全设计模式导学目录（完整版）](https://blog.csdn.net/LoveLion/article/details/17517213)
 
 **六个创建型模式**
 
@@ -20,7 +22,38 @@ Javascript设计模式与开发实践
 
 当你需要什么，只需要传入一个正确的参数，就可以获取你所需要的对象，而无须知道其创建细节
 
-### 优点
+工厂模式是为了解决多个类似对象声明的问题;也就是为了解决实列化对象产生重复的问题。
+
+能解决多个相似的问题。
+
+```js
+function CreatePerson(name,age,sex) {
+    var obj = new Object();
+    obj.name = name;
+    obj.age = age;
+    obj.sex = sex;
+    obj.sayName = function(){
+        return this.name;
+    }
+    return obj;
+}
+var p1 = new CreatePerson("longen",'28','男');
+var p2 = new CreatePerson("tugenhua",'27','女');
+console.log(p1.name); // longen
+console.log(p1.age);  // 28
+console.log(p1.sex);  // 男
+console.log(p1.sayName()); // longen
+
+console.log(p2.name);  // tugenhua
+console.log(p2.age);   // 27
+console.log(p2.sex);   // 女
+console.log(p2.sayName()); // tugenhua
+
+// 返回都是object 无法识别对象的类型 不知道他们是哪个对象的实列
+console.log(typeof p1);  // object
+console.log(typeof p2);  // object
+console.log(p1 instanceof Object); // true
+```
 
 简单工厂模式的主要优点如下：
 
@@ -162,7 +195,7 @@ var getSingle = function(fn){
 // 被转换的函数，需要return 一个result，才能被工厂方法记录
 // 被转换函数的执行结果是返回一个 实例
 // 例如:
-var createLoginLayer =function(){
+var createLoginLayer = function(){
   var div= ````;
     //```div操作
   return div;
@@ -1160,7 +1193,7 @@ for 循环data{
 
 ## 行为型-策略模式
 
-<https://juejin.cn/post/6844903751225081864>
+[js设计模式--策略模式](https://juejin.cn/post/6844903751225081864)
 
 特点： 将算法的使用与算法的实现分离开来。
 
