@@ -59,8 +59,10 @@ git reset
 
 1.通过找到想要退回到的commit_id
 $ git log
+
  2.本地回到上一个commit_id
 $ git reset --hard <commit_id>
+
  3.推送到服务器，一定要加 --force 参数
 $ git push origin HEAD:master --force
 
@@ -179,3 +181,6 @@ git clean -nxfd
 git clean -nf
 git clean -nfd
 
+## cherry-pick
+
+<http://www.ruanyifeng.com/blog/2020/04/git-cherry-pick.html>

@@ -88,6 +88,10 @@ body 里的情况比较多，body 里可能只有 DOM 元素，可能既有 DOM�
 
 <https://juejin.im/post/59c60691518825396f4f71a1>
 
+```
+<script src="#link("xxxx/xx/home/home.js")" type="text/javascript" async defer></script>
+```
+
 （1）脚本没有 defer 或 async，浏览器会立即加载并执行指定的脚本，也就是说不等待后续载入的文档元素，读到就加载并执行。
 
 【js请求与DOM解析串行，加载完立即执行】
