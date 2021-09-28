@@ -1,8 +1,8 @@
 # vue-router
 
-***
+[前端路由简介以及vue-router实现原理](https://juejin.cn/post/6844903615283363848)
 
-<https://juejin.im/post/5b5697675188251b11097464>
+[VueRouter 源码深度解析](https://juejin.im/post/5b5697675188251b11097464)
 
 <https://github.com/ljianshu/Blog/issues/39>
 
