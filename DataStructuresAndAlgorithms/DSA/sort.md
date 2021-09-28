@@ -29,9 +29,12 @@
 ```
 
 ```javascript
-function bubbleSort() {  
+function bubbleSort() {
+  //  [0 1 2 3 4]  length: 5  
   var numElements = this. dataStore. length; // 数据总长度
-  for ( var outer = numElements; outer >= 2; --outer) { //numElements 至 2 ，总numElements-1次
+  for ( var outer = numElements; outer >= 2; --outer) { //numElements 至 2 ，总numElements - 1次
+  // 外：length - 2
+  // 内： 0 - 外-2
     for ( var inner = 0; inner <= outer - 2; ++ inner ) {  
       if (this. dataStore[ inner] > this. dataStore[ inner + 1]) {  
         swap( this. dataStore, inner, inner + 1);  
