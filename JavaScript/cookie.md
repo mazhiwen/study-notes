@@ -35,24 +35,35 @@ secure选项用来设置cookie只在确保安全的请求中才会发送。当�
 
 ### httpOnly
 
+```sh
+Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Secure; HttpOnly
+```
+
 这个选项用来设置cookie是否能通过 js 去访问
 
 默认情况下，cookie不会带httpOnly选项(即为空)，所以默认情况下，客户端是可以通过js代码去访问（包括读取、修改、删除等）这个cookie的
 
 在客户端是不能通过js代码去设置一个httpOnly类型的cookie的，这种类型的cookie只能通过服务端来设置。
 
-
 ## 设置cookie
 
 cookie既可以由服务端来设置，也可以由客户端来设置
+
+1. 服务端
 
 服务端都会返回response。而response header中有一项叫set-cookie，是服务端专门用来设置cookie的
 
 一个set-Cookie字段只能设置一个cookie，当你要想设置多个 cookie，需要添加同样多的set-Cookie字段。
 
+```sh
+Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2018 07:28:00 GMT;//可以指定一个特定的过期时间（Expires）或有效期（Max-Age）
+```
+
 服务端可以设置cookie 的所有选项
 
-客户端可以设置cookie 的下列选项：expires、domain、path、secure（有条件：只有在https协议的网页中，客户端设置secure类型的 cookie 才能成功），但无法设置HttpOnly选项
+2. 客户端可以设置cookie
+
+客户端可以设置cookie的下列选项：expires、domain、path、secure（有条件：只有在https协议的网页中，客户端设置secure类型的 cookie 才能成功），但无法设置HttpOnly选项
 
 ## 编辑cookie
 

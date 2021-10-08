@@ -258,7 +258,7 @@ Object.create()方法创建一个新对象，使用现有的对象来提供新�
 var o = Object.create( Object.prototype, {
     a: { value: 1, writable: false },
     b: { value: 2, writable: true }
-} );
+});
 ```
 
 ## Object.is()

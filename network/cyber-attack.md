@@ -1,5 +1,7 @@
 # web安全
 
+[常见六大Web安全攻防解析](https://juejin.cn/post/6844903772930441230)
+
 ## XSS
 
 见 主页XSS文档
