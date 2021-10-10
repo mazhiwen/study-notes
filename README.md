@@ -1,9 +1,7 @@
 
 # 知识整理
 
-我是大佬
-
-***
+哈哈
 
 - Web开发
   - [前端性能优化大全](./web/performanceapply.md)
@@ -21,7 +19,7 @@
   - webGL
   - [serverless](./web/serverless.md)
   - [前端性能-谷歌文档](./web/performance.md)
-  - [浏览器端的缓存](./web/cache.md)
+  - [http缓存策略](./web/cache.md)
   - [Chrome工具](./web/chrome.md)
   - [浏览器存储](./web/storage.md)
   - [页面可见性 离开页面以及相关](./web/PageVisibility.md)

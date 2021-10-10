@@ -270,7 +270,7 @@ Object.create(proto，[propertiesObject])
 var o = Object.create( Object.prototype, {
     a: { value: 1, writable: false },
     b: { value: 2, writable: true }
-} );
+});
 ```
 
 ## Object.is()
