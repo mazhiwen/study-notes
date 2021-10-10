@@ -252,9 +252,21 @@ console.log(auto instanceof Object);
 
 Object.create()方法创建一个新对象，使用现有的对象来提供新创建的对象的__proto__。
 
+```js
+// 语法
+Object.create(proto，[propertiesObject])
+// proto: 新创建对象的原型对象。
+```
+
 返回：一个新对象，带着指定的原型对象和属性。
 
 ```js
+// 语法
+Object.create(proto，[propertiesObject])
+// proto: 新创建对象的原型对象。
+
+
+// 例子
 var o = Object.create( Object.prototype, {
     a: { value: 1, writable: false },
     b: { value: 2, writable: true }
