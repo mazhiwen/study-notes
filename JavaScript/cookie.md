@@ -1,17 +1,19 @@
 
 # cookie
 
+[预测最近面试会考 Cookie 的 SameSite 属性](https://juejin.cn/post/6844904095711494151)
+
 <https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies>
 
 <https://segmentfault.com/a/1190000004556040>
 
 当网页要发http请求时，浏览器会先检查是否有相应的cookie，有则自动添加在request header中的cookie字段中
 
-## cookie选项
+## 概念
 
-包括：expires、domain、path、secure、HttpOnly
+作为一段一般不超过 4KB 的小型文本数据，它由一个名称（Name）、一个值（Value）和其它几个用于控制 Cookie 有效期、安全性、使用范围的可选属性组成，这些涉及的属性我们会在后面会介绍。
 
-### expires
+## expires
 
 expires其实是cookie失效日期，expires必须是 GMT 格式的时间（可以通过 new Date().toGMTString()或者 new Date().toUTCString() 来获得）。
 
@@ -19,7 +21,7 @@ expires其实是cookie失效日期，expires必须是 GMT 格式的时间（可�
 
 如果没有设置该选项，则默认有效期为session，即会话cookie。这种cookie在浏览器关闭后就没有了。
 
-### domain path
+## domain path
 
 domain是域名，path是路径，两者加起来就构成了 URL，domain和path一起来限制 cookie 能被哪些 URL 访问。
 
@@ -27,13 +29,13 @@ domain是域名，path是路径，两者加起来就构成了 URL，domain和pat
 
 domain的默认值为设置该cookie的网页所在的域名，path默认值为设置该cookie的网页所在的目录。
 
-### secure
+## secure
 
 secure选项用来设置cookie只在确保安全的请求中才会发送。当请求是HTTPS或者其他安全协议时，包含 secure 选项的 cookie 才能被发送至服务器。
 
 默认情况下，cookie不会带secure选项(即为空)。所以默认情况下，不管是HTTPS协议还是HTTP协议的请求，cookie 都会被发送至服务端。
 
-### httpOnly
+## httpOnly
 
 ```sh
 Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Secure; HttpOnly
@@ -44,6 +46,20 @@ Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Secure; HttpOnly
 默认情况下，cookie不会带httpOnly选项(即为空)，所以默认情况下，客户端是可以通过js代码去访问（包括读取、修改、删除等）这个cookie的
 
 在客户端是不能通过js代码去设置一个httpOnly类型的cookie的，这种类型的cookie只能通过服务端来设置。
+
+## SameSite
+
+SameSite 属性可以让 Cookie 在跨站请求时不会被发送，从而可以阻止跨站请求伪造攻击（CSRF）。
+
+### 属性值
+
+SameSite 可以有下面三种值：
+
+Strict 仅允许一方请求携带 Cookie，即浏览器将只发送相同站点请求的 Cookie，即当前网页 URL 与请求目标 URL 完全一致。
+Lax 允许部分第三方请求携带 Cookie
+None 无论是否跨站都会发送 Cookie
+
+之前默认是 None 的，Chrome80 后默认是 Lax。
 
 ## 设置cookie
 
@@ -70,3 +86,13 @@ Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2018 07:28:00 GMT;//可以指定一个
 要想修改一个cookie，只需要重新赋值就行，旧的值会被新的值覆盖。但要注意一点，在设置新cookie时，path/domain这几个选项一定要旧cookie 保持一样。否则不会修改旧值，而是添加了一个新的 cookie。
 
 删除一个cookie 也挺简单，也是重新赋值，只要将这个新cookie的expires 选项设置为一个过去的时间点就行了。但同样要注意，path/domain/这几个选项一定要旧cookie 保持一样。
+
+## 跨域和跨站
+
+[如何区分两个地址是同站（Same site）还是跨站（Cross site）？](https://juejin.cn/post/6844904098148384776)
+
+同站： `名称（taobao）+公共后缀（.com）` 一致就是同站， 否则就是跨站
+
+公共后缀:  完整的公共后缀列表 - <https://publicsuffix.org/list/public_suffix_list.dat>
+
+举几个例子，www.taobao.com 和 www.baidu.com 是跨站，www.a.taobao.com 和 www.b.taobao.com 是同站，a.github.io 和 b.github.io 是跨站(注意是跨站)。

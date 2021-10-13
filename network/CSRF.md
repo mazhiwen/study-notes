@@ -1,5 +1,7 @@
 # CSRF （Cross-site request forgery）
 
+[前端安全系列之二：如何防止CSRF攻击？](https://juejin.cn/post/6844903689702866952#heading-14)
+
 <https://juejin.im/post/5bc009996fb9a05d0a055192>
 
 CSRF（Cross-site request forgery）**跨站请求伪造**：攻击者诱导受害者进入第三方网站，在第三方网站中，向被攻击网站发送跨站请求。利用受害者在被攻击网站已经获取的注册凭证，绕过后台的用户验证，达到冒充用户对被攻击的网站执行某项操作的目的。
@@ -24,16 +26,18 @@ a.com以受害者的名义执行了act=xx。
 
 ## 防御方法
 
-1. 阻止不明外域的访问
+### 阻止不明外域的访问 Referer Cookie
 
 同源检测 Referer：对于需要防范 CSRF 的请求，我们可以通过验证 Referer 来判断该请求是否为第三方网站发起的。
 
 Samesite Cookie： 可以对 Cookie 设置 SameSite 属性。该属性设置 Cookie 不随着跨域请求发送，该属性可以很大程度减少 CSRF 的攻击，但是该属性目前并不是所有浏览器都兼容。
 
-2. 提交时要求附加本域才能获取的信息
+### CSRF Token
+
+提交时要求附加本域才能获取的信息
 
 CSRF Token ：服务器下发一个随机 Token（算法不能复杂），每次发起请求时将 Token 携带上，服务器验证 Token 是否有效。
 
 双重Cookie验证
 
-3. Get 请求不对数据进行修改
+### Get 请求不对数据进行修改
