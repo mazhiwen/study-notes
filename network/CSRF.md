@@ -26,11 +26,21 @@ a.com以受害者的名义执行了act=xx。
 
 ## 防御方法
 
-### 阻止不明外域的访问 Referer Cookie
+### 同源检测 Referer
 
-同源检测 Referer：对于需要防范 CSRF 的请求，我们可以通过验证 Referer 来判断该请求是否为第三方网站发起的。
+Referer：对于需要防范 CSRF 的请求，我们可以通过验证 Referer 来判断该请求是否为第三方网站发起的。
 
-Samesite Cookie： 可以对 Cookie 设置 SameSite 属性。该属性设置 Cookie 不随着跨域请求发送，该属性可以很大程度减少 CSRF 的攻击，但是该属性目前并不是所有浏览器都兼容。
+```
+设置Referrer Policy的方法有三种：
+
+在CSP设置
+页面头部增加meta标签
+a标签增加referrerpolicy属性
+```
+
+### Samesite Cookie
+
+Samesite Cookie： 可以对 Cookie 设置 SameSite 属性。该属性设置 Cookie 不随着跨站请求发送，该属性可以很大程度减少 CSRF 的攻击，但是该属性目前并不是所有浏览器都兼容。
 
 ### CSRF Token
 
