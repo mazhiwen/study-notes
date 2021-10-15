@@ -3,15 +3,19 @@
 
 [预测最近面试会考 Cookie 的 SameSite 属性](https://juejin.cn/post/6844904095711494151)
 
+[把cookie聊清楚（片尾附内推）](https://juejin.cn/post/6844903501869350925)
+
 <https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Cookies>
 
 <https://segmentfault.com/a/1190000004556040>
 
-当网页要发http请求时，浏览器会先检查是否有相应的cookie，有则自动添加在request header中的cookie字段中
-
 ## 概念
 
 作为一段一般不超过 4KB 的小型文本数据，它由一个名称（Name）、一个值（Value）和其它几个用于控制 Cookie 有效期、安全性、使用范围的可选属性组成，这些涉及的属性我们会在后面会介绍。
+
+当网页要发http请求时，浏览器会先检查是否有相应的cookie，有则自动添加在request header中的cookie字段中
+
+第一次访问网站的时候，浏览器发出请求，服务器响应请求后，会将cookie放入到响应请求中，在浏览器第二次发请求的时候，会把cookie带过去，服务端会辨别用户身份，当然服务器也可以修改cookie内容
 
 ## expires
 
