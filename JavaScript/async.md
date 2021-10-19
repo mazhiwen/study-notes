@@ -71,3 +71,31 @@ await意思是async wait(异步等待)。
 ## 多个请求并发执行
 
 多个请求并发执行，可以使用 Promise.all 方法
+
+## Async/Await并发请求
+
+```js
+let fs = require('fs')
+function read(file) {
+  return new Promise(function(resolve, reject) {
+    fs.readFile(file, 'utf8', function(err, data) {
+      if (err) reject(err)
+      resolve(data)
+    })
+  })
+}
+function readAll() {
+  read1()
+  read2()//这个函数同步执行
+}
+async function read1() {
+  let r = await read('1.txt','utf8')
+  console.log(r)
+}
+async function read2() {
+  let r = await read('2.txt','utf8')
+  console.log(r)
+}
+readAll() // 2.txt 3.txt
+
+```
