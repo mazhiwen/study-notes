@@ -6,6 +6,10 @@
 
 [async 函数的含义和用法 -  ruanyifeng](http://www.ruanyifeng.com/blog/2015/05/async.html)
 
+async 表示函数里有异步操作
+
+await 表示紧跟在后面的表达式需要等待结果。
+
 ```js
 /**************** async/await ****************/
 //babel 转换  node8支持
@@ -38,6 +42,8 @@ async 表明当前函数是异步函数，不会阻塞线程导致后续代码�
 
 在async里，必须要将结果return回来，如果在async函数中 return 一个直接量，async 会把这个直接量通过Promise.resolve() 封装成 Promise 对象;如果 async 函数没有返回值,它会返回 Promise.resolve(undefined)
 
+async函数必须等到内部所有的 await 命令的 Promise 对象执行完，才会发生状态改变。
+
 ```js
 async function e() {
     throw new Error('has Error');
@@ -66,7 +72,9 @@ await意思是async wait(异步等待)。
 
 如果是一个promise对象，await会阻塞后面的代码，等promise对象resolve，得到resolve的值作为await表达式的运算结果
 
-虽然await阻塞了，但await在async中，async不会阻塞，它内部所有的阻塞都被封装在一个promise对象中异步执行
+虽然await阻塞了，但await在async中，async不会阻塞，它内部所有的阻塞都被封装在一个promise对象中异步执行。
+
+很多人以为await会一直等待之后的表达式执行完之后才会继续执行后面的代码，实际上await是一个让出线程的标志。await后面的函数会先执行一遍(比如await Fn()的Fn ,并非是下一行代码)，然后就会跳出整个async函数来执行后面js栈的代码。等本轮事件循环执行完了之后又会跳回到async函数中等待await****后面表达式的返回值，如果返回值为非promise则继续执行async函数后面的代码，否则将返回的promise放入Promise队列（Promise的Job Queue）
 
 ## 多个请求并发执行
 
