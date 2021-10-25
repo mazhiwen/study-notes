@@ -324,3 +324,23 @@ const getDataPromiseIIFE = (function() {
 
 export default getDataPromiseIIFE
 ```
+
+## promise链式调用
+
+```js
+// 例2
+Promise.resolve(1)
+  .then(x => {
+    console.log('s1',x); // 1
+    return x + 1;
+  })
+  .then(x => {
+    console.log('s2',x); // 2
+    throw new Error('My Error')
+  })
+  .catch(() => 1)
+  .then(x => x + 1)
+  .then(x => console.log(x)) //2
+  .catch(console.error)
+
+```

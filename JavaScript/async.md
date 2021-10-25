@@ -76,6 +76,8 @@ await意思是async wait(异步等待)。
 
 很多人以为await会一直等待之后的表达式执行完之后才会继续执行后面的代码，实际上await是一个让出线程的标志。await后面的函数会先执行一遍(比如await Fn()的Fn ,并非是下一行代码)，然后就会跳出整个async函数来执行后面js栈的代码。等本轮事件循环执行完了之后又会跳回到async函数中等待await****后面表达式的返回值，如果返回值为非promise则继续执行async函数后面的代码，否则将返回的promise放入Promise队列（Promise的Job Queue）
 
+一个async函数内 出现多个await时，第一个await执行，就会跳出async函数。两个await不会同步执行.
+
 ## 多个请求并发执行
 
 多个请求并发执行，可以使用 Promise.all 方法
@@ -106,4 +108,65 @@ async function read2() {
 }
 readAll() // 2.txt 3.txt
 
+```
+
+## 例子
+
+```js
+function testSometing() {
+    console.log("testSomething");
+    return "return testSomething";
+}
+
+async function testAsync() {
+    console.log("testAsync");
+    return Promise.resolve("hello async");
+}
+
+async function test() {
+    console.log("test start...");
+
+    const testFn1 = await testSometing();
+    console.log(testFn1);
+
+    const testFn2 = await testAsync();
+    console.log(testFn2);
+
+    console.log('test end...');
+}
+
+test();
+
+var promiseFn = new Promise((resolve)=> { 
+                    console.log("promise START...");
+                    resolve("promise RESOLVE");
+                });
+promiseFn.then((val)=> console.log(val));
+
+console.log("===END===")
+```
+
+执行结果:
+
+```
+test start...
+testSometing
+promise START...
+===END===
+return testSometing
+testAsync
+promise RESOLVE
+hello async
+test end...
+```
+
+```
+首先test()打印出test start...
+然后 testFn1 = await testSomething(); 的时候，会先执行testSometing()这个函数打印出“testSometing”的字符串。
+testAsync()执行完毕返回resolve，之后await会让出线程就会去执行后面的，触发promiseFn打印出“promise START...”。
+接下来会把返回的Promiseresolve("promise RESOLVE")放入Promise队列（Promise的Job Queue），继续执行打印“===END===”。
+等本轮事件循环执行结束后，又会跳回到async函数中（test()函数），等待之前await 后面表达式的返回值，因为testSometing() 不是async函数，所以返回的是一个字符串“return``testSometing”。
+test()函数继续执行，执行到testFn2()，再次跳出test()函数，打印出“testAsync”，此时事件循环就到了Promise的队列，执行promiseFn.then((val)=> console.log(val));打印出“promise RESOLVE”。
+之后和前面一样 又跳回到test函数继续执行console.log(testFn2)的返回值，打印出“hello async”。
+最后打印“test end...”。
 ```

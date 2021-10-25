@@ -1,6 +1,9 @@
 # 模块化
 
+[前端模块化详解(完整版)](https://juejin.cn/post/6844903744518389768#heading-7)
+
 <https://juejin.im/post/5e3985396fb9a07cde64c489>
+
 <https://juejin.im/post/5c17ad756fb9a049ff4e0a62>
 
 <https://juejin.cn/post/6844903640897945614#heading-8>
@@ -76,8 +79,6 @@ org.CoolSite.Utils.each = function (arr) {
 
 ## CommonJS(2009)
 
-require 和 module
-
 同步加载
 
 ```js
@@ -92,7 +93,7 @@ webpck也是commonjs规范
 
 有四个重要的环境变量为模块化的实现提供支持：module、exports、require、global
 
-服务器端（node）；浏览器端，模块需要提前编译打包处理（browserify打包运行）。
+在服务器端，模块的加载是运行时**同步加载**的；在浏览器端，模块需要提前编译打包处理。
 
 require命令的基本功能是，读入并执行一个JavaScript文件，然后返回该模块的exports对象
 
