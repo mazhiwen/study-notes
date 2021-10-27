@@ -2,8 +2,6 @@
 
 ## 一些文章
 
-[最新的前端大厂面经（详解答案）](https://juejin.cn/post/7004638318843412493#heading-54)
-
 [灵活运用JS开发技巧](https://juejin.cn/post/6844903838449664013)
 
 [CSS @font-face性能优化](https://juejin.cn/post/6844903790580072462)
@@ -63,6 +61,8 @@
 github 搜索 js ：<https://github.com/search?l=JavaScript&q=followers%3A%3E500&ref=advsearch&type=Users>
 
 ## 面试题
+
+[最新的前端大厂面经（详解答案）](https://juejin.cn/post/7004638318843412493#heading-54)
 
 [面试题](https://jsgodroad.com/interview) : 关联网站: [知识点](https://yuchengkai.cn/docs/frontend/react.html#redux-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90)
 

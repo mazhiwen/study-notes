@@ -34,52 +34,6 @@ var mycar = {make: "Honda", model: "Accord", year: 1998};
 
 ```
 
-## 深浅拷贝
-
-### 深拷贝
-
-1. var newObj=JSON.parse(JSON.stringify(someObj))
-
-需要保证someObj是json安全的  
-
-当值为undefined、function、symbol 会在转换过程中被忽略。。。
-
-concat方法与slice也存在这样的情况，他们都不是真正的深拷贝，都是浅拷贝，值的引用地址没变
-
-2. 递归赋值 ??????错误需修正
-
-```javascript
-// 实现1
-//判断是否是可迭代对象
-function isIteration(obj){
-  let objType = Object.prototype.toString.call(obj);
-  return objType=='[object Object]'||objType=='[object Array]'
-}
-function deepCopy(obj) {
-  
-  if (!isIteration(obj)) {
-    throw new Error('error arguments');
-  }
-  // const targetObj = obj.constructor === Array ? [] : {};
-  const targetObj = Array.isArray(obj) ? [] : {};
-  for (let key in obj) {
-    //只对对象自有属性进行拷贝
-    if (obj.hasOwnProperty(key)) {
-      if (isIteration(obj[key])) {
-        targetObj[key] = deepCopy(obj[key]);
-      } else {
-        targetObj[key] = obj[key];
-      }
-    }
-  }
-  return targetObj;
-}
-```
-
-### 浅拷贝
-
-1.resObject = Object.assign(target,origina,originb,...)
-
 ## 深度合并对象
 
 ```js
