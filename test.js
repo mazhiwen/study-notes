@@ -1,13 +1,3 @@
-# 深浅拷贝
-
-[如何写出一个惊艳面试官的深拷贝?](https://juejin.cn/post/6844903929705136141#heading-9)
-
-## 深拷贝
-
-??????错误需修正
-
-```javascript
-//////////////////   判断是否是可迭代对象
 function isIteration(obj){
   let objType = Object.prototype.toString.call(obj);
   return objType=='[object Object]'||objType=='[object Array]'
@@ -35,6 +25,7 @@ function deepCopy(obj, map = new WeakMap()) {
     return map.get(obj);
   }
   map.set(obj, targetObj);
+  console.log(map);
   // while循环替代for in循环，提高性能
   forEach(obj, (value,key) => {
     //只对对象自有属性进行拷贝
@@ -49,8 +40,22 @@ function deepCopy(obj, map = new WeakMap()) {
     
   return targetObj;
 }
-```
 
-## 浅拷贝
+var c = {
+  'd1':'d1',
+  d: 'd',
+  'd2': {
+    e: 'e'
+  }
+}
 
-1.resObject = Object.assign(target,origina,originb,...)
+var a = {
+  c,
+}
+
+
+deepCopy({
+  a: 1,
+  b: a,
+  c
+})

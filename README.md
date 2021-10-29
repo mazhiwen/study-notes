@@ -55,6 +55,7 @@
   - [CSRF](./network/CSRF.md)
 - JavaScript
   - [js知识点技巧](./JavaScript/README.md)
+  - [深拷贝](./JavaScript/deepcopy.md)
   - [应用题](./JavaScript/apply.md)
   - [TypeScript](./JavaScript/TypeScript.md)
   - [变量](./JavaScript/var.md)
