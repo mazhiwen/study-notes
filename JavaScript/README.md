@@ -419,3 +419,7 @@ const { a, b = 2, d = 3 } = obj;
     dom.style.outline = "1px solid #" + (~~(Math.random() * (1 << 24))).toString(16);
 });
 ```
+
+## switch语法
+
+如果你忘记添加 break，那么代码将会从值所匹配的 case 语句开始运行，然后持续执行下一个 case 语句而不论值是否匹配。直到遇到break，或者return
