@@ -50,6 +50,10 @@ Object.getOwnPropertySymbols 方法返回一个数组，成员是当前对象的
 
 Symbol 作为属性名，该属性不会出现在 for...in、for...of 循环中，也不会被 Object.keys()、Object.getOwnPropertyNames()、JSON.stringify() 返回。
 
+## Symbol.prototype.valueOf()
+
+valueOf() 方法返回当前 symbol 对象所包含的 symbol 原始值。
+
 ## 用处
 
 ### 可以作为值
