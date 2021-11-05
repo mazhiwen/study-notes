@@ -20,8 +20,6 @@
 
 [历届TLC大会PPT](https://github.com/iv-web/ppts)
 
-[掘金](https://juejin.im/timeline)
-
 腾讯alloyteam公众号
 
 [腾讯alloyteam博客](http://www.alloyteam.com/)
@@ -68,15 +66,13 @@ github 搜索 js ：<https://github.com/search?l=JavaScript&q=followers%3A%3E500
 
 [js算法题](https://github.com/sisterAn/JavaScript-Algorithms)
 
-[CavsZhouyou](https://juejin.cn/post/6844904080142237703)
+[诚意满满的前端面试总结](https://juejin.cn/post/6844904080142237703)
 
 [前端 100 问](https://juejin.im/post/5d23e750f265da1b855c7bbe)
 
 [新手到高级前端攻城狮都用的上的前端面试题库](https://juejin.im/post/5dcbb828f265da4cf85d84b4)
 
 [阿里、网易、滴滴共十次前端面试碰到的问题](https://juejin.im/post/59316e682f301e0058378558)
-
-[诚意满满的前端面试总结](https://juejin.im/post/5e5dc46ce51d4526ce614cc1#heading-4)
 
 [面试完50个人后我写下这篇总结](https://juejin.im/post/5df1e312f265da33d039d06d#heading-76)
 
