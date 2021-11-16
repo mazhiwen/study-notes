@@ -96,6 +96,7 @@
   - [cookie](./JavaScript/cookie.md)
   - [虚拟滚动](./JavaScript/virtuallist.md)
   - [Date](./JavaScript/Date.md)
+  - [定时器](./JavaScript/timeval.md)
   - [ArrayBuffer,TypedArray,DataView](./JavaScript/ArrayBuffer.md)
   - [Proxy Reflect](./JavaScript/Proxy.md)
   - [let const var的区别](./JavaScript/let.md)
