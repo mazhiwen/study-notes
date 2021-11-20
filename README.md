@@ -161,7 +161,7 @@
   - [哈希散列](./DataStructuresAndAlgorithms/DSA/hash.md)
   - [集合](#集合)
   - [二叉树](./DataStructuresAndAlgorithms/DSA/bst.md)
-  - [图](#图)(./DataStructuresAndAlgorithms/DSA/graph.md)
+  - [图](./DataStructuresAndAlgorithms/DSA/graph.md)
   - [算法-递归](./DataStructuresAndAlgorithms/DSA/recursion.md)
   - [算法-回溯](./DataStructuresAndAlgorithms/DSA/backtracking.md)
   - [算法-贪心](./DataStructuresAndAlgorithms/DSA/greedy.md)
