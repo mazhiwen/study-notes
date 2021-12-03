@@ -33,34 +33,6 @@ function fn(a, ...rest) {
 
 ### generator
 
-一种异步编程解决方案
-
-调用 Generator 函数后，返回指向内部状态的指针对象，遍历器对象（Iterator Object）
-
-Generator 函数是分段执行的，yield表达式是暂停执行的标记，而next方法可以恢复执行。
-
-```js
-function* helloWorldGenerator() {
-  yield 'hello';
-  yield 'world';
-  return 'ending';
-}
-
-var hw = helloWorldGenerator();
-hw.next()
-// { value: 'hello', done: false }
-
-hw.next()
-// { value: 'world', done: false }
-
-hw.next()
-// { value: 'ending', done: true }
-
-hw.next()
-// { value: undefined, done: true }
-
-```
-
 ### set
 
 [Set文档](./set.md)
