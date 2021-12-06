@@ -282,7 +282,7 @@ var newArray = arr.flat(depth)
 
 flat() 方法会按照一个可指定的深度递归遍历数组，并将所有元素与遍历到的子数组中的元素合并为一个新数组返回。
 
-depth 使用 Infinity，可展开任意深度的嵌套数组
+depth 使用 Infinity ，可展开任意深度的嵌套数组
 
 flat() 方法会移除数组中的空项:
 

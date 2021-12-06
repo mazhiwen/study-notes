@@ -2,6 +2,8 @@
 
 <http://www.ruanyifeng.com/blog/2014/10/event-loop.html>
 
+[常见异步笔试题，请写出代码的运行结果](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/7)
+
 [如何解释Event Loop面试官才满意？](https://zhuanlan.zhihu.com/p/72507900)
 
 [这一次，彻底弄懂 JavaScript 执行机制](https://juejin.im/post/6844903512845860872)
@@ -18,6 +20,18 @@
 
 js引擎存在monitoring process进程，会持续不断的检查主线程执行栈是否为空，一旦为空，就会去Event Queue那里检查是否有等待被调用的函数。
 
+## 循环机制
+
+在事件循环中，每进行一次循环操作称为 tick，每一次 tick 的任务处理模型是比较复杂的，但关键步骤如下：
+
+```
+执行一个宏任务（栈中没有就从事件队列中获取）
+执行过程中如果遇到微任务，就将它添加到微任务的任务队列中
+宏任务执行完毕后，立即执行当前微任务队列中的所有微任务（依次执行）
+当前宏任务执行完毕，开始检查渲染，然后GUI线程接管渲染
+渲染完毕后，JS线程继续接管，开始下一个宏任务（从事件队列中获取）
+```
+
 ## 任务分类：同步异步
 
 所有任务可以分成两种，一种是同步任务（synchronous），另一种是异步任务（asynchronous）。
@@ -28,7 +42,7 @@ js引擎存在monitoring process进程，会持续不断的检查主线程执行
 
 在执行同步代码的时候，如果遇到了异步事件，js 引擎会将这个事件挂起先(被放入event table中注册)，继续执行执行栈中的其他任务。当异步事件执行完毕后，再将异步事件对应的回调加入到与当前执行栈中不同的另一个任务队列中等待执行。
 
-## 任务队列-概念
+## 任务队列
 
 主线程之外，还存在一个"任务队列"（task queue）。只要异步任务有了运行结果，就在"任务队列"之中放置一个事件。
 
@@ -38,11 +52,15 @@ js引擎存在monitoring process进程，会持续不断的检查主线程执行
 
 "任务队列"是一个先进先出的数据结构，排在前面的事件，优先被主线程读取。
 
-## 任务队列-分类：(宏任务 微任务)
+## 宏任务
 
-宏任务 : script脚本，setTimeout，setInterval，setImmediate, requestAnimationFrame, 一类的定时事件，还有如 I/O 操作、UI 渲染等。
+script脚本，setTimeout，setInterval，setImmediate, requestAnimationFrame, 一类的定时事件，还有如 I/O 操作、UI 渲染等。
 
-微任务 : promise回调、process.nextTick(node) 、 MutationObserver。
+## 微任务
+
+promise回调、process.nextTick(node) 、 MutationObserver。
+
+## 宏任务与微任务的执行
 
 任务队列可以分为宏任务对列和微任务对列
 
@@ -119,4 +137,57 @@ setInterval 的作用是每隔一段指定时间执行一个函数，但是这�
 ## setTimeout、Promise、Async/Await 的区别
 
 其中settimeout的回调函数放到宏任务队列里，等到执行栈清空以后执行；
-promise.then里的回调函数会放到相应宏任务的微任务队列里，等宏任务里面的同步代码执行完再执行；async函数表示函数里面可能会有异步方法，await后面跟一个表达式，async方法执行时，遇到await会立即执行表达式，然后把表达式后面的代码放到微任务队列里，让出执行栈让同步代码先执行。
+
+promise.then里的回调函数会放到相应宏任务的微任务队列里，等宏任务里面的同步代码执行完再执行；
+
+async/Await见下面
+
+## async/await在事件循环中做了什么
+
+async函数表示函数里面可能会有异步方法，
+
+很多人以为await会一直等待之后的表达式执行完之后才会继续执行后面的代码，实际上await是一个让出线程的标志。await后面的表达式会先执行一遍，将await后面的代码加入到microtask中，然后就会跳出整个async函数来执行后面的代码。
+
+因为async await 本身就是promise+generator的语法糖。所以await后面的代码是microtask。
+
+## 例子
+
+```js
+//请写出输出内容
+async function async1() {
+    console.log('async1 start');
+    await async2();
+    console.log('async1 end');
+}
+async function async2() {
+ console.log('async2');
+}
+
+console.log('script start');
+
+setTimeout(function() {
+    console.log('setTimeout');
+}, 0)
+
+async1();
+
+new Promise(function(resolve) {
+    console.log('promise1');
+    resolve();
+}).then(function() {
+    console.log('promise2');
+});
+console.log('script end');
+
+
+/*
+script start
+async1 start
+async2
+promise1
+script end
+async1 end
+promise2
+setTimeout
+*/
+```

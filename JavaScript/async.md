@@ -179,6 +179,8 @@ test()函数继续执行，执行到testFn2()，再次跳出test()函数，打�
 
 Generator 函数是分段执行的，yield表达式是暂停执行的标记，而next方法可以恢复执行。
 
+总结一下 Generator 的本质，暂停，它会让程序执行到指定位置先暂停（yield），然后再启动（next），再暂停（yield），再启动（next），而这个暂停就很容易让它和异步操作产生联系，因为我们在处理异步时：开始异步处理（网络求情、IO 操作），然后暂停一下，等处理完了，再该干嘛干嘛。不过值得注意的是，js 是单线程的（又重复了三遍），异步还是异步，callback 还是 callback，不会因为 Generator 而有任何改变
+
 ```js
 function* helloWorldGenerator() {
   yield 'hello';
