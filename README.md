@@ -78,7 +78,7 @@
   - [Map 与 WeakMap](./JavaScript/map.md)
   - [promise](./JavaScript/promise.md)
   - [class](./JavaScript/class.md)
-  - [async/await](./JavaScript/async.md)
+  - [async/await, generator](./JavaScript/async.md)
   - [Math](./JavaScript/math.md)
   - [运算符](./JavaScript/operator.md)
   - [事件 Event](./JavaScript/Event.md)
