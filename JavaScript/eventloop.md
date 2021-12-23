@@ -150,7 +150,7 @@ async函数表示函数里面可能会有异步方法，
 
 因为async await 本身就是promise+generator的语法糖。所以await后面的代码是microtask。
 
-## 例子
+## 例子 - async/await
 
 ```js
 //请写出输出内容

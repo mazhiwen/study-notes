@@ -6,6 +6,8 @@
 
 使用 requestAnimationFrame 本身是不能保证满帧运行的，requestAnimationFrame 保证的是在浏览器每一次重绘后会执行对应传入的回调函数，想要保证满帧，只能让 JS 在一个 Tick 内的运行时间不超过 17ms。
 
+60hz = 60次/1s 。 执行方法每次小于17ms就可以保证满帧
+
 按帧对网页进行重绘。该方法告诉浏览器希望执行动画并请求浏览器在下一次重绘之前调用回调函数来更新动画
 
 在运行时浏览器会自动优化方法的调用:
@@ -35,6 +37,8 @@ function render() {
   if (progress < 100) {
     //在动画没有结束前，递归渲染
     window.requestAnimationFrame(render);
+  }else{
+    cancelAnimationFrame(render);
   }
 }
 //第一帧渲染
