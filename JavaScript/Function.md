@@ -205,18 +205,20 @@ func.call( null, 1, 2, 3 );
 
 ## apply()
 
+apply() 方法调用一个具有给定this值的函数，以及以一个数组（或类数组对象）的形式提供的参数。
+
 apply()接受的是一个包含多个参数的数组。
+
+返回值： 调用有指定this值和参数的函数的结果。
 
 ```js
 // 第二个参数： 是参数数组,可以是Array的实例，也可以是arguments对象
 fun.apply(thisArg, [argsArray])
 
-
 var func = function( a, b, c ){
     console.log([a,b,c]); //输出:[1,2,3]
 };
 func.apply( null, [ 1, 2, 3 ] );
-
 ```
 
 ## bind()

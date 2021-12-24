@@ -267,10 +267,20 @@ Object.create(proto，[propertiesObject])
 
 
 // 例子
-var o = Object.create( Object.prototype, {
-    a: { value: 1, writable: false },
-    b: { value: 2, writable: true }
-});
+const person = {
+  isHuman: false,
+  printIntroduction: function() {
+    console.log(`My name is ${this.name}. Am I human? ${this.isHuman}`);
+  }
+};
+
+const me = Object.create(person);
+
+me.name = 'Matthew'; // "name" is a property set on "me", but not on "person"
+me.isHuman = true; // inherited properties can be overwritten
+
+me.printIntroduction();
+// expected output: "My name is Matthew. Am I human? true"
 ```
 
 ## Object.is()
