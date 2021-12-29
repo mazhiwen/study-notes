@@ -423,3 +423,22 @@ const { a, b = 2, d = 3 } = obj;
 ## switch语法
 
 如果你忘记添加 break，那么代码将会从值所匹配的 case 语句开始运行，然后持续执行下一个 case 语句而不论值是否匹配。直到遇到break，或者return
+
+```js
+const expr = 'Papayas';
+switch (expr) {
+  case 'Oranges':{
+    let a = 2;
+    console.log('Oranges are $0.59 a pound.');
+    break;
+  }
+  case 'Mangoes':
+  case 'Papayas':
+    console.log('Mangoes and papayas are $2.79 a pound.');
+    // expected output: "Mangoes and papayas are $2.79 a pound."
+    break;
+  default:
+    console.log(`Sorry, we are out of ${expr}.`);
+}
+
+```
