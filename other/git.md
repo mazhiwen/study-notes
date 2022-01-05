@@ -57,13 +57,13 @@ git reset
 
 ## reset远程commit
 
-1.通过找到想要退回到的commit_id
+1. 通过找到想要退回到的commit_id
 $ git log
 
- 2.本地回到上一个commit_id
+2. 本地回到上一个commit_id
 $ git reset --hard <commit_id>
 
- 3.推送到服务器，一定要加 --force 参数
+3. 推送到服务器，一定要加 --force 参数
 $ git push origin HEAD:master --force
 
 ## 配置origin
@@ -184,3 +184,7 @@ git clean -nfd
 ## cherry-pick
 
 <http://www.ruanyifeng.com/blog/2020/04/git-cherry-pick.html>
+
+## 国内github加速
+
+<https://github.com/chenxuhua/issues-blog/issues/3>
