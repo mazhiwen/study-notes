@@ -1,5 +1,7 @@
 # React知识
 
+[你要的 React 面试知识点，都在这了](https://juejin.cn/post/6844903857135304718)
+
 ## refs与state的选择
 
 ***refs***

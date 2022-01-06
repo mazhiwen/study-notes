@@ -57,14 +57,19 @@ git reset
 
 ## reset远程commit
 
+```
 1. 通过找到想要退回到的commit_id
+
 $ git log
 
 2. 本地回到上一个commit_id
+
 $ git reset --hard <commit_id>
 
 3. 推送到服务器，一定要加 --force 参数
+
 $ git push origin HEAD:master --force
+```
 
 ## 配置origin
 
@@ -188,3 +193,7 @@ git clean -nfd
 ## 国内github加速
 
 <https://github.com/chenxuhua/issues-blog/issues/3>
+
+sudo vi /etc/hosts
+
+185.199.108.153 assets-cdn.github.com
