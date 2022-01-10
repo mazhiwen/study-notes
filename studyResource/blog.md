@@ -12,6 +12,8 @@
 
 ## 博客论坛
 
+[一个合格(优秀)的前端都应该阅读这些文章](https://juejin.cn/post/6844903896637259784)
+
 [崔小瑞网课老师](https://github.com/cuixiaorui?tab=repositories)
 
 [2019TLC大会资料](https://juejin.cn/post/6844903921731764238)
@@ -60,6 +62,8 @@ github 搜索 js ：<https://github.com/search?l=JavaScript&q=followers%3A%3E500
 
 ## 面试题
 
+[【1 月最新】前端 100 问：能搞懂 80% 的请把简历给我](https://juejin.im/post/5d23e750f265da1b855c7bbe)
+
 [最新的前端大厂面经（详解答案）](https://juejin.cn/post/7004638318843412493#heading-54)
 
 [面试题](https://jsgodroad.com/interview) : 关联网站: [知识点](https://yuchengkai.cn/docs/frontend/react.html#redux-%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90)
@@ -67,8 +71,6 @@ github 搜索 js ：<https://github.com/search?l=JavaScript&q=followers%3A%3E500
 [js算法题](https://github.com/sisterAn/JavaScript-Algorithms)
 
 [诚意满满的前端面试总结](https://juejin.cn/post/6844904080142237703)
-
-[前端 100 问](https://juejin.im/post/5d23e750f265da1b855c7bbe)
 
 [新手到高级前端攻城狮都用的上的前端面试题库](https://juejin.im/post/5dcbb828f265da4cf85d84b4)
 
