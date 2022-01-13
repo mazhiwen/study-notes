@@ -8,6 +8,9 @@
 background: 【图片background-image】url('../../static/images/home_logo.png') 【重复background-repeat】no-repeat 【位置background-position】center left / 【宽度高度background-size】auto 80%;
 ```
 
+
+<!-- https://cpsetest.cpgroup.cn:13080/base-service/default/20211216/d1398082c94643858a2814ed30799ccc.PNG -->
+
 ```css
 img {
   background: url('https://s1.chu0.com/src/img/png/bc/bcbb37b998c64660b7fbb60c4467e77c.png?imageMogr2/auto-orient/thumbnail/!237x237r/gravity/Center/crop/237x237/quality/85/&e=1735488000&token=1srnZGLKZ0Aqlz6dk7yF4SkiYf4eP-YrEOdM1sob:GyonwEggXDe2Vl4-LBtsuJaSo30=')

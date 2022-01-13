@@ -442,3 +442,38 @@ switch (expr) {
 }
 
 ```
+
+## 实现一个异步事件管理
+
+```js
+
+class eventManage {
+  constructor(){
+    this.eventQuene = []; 
+  }
+  push(func){
+    this.eventQuene.push(func)
+  }
+  execute(){
+    while(){ // queue非空
+
+    }
+
+    this.eventQuene.unshift().then(()=>{
+      
+    })
+  }  
+}
+
+functiona(){
+
+}
+
+functionb(){
+
+}
+
+
+
+
+```
