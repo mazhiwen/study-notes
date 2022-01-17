@@ -25,7 +25,7 @@ js引擎存在monitoring process进程，会持续不断的检查主线程执行
 在事件循环中，每进行一次循环操作称为 tick，每一次 tick 的任务处理模型是比较复杂的，但关键步骤如下：
 
 ```
-执行一个宏任务（栈中没有就从事件队列中获取）
+执行(一个)(一个)(一个)[说3次]宏任务（栈中没有就从事件队列中获取）
 执行过程中如果遇到微任务，就将它添加到微任务的任务队列中
 宏任务执行完毕后，立即执行当前微任务队列中的所有微任务（依次执行）
 当前宏任务执行完毕，开始检查渲染，然后GUI线程接管渲染
@@ -190,4 +190,35 @@ async1 end
 promise2
 setTimeout
 */
+```
+
+## 浏览器和Node 事件循环的区别
+
+[浏览器和Node 事件循环的区别](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/26)
+
+- 微任务和宏任务在Node的执行顺序:
+
+```
+
+Node 10以前：
+执行完一个阶段的所有任务(阶段任务如下:)
+执行完nextTick队列里面的内容
+然后执行完微任务队列的内容
+
+Node 11以后：
+和浏览器的行为统一了，都是每执行一个宏任务就执行完微任务队列。
+```
+
+- Node 10以前的阶段任务：
+
+```
+
+大体的task（宏任务）执行顺序是这样的：
+
+timers定时器：本阶段执行已经安排的 setTimeout() 和 setInterval() 的回调函数。
+pending callbacks待定回调：执行延迟到下一个循环迭代的 I/O 回调。
+idle, prepare：仅系统内部使用。
+poll 轮询：检索新的 I/O 事件;执行与 I/O 相关的回调（几乎所有情况下，除了关闭的回调函数，它们由计时器和 setImmediate() 排定的之外），其余情况 node 将在此处阻塞。
+check 检测：setImmediate() 回调函数在这里执行。
+close callbacks 关闭的回调函数：一些准备关闭的回调函数，如：socket.on('close', ...)。
 ```

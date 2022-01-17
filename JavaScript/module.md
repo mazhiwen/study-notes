@@ -1,5 +1,7 @@
 # 模块化
 
+[介绍模块化发展历程](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/28)
+
 [前端模块化详解(完整版)](https://juejin.cn/post/6844903744518389768#heading-7)
 
 <https://juejin.im/post/5e3985396fb9a07cde64c489>
@@ -8,7 +10,7 @@
 
 <https://juejin.cn/post/6844903640897945614#heading-8>
 
-## 传统的模块化开发方式
+## 1.传统的模块化开发方式
 
 ### 命名空间方案
 
@@ -77,7 +79,7 @@ org.CoolSite.Utils.each = function (arr) {
 
 - 可维护性：修改
 
-## CommonJS(2009)
+## 2.CommonJS(2009)
 
 同步加载
 
@@ -179,7 +181,7 @@ console.log(counter); // 3
 （4）抛出 "not found"
 ```
 
-## AMD(2009)
+## 3.AMD(2009)
 
 ```js
 define(function(){
@@ -249,7 +251,7 @@ require(["jquery","underscore"],function($,_){
 });
 ```
 
-## CMD
+## 4.CMD
 
 异步加载;
 
@@ -283,11 +285,11 @@ seajs.use(['a'], function(a) {
 
 ```
 
-## UMD
+## 5.UMD
 
-根据当前运行环境的判断，如果是 Node 环境 就是使用 CommonJS 规范， 如果不是就判断是否为 AMD 环境， 最后导出全局变量。这样代码可以同时运行在Node和浏览器环境中。目前大部分库都是打包成UMD规范，Webpack也支持UMD打包，配置API是output.libraryTarget。详细案例可以看笔者封装的npm工具包：cache-manage-js
+根据当前运行环境的判断，如果是 Node 环境 就是使用 CommonJS 规范， 如果不是就判断是否为 AMD 环境， 最后导出全局变量。这样代码可以同时运行在Node和浏览器环境中。目前大部分库都是打包成UMD规范，Webpack也支持UMD打包，配置API是output.libraryTarget。
 
-## ES6 Module
+## 6.ES6 Module
 
 import export
 
