@@ -70,3 +70,7 @@ connect-src：HTTP 连接（通过 XHR、WebSockets、EventSource等）
 worker-src：worker脚本
 manifest-src：manifest 文件
 ```
+
+## cookie 和 token 都存放在 header 中，为什么不会劫持 token
+
+[cookie 和 token 都存放在 header 中，为什么不会劫持 token](https://github.com/Advanced-Frontend/Daily-Interview-Question/issues/31)

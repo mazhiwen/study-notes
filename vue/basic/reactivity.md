@@ -1,4 +1,4 @@
-# 响应式原理
+# 双向绑定原理
 
 <https://cn.vuejs.org/v2/guide/reactivity.html>
 
