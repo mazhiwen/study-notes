@@ -1,6 +1,6 @@
 # 缓存
 
-<https://www.jianshu.com/p/54cc04190252>
+[深入理解浏览器的缓存机制](https://www.jianshu.com/p/54cc04190252)
 
 <https://juejin.im/post/6844903672556552205#heading-3>
 

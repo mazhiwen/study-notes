@@ -194,6 +194,14 @@ git clean -nfd
 
 <https://github.com/chenxuhua/issues-blog/issues/3>
 
+查dns解析:
+
+<https://ipaddress.com/website/github.com>
+
+github.com
+assets-cdn.github.com
+github.global.ssl.fastly.net
+
 sudo vi /etc/hosts
 
 185.199.108.153 assets-cdn.github.com
