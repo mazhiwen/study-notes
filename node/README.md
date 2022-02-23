@@ -1,5 +1,6 @@
 # 关于node的知识
 
+
 ## \#!/usr/bin/env node
 
 主要是帮助脚本找到node的脚本解释器。

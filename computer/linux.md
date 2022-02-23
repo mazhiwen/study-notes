@@ -101,3 +101,7 @@ mv ./build ../
 touch file 新建文件
 
 ### tar
+
+## 查找文件名包含字符串
+
+find ./ -name "*张*"
