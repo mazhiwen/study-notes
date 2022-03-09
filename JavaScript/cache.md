@@ -1,12 +1,12 @@
 # 内存管理
 
-## 内存
+[JavaScript 内存泄漏教程 - 阮一峰](https://www.ruanyifeng.com/blog/2017/04/memory-leak.html)
 
 [内存管理 - MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Memory_Management)
 
-## 内存泄漏
+## 内存
 
-[JavaScript 内存泄漏教程 - 阮一峰](https://www.ruanyifeng.com/blog/2017/04/memory-leak.html)
+## 内存泄漏
 
 ### 概念
 
@@ -102,49 +102,3 @@
 在内存泄漏部分，我们讨论了无意的全局变量会带来无法回收的内存垃圾。但有些时候，我们会有意识地声明一些全局变量，这个时候需要注意，如果声明的变量占用大量的内存，那么在使用完后将变量声明为 null。
 
 2、减少内存垃圾的另一个方法就是避免创建对象。new Object() 是一个比较明显的创建对象的方式，另外 const arr = [];、const obj = {};也会创建新的对象。另外下面这种写法在每次调用函数时都会创建一个新的对象：
-
-## setTimeout定时器
-
-```js
-console.log(1);
-setTimeout(function(){console.log(2);},1000);
-console.log(3);
-// 1 3 2
-
-
-setTimeout(function(){console.log(1);}, 0);
-console.log(2);
-// 先执行执行栈，再执行任务队列中的定时回调函数
-// 2 1
-
-```
-
-- 处理倒计时误差
-
-```js
-var period = 60 * 1000 * 60 * 2
-var startTime = new Date().getTime();
-var count = 0
-var end = new Date().getTime() + period
-var interval = 1000
-var currentInterval = interval
-
-function loop() {
-  count++
-  var offset = new Date().getTime() - (startTime + count * interval); // 代码执行所消耗的时间
-  var diff = end - new Date().getTime()
-  var h = Math.floor(diff / (60 * 1000 * 60))
-  var hdiff = diff % (60 * 1000 * 60)
-  var m = Math.floor(hdiff / (60 * 1000))
-  var mdiff = hdiff % (60 * 1000)
-  var s = mdiff / (1000)
-  var sCeil = Math.ceil(s)
-  var sFloor = Math.floor(s)
-  currentInterval = interval - offset // 得到下一次循环所消耗的时间
-  console.log('时：'+h, '分：'+m, '毫秒：'+s, '秒向上取整：'+sCeil, '代码执行时间：'+offset, '下次循环间隔'+currentInterval) // 打印 时 分 秒 代码执行时间 下次循环间隔
-
-  setTimeout(loop, currentInterval)
-}
-
-setTimeout(loop, currentInterval)
-```
