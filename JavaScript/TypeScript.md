@@ -4,9 +4,9 @@
 
 它是 JavaScript 的超集，所有现有的 JavaScript 都可以不加改变就在其中使用
 
-<https://juejin.cn/post/6844904013289226254>
+[Vue Class Component](https://class-component.vuejs.org/guide/class-component.html#computed-properties)
 
-<https://blog.csdn.net/weixin_41643133/article/details/87883135?ops_request_misc=%257B%2522request%255Fid%2522%253A%2522161122217916780266283325%2522%252C%2522scm%2522%253A%252220140713.130102334.pc%255Fall.%2522%257D&request_id=161122217916780266283325&biz_id=0&utm_medium=distribute.pc_search_result.none-task-blog-2~all~first_rank_v2~hot_rank-1-87883135.pc_search_result_before_js&utm_term=webpack%20ts&spm=1018.2226.3001.4187>
+<https://juejin.cn/post/6844904013289226254>
 
 <https://juejin.cn/post/6917523407886106631>
 
