@@ -4,6 +4,8 @@
 
 <http://www.ruanyifeng.com/blog/2016/08/migrate-from-http-to-https.html>
 
+[一次安全可靠的通信——HTTPS原理](https://developers.weixin.qq.com/community/develop/article/doc/000046a5fdc7802a15f7508b556413)
+
 ## HTTP的缺点
 
 通信使用明文（不加密），内容可能会被窃听。

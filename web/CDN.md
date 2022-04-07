@@ -14,7 +14,7 @@ Content Delivery Network,内容分发网络
 
 ## traceroute
 
-traceroute测量延迟
+traceroute 测量延迟
 
 ## CDN劫持
 

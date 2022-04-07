@@ -169,7 +169,7 @@ array.sort(function compareFunction(a, b) {
 参数可以是 array , 或者 value
 
 ```js
-array.concat(value1,value2,valuen);
+array.concat(value1,value2,valuen,arrayn);
 ```
 
 ## array.includes*
