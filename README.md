@@ -25,7 +25,7 @@
   - [页面可见性 离开页面以及相关](./web/PageVisibility.md)
   - [nginx](./web/nginx)
   - [前端日志,监控,埋点,错误收集](./web/monitor.md)
-  - [前端动画技术栈](./web/绘图.md)
+  - [前端图形学](./web/绘图.md)
   - [three.js](./web/three.md)
   - [骨骼动画](./web/bones.md)
   - [canvas](./web/canvas.md)
