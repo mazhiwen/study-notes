@@ -3,7 +3,11 @@
 只对 block 级元素生效！
 不占用文档流
 
+[CSS 3D世界，360°旋转水晶魔方](https://juejin.cn/post/7031346953304670244)
+
 [CSS3 transform对普通元素的N多渲染影响](https://www.zhangxinxu.com/wordpress/2015/05/css3-transform-affect/)
+
+[svg、canvas、css3d实现数据可视化（伪3D效果）](https://juejin.cn/post/6844903674146193421)
 
 ## matrix(矩阵)
 
@@ -110,8 +114,18 @@ CSS 属性 transform-style 设置元素的子元素是位于 3D 空间中还是�
 
 ## perspective
 
+观察者距离 3d 元素 z轴0值 的距离
+
 CSS 属性 perspective指定了观察者与 z=0 平面的距离，使具有三维位置变换的元素产生透视效果。 z>0 的三维元素比正常大，而 z<0 时则比正常小，大小程度由该属性的值决定。
 
 ## transition-delay
 
 在过渡效果开始作用之前需要等待的时间
+
+**3D相关的**
+
+<https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transforms/Using_CSS_transforms#setting_perspective>
+
+## rotate3d
+
+<https://developer.mozilla.org/zh-CN/docs/Web/CSS/transform-function/rotate3d>

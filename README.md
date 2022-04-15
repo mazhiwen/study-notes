@@ -16,7 +16,6 @@
   - [Web Worker](./web/webworker.md)
   - [Service worker](./web/serviceworker.md)
   - webRTC
-  - webGL
   - [serverless](./web/serverless.md)
   - [前端性能-谷歌文档](./web/performance.md)
   - [http缓存策略](./web/cache.md)
@@ -26,7 +25,7 @@
   - [nginx](./web/nginx)
   - [前端日志,监控,埋点,错误收集](./web/monitor.md)
   - [前端图形学](./web/绘图.md)
-  - [three.js](./web/three.md)
+  - [WebGL以及three.js](./web/three.md)
   - [骨骼动画](./web/bones.md)
   - [canvas](./web/canvas.md)
   - [svg](./web/svg.md)
