@@ -2,7 +2,7 @@
 
 [anime.js 实战轻松实现 SVG 路径 (path) 曲线动画](https://juejin.cn/post/6844903473524244488)
 
-<https://blog.csdn.net/weixin_41646716/article/details/89335639>
+[SVG 画图](https://blog.csdn.net/weixin_41646716/article/details/89335639)
 
 <https://developer.mozilla.org/zh-CN/docs/Web/SVG>
 
@@ -31,6 +31,8 @@ d: 绘图码
 线性渐变
 
 ## anime.js
+
+动画库，可以操作dom已经svg元素
 
 使用svg path 转换为 动画路径
 
