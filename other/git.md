@@ -109,13 +109,15 @@ Host github.com
 
 ## stash
 
-git stash    加save 可以保存stash 加备注:git stash save "dd"
+git stash    加save 可以保存stash 加备注:git stash save "s1"
+
+git stash list
 
 git stash pop  弹出最近保存，盏
 
-git stash apply stash@{1}
+git stash apply stash@{id}
 
-git stash drop stash@{1} 移除某个list
+git stash drop stash@{id} 移除某个list
 
 git stash clear 清空list
 
