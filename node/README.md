@@ -1,6 +1,5 @@
 # 关于node的知识
 
-
 ## \#!/usr/bin/env node
 
 主要是帮助脚本找到node的脚本解释器。
@@ -65,3 +64,7 @@ render('{{xfoo}} {{say.what}}', { xfoo: 'yep', say: { what: 'yep' } });
 每个线程都拥有一个 JS 引擎实例
 每个线程都拥有一个 Node.js 实例
 ```
+
+## 本地web服务
+
+安全http-server

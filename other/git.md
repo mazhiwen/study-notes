@@ -211,3 +211,9 @@ github.global.ssl.fastly.net
 sudo vi /etc/hosts
 
 185.199.108.153 assets-cdn.github.com
+
+## clone
+
+clone 单个分支:
+
+git clone -b master git@github.com:mrdoob/three.js.git

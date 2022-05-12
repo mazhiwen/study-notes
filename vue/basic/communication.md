@@ -42,11 +42,13 @@ Vue.component('base-checkbox', {
 
 ## 4. provide inject  
 
+[Vue中使用provide和inject](https://juejin.cn/post/6844904157963354126)
+
 适合大型独立性组件，组件内需求耦合性较高
 
 可以传递给子孙 深层次
 
-基本是不可响应式的
+基本是不可响应式的，传入了一个可监听的对象，那么其对象的 property 还是可响应的。
 
 核心用法是调用祖父等级别的方法
 
