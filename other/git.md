@@ -76,7 +76,7 @@ $ git push origin HEAD:master --force
 ```
 ①   cd ~/.ssh/    【如果没有对应的文件夹，则执行  mkdir  ./.ssh】
 
-②  git config --global user.name "xb12369"
+②  git config --global user.name "mazhiwen"
 
 ③  git config --global user.email "1234@qq.com"
 

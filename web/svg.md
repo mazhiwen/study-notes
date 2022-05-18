@@ -4,7 +4,7 @@
 
 [SVG 画图](https://blog.csdn.net/weixin_41646716/article/details/89335639)
 
-<https://developer.mozilla.org/zh-CN/docs/Web/SVG>
+[MDN svg](https://developer.mozilla.org/zh-CN/docs/Web/SVG)
 
 <https://blog.csdn.net/wodeai1235/article/details/77870715>
 
@@ -29,6 +29,10 @@ d: 绘图码
 ## `<linearGradient>`
 
 线性渐变
+
+## `<symbol>`
+
+元素用来定义一个图形模板对象，它可以用一个<use>元素实例化。symbol元素对图形的作用是在同一文档中多次使用，添加结构和语义。结构丰富的文档可以更生动地呈现出来，类似讲演稿或盲文，从而提升了可访问性。注意，一个symbol元素本身是不呈现的。只有symbol元素的实例（亦即，一个引用了symbol的 <use>元素）才能呈现。
 
 ## anime.js
 
@@ -67,3 +71,7 @@ anime.js 虽然功能没有 GASP 强大，但是体积很乐观，gzip压缩完�
 <https://www.npmjs.com/package/d3> 180w+
 
 Data-Driven Documents 顾名思义，更加适合用于创建数据可视化图形场景去使用
+
+## svg压缩
+
+[svgo](https://github.com/svg/svgo#configuration)

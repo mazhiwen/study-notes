@@ -1,1 +1,2 @@
-https://cpsetest.cpgroup.cn:13080/big-screen-zd/thailand/getOverallData?t=1640934051118&companyGroup=CPF&businessGroup=BG01&countryCode=TH&companyCode=333&dropdownmenuclick=%7B%22data%22:[%7B%22id%22:%22CPF%22,%22code%22:%22CPF%22,%22name%22:%22CPF%22,%22pcode%22:null,%22type%22:%221%22,%22selectState%22:true,%22sort%22:null%7D,%7B%22id%22:%22CPF%26%26%26BG01%22,%22code%22:%22BG01%22,%22name%22:%22Thailand%22,%22pcode%22:%22CPF%22,%22type%22:%222%22,%22selectState%22:true,%22sort%22:null%7D,%7B%22id%22:%22CPF%26%26%26BG01%26%26%26TH%26%26%269999%22,%22code%22:%229999%22,%22name%22:%22+All+companies%22,%22pcode%22:%22CPF%26%26%26BG01%26%26%26TH%22,%22type%22:%229999%22,%22selectState%22:true,%22sort%22:null%7D]%7D
+const sharp = require('sharp');
+console.log(sharp);

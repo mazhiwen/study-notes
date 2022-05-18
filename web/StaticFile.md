@@ -38,3 +38,7 @@ data:[<MIME type>][;charset=<charset>][;base64],<encoded data>
 •WebP图片格式支持图片透明度，一个无损压缩的WebP图片，如果要支持透明度只需要22%的格外文件大小。
 
 但是目前只有Chrome浏览器和Opera浏览器支持WebP格式，兼容性不太好。
+
+## 图片操作库
+
+sharp 库: 压缩图片，修改图片滤镜等等

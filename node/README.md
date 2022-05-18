@@ -15,8 +15,10 @@ export NODE_ENV=integration
 
 ## node版本
 
+<!-- 升级npm -->
 npm install -g n
-n stable
+<!-- 升级稳定版本 -->
+sudu n stable
 n v0.10.26
 
 ## process
@@ -68,3 +70,9 @@ render('{{xfoo}} {{say.what}}', { xfoo: 'yep', say: { what: 'yep' } });
 ## 本地web服务
 
 安全http-server
+
+## node加载es6语法
+
+babel-node : <https://juejin.cn/post/6844903768924897288>
+
+[在node环境中支持ES6代码](https://juejin.cn/post/6844904017764548622)
