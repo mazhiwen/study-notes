@@ -72,3 +72,9 @@ window.addEventListener('message',(event)=>{
 });
 
 ```
+
+## URLSearchParams
+
+new URLSearchParams(url)
+
+获取url参数
