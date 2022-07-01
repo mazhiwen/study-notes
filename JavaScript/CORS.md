@@ -1,6 +1,6 @@
 # 跨域
 
-<https://segmentfault.com/a/1190000011145364>
+[九种跨域方式实现原理（完整版）](https://juejin.cn/post/6844903767226351623#heading-11)
 
 <https://segmentfault.com/a/1190000011145364>  
 <https://www.zhihu.com/topic/19612046/top-answers>

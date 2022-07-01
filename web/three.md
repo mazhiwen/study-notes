@@ -12,8 +12,47 @@
 
 [three.js](https://threejs.org/docs/index.html#manual/zh/introduction/Creating-a-scene)
 
+## 纹理贴图
+
+格式：基本图片，立方体纹理, hdr等二进制图，块类的纹理文件
+
+## TextureLoader 纹理加载器
+
+### CubeTextureLoader
+
+立方体纹理加载器(天空盒)
+
+### DataTextureLoader
+
+hdr 等二进制文件加载器
+
+下面几个loader好像都和hdr有关
+
+```
+- EXRLoader
+- LogLuvLoader
+- RGBELoader： hdr文件
+- RGBMLoader
+- TGALoader
+```
+
+### CompressedTextureLoader
+
+基于块的纹理加载器
+
+```
+dds： 微软Direct3d纹理
+pvr
+```
+
+基于块的纹理加载器 (dds, pvr, ...)的抽象类。
+
 ## sprite
 
 ## CSS2DRender
 
 CSS2DObject
+
+## 例子
+
+星空： <https://codepen.io/nikita_ska/pen/bqNdBj>
