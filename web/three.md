@@ -12,9 +12,36 @@
 
 [three.js](https://threejs.org/docs/index.html#manual/zh/introduction/Creating-a-scene)
 
+## 阴影
+
+1. 设置模型 castShadow receiveShadow.
+2. 设置光源的阴影属性
+
 ## 纹理贴图
 
 格式：基本图片，立方体纹理, hdr等二进制图，块类的纹理文件
+
+### 凹凸贴图
+
+bumpMap 表面深浅
+
+### 法向贴图
+
+normalMap 表面深浅
+
+### 移位贴图
+
+displacementMap 真正改变模型的形状
+
+### 环境光遮挡贴图
+
+aoMap
+
+静止物体的光照阴影
+
+### 光照贴图
+
+产生假阴影
 
 ## TextureLoader 纹理加载器
 
@@ -46,6 +73,8 @@ pvr
 ```
 
 基于块的纹理加载器 (dds, pvr, ...)的抽象类。
+
+## 材质
 
 ## sprite
 
