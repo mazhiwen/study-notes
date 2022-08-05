@@ -34,7 +34,6 @@
   - [URL](./web/url.md)
   - [history](./web/history.md)
   - [requestAnimationFrame](./web/requestAnimationFrame.md)
-  - [前端可视化](./web/visual.md)
   - [Fetch](./web/Fetch.md)
   - [Excel 处理](./web/excel.md)
   - [CDN](./web/CDN.md)
