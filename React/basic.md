@@ -1,5 +1,7 @@
 # React知识
 
+[2022 年的 React 生态](https://juejin.cn/post/7085542534943883301)
+
 [你要的 React 面试知识点，都在这了](https://juejin.cn/post/6844903857135304718)
 
 [2019年17道高频React面试题及详解](https://juejin.cn/post/6844903922453200904)
@@ -7,6 +9,10 @@
 [React 开发必须知道的 34 个技巧【近1W字】](https://juejin.cn/post/6844903993278201870#heading-6)
 
 [掘金最污的 React16.x 图文视频教程(2万5千字长文-慎入)](https://juejin.cn/post/6844903870213292045)
+
+## props
+
+组件无法修改自身的props
 
 ## refs与state的选择
 

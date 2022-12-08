@@ -25,6 +25,7 @@
   - [nginx](./web/nginx)
   - [前端日志,监控,埋点,错误收集](./web/monitor.md)
   - [前端图形学](./web/绘图.md)
+  - [播放器](./web/video.md)
   - [WebGL](./web/WebGL.md)
   - [Three.js](./web/three.md)
   - [骨骼动画](./web/bones.md)

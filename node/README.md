@@ -31,6 +31,8 @@ n v0.10.26
 
 ## fs
 
+[node文件管理模块](https://juejin.cn/post/6844903778177515534)
+
 - fs.writeFileSync();
 
 ## node中间件
