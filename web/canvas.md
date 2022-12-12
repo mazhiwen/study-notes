@@ -16,6 +16,14 @@
 
 [手动实现echarts](https://juejin.cn/post/6950684708443258894)
 
+## canvas的一些库
+
+- [zrender](https://ecomfe.github.io/zrender-doc/public/api.html):
+
+  是echart的渲染器
+
+- Fabric.js: [Fabric.js 从入门](https://juejin.cn/post/7026941253845516324)
+
 ## canvas标签
 
 不要用css定义canvas宽高

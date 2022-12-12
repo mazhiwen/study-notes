@@ -2,6 +2,8 @@
 
 ## 一些文章
 
+[尤雨溪对未来前端趋势分享: 笔记](https://juejin.cn/post/7123178292865155102#heading-20)
+
 [git资源中文总榜](https://github.com/GrowingGit/GitHub-Chinese-Top-Charts?utm_source=gold_browser_extension)
 
 [灵活运用JS开发技巧](https://juejin.cn/post/6844903838449664013)
