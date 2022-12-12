@@ -212,7 +212,7 @@ sudo vi /etc/hosts
 
 185.199.108.153 assets-cdn.github.com
 
-## clone
+## git clone
 
 clone 单个分支:
 
