@@ -40,6 +40,7 @@
   - [CDN](./web/CDN.md)
   - [地图开发](./web/map.md)
   - [PerformanceAPI](./web/PerformanceAPI.md)
+  - [小程序开发](./web/wxapp.md)
   - [其他](./web/basic.md)
 - 网络知识
   - [web网络知识](./network/README.md)
