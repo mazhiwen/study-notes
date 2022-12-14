@@ -21,3 +21,14 @@ Stencil： 是一个用于构建可重用、可扩展的设计系统的工具链
 
 Omi： 是 Web Components + JSX/TSX 融合为一个框架，小巧的尺寸和高性能，融合和 React 和 Web Components 各自的优势。
 ```
+
+## Web Components 的限制
+
+虽然 Web Components 有着巨大的优势，但是也存在一些限制，如果你正在使用它，那请注意了。例如：
+
+Web Components 提供的 CSS 封装是有限。
+虽然能实现 CSS 的隔离，但是隔离也会导致和外部 CSS 交互比较难。
+Object.prototype.toString不返回与原生对象相同的字符串。
+document 、 window、 document.body、 document.head是不可配置的，不能被覆盖。
+未实现跨窗口/框架访问。
+CSS:host()规则在其参数选择器中只能（最多）有一层嵌套括号。例如，:host(.zot)两者:host(.zot:not(.bar))都有效，但:host(.zot:not(.bar:nth-child(2)))没有。
