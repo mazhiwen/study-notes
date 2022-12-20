@@ -2,6 +2,8 @@
 
 [五分钟带你了解 Web Components](https://juejin.cn/post/7144888332575571981)
 
+[哈啰前端Web Components最佳实践](https://juejin.cn/post/7044055764532461605)
+
 ## 库
 
 并且在市场上也出现了很多 Web Components 库，可以轻松的使用和构建 Web Components，例如：
@@ -32,3 +34,7 @@ Object.prototype.toString不返回与原生对象相同的字符串。
 document 、 window、 document.body、 document.head是不可配置的，不能被覆盖。
 未实现跨窗口/框架访问。
 CSS:host()规则在其参数选择器中只能（最多）有一层嵌套括号。例如，:host(.zot)两者:host(.zot:not(.bar))都有效，但:host(.zot:not(.bar:nth-child(2)))没有。
+
+## WCs的用途
+
+组件库，跨端，微前端
