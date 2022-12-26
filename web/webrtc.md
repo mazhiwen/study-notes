@@ -1,8 +1,14 @@
 # webRTC
 
-[WebRTC 从实战到未来！迎接风口，前端必学的技术🔥](<https://juejin.cn/post/7151932832041058340>)
+[WebRTC 从实战到未来！- 1 前端如何实现一个最简单的音视频通话？🔥](https://juejin.cn/post/7165539003465531399#heading-9)
+
+[WebRTC 从实战到未来！- 2 迎接风口，前端必学的技术🔥](<https://juejin.cn/post/7151932832041058340>)
+
+[疫情当下，远程工作兴起！前端音视频通话？学！🔥](https://juejin.cn/post/7170767923005358094)
 
 [MDN - WebRTC - API](https://developer.mozilla.org/zh-CN/docs/Web/API/WebRTC_API)
+
+[如何实现一个基于WebRTC的音视频通信系统](https://juejin.cn/post/7169557366587785229)
 
 ## 概念
 
@@ -18,7 +24,7 @@ WebRTC (Web Real-Time Communications) 是一项实时通讯技术，它允许网
 屏幕共享/远程控制
 等等等
 
-## 获取媒体流
+## getUserMedia - 获取媒体流
 
 我们主要通过navigator.mediaDevices.getUserMedia(constraints)这个 api 来获取媒体流，这个方法接收一个配置对象作为参数，配置对象中包含了媒体流的类型，以及媒体流的分辨率等信息。
 
@@ -178,3 +184,72 @@ ffmpeg.js可以输出MP4
 ## 实时音视频通信
 
 [从0搭建一个WebRTC，实现多房间多对多通话，并实现屏幕录制](https://juejin.cn/post/7129763930779418654)
+
+## RTCPeerConnection
+
+RTCPeerConnection 对象是WebRTC的核心，同时也是暴露给用户的统一接口，内部包含了网络处理模块、服务质量模块、音视频引擎模块等，可以把它理解为一个socket，能够快速稳定的实现端到端的数据传输。
+创建 RTCPeerConnection 对象时，需要传入STUN/TURN服务器等相关信息。
+
+```js
+// 公网中使用
+const pc = new RTCPeerConnection({
+  iceServers: [
+    // 目前我在用的，免费STUN 服务器
+    {
+      urls: 'stun:stun.voipbuster.com ',
+    },
+    // 谷歌的好像都失效了，不过你们可以试试
+    {
+      urls: 'stun:stun.l.google.com:19301',
+      // urls: 'stun:stun.l.google.com:19302',
+      // urls: 'stun:stun.l.google.com:19303',
+      // ...
+    },
+    // TURN 服务器,这个对服务器压力太大了，目前没找到免费的，后续我在自己的服务器上弄一个
+    {
+      urls: 'turn:turn.xxxx.org',
+      username: 'webrtc',
+      credential: 'turnserver',
+    },
+    {
+      urls: 'turn:turn.ap-southeast-1.aliyuncs.com:443?transport=tcp',
+      username: 'test',
+      credential: 'test',
+    },
+  ],
+})
+```
+
+STUN：Session Traversal Utilities for NAT，用来帮助我们获取本地计算机的公网 IP 地址，以及端口号。
+
+TURN：Traversal Using Relays around NAT，用来帮助我们穿越 NAT 网关，实现公网中的 WebRTC 连接
+
+## SDP协议
+
+SDP：Session Description Protocol，它是一种用于描述多媒体会话的协议，它可以帮助我们描述媒体流的信息，比如媒体流的类型，编码格式，分辨率等等。WebRTC 通过SDP来交换端与端之间的网络和媒体信息。
+
+媒体协商就是在双端通信之前，了解双方具备哪些能力。其协商过程中交换的内容就是SDP协议定义的。
+
+```sh
+v=0 # SDP版本号
+o=- 0 0 IN IP4 120.24.99.xx # 会话标识信息
+s=- # 会话名称
+t=0 0 # 会话的有效时间
+a=group:BUNDLE audio video # 媒体流类型
+a=msid-semantic: WMS * # 媒体流标识符
+m=audio 9 UDP/TLS/RTP/SAVPF 111 103 104 9 0 8 106 105 13 126 # 音频媒体流
+c=IN IP4 120.24.99.xx # 连接信息
+a=rtcp:9 IN IP4 0.0.0.0 # RTCP 的 IP 地址
+a=candidate:0 1 UDP 2122252543 120.24.99.xx 9 typ host # 候选 IP 地址
+# ...等等等
+```
+
+通过信令模块，如socketio，交换SDP
+
+## ICE
+
+ICE：Interactive Connectivity Establishment，交互式连接建立协议，用于在两个主机之间建立连接，它可以在两个主机之间建立连接，即使它们之间的防火墙阻止了直接连接。(可以不借助一个公网 server 完成端到端（Peer to peer，P2P）的通信)。
+
+当各端调用 setLocalDescription 后，WebRTC就开始建立网络连接，主要包括收集candidate、交换candidate和按优先级尝试连接，该过程被称为ICE（Interactive Connectivity Establishment，交互式连接建立）。其中每个 candidate 都包含IP地址、端口、传输协议、类型等信息。
+
+根据 RFC5245 协议，WebRTC将 candidate分为了四个类型：host、srflx、prflx、relay，它们的优先级依次降低。
