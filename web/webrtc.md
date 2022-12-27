@@ -191,6 +191,45 @@ RTCPeerConnection 对象是WebRTC的核心，同时也是暴露给用户的统�
 创建 RTCPeerConnection 对象时，需要传入STUN/TURN服务器等相关信息。
 
 ```js
+new RTCPeerConnection(config: RTCConfiguration)
+```
+
+RTCConfiguration 参数：
+
+```js
+interface RTCConfiguration {
+  bundlePolicy?: RTCBundlePolicy;
+  certificates?: RTCCertificate[];
+  iceCandidatePoolSize?: number;
+  iceServers?: RTCIceServer[];
+  iceTransportPolicy?: RTCIceTransportPolicy;
+  rtcpMuxPolicy?: RTCRtcpMuxPolicy;
+}
+
+type RTCBundlePolicy = "balanced" | "max-bundle" | "max-compat";
+type RTCIceCredentialType = "password";
+type RTCIceTransportPolicy = "all" | "relay";
+type RTCRtcpMuxPolicy = "require";
+
+interface RTCCertificate {
+    readonly expires: number;
+    getFingerprints(): RTCDtlsFingerprint[];
+}
+
+interface RTCDtlsFingerprint {
+    algorithm?: string;
+    value?: string;
+}
+
+interface RTCIceServer {
+    credential?: string;
+    credentialType?: RTCIceCredentialType;
+    urls: string | string[];
+    username?: string;
+}
+```
+
+```js
 // 公网中使用
 const pc = new RTCPeerConnection({
   iceServers: [
@@ -253,3 +292,19 @@ ICE：Interactive Connectivity Establishment，交互式连接建立协议，用
 当各端调用 setLocalDescription 后，WebRTC就开始建立网络连接，主要包括收集candidate、交换candidate和按优先级尝试连接，该过程被称为ICE（Interactive Connectivity Establishment，交互式连接建立）。其中每个 candidate 都包含IP地址、端口、传输协议、类型等信息。
 
 根据 RFC5245 协议，WebRTC将 candidate分为了四个类型：host、srflx、prflx、relay，它们的优先级依次降低。
+
+## NAT
+
+## STUN (Session Traversal Utilities for NAT)
+
+NAT 遍历操作由 Session Traversal Utilities for NAT (STUN) 服务器执行。 STUN 方法是一种用于终端检查其“公共 IP 地址和端口”的过程的协议
+
+我们在公网中架设一台服务器，通过这台服务器可以询问到自己的公网地址。实际上这一询问流程已经被定义成了一套规范，就是 STUN 协议。
+
+## TURN (Session Traversal Utilities for NAT)
+
+WebRTC 通信双方通过 P2P 的方式无法建立链接的情况下，会使用 relay 服务进行中转服务。 relay 是所有候选者中优先级最低的链接方式，但是 relay 也是连通率最高的方式。WebRTC 通信双方通过向 TURN 服务器发送 Allocation 指令获得在 relay 服务器上的端口，用于中转 UDP 数据。
+
+## 自签证书
+
+mkcert 是一个用 Go 语言编写的工具，它可以轻松地为本地开发生成有效的 TLS 证书。它使用了一个名为 local CA 的根证书，这个根证书是由 mkcert 生成的，它会被安装到系统的受信任的根证书列表中。
