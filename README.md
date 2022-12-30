@@ -22,7 +22,6 @@
   - [Chrome工具](./web/chrome.md)
   - [浏览器存储](./web/storage.md)
   - [页面可见性 离开页面以及相关](./web/PageVisibility.md)
-  - [nginx](./web/nginx)
   - [前端日志,监控,埋点,错误收集](./web/monitor.md)
   - [前端图形学](./web/绘图.md)
   - [播放器](./web/video.md)
@@ -173,16 +172,12 @@
   - [实例-排序](./DataStructuresAndAlgorithms/DSA/sort.md)
   - [实例-查找](./DataStructuresAndAlgorithms/DSA/search.md)
   - [算法题](./DataStructuresAndAlgorithms/jstopic.md)
-- node
-  - [node技术栈](./node/overview.md)
-  - [node知识点](./node)
 - [前端工程化](./integration)
   - [webpack原理](./integration/webpacksource.md)
   - [webpack配置](./integration/webpackconfig.md)
   - [webpack5](./integration/webpack5.md)
   - [tree-shaking](./integration/tree-shaking.md)
   - [微前端](./integration/微前端.md)
-  - [Docker](./integration/Docker.md)
   - [代码检查](./integration/codecheck.md)
   - [mock](./integration/mock.md)
   - [grunt](./integration/grunt)
@@ -191,6 +186,12 @@
   - [rollup](./integration/rollup.md)
   - [组件库 SDK 打包方案](./integration/libpack.md)
   - 服务端渲染
+- node以及服务
+  - [node技术栈](./node/overview.md)
+  - [node知识点](./node)
+  - [Docker](./node/Docker.md)
+  - [nginx](./node/nginx)
+  - [linux](./node/linux.md)
 - 移动端
   - [移动端知识点](./mobile/basic.md)
   - [App开发方式](./mobile/APP.md)
@@ -201,7 +202,6 @@
   - [React Native](./mobile/rn.md)
 - 计算机
   - [计算机知识](./computer/basic.md)
-  - [linux](./computer/linux.md)
 - [其他](./other)
   - [git](./other/git.md)
   - [github](./other/github.md)
