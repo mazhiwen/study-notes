@@ -1,5 +1,7 @@
 # docker
 
+[Docker 是怎么实现的？前端怎么用 Docker 做部署？](https://juejin.cn/post/7137621606469222414)
+
 ```
 Dockerfile: 类似于“package.json”
       |
@@ -43,3 +45,9 @@ docker container start xxx # xxx 为上一条命令运行得到的结果
 # 进入容器
 docker container exec -it xxx /bin/bash # xxx 为容器ID
 ```
+
+## k8s
+
+容器编排系统
+
+k8s 由众多组件组成，组件间通过 API 互相通信，归纳起来主要分为三个部分：controller  manager,nodes,pods
