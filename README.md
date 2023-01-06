@@ -193,8 +193,8 @@
   - [nginx](./node/nginx)
   - [linux](./node/linux.md)
 - 移动端
+  - [移动端开发架构](./mobile/APP.md)
   - [移动端知识点](./mobile/basic.md)
-  - [App开发方式](./mobile/APP.md)
   - [H5适配](./mobile/h5.md)
   - [像素单位概念，viewport](./mobile/pixel.md)
   - [ios](./mobile/ios)
