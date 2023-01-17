@@ -6,7 +6,13 @@
 
 开发框架推荐：
 
-原生工程化推荐用gulp
+大型项目建议用原生，性能高
+
+原生工程化推荐用gulp。
+
+[微信官方文档](https://developers.weixin.qq.com/miniprogram/dev/api/)
+
+vue的 uni-app， react的Taro。Taro更复杂大型复杂项目。
 
 ## mpvue
 
