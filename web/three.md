@@ -12,6 +12,10 @@
 
 [three.js](https://threejs.org/docs/index.html#manual/zh/introduction/Creating-a-scene)
 
+## 加载模型
+
+GLTF OBJ
+
 ## 阴影
 
 1. 设置模型 castShadow receiveShadow.

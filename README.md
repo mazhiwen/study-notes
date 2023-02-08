@@ -23,7 +23,7 @@
   - [浏览器存储](./web/storage.md)
   - [页面可见性 离开页面以及相关](./web/PageVisibility.md)
   - [前端日志,监控,埋点,错误收集](./web/monitor.md)
-  - [前端图形学](./web/绘图.md)
+  - [web图形技术](./web/绘图.md)
   - [播放器](./web/video.md)
   - [WebGL](./web/WebGL.md)
   - [Three.js](./web/three.md)
@@ -39,7 +39,6 @@
   - [CDN](./web/CDN.md)
   - [地图开发](./web/map.md)
   - [PerformanceAPI](./web/PerformanceAPI.md)
-  - [小程序开发](./web/wxapp.md)
   - [其他](./web/basic.md)
 - 网络知识
   - [web网络知识](./network/README.md)
@@ -193,6 +192,8 @@
   - [nginx](./node/nginx)
   - [linux](./node/linux.md)
 - 移动端
+  - [小程序开发](./mobile/wxapp.md)
+  - [小程序原生语法](./mobile/wx.md)
   - [移动端开发架构](./mobile/APP.md)
   - [移动端知识点](./mobile/basic.md)
   - [H5适配](./mobile/h5.md)
