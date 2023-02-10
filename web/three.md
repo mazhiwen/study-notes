@@ -1,5 +1,9 @@
 # Three.js
 
+[一文带你悟道 Threejs 3D模型开发](https://juejin.cn/post/7170868138068672548)
+
+[Three.js 进阶之旅：模型光源结合生成明暗变化的创意页面-光与影之诗 💡](https://juejin.cn/post/7148969678642102286#heading-27)
+
 [从零开始初尝Three.js【大量案例、简单入手】](https://juejin.cn/post/6844904177345232903)
 
 [Three.js教程 api](http://www.webgl3d.cn/Three.js/?_blank)
