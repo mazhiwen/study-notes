@@ -20,6 +20,16 @@
 
 GLTF OBJ
 
+## 模型网站
+
+[sketchfab](https://www.sketchfab.com/)
+
+[cgmodel](https://www.cgmodel.com/)
+
+[free3D](https://free3d.com/)
+
+等等
+
 ## 阴影
 
 1. 设置模型 castShadow receiveShadow.
@@ -29,41 +39,41 @@ GLTF OBJ
 
 格式：基本图片，立方体纹理, hdr等二进制图，块类的纹理文件
 
-### 凹凸贴图
+- 凹凸贴图
 
 bumpMap 表面深浅
 
-### 法向贴图
+- 法向贴图
 
 normalMap 表面深浅
 
-### 移位贴图
+- 移位贴图
 
 displacementMap 真正改变模型的形状
 
-### 环境光遮挡贴图
+- 环境光遮挡贴图
 
 aoMap
 
 静止物体的光照阴影
 
-### 光照贴图
+- 光照贴图
 
 lightMap: 产生假阴影. 只能用于静态场景。
 
-### 金属光泽贴图 和 粗糙度贴图
+- 金属光泽贴图 和 粗糙度贴图
 
 金属光泽贴图: metalnessMap
 
 粗糙度贴图: roughnessMap
 
-### Alpha贴图
+- Alpha贴图
 
 制定表面部分为透明,纯黑色透明，纯白色不透明
 
 alphaMap
 
-### 自发光贴图
+- 自发光贴图
 
 控制模型表面实现自发光效果
 
@@ -71,19 +81,19 @@ alphaMap
 
 自发光: emissiveMap emissive
 
-### 高光贴图
+- 高光贴图
 
 需要使用 MeshPhongMaterial 材质
 
 specularMap
 
-### 环境贴图
+- 环境贴图
 
 cpu真实计算光线反射消耗很大
 
 创建一个对象所处环境纹理来伪装镜面反射。
 
-### cubeMap天空盒纹理
+- cubeMap天空盒纹理
 
 天空盒纹理，设置为场景背景
 
@@ -91,17 +101,17 @@ cpu真实计算光线反射消耗很大
 
 ## 纹理的其他用法
 
-### 自定义uv映射
+- 自定义uv映射
 
 ...
 
 ## TextureLoader 纹理加载器
 
-### CubeTextureLoader
+- CubeTextureLoader
 
 立方体纹理加载器(天空盒)
 
-### DataTextureLoader
+- DataTextureLoader
 
 hdr 等二进制文件加载器
 
@@ -115,7 +125,7 @@ hdr 等二进制文件加载器
 - TGALoader
 ```
 
-### CompressedTextureLoader
+- CompressedTextureLoader
 
 基于块的纹理加载器
 
@@ -130,9 +140,21 @@ pvr
 
 ## sprite
 
+## 光
+
+DirectionalLight: 直射光
+
+AmbientLight: 环境光
+
+HemisphereLight: 半球光
+
 ## CSS2DRender
 
 CSS2DObject
+
+## 动画
+
+模型文件 animations 属性存储了模型的动画，我们需要按照 Three 的模式来启动动画帧。
 
 ## 例子
 
