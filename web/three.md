@@ -16,19 +16,37 @@
 
 [three.js](https://threejs.org/docs/index.html#manual/zh/introduction/Creating-a-scene)
 
-## 加载模型
+## 模型
 
-GLTF OBJ
+加载类型：GLTF OBJ
 
-## 模型网站
+建模软件:
 
+模型网站：
+
+```
 [sketchfab](https://www.sketchfab.com/)
-
 [cgmodel](https://www.cgmodel.com/)
-
 [free3D](https://free3d.com/)
-
 等等
+```
+
+模型中有两个重要的概念: 几何体和材质
+
+## 场景scene
+
+## 相机camera
+
+Threejs 提供了两类相机: 透视相机和正交相机
+
+```
+透视相机：
+fov: 表示相机的角度范围，类似于人的视角。
+aspect: 表示渲染窗口的长宽比
+near/far: near/far 分别代表摄像机的近剪切面和远剪切面，相机只能渲染出 near 和 far 之间的场景
+```
+
+## 轨道控制器
 
 ## 阴影
 
@@ -152,7 +170,15 @@ HemisphereLight: 半球光
 
 CSS2DObject
 
-## 动画
+## 控制动效
+
+requestAnimationFrame+render
+
+或者
+
+gsap库
+
+## 模型动画
 
 模型文件 animations 属性存储了模型的动画，我们需要按照 Three 的模式来启动动画帧。
 
