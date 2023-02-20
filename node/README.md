@@ -18,7 +18,7 @@ export NODE_ENV=integration
 <!-- 升级npm -->
 npm install -g n
 <!-- 升级稳定版本 -->
-sudu n stable
+sudo n stable
 n v0.10.26
 
 ## process

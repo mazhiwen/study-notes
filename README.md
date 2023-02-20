@@ -211,8 +211,12 @@
   - [正则表达式](./other/regExp.MD)
   - [IDE](./other/IDE)
   - [php](./other/php)
+  - [文档服务](./other/documentserver.md)
+  - [mac系统](./other/mac.md)
 - python
   - [学习资料](./python/source.md)
 - 学习资料
   - [面试题博客等学习资源](./studyResource/blog.md)
   - [书](./studyResource/booksite.md)
+- 生活
+  - [游戏](./life/game.md)
