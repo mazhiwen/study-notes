@@ -213,6 +213,7 @@
   - [php](./other/php)
   - [文档服务](./other/documentserver.md)
   - [mac系统](./other/mac.md)
+  - [游戏开发](./other/gamedev.md)
 - python
   - [学习资料](./python/source.md)
 - 学习资料

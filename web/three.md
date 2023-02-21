@@ -35,6 +35,10 @@
 
 ## 场景scene
 
+scene也继承自Object3D类，也有其方法等。
+
+可以在scene中添加自己创建的scene。
+
 ## 相机camera
 
 Threejs 提供了两类相机: 透视相机和正交相机
