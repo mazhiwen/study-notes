@@ -135,7 +135,7 @@ git reset --soft HEAD～1
 
 ## 强制远程覆盖本地
 
-git fetch --all &&  git reset --hard origin/master && git pull
+git fetch --all &&  git reset --hard origin/build_sit && git pull
 
 ## git pull 和 git fetch 的区别
 

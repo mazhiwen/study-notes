@@ -35,9 +35,13 @@
 
 ## 场景scene
 
-scene也继承自Object3D类，也有其方法等。
+scene也继承自 Object3D 类，也有其方法等。
 
 可以在scene中添加自己创建的scene。
+
+## Object3D
+
+上面讲到 Object3D 时 Three 中大多数对象的基类，基类作为基石一般的存在，最好不要在代码中反复出现，因此 Three 官方提出了 Group 的概念，来增加层级结构之间的清晰性及逻辑性，Group 本质上与 Object3D 是完全相同的，因此更推荐使用 Group 对象来创建新的场景(局部空间)。
 
 ## 相机camera
 
@@ -238,6 +242,10 @@ const render = () => {
   requestAnimationFrame(render);
 };
 ```
+
+## AxesHelper
+
+坐标轴辅助线
 
 ## 例子
 
