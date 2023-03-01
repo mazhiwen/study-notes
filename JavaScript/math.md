@@ -59,3 +59,16 @@ Math.min([value1[,value2, ...]])
 //es6
 x ** y
 ```
+
+## 角度单位
+
+```
+\<angle>
+
+deg :度 360deg  
+grad :百分度 400grad  
+rad :弧度 2π  
+turn :1turn  
+```
+
+2π(rad弧度) = 360度
