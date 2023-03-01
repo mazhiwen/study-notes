@@ -1,66 +1,26 @@
-# web图形学的技术
+# WebGL
 
-[27 个前端动画库让你的交互更加炫酷](https://juejin.cn/post/7069945906518294536#heading-11)
+[WebGL 概念和基础入门](https://juejin.cn/post/6994940475459731463)
 
-[带你一起走进前端图形学](https://juejin.cn/post/6912086785405386765#heading-4)
+## 库
 
-[前端可视化](https://juejin.cn/post/6844903699261702157)
+一、Three.js：JavaScript 3D WebGL库 82k
 
-## 1. css3
+二、Babylon.js：Web3D图形引擎 17.5k
 
-## 2. SVG
+三、Filament ：谷歌移动优先的WebGL框架  14.1k
 
-见[./svg.md]
+四、KickJS ：Web的开源图形和游戏引擎 175
 
-## 3. Canvas
+五、ClayGL：构建可扩展的Web3D应用程序 2.4k
 
-[canvas](./canvas.md)
-  
-## 4. WebGL
+六、PlayCanvas：网络游戏和3D图形引擎 7.4k
 
-[webgl](./WebGL.md)
+七、WebGLStudio.js和Litescene.js：开源Web 3D图形编辑器和创建器 4.6k
 
-## 图形库
+八、 Luma：Uber的3D WebGL可视化库 3.6k
 
-- anime.js :
-
-[anime.js官网](https://github.com/juliangarnier/anime)
-
-anime.js 动画库可以操作css3动画属性 svgpath
-
-- d3-shape:
-
-- d3.js:
-
-- cairo:
-
-[cairo](https://www.cairographics.org/examples/)
-
-- libRSVG:
-
-[libRSVG](https://wiki.gnome.org/action/show/Projects/LibRsvg?action=show&redirect=LibRsvg):
-
-  librsvg is a library to render SVG files using cairo.
-
-## 图表库
-
-echarts
-
-antd
-
-chartjs
-
-bizcharts
-
-highcharts
-
-stackgl
-
-plotly.js
-
-## 商业图形库
-
-tableau, smartbi,powerbi
+十、X3DOM：在任何Web项目中构建和嵌入3D元素
 
 ## 关系图 力导图
 
@@ -68,11 +28,13 @@ tableau, smartbi,powerbi
 
 ## 3D相关的建模软件
 
- ue blender maya 3dmax
+ue
 
-## 2D渲染引擎
+blender
 
-createjs、pixijs
+maya
+
+3dmax
 
 ## web3D 引擎以及游戏
 
