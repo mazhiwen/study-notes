@@ -37,6 +37,7 @@
   - [web图形技术](./WebGL/绘图.md)
   - [WebGL](./WebGL/WebGL.md)
   - [Three.js](./WebGL/three.md)
+  - [shader](./WebGL/shader.md)
   - [Material](./WebGL/Material.md)
   - [Geometry](./WebGL/Geometry.md)
   - [Texture](./WebGL/Texture.md)
