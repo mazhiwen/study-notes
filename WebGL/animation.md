@@ -6,6 +6,17 @@
 
 ## 变形
 
+```js
+const geometry = new THREE.BoxGeometry(50, 50, 50);
+const box1 = new THREE.BoxGeometry(100, 5, 100);
+
+geometry.morphAttributes.position = [
+  box1.attributes.position,
+];
+
+mesh.morphTargetInfluences[1] = Math.abs(Math.sin(t));
+```
+
 ## 控制动效
 
 requestAnimationFrame+render
