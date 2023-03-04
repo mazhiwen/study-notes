@@ -28,6 +28,10 @@
 
 在使用此材质显示对象时要使用何种混合。
 
+- .side : Integer
+
+定义将要渲染哪一面 - 正面，背面或两者。 默认为THREE.FrontSide。其他选项有THREE.BackSide和THREE.DoubleSide。
+
 ## MeshBasicMaterial
 
 基础网格材质，不受光照影响的材质
@@ -53,3 +57,13 @@ PBR物理材质，相比较高光Phong材质可以更好的模拟金属、玻璃
 - .alphaMap : Texture
 
 alpha贴图是一张灰度纹理，用于控制整个表面的不透明度。（黑色：完全透明；白色：完全不透明）。 默认值为null。
+
+- .size : Number
+
+设置点的大小。默认值为1.0。
+
+## LineBasicMaterial
+
+基础线条材质
+
+一种用于绘制线框样式几何体的材质。
