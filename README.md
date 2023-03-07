@@ -40,6 +40,7 @@
   - [Geometry](./WebGL/Geometry.md)
   - [Material](./WebGL/Material.md)
   - [Texture](./WebGL/Texture.md)
+  - [顶点](./WebGL/vertex.md)
   - [物体](./WebGL/module.md)
   - [辅助](./WebGL/helper.md)
   - [shader](./WebGL/shader.md)
@@ -168,7 +169,7 @@
   - [链表](./DataStructuresAndAlgorithms/DSA/llist.md)
   - [字典](./DataStructuresAndAlgorithms/DSA/Dictionary.md)
   - [哈希散列](./DataStructuresAndAlgorithms/DSA/hash.md)
-  - [集合](#集合)
+  - [集合]
   - [二叉树](./DataStructuresAndAlgorithms/DSA/bst.md)
   - [图](./DataStructuresAndAlgorithms/DSA/graph.md)
   - [算法-递归](./DataStructuresAndAlgorithms/DSA/recursion.md)

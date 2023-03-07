@@ -2,6 +2,8 @@
 
 [WebGL 概念和基础入门](https://juejin.cn/post/6994940475459731463)
 
+[Web3D 从入门到跑路 · 3D 初体验](https://juejin.cn/post/7076016549303156743#heading-10)
+
 ## 库
 
 一、Three.js：JavaScript 3D WebGL库 82k
@@ -71,4 +73,3 @@ CopperCube (可视化编辑器类型)
 见小程序官方文档
 
 Cocos/Laya/Egret引擎适配
-

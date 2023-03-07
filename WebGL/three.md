@@ -1,5 +1,13 @@
 # Three.js
 
+[使用 Threejs 和 D3 可视化全球新冠疫情](https://juejin.cn/post/6955717062979715079)
+
+[北京到上海，Three.js 旅行轨迹的可视化](https://juejin.cn/post/7041580850261000222)
+
+[three.js实现球体地球2018年全球gdp前十国家标记](https://juejin.cn/post/6844903928916606983)
+
+[【钢铁侠劲舞团】通过钢铁侠的案例来深入 3D 模型使用](https://juejin.cn/post/7171803353310035999)
+
 [Three.js 之 12 Particles 粒子效果](https://juejin.cn/post/7113540626347458591/#heading-12)
 
 [一文带你悟道 Threejs 3D模型开发](https://juejin.cn/post/7170868138068672548)
@@ -45,6 +53,15 @@ scene也继承自 Object3D 类，也有其方法等。
 
 上面讲到 Object3D 时 Three 中大多数对象的基类，基类作为基石一般的存在，最好不要在代码中反复出现，因此 Three 官方提出了 Group 的概念，来增加层级结构之间的清晰性及逻辑性，Group 本质上与 Object3D 是完全相同的，因此更推荐使用 Group 对象来创建新的场景(局部空间)。
 
+
+## 属性缓冲区对象BufferAttribute
+
+Threejs提供的接口BufferAttribute目的是为了创建各种各样顶点数据，比如顶点颜色数据，顶点位置数据，然后作为几何体BufferGeometry的顶点位置坐标属性BufferGeometry.attributes.position、顶点颜色属性BufferGeometry.attributes.color的值。
+
+缓冲类型几何体BufferGeometry除了顶点位置、顶点颜色属性之外还有其他顶点属性，后面课程都会讲解到。关于BufferGeometry更多属性和方法可以查看文档BufferGeometry。
+
+颜色值是 rgb，范围从0-1
+
 ## 相机camera
 
 Threejs 提供了两类相机: 透视相机和正交相机
@@ -56,22 +73,10 @@ aspect: 表示渲染窗口的长宽比
 near/far: near/far 分别代表摄像机的近剪切面和远剪切面，相机只能渲染出 near 和 far 之间的场景
 ```
 
-## 轨道控制器
-
 ## 阴影
 
 1. 设置模型 castShadow receiveShadow.
 2. 设置光源的阴影属性
-
-## 模型
-
-- Mesh
-
-网格模型对象
-
-- Points
-
-点模型
 
 ## sprite
 
@@ -86,10 +91,6 @@ HemisphereLight: 半球光
 ## CSS2DRender
 
 CSS2DObject
-
-## AxesHelper
-
-坐标轴辅助线
 
 ## 地球
 
