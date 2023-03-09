@@ -69,12 +69,80 @@ var material = new THREE.MeshLambertMaterial({
 });
 ```
 
-## Face3对象定义Geometry的三角形面
+## Face3
+
+Face3对象定义Geometry的三角形面
 
 几何体Geometry的三角面属性geometry.faces和缓冲类型几何体BufferGeometry顶点索引属性BufferGeometry.index类似都是顶点位置数据的索引值,用来组织网格模型三角形的绘制。
 
+### 位置数据
+
+Face3 参数是顶点数组的索引
+
 ```js
 var geometry = new THREE.Geometry(); //声明一个几何体对象Geometry
+var p1 = new THREE.Vector3(0, 0, 0); //顶点1坐标
+var p2 = new THREE.Vector3(0, 100, 0); //顶点2坐标
+var p3 = new THREE.Vector3(50, 0, 0); //顶点3坐标
+var p4 = new THREE.Vector3(0, 0, 100); //顶点4坐标
+//顶点坐标添加到geometry对象
+geometry.vertices.push(p1, p2, p3,p4);
+// Face3构造函数创建一个三角面
 var face1 = new THREE.Face3(0, 1, 2);
+//三角面每个顶点的法向量
+var n1 = new THREE.Vector3(0, 0, -1); //三角面Face1顶点1的法向量
+var n2 = new THREE.Vector3(0, 0, -1); //三角面Face1顶点2的法向量
+var n3 = new THREE.Vector3(0, 0, -1); //三角面Face1顶点3的法向量
+// 设置三角面Face1三个顶点的法向量
+face1.vertexNormals.push(n1,n2,n3);
+
+// 三角面2
+var face2 = new THREE.Face3(0, 2, 3);
+// 设置三角面法向量
+face2.normal=new THREE.Vector3(0, -1, 0);
 geometry.faces.push(face1,face2);
+
+```
+
+threejs提供了Face3对象构建三角形，通过Face3构建一个三角形，不要设置顶点位置坐标数据，只需要通过数组索引值从geometry.vertices数组中获得顶点位置坐标数据。
+
+geometry.vertices数组索引0, 1, 2对应的顶点位置坐标数据表示三角形1的三个顶点坐标，索引0, 2, 3对应的顶点位置坐标数据表示三角形2的三个顶点坐标。
+
+### 法线
+
+设置三角形法线方向向量有两种方式，一种是直接定义三角形面的法线方向，另一个是定义三角形三个顶点的法线方向数据来表示三角形面法线方向。
+
+```js
+// 三角面2
+var face2 = new THREE.Face3(0, 2, 3);
+// 设置三角面法向量
+face2.normal=new THREE.Vector3(0, -1, 0);
+```
+
+```js
+// Face3构造函数创建一个三角面
+var face1 = new THREE.Face3(0, 1, 2);
+//三角面每个顶点的法向量
+var n1 = new THREE.Vector3(0, 0, -1); //三角面Face1顶点1的法向量
+var n2 = new THREE.Vector3(0, 0, -1); //三角面2Face2顶点2的法向量
+var n3 = new THREE.Vector3(0, 0, -1); //三角面3Face3顶点3的法向量
+// 设置三角面Face3三个顶点的法向量
+face1.vertexNormals.push(n1,n2,n3);
+```
+
+### 颜色
+
+```js
+// 方式1
+// 三角形1颜色
+face1.color = new THREE.Color(0xffff00);
+// 设置三角面face1三个顶点的颜色
+face1.color = new THREE.Color(0xff00ff);
+
+// 方式2
+face1.vertexColors = [
+  new THREE.Color(0xffff00),
+  new THREE.Color(0xff00ff),
+  new THREE.Color(0x00ffff),
+]
 ```

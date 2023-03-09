@@ -53,7 +53,6 @@ scene也继承自 Object3D 类，也有其方法等。
 
 上面讲到 Object3D 时 Three 中大多数对象的基类，基类作为基石一般的存在，最好不要在代码中反复出现，因此 Three 官方提出了 Group 的概念，来增加层级结构之间的清晰性及逻辑性，Group 本质上与 Object3D 是完全相同的，因此更推荐使用 Group 对象来创建新的场景(局部空间)。
 
-
 ## 属性缓冲区对象BufferAttribute
 
 Threejs提供的接口BufferAttribute目的是为了创建各种各样顶点数据，比如顶点颜色数据，顶点位置数据，然后作为几何体BufferGeometry的顶点位置坐标属性BufferGeometry.attributes.position、顶点颜色属性BufferGeometry.attributes.color的值。
@@ -91,6 +90,29 @@ HemisphereLight: 半球光
 ## CSS2DRender
 
 CSS2DObject
+
+## 旋转 缩放 平移
+
+```js
+// 几何体xyz三个方向都放大2倍
+geometry.scale(2, 2, 2);
+// 几何体沿着x轴平移50
+geometry.translate(50, 0, 0);
+// 几何体绕着x轴旋转45度
+geometry.rotateX(Math.PI / 4);
+// 居中：偏移的几何体居中
+geometry.center();
+```
+
+- .scale()
+
+- .translate()
+
+- .rotateX()
+
+BufferGeometry和几何体Geometry 一样, 本质上都是改变结合体顶点位置坐标数据
+
+注意网格模型Mesh进行缩放旋转平移变换和几何体Geometry可以实现相同的渲染效果，但是网格模型Mesh进行这些变换不会影响几何体的顶点位置坐标，网格模型缩放旋转平移变换改变的是模型的本地矩阵、世界矩阵。
 
 ## 地球
 

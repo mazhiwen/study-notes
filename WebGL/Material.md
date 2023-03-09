@@ -32,6 +32,10 @@
 
 定义将要渲染哪一面 - 正面，背面或两者。 默认为THREE.FrontSide。其他选项有THREE.BackSide和THREE.DoubleSide。
 
+- .needsUpdate
+
+指定需要重新编译材质。
+
 ## MeshBasicMaterial
 
 基础网格材质，不受光照影响的材质
