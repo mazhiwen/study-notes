@@ -64,8 +64,6 @@ Threejs提供的接口BufferAttribute目的是为了创建各种各样顶点数�
 1. 设置模型 castShadow receiveShadow.
 2. 设置光源的阴影属性
 
-## sprite
-
 ## CSS2DRender
 
 CSS2DObject

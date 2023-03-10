@@ -15,3 +15,9 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 const controls = new OrbitControls(camera, renderer.domElement);
 ```
+
+## SpotLightHelper 聚光源辅助对象
+
+## PointLightHelper 点光源辅助对象
+
+## DirectionalLightHelper 平行光光源辅助对象

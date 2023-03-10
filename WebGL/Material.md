@@ -12,7 +12,7 @@ var materialArr = [material_2, material_1, material_1, material_1, material_1, m
 var mesh = new THREE.Mesh(geometry, materialArr);
 ```
 
-## Material
+## Material 基类
 
 材质的抽象基类。
 
@@ -42,11 +42,19 @@ var mesh = new THREE.Mesh(geometry, materialArr);
 
 - .side : Integer
 
-定义将要渲染哪一面 - 正面，背面或两者。 默认为THREE.FrontSide。其他选项有THREE.BackSide和THREE.DoubleSide。
+定义将要渲染哪一面 - 正面，背面或两者。
+
+默认为THREE.FrontSide。其他选项有THREE.BackSide和THREE.DoubleSide。
 
 - .needsUpdate
 
 指定需要重新编译材质。
+
+- .opacity 材质透明度
+
+通过材质的透明度属性.opacity可以设置材质的透明程度，.opacity属性值的范围是0.0~1.0，0.0值表示完全透明, 1.0表示完全不透明，.opacity默认值1.0。
+
+当设置.opacity属性值的时候，需要设置材质属性transparent值为true，如果材质的transparent属性没设置为true, 材质会保持完全不透明状态。
 
 ## PointsMaterial 点材质
 
