@@ -1,5 +1,17 @@
 # 材质
 
+## 数组材质
+
+数组材质就是多个材质对象构成一个数组作为模型对象的材质。
+
+```js
+// 设置材质数组
+var materialArr = [material_2, material_1, material_1, material_1, material_1, material_1];
+
+// 设置数组材质对象作为网格模型材质参数
+var mesh = new THREE.Mesh(geometry, materialArr);
+```
+
 ## Material
 
 材质的抽象基类。
@@ -36,23 +48,7 @@
 
 指定需要重新编译材质。
 
-## MeshBasicMaterial
-
-基础网格材质，不受光照影响的材质
-
-## MeshLambertMaterial
-
-Lambert网格材质，与光照有反应，漫反射
-
-## MeshPhongMaterial
-
-高光Phong材质,与光照有反应
-
-## MeshStandardMaterial
-
-PBR物理材质，相比较高光Phong材质可以更好的模拟金属、玻璃等效果
-
-## PointsMaterial
+## PointsMaterial 点材质
 
 点材质
 
@@ -66,8 +62,60 @@ alpha贴图是一张灰度纹理，用于控制整个表面的不透明度。（
 
 设置点的大小。默认值为1.0。
 
-## LineBasicMaterial
+点材质PointsMaterial的.size属性可以每个顶点渲染的方形区域尺寸像素大小。
 
-基础线条材质
+## LineBasicMaterial 线基础材质
 
 一种用于绘制线框样式几何体的材质。
+
+通常使用Line等线模型才会用到线材质。
+
+## LineDashedMaterial 虚线材质
+
+```js
+var material = new THREE.LineDashedMaterial({
+  color: 0x0000ff,
+  dashSize: 10,//显示线段的大小。默认为3。
+  gapSize: 5,//间隙的大小。默认为1
+});
+```
+
+## MeshBasicMaterial 网格基础材质
+
+基础网格材质
+
+不受带有方向光源影响 没有棱角感。
+
+## MeshLambertMaterial 网格Lambert材质
+
+漫反射。有了光照计算，物体表面分界的位置才会产生棱角感。
+
+## MeshPhongMaterial 网格Phong材质
+
+漫反射
+
+高亮表面（镜面反射）
+
+```js
+var material = new THREE.MeshPhongMaterial({
+  color: 0xff0000,
+  specular:0x444444,//高光部分的颜色
+  shininess:20,//高光部分的亮度，默认30
+});
+```
+
+## MeshStandardMaterial PBR物理
+
+PBR物理材质，相比较高光Phong材质可以更好的模拟金属、玻璃等效果
+
+## MeshPhysicalMaterial PBR材质
+
+## MeshDepthMaterial 网格深度材质
+
+## MeshNormalMaterial 网格法向量材质
+
+## SpriteMaterial 精灵Sprite材质
+
+## RawShaderMaterial自定义着色器材质
+
+## ShaderMaterial自定义着色器材质

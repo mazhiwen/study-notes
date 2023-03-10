@@ -69,7 +69,7 @@ var material = new THREE.MeshLambertMaterial({
 });
 ```
 
-## Face3
+## Face3 / 已经废弃
 
 Face3对象定义Geometry的三角形面
 

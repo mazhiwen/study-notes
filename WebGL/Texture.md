@@ -28,6 +28,8 @@ textureLoader.load('Earth.png', function(texture) {
 })
 ```
 
+- .needsUpdate
+
 ## 顶点纹理坐标UV
 
 纹理坐标:一张纹理贴图图像的坐标，选择一张图片，比如以图片左下角为坐标原点，右上角为坐标(1.0,1.0)，图片上所有位置纵横坐标都介于0.0~1.0之间
@@ -35,58 +37,127 @@ textureLoader.load('Earth.png', function(texture) {
 纹理UV坐标和顶点位置坐标是一一对应关系
 
 几何体有两组UV坐标，第一组组用于.map、.normalMap、.specularMap等贴图的映射，第二组用于阴影贴图.lightMap的映射，
-  
-## map
 
-颜色贴图
+## 纹理贴图阵列映射
+
+```js
+// 设置阵列模式   默认ClampToEdgeWrapping  RepeatWrapping：阵列  镜像阵列：MirroredRepeatWrapping
+texture.wrapS = THREE.RepeatWrapping;
+texture.wrapT = THREE.RepeatWrapping;
+// uv两个方向纹理重复数量
+texture.repeat.set(4, 2);
+```
+
+## 纹理偏移
+
+```js
+// 不设置重复  偏移范围-1~1
+texture.offset = new THREE.Vector2(0.3, 0.1)
+```
+
+## 纹理旋转
+
+```js
+// 设置纹理旋转角度
+texture.rotation = Math.PI/4;
+// 设置纹理的旋转中心，默认(0,0)
+texture.center.set(0.5,0.5);
+```
+
+## 纹理动画
+
+纹理动画比较简单，必须要在渲染函数中render()一直执行texture.offset.x -= 0.06动态改变纹理对象Texture的偏移属性.offset就可以。
+
+## Canvas作为纹理贴图
+
+CanvasTexture
+
+```js
+// canvas画布对象作为CanvasTexture的参数重建一个纹理对象
+// canvas画布可以理解为一张图片
+var texture = new THREE.CanvasTexture(canvas);
+//打印纹理对象的image属性
+// console.log(texture.image);
+//矩形平面
+var material = new THREE.MeshPhongMaterial({
+  map: texture, // 设置纹理贴图
+});
+```
+
+## 视频作为纹理贴图
+
+VideoTexture
+
+```js
+// 创建video对象
+let video = document.createElement('video');
+video.src = "1086x716.mp4"; // 设置视频地址
+video.autoplay = "autoplay"; //要设置播放
+// video对象作为VideoTexture参数创建纹理对象
+var texture = new THREE.VideoTexture(video)
+var material = new THREE.MeshPhongMaterial({
+  map: texture, // 设置纹理贴图
+}); //材质对象Material
+```
+
+## map颜色贴图
 
 网格模型会获得颜色贴图的颜色值RGB。
 
-## bumpMap
+## bumpMap凹凸贴图
 
-凹凸贴图
+凹凸贴图和法线贴图功能相似，只是没有法线贴图表达的几何体表面信息更丰富。凹凸贴图是用图片像素的灰度值表示几何表面的高低深度，如果模型定义了法线贴图，就没有必要在使用凹凸贴图。
 
-表面深浅
+## normalMap法向贴图
 
-## normalMap
+把不需要真实3D的作为贴图展示看起来像3D，复杂的三维模型3D美术可以通过减面操作把精模简化为简模，然后把精模表面的复杂几何信息映射到法线贴图.normalMap上。
 
-法向贴图
+比如地球纹理，设置发现贴图可以看起来表面深浅凹凸，不设置就平
 
-表面深浅
+## envMap环境贴图
 
-## envMap
+目的是为了渲染该立方体而不是立方体周围环境，为了更方便所以没必要创建立方体周边环境所有物体的网格模型，可以通过图片来表达立方体周边的环境。
 
-环境贴图
+比如 CubeTexture
 
-## specularMap
+高光网格材质MeshPhongMaterial和物理PBR材质MeshStandardMaterial通常会使用环境贴图.envMap来实现更好的渲染效果。
 
-高光贴图
+## specularMap高光贴图
 
 需要使用 MeshPhongMaterial 材质
 
-## lightMap
+高光网格材质MeshPhongMaterial具有高光属性.specular,如果一个网格模型Mesh都是相同的材质并且表面粗糙度相同,或者说网格模型外表面所有不同区域的镜面反射能力相同，可以直接设置材质的高光属性.specular。
 
-光照贴图
+如果一个网格模型表示一个人，那么人的不同部位高光程度是不同的，不可能直接通过.specular属性来描述，在这种情况通过高光贴图.specularMap的RGB值来描述不同区域镜面反射的能力，.specularMap和颜色贴图.Map一样和通过UV坐标映射到模型表面。高光贴图.specularMap不同区域像素值不同，表示网格模型不同区域的高光值不同。
+
+## lightMap光照贴图
 
 产生假阴影. 只能用于静态场景。
 
-## metalnessMap
+实际模型的阴影是通过实时计算得到的，而光照贴图·lightMap是3D美术渲染好提供给程序员。这两种方式相比较通过贴图的方式更为节约资源，提高渲染性功能。
 
-金属光泽贴图
+## metalnessMap金属光泽贴图
 
-## roughnessMap
+## roughnessMap粗糙度贴图
 
-粗糙度贴图
-
-## emissiveMap
-
-自发光贴图
+## emissiveMap自发光贴图
 
 控制模型表面实现自发光效果
 
 只影响自身，不会变成光源
 
 自发光:  emissive
+
+## DataTexture数据纹理
+
+用数据作为纹理贴图
+
+```js
+var texture = new THREE.DataTexture(data, width, height, THREE.RGBFormat);
+var material = new THREE.MeshPhongMaterial({
+  map: texture, // 设置纹理贴图
+}); //材质对象Material
+```
 
 ## 移位贴图
 
@@ -115,10 +186,6 @@ cpu真实计算光线反射消耗很大
 天空盒纹理，设置为场景背景
 
 可以资源网站下载:全景图片, 球形等距圆柱投影图
-
-## 自定义uv映射
-
-...
 
 ***
 

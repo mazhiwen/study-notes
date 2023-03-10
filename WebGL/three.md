@@ -24,8 +24,6 @@
 
 [Three.js中文文档](http://www.yanhuangxueyuan.com/threejs/docs/index.html?_blank)
 
-[three.js](https://threejs.org/docs/index.html#manual/zh/introduction/Creating-a-scene)
-
 ## 3D模型
 
 加载类型：GLTF OBJ
@@ -61,31 +59,12 @@ Threejs提供的接口BufferAttribute目的是为了创建各种各样顶点数�
 
 颜色值是 rgb，范围从0-1
 
-## 相机camera
-
-Threejs 提供了两类相机: 透视相机和正交相机
-
-```
-透视相机：
-fov: 表示相机的角度范围，类似于人的视角。
-aspect: 表示渲染窗口的长宽比
-near/far: near/far 分别代表摄像机的近剪切面和远剪切面，相机只能渲染出 near 和 far 之间的场景
-```
-
 ## 阴影
 
 1. 设置模型 castShadow receiveShadow.
 2. 设置光源的阴影属性
 
 ## sprite
-
-## 光
-
-DirectionalLight: 直射光
-
-AmbientLight: 环境光
-
-HemisphereLight: 半球光
 
 ## CSS2DRender
 

@@ -40,6 +40,8 @@
   - [Geometry](./WebGL/Geometry.md)
   - [Material](./WebGL/Material.md)
   - [Texture](./WebGL/Texture.md)
+  - [相机](./WebGL/camera.md)
+  - [光照](./WebGL/light.md)
   - [顶点](./WebGL/vertex.md)
   - [物体](./WebGL/module.md)
   - [辅助](./WebGL/helper.md)
