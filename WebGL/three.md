@@ -24,7 +24,7 @@
 
 [Three.js中文文档](http://www.yanhuangxueyuan.com/threejs/docs/index.html?_blank)
 
-## 3D模型
+## 导入外部文件
 
 加载类型：GLTF OBJ
 
@@ -40,6 +40,26 @@
 ```
 
 模型中有两个重要的概念: 几何体和材质
+
+- js/json
+
+它是专门为Three.js设计的3D格式，Three.js库中也自带该loader。
+
+如果觉得还是js/json格式用得爽，想把其他3D格式转换成js/json，除使用软件如Blender转换导出外
+
+- stl
+
+基本所有的三维软件都支持导出.stl格式的三维模型文件，.stl格式的三维模型不包含材质Material信息，只包含几何体顶点数据的信息，你可以简单地把stl文件理解为几何体对象Geometry
+
+- obj
+
+.obj文件不包含场景的相机Camera、光源Light等信息，不能导出骨骼动画、变形动画，如果希望导出光照信息、相机信息、骨骼动画信息、变形动画信息，可以选择.fbx、.gltf等格式。
+
+使用三维软件导出.obj模型文件的时候，会同时导出一个材质文件.mtl， .obj和.stl文件包含的信息一样都是几何体顶点相关数据，材质文件.mtl包含的是模型的材质信息，比如颜色、贴图路径等。
+
+- fbx
+
+fbx除了包含几何、材质信息，可以存储骨骼动画等数据
 
 ## 场景scene
 
@@ -113,7 +133,11 @@ BufferGeometry和几何体Geometry 一样, 本质上都是改变结合体顶点�
   }
 ```
 
-## 例子
+## 事件
+
+##
+
+ 例子
 
 星空： <https://codepen.io/nikita_ska/pen/bqNdBj>
 

@@ -109,7 +109,7 @@
   - [虚拟滚动](./JavaScript/virtuallist.md)
   - [Date](./JavaScript/Date.md)
   - [定时器](./JavaScript/timeval.md)
-  - [TypedArray类型化数组](./JavaScript/ArrayBuffer.md)
+  - [TypedArray类型化数组](./JavaScript/TypedArray.md)
   - [Proxy Reflect](./JavaScript/Proxy.md)
   - [let const var的区别](./JavaScript/let.md)
 - [html](./html)

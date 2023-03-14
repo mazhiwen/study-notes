@@ -10,6 +10,10 @@ requestAnimationFrame+render或者gsap库控制动效
 
 模型文件 animations 属性存储了模型的动画，我们需要按照 Three 的模式来启动动画帧。
 
+## 插件
+
+TWEEN 这是执行动画效果的常用插件，可以设置属性值的随时间变化的过程，而在每一帧渲染的时候都需调用TWEEN.update()使属性值及时更新。
+
 ## 变形
 
 ```js
@@ -66,6 +70,20 @@ AnimationAction.timeScale = 20;//默认1，可以调节播放速度
 // AnimationAction.loop = THREE.LoopOnce; //不循环播放
 AnimationAction.play();//开始播放
 ```
+
+- .loop
+
+//不循环播放(默认是循环播放)
+AnimationAction.loop = THREE.LoopOnce;
+
+- .clampWhenFinished
+
+//暂停在最后一帧播放的状态
+AnimationAction.clampWhenFinished=true;
+
+- .paused
+
+播放或暂停
 
 ## AnimationMixer 混合器
 
@@ -132,5 +150,4 @@ function render() {
   }
 }
 render();
-
 ```
