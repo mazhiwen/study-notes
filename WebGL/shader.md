@@ -43,6 +43,94 @@ const material = new THREE.ShaderMaterial({
 });
 ```
 
+## three - WebGLProgram
+
+发送到顶点着色器和片元着色器的GLSL程序的构造函数， 包含默认的变量(uniforms)和属性
+
+- 顶点着色器的(无条件的):
+
+```js
+// = object.matrixWorld
+uniform mat4 modelMatrix;
+
+// = camera.matrixWorldInverse * object.matrixWorld
+uniform mat4 modelViewMatrix;
+
+// = camera.projectionMatrix
+uniform mat4 projectionMatrix;
+
+// = camera.matrixWorldInverse
+uniform mat4 viewMatrix;
+
+// = inverse transpose of modelViewMatrix
+uniform mat3 normalMatrix;
+
+// = camera position in world space
+uniform vec3 cameraPosition;
+
+```
+
+```js
+// default vertex attributes provided by Geometry and BufferGeometry
+attribute vec3 position;
+attribute vec3 normal;
+attribute vec2 uv;
+```
+
+- 顶点着色器(有条件的):
+
+```js
+#if defined( USE_COLOR_ALPHA )
+ // vertex color attribute with alpha
+ attribute vec4 color;
+#elif defined( USE_COLOR )
+ // vertex color attribute
+ attribute vec3 color;
+#endif
+```
+
+```js
+#ifdef USE_MORPHTARGETS
+
+attribute vec3 morphTarget0;
+attribute vec3 morphTarget1;
+attribute vec3 morphTarget2;
+attribute vec3 morphTarget3;
+
+#ifdef USE_MORPHNORMALS
+
+attribute vec3 morphNormal0;
+attribute vec3 morphNormal1;
+attribute vec3 morphNormal2;
+attribute vec3 morphNormal3;
+
+#else
+
+attribute vec3 morphTarget4;
+attribute vec3 morphTarget5;
+attribute vec3 morphTarget6;
+attribute vec3 morphTarget7;
+
+#endif
+```
+
+```js
+#endif
+#ifdef USE_SKINNING
+ attribute vec4 skinIndex;
+ attribute vec4 skinWeight;
+#endif
+```
+
+- 片元着色器:
+
+```
+uniform mat4 viewMatrix;
+uniform vec3 cameraPosition;
+```
+
+## three - WebGLRenderer
+
 ## 内置 attributes 和 uniforms
 
 WebGLRenderer默认情况下为shader提供了许多attributes和uniforms； 这些变量定义在shader程序编译时被自动添加到*片元着色器*和*顶点着色器*代码的前面，你不需要自己声明它们。 这些变量的描述请参见WebGLProgram。
@@ -52,6 +140,12 @@ WebGLRenderer默认情况下为shader提供了许多attributes和uniforms； 这
 自定义attributes和uniforms必须在GLSL着色器代码中声明
 
 自定义uniforms必须定义为 ShaderMaterial 的 uniforms 属性， 而任何自定义attributes必须通过BufferAttribute实例来定义。 注意 varyings 只需要在shader代码中声明（而不必在材质中）
+
+要声明一个自定义属性，更多细节参考BufferGeometry， 以及 BufferAttribute 页面关于BufferAttribute 接口。
+
+当创建attributes时，您创建的用来保存属性数据的每个类型化数组（typed array）必须是您的数据类型大小的倍数。
+
+请注意，属性缓冲区 不会 在其值更改时自动刷新。要更新自定义属性， 需要在模型的BufferAttribute中设置needsUpdate为true。 （查看BufferGeometry了解细节）。
 
 ## 循环
 
