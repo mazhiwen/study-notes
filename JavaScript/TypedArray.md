@@ -71,9 +71,16 @@ new TypedArray(buffer, byteOffset)
 new TypedArray(buffer, byteOffset, length)
 ```
 
-- .set()
+## .set()
 
 在类型化数组中存储多个值，从指定数组读取输入值。
+
+偏移量参数 offset 指定从什么地方开始使用源数组 array 的值进行写入操作。如果忽略该参数，则默认为 0（也就是说，从目标数组的下标为 0 处开始，使用源数组 array 的值覆盖重写）。
+
+```js
+typedarray.set(array[, offset])
+typedarray.set(typedarray[, offset])
+```
 
 ## DataView
 
