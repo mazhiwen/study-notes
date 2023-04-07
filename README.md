@@ -165,7 +165,6 @@
   - [React知识点](./React/basic.md)
 - 数据结构与算法
   - [概念](./DataStructuresAndAlgorithms/README.md)
-  - [数学知识点](./DataStructuresAndAlgorithms/math.md)
   - [列表](./DataStructuresAndAlgorithms/DSA/list.md)
   - [队列](./DataStructuresAndAlgorithms/DSA/Queue.md)
   - [堆](./DataStructuresAndAlgorithms/DSA/heap.md)
@@ -216,6 +215,7 @@
   - [React Native](./mobile/rn.md)
 - 计算机
   - [计算机知识](./computer/basic.md)
+- [数学知识](./math/math.md)
 - [其他](./other)
   - [git](./other/git.md)
   - [github](./other/github.md)
