@@ -23,7 +23,7 @@
   - [浏览器存储](./web/storage.md)
   - [页面可见性 离开页面以及相关](./web/PageVisibility.md)
   - [前端日志,监控,埋点,错误收集](./web/monitor.md)
-  - [播放器](./web/video.md)
+  - [播放器 视频](./web/video.md)
   - [图片](./web/StaticFile.md)
   - [URL](./web/url.md)
   - [history](./web/history.md)

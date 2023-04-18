@@ -68,7 +68,7 @@ $ git reset --hard <commit_id>
 
 3. 推送到服务器，一定要加 --force 参数
 
-$ git push origin HEAD:master --force
+$ git push origin HEAD:build_sit --force
 ```
 
 ## 配置origin
