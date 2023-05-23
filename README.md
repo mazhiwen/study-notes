@@ -15,7 +15,6 @@
   - [v8引擎](./web/v8.md)
   - [Web Worker](./web/webworker.md)
   - [Service worker](./web/serviceworker.md)
-  - [webRTC](./web/webrtc.md)
   - [serverless](./web/serverless.md)
   - [前端性能-谷歌文档](./web/performance.md)
   - [http缓存策略](./web/cache.md)
@@ -23,7 +22,6 @@
   - [浏览器存储](./web/storage.md)
   - [页面可见性 离开页面以及相关](./web/PageVisibility.md)
   - [前端日志,监控,埋点,错误收集](./web/monitor.md)
-  - [播放器 视频](./web/video.md)
   - [图片](./web/StaticFile.md)
   - [URL](./web/url.md)
   - [history](./web/history.md)
@@ -31,8 +29,14 @@
   - [Fetch](./web/Fetch.md)
   - [Excel 处理](./web/excel.md)
   - [CDN](./web/CDN.md)
+  - [blob](./web/blob.md)
   - [PerformanceAPI](./web/PerformanceAPI.md)
   - [其他](./web/basic.md)
+- 视频流相关
+  - [播放器 视频](./video/video.md)
+  - [直播](./video/live.md)
+  - [DASH协议](./video/DASH.md)
+  - [webRTC](./video/webrtc.md)
 - 图形学
   - [web图形技术](./WebGL/绘图.md)
   - [WebGL](./WebGL/WebGL.md)
@@ -214,7 +218,7 @@
   - [flutter](./mobile/flutter/README.md)
   - [React Native](./mobile/rn.md)
 - 计算机
-  - [计算机知识](./computer/basic.md)
+  - [计算机相关知识百科](./computer/basic.md)
 - [数学知识](./math/math.md)
 - [其他](./other)
   - [git](./other/git.md)
@@ -227,6 +231,7 @@
   - [文档服务](./other/documentserver.md)
   - [mac系统](./other/mac.md)
   - [游戏开发](./other/gamedev.md)
+  - [electron](./other/electron.md)
 - python
   - [学习资料](./python/source.md)
 - 学习资料
