@@ -123,7 +123,7 @@ var http = require('http');
 http.createService(...).listen(3000);
 ```
 
-### 加载机制
+- 加载机制
 
 模块可以多次加载，但是只会在第一次加载时运行一次，然后运行结果就被缓存了，以后再加载，就直接读取缓存结果。要想让模块再次运行，必须清除缓存。
 
@@ -151,7 +151,7 @@ incCounter();
 console.log(counter); // 3
 ```
 
-### require机制
+- require机制
 
 ```
 当 Node 遇到 require(X) 时，按下面的顺序处理。
