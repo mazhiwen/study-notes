@@ -4,6 +4,7 @@
 哈哈
 
 - Web开发
+  - [其他](./web/basic.md)
   - [前端性能优化大全](./web/performanceapply.md)
   - [WebAPI](./web/browser)
   - [window](./web/window.md)
@@ -31,7 +32,6 @@
   - [CDN](./web/CDN.md)
   - [blob](./web/blob.md)
   - [PerformanceAPI](./web/PerformanceAPI.md)
-  - [其他](./web/basic.md)
 - 视频流相关
   - [播放器 视频](./video/video.md)
   - [直播](./video/live.md)
