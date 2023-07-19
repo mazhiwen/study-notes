@@ -41,4 +41,18 @@ data:[<MIME type>][;charset=<charset>][;base64],<encoded data>
 
 ## 图片操作库
 
+html2canvas: 28k
+
 sharp 库: 压缩图片，修改图片滤镜等等
+
+AlloyImage： 图像处理开源引擎 3k
+
+cropperjs: 图片裁剪  12k
+
+PhotoSwipe: 图片查看 23k
+
+## pdf操作库
+
+pdfmake: 读写编辑 10k
+
+jsPDF: 27k
