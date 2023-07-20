@@ -56,3 +56,13 @@ PhotoSwipe: 图片查看 23k
 pdfmake: 读写编辑 10k
 
 jsPDF: 27k
+
+## html2canvas
+
+[揭秘 html2Canvas：打印高清 PDF 的原理解析](https://juejin.cn/post/7256306281538748477?searchId=20230720104942D37FB8E0ADBD5FE02929)
+
+## 打印相关
+
+Print.js
+
+[记一次原生实现浏览器打印功能](https://juejin.cn/post/7231015741453402149)
