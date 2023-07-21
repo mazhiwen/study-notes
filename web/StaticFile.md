@@ -61,6 +61,19 @@ jsPDF: 27k
 
 [揭秘 html2Canvas：打印高清 PDF 的原理解析](https://juejin.cn/post/7256306281538748477?searchId=20230720104942D37FB8E0ADBD5FE02929)
 
+```
+const element = document.getElementById('testprint');
+      console.log(element.scrollHeight);
+      html2canvas(element, {
+        // windowWidth: element.scrollWidth,
+        windowHeight: element.scrollHeight,
+        windowWidth: 1700,
+        // windowHeight: 800,
+      }).then((canvas) => {
+        document.body.appendChild(canvas);
+      });
+```
+
 ## 打印相关
 
 Print.js
