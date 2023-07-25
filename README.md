@@ -213,7 +213,7 @@
   - [小程序原生语法](./mobile/wx.md)
   - [移动端知识点](./mobile/basic.md)
   - [H5适配](./mobile/h5.md)
-  - [像素单位概念，viewport](./mobile/pixel.md)
+  - [像素/分辨率等](./mobile/pixel.md)
   - [ios](./mobile/ios)
   - [flutter](./mobile/flutter/README.md)
   - [React Native](./mobile/rn.md)
