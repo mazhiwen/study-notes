@@ -93,3 +93,23 @@ upload.addEventListener('click', () => {
 - 合并切片
 
 前端通知后端，切片上传完毕。后端合并。
+
+## 跨页签通信
+
+[跨标签页通信](https://juejin.cn/post/7260415501170868284?searchId=202307281636107BCD678C2438D1C47D62#heading-3)
+
+- BroadCast Channel
+
+- Service Worker
+
+- LocalStorage window.onstorage 监听
+
+- Shared Worker 定时器轮询（ setInterval ）
+
+- IndexedDB 定时器轮询（ setInterval ）
+
+- cookie 定时器轮询（ setInterval ）
+
+- window.open、window.postMessage
+
+- Websocket
