@@ -113,3 +113,30 @@ upload.addEventListener('click', () => {
 - window.open、window.postMessage
 
 - Websocket
+
+## 打印相关
+
+Print.js
+
+[记一次原生实现浏览器打印功能](https://juejin.cn/post/7231015741453402149)
+
+相关api：
+
+```js
+window.print()
+```
+
+```html
+<link href="XXX.css" media="print" rel="stylesheet" />
+
+<style media="print"> 
+    @page {
+        // 可以设置打印的css样式
+        margin: 0;
+    }
+</style>
+
+@media print { 
+    // 内容同上style
+}
+```
