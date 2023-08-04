@@ -73,9 +73,3 @@ const element = document.getElementById('testprint');
         document.body.appendChild(canvas);
       });
 ```
-
-## 打印相关
-
-Print.js
-
-[记一次原生实现浏览器打印功能](https://juejin.cn/post/7231015741453402149)
