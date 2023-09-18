@@ -547,34 +547,13 @@ reuseExistingChunk选项：true/false。为true时，如果当前要提取的模
 
 priority同外面
 
-## 异步加载 按需加载 懒加载
+## 异步加载 按需加载 懒加载 动态导入
 
 [webpack的异步加载原理及分包策略](https://juejin.cn/post/6895546761255845901)
 
-### vue 异步组件
+- import()
 
-vue路由懒加载:
-
-这种方法主要是使用了 resolve 的异步机制，用 require 代替了 import 实现按需加载
-
-```js
-export default new Router({
-  routes: [
-    {
-      path: '/home',',
-      component: (resolve) => require(['@/components/home'], resolve),
-    },
-    {
-      path: '/about',',
-      component: (resolve) => require(['@/components/about'], resolve),
-    },
-  ],
-})
-```
-
-### webpack 的 require.ensure 异步加载
-
-### 最新的推荐：ES6的 import() 按需加载
+推荐：ES6的 import() 按需加载
 
 ```js
 export default new Router({
@@ -642,6 +621,31 @@ document.getElementById('bBtn').onclick = function () {
 }
 // 注意当调用 ES6 模块的 import() 方法（引入模块）时，必须指向模块的 .default 值，因为它才是 promise 被处理后返回的实际的 module 对象。
 ```
+
+- vue 异步组件
+
+vue路由懒加载:
+
+这种方法主要是使用了 resolve 的异步机制，用 require 代替了 import 实现按需加载
+
+```js
+export default new Router({
+  routes: [
+    {
+      path: '/home',',
+      component: (resolve) => require(['@/components/home'], resolve),
+    },
+    {
+      path: '/about',',
+      component: (resolve) => require(['@/components/about'], resolve),
+    },
+  ],
+})
+```
+
+- require.ensure
+
+webpack 的 异步加载
 
 ## DllPlugin 提升构建速度
 
