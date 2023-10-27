@@ -52,6 +52,16 @@ reactive：接收一个普通对象然后返回该普通对象的响应式代理
 
 toRefs： 把一个响应式对象转换成普通对象，该普通对象的每个 property 都是一个 ref ，和响应式对象 property 一一对应。
 
+## ref
+
+```js
+import { ref } from 'vue'
+
+const count = ref(0)
+```
+
+ref基本上就是响应式js语法糖。
+
 ## watch watchEffect
 
 watch 函数用来侦听特定的数据源，并在回调函数中执行副作用。默认情况是惰性的，也就是说仅在侦听的源数据变更时才执行回调。
@@ -163,3 +173,7 @@ Suspense 只是一个带插槽的组件，只是它的插槽指定了default 和
 ## Fragment
 
 但是在 Vue3.x 中，可以直接写多个根节点
+
+## API风格
+
+组合式API  选项式API
