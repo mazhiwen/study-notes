@@ -1,10 +1,23 @@
 # linux
 
-## 命令
+[45 个常用Linux 命令，让你轻松玩转Linux！](https://juejin.cn/post/6844903930166509581?searchId=20231101103742F5D3F1E2E4243831D4BC)
 
-<https://man.linuxde.net/tar>
+```sh
+# 创建目录和父目录a,b,c,d
+mkdir -p a/b/c/d
 
-### 查找文件 find
+# 拷贝文件夹a到/tmp目录
+cp -rvf a/ /tmp/
+
+# 移动文件a到/tmp目录，并重命名为b
+mv -vf a /tmp/b
+
+# 删除tmp目录的所有文件
+rm -rvf /tmp/
+
+```
+
+## 查找文件 find
 
 example可以是正则，如  
 "example.txt",  
@@ -13,9 +26,9 @@ example可以是正则，如
 文件:find 目录 -name example  
 忽略大小写 :find 目录 -iname example
 
-### 上下传文件
+## 上下传文件
 
-#### scp
+- scp
 
 1、从服务器上下载文件
 
@@ -52,7 +65,7 @@ scp -P 1688 -r dist/* root@139.199.35.182:/usr/share/nginx/mazhiwen/
 scp -P 1688 -r dist root@139.199.35.182:/usr/share/nginx/mazhiwen/
 ```
 
-#### sz rz
+- sz rz
 
 sz  下载
 
@@ -79,28 +92,28 @@ rz   上传
 
 2.上传和下载都默认使用Linux当前登录的用户，使用时要根据个人需要修改文件的权限。
 
-### ls
+## ls
 
 ls -a 查看隐藏
 
 ~/.ssh 公钥目录
 
-### 安装node
+## 安装node
 
  yum info epel-release
  sudo yum install epel-release
  sudo yum install nodejs
 
-### mv
+## mv
 
 mv ./build/* ../
 mv ./build ../
 
-### 文件 文件夹
+## 文件 文件夹
 
 touch file 新建文件
 
-### tar
+- tar
 
 ## 查找文件名包含字符串
 

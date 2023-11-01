@@ -140,3 +140,38 @@ window.print()
     // 内容同上style
 }
 ```
+
+## 全屏API
+
+Fullscreen API
+
+- 方法
+
+Document 中的方法：
+
+Document.exitFullscreen()
+用于请求从全屏模式切换到窗口模式，会返回一个 Promise，会在全屏模式完全关闭的时候被置为 resolved 状态。
+
+Element 中的方法：
+
+Element.requestFullscreen()
+
+- 事件
+
+Document 上的事件处理程序
+
+```
+1.Document.onfullscreenchange
+
+fullscreenchange 事件的处理程序，当进入全屏或退出全屏时，事件将被发送到Document上。此处理程序仅在整个文档全屏模式更改时有效。
+
+2.Document.onfullscreenerror
+fullscreenerror 事件的处理程序，当进入全屏或退出全屏出错时，事件将被发送到 Document 上，仅对整个文档的全屏模式更改出错时候有效。
+
+Element 上的事件处理程序
+3.Element.onfullscreenchange
+当全屏事件发生时，该事件会被发送到该元素，表明该元素进入或退出全屏模式
+
+4.Element.onfullscreenerror
+fullscreenerror 事件的处理程序，当指定的 Element 改变全屏模式时候出现错误，该事件将被发送到指定的 Element 上。
+```
