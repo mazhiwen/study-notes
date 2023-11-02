@@ -202,8 +202,7 @@
   - [组件库 SDK 打包方案](./integration/libpack.md)
   - 服务端渲染
 - node以及服务
-  - [node技术栈](./node/overview.md)
-  - [node知识点](./node)
+  - [node知识](./node)
   - [Docker](./node/Docker.md)
   - [nginx](./node/nginx)
   - [linux](./node/linux.md)

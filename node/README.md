@@ -1,5 +1,15 @@
 # 关于node的知识
 
+node
+
+## node技术栈
+
+- thinkjs
+
+ThinkJS 是一款面向未来开发的 Node.js 框架，整合了大量的项目最佳实践，让企业级开发变得更简单、高效。从 3.0 开始，框架底层基于 Koa 2.x 实现，兼容 Koa 的所有功能。
+
+- express
+
 ## \#!/usr/bin/env node
 
 主要是帮助脚本找到node的脚本解释器。
@@ -113,3 +123,7 @@ render('{{xfoo}} {{say.what}}', { xfoo: 'yep', say: { what: 'yep' } });
 babel-node : <https://juejin.cn/post/6844903768924897288>
 
 [在node环境中支持ES6代码](https://juejin.cn/post/6844904017764548622)
+
+## node写CLI
+
+[从零开发前端 CLI 脚手架](https://juejin.cn/post/7271599265969225743?searchId=20231101155303E808D3D78EF1865DB3CF)
