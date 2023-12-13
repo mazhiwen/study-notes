@@ -82,6 +82,9 @@ $ git push origin HEAD:master --force
 
 ④  ssh-keygen -t rsa -C "81245995@qq.com"
 
+ssh-keygen -t rsa -C "marjovenmail@gmail.com"
+
+windows ssh 目录: C:\Users\Administrator.SC-201909130712\.ssh
 ```
 
 ~/ssh/config文件:
