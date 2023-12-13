@@ -41,4 +41,35 @@ data:[<MIME type>][;charset=<charset>][;base64],<encoded data>
 
 ## 图片操作库
 
+html2canvas: 28k
+
 sharp 库: 压缩图片，修改图片滤镜等等
+
+AlloyImage： 图像处理开源引擎 3k
+
+cropperjs: 图片裁剪  12k
+
+PhotoSwipe: 图片查看 23k
+
+## pdf操作库
+
+pdfmake: 读写编辑 10k
+
+jsPDF: 27k
+
+## html2canvas
+
+[揭秘 html2Canvas：打印高清 PDF 的原理解析](https://juejin.cn/post/7256306281538748477?searchId=20230720104942D37FB8E0ADBD5FE02929)
+
+```
+const element = document.getElementById('testprint');
+      console.log(element.scrollHeight);
+      html2canvas(element, {
+        // windowWidth: element.scrollWidth,
+        windowHeight: element.scrollHeight,
+        windowWidth: 1700,
+        // windowHeight: 800,
+      }).then((canvas) => {
+        document.body.appendChild(canvas);
+      });
+```

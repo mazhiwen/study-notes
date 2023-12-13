@@ -68,7 +68,7 @@ $ git reset --hard <commit_id>
 
 3. 推送到服务器，一定要加 --force 参数
 
-$ git push origin HEAD:master --force
+$ git push origin HEAD:build_sit --force
 ```
 
 ## 配置origin
@@ -138,7 +138,7 @@ git reset --soft HEAD～1
 
 ## 强制远程覆盖本地
 
-git fetch --all &&  git reset --hard origin/master && git pull
+git fetch --all &&  git reset --hard origin/build_sit && git pull
 
 ## git pull 和 git fetch 的区别
 
@@ -220,3 +220,24 @@ sudo vi /etc/hosts
 clone 单个分支:
 
 git clone -b master git@github.com:mrdoob/three.js.git
+
+## git log
+
+```
+
+git log --author="917481446@qq.com" --oneline | wc -l
+
+
+// 产看文件修改
+git log --author="lijie" --stat --oneline
+
+  
+
+  //
+
+git log --author="917481446@qq.com" --name-only
+
+
+
+git log --author="917481446@qq.com" --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "added lines: %s, removed lines: %s, total lines: %s\n", add, subs, loc }'
+```

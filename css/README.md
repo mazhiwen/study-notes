@@ -10,15 +10,6 @@
 
 <https://github.com/CavsZhouyou/Front-End-Interview-Notebook/blob/master/Css/Css.md>
 
-## 角度单位
-
-\<angle>
-
-deg :度 360deg  
-grad :百分度 400grad  
-rad :弧度 2π  
-turn :1turn  
-
 ## white-space
 
 white-space CSS 属性是用来设置如何处理元素中的 空白。

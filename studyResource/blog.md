@@ -16,6 +16,8 @@
 
 ## 博客论坛
 
+[前端精读周刊](https://github.com/ascoders/weekly?utm_source=gold_browser_extension)
+
 [一个合格(优秀)的前端都应该阅读这些文章](https://juejin.cn/post/6844903896637259784)
 
 [崔小瑞网课老师](https://github.com/cuixiaorui?tab=repositories)

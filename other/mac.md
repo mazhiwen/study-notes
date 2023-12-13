@@ -4,4 +4,6 @@
 
 ## mac查询ip
 
- ipconfig getifaddr en0
+ifconfig
+
+ipconfig getifaddr en0

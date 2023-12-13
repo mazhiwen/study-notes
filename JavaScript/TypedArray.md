@@ -45,6 +45,43 @@ TypedArray一共包含九种类型，每一种都是一个构造函数。（Data
 
 TypedArray只是视图，本身不存储数据，数据都存储在底层的ArrayBuffer中，要获取底层对象必须使用buffer属性
 
+```
+Int8Array  8位有符号整型（补码）
+Uint8Array 8位无符号整型
+Uint8ClampedArray 8位无符号整型（一定在 0 到 255 之间）s
+Int16Array  16位有符号整型（补码）
+Uint16Array
+Int32Array
+Uint32Array
+Float32Array 32位IEEE浮点数（7位有效数字，例如 1.234567）
+Float64Array 
+BigInt64Array  64位有符号整型（补码）
+BigUint64Array
+```
+
+```js
+// 其中，TypedArray 是一个具体的构造函数。
+new TypedArray()
+new TypedArray(length)
+new TypedArray(typedArray)
+new TypedArray(object)
+
+new TypedArray(buffer)
+new TypedArray(buffer, byteOffset)
+new TypedArray(buffer, byteOffset, length)
+```
+
+## .set()
+
+在类型化数组中存储多个值，从指定数组读取输入值。
+
+偏移量参数 offset 指定从什么地方开始使用源数组 array 的值进行写入操作。如果忽略该参数，则默认为 0（也就是说，从目标数组的下标为 0 处开始，使用源数组 array 的值覆盖重写）。
+
+```js
+typedarray.set(array[, offset])
+typedarray.set(typedarray[, offset])
+```
+
 ## DataView
 
 视图用来读写复杂类型的二进制数据(ArrayBuffer)。
