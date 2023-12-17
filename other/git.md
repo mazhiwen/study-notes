@@ -107,7 +107,6 @@ Host github.com
   IdentityFile ~/.ssh/id_rsa_personal
   Port 443
 
-
 ```
 
 ## stash
@@ -227,17 +226,11 @@ git clone -b master git@github.com:mrdoob/three.js.git
 
 git log --author="917481446@qq.com" --oneline | wc -l
 
-
 // 产看文件修改
 git log --author="lijie" --stat --oneline
 
-  
-
   //
-
 git log --author="917481446@qq.com" --name-only
-
-
 
 git log --author="917481446@qq.com" --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "added lines: %s, removed lines: %s, total lines: %s\n", add, subs, loc }'
 ```
