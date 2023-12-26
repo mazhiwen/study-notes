@@ -1,4 +1,4 @@
-# git
+# git/github
 
 <https://juejin.cn/post/6844903699915997192>
 
@@ -71,7 +71,7 @@ $ git reset --hard <commit_id>
 $ git push origin HEAD:build_sit --force
 ```
 
-## 配置origin
+## keygen
 
 ```
 ①   cd ~/.ssh/    【如果没有对应的文件夹，则执行  mkdir  ./.ssh】
@@ -147,6 +147,11 @@ git pull 会将远程仓库的变化下载下来，并和当前分支合并。
 
 ## git rebase 和 git merge 的区别
 
+```
+#配置git pull 的时候是否rebase
+git config --global pull.rebase true 
+```
+
 git merge 和 git rebase 都是用于分支合并，关键在 commit 记录的处理上不同。
 
 git merge 会新建一个新的 commit 对象，然后两个分支以前的 commit 记录都指向这个新 commit 记录。这种方法会
@@ -218,7 +223,7 @@ sudo vi /etc/hosts
 
 clone 单个分支:
 
-git clone -b master git@github.com:mrdoob/three.js.git
+git clone -b master <git@github.com>:mrdoob/three.js.git
 
 ## git log
 
@@ -234,3 +239,13 @@ git log --author="917481446@qq.com" --name-only
 
 git log --author="917481446@qq.com" --pretty=tformat: --numstat | awk '{ add += $1; subs += $2; loc += $1 - $2 } END { printf "added lines: %s, removed lines: %s, total lines: %s\n", add, subs, loc }'
 ```
+
+## github技巧
+
+[2020 还不会泡 Github 你就落伍了](https://juejin.cn/post/6844904090351190024#heading-16)
+
+[github 技巧大全](https://github.com/xirong/my-git/blob/master/how-to-use-github.md)
+
+## GitHub pages 搭建网站
+
+<http://用户名.github.io>

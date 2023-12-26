@@ -29,3 +29,15 @@ Vue.js 小程序版, fork 自 vuejs/vue@2.4.1，保留了 vue runtime 能力，�
 mpvue 是一个使用 Vue.js 开发小程序的前端框架。框架基于 Vue.js 核心，mpvue 修改了 Vue.js 的 runtime 和 compiler 实现，使其可以运行在小程序环境中，从而为小程序开发引入了整套 Vue.js 开发体验。
 
 ## wepy
+
+## 自定于导航栏
+
+<https://juejin.cn/post/6992133223979434014?searchId=2023122016144268A7912DB54F676F9900>
+
+[uniapp微信小程序自定义导航栏实现攻略：定制化界面引领用户体验新潮流！](https://juejin.cn/post/7310412274534744115?searchId=202312201924181A3BBC8F2304177A0A06)
+
+<https://juejin.cn/post/6844903812851843085?searchId=2023122016144268A7912DB54F676F9900>
+
+<https://juejin.cn/post/7309589229061849122?searchId=202312201924181A3BBC8F2304177A0A06>
+
+https://juejin.cn/post/7254812719349858361?searchId=2023122015474541C7FFB393FE8D707F42

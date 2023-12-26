@@ -1,0 +1,5 @@
+# pinia
+
+[大菠萝！这一次彻底搞懂Pinia！（保姆级教程）](https://juejin.cn/post/7112691686085492767?searchId=202312211601255A8C59787CBED0F62DAF#heading-23https://juejin.cn/post/7112691686085492767?searchId=202312211601255A8C59787CBED0F62DAF#heading-23)
+
+[15分钟学会Pinia](https://juejin.cn/post/7272916192825442340?searchId=202312211601255A8C59787CBED0F62DAF)
