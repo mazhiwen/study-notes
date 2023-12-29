@@ -80,6 +80,16 @@ await意思是async wait(异步等待)。
 
 一个async函数内 出现多个await时，第一个await执行，就会跳出async函数。两个await不会同步执行.
 
+## 处理被拒绝的 promise
+
+```js
+const response = await promisedFunction().catch((err) => {
+  console.error(err);
+  return "default response";
+});
+// response will be "default response" if the promise is rejected
+```
+
 ## 多个请求并发执行
 
 多个请求并发执行，可以使用 Promise.all 方法
