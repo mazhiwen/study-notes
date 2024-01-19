@@ -17,16 +17,6 @@ function fibonacci(current = 0, next = 1) {
 
 [见相关文档](./let.md)
 
-### 解构
-
-用法一： 用于获取函数的多余参数。
-
-```js
-function fn(a, ...rest) {
-  console.log(rest);
-}
-```
-
 ### module
 
 ### Promise

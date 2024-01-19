@@ -398,21 +398,7 @@ const arr = [undefined, null, "", 0, false, NaN, 1, 2].filter(Boolean);
 
 Boolean 也是一个function
 
-## 解构对象属性别名
 
-```js
-const obj = { a: 0, b: 1, c: 2 };
-const { a, b: d, c: e } = obj;
-// a d e => 0 1 2
-```
-
-## 解构对象属性默认值
-
-```js
-const obj = { a: 0, b: 1, c: 2 };
-const { a, b = 2, d = 3 } = obj;
-// a b d => 0 1 3
-```
 
 ## 显示全部DOM边框
 

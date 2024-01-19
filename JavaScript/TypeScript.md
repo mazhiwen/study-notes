@@ -4,7 +4,11 @@
 
 它是 JavaScript 的超集，所有现有的 JavaScript 都可以不加改变就在其中使用
 
+[官方文档](https://www.typescriptlang.org/zh/docs/)
+
 [Vue Class Component](https://class-component.vuejs.org/guide/class-component.html#computed-properties)
+
+<https://juejin.cn/post/7294449571857219593?searchId=2024011917322365347780D0807752DF2D>
 
 <https://juejin.cn/post/6844904013289226254>
 

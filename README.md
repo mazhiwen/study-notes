@@ -116,6 +116,7 @@
   - [TypedArray类型化数组](./JavaScript/TypedArray.md)
   - [Proxy Reflect](./JavaScript/Proxy.md)
   - [let const var的区别](./JavaScript/let.md)
+  - [解构](./JavaScript/destructuring.md)
 - [html](./html)
   - [html5](./html/html5.md)
   - [离线缓存](./html/mainfest.md)
