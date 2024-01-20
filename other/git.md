@@ -219,6 +219,19 @@ sudo vi /etc/hosts
 
 185.199.108.153 assets-cdn.github.com
 
+## github 端口22 连接不上 'connect to host github.com port 22'
+
+.ssh目录创建config文件
+
+```
+# Add section below to it
+Host github.com
+  Hostname ssh.github.com
+  Port 443
+```
+
+`ssh -T git@github.com`
+
 ## git clone
 
 clone 单个分支:
