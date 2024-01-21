@@ -11,13 +11,38 @@ Git是分布式系统
 ## tag
 
 ```sh
-git tag ：tag列表  
+
+# 打印所有的标签
+$ git tag
+
+# 添加轻量标签，指向提交对象的引用，可以指定之前的提交记录
+$ git tag <标签名称> [<commit ID>]
+
+# 添加带有描述信息的附注标签，可以指定之前的提交记录
+$ git tag -a <标签名称> -m <标签描述信息> [<commit ID>]
+
+git tag -a 20240116 -m 活动报名 d1f9565ddfec7e0417b4b93953a64d6dfcb4b786
+ 
 git tag -a v1.0.3 -m "let关键"  :添加tag
-# 推送所有tag
-git push origin --tags
-git push origin [tagname]
-git tag -d v1.0.3 :删除本地tag
-git push origin :refs/tags/v1.0.2 :删除远程tag
+
+# 切换到指定的标签
+$ git checkout <标签名称>
+
+# 查看标签的信息
+$ git show <标签名称>
+
+# 删除指定的标签
+$ git tag -d <标签名称>
+# 删除远程tag
+git push origin :refs/tags/v1.0.2 :
+
+# 将指定的标签提交到远程仓库
+$ git push <远程仓库的别名> <标签名称>
+
+# 将本地所有的标签全部提交到远程仓库
+$ git push <远程仓库的别名> –tags
+
+
 ```
 
 ## 强制推送远程
