@@ -6,6 +6,8 @@
 
 [这才是真正的Git——Git内部原理](https://juejin.cn/post/6844904019245137927)
 
+[「一劳永逸」一张脑图带你掌握Git命令](https://juejin.cn/post/6869519303864123399?searchId=20240119104652EC6ACF4B403630194C57)
+
 Git是分布式系统
 
 ## tag

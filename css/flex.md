@@ -158,3 +158,12 @@ overflow:hidden;
 flex:auto;
 width:0;
 ```
+
+## flex高度问题
+
+这样可以让元素获取高度。这样子元素100%可以拿到高度.
+
+```
+flex-grow:1
+overflow: hidden;
+```
