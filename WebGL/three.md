@@ -135,9 +135,7 @@ BufferGeometry和几何体Geometry 一样, 本质上都是改变结合体顶点�
 
 ## 事件
 
-##
-
- 例子
+## 例子
 
 星空： <https://codepen.io/nikita_ska/pen/bqNdBj>
 
