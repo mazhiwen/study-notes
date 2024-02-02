@@ -22,8 +22,12 @@ $ git tag <标签名称> [<commit ID>]
 
 # 添加带有描述信息的附注标签，可以指定之前的提交记录
 $ git tag -a <标签名称> -m <标签描述信息> [<commit ID>]
+git tag -a 20240202 -m 活动报名 d1f9565ddfec7e0417b4b93953a64d6dfcb4b786
 
-git tag -a 20240116 -m 活动报名 d1f9565ddfec7e0417b4b93953a64d6dfcb4b786
+
+# 当前commit打 tag
+
+git tag -a 20240202 -m 活动互选bug,活动取消
  
 git tag -a v1.0.3 -m "let关键"  :添加tag
 
@@ -42,7 +46,7 @@ git push origin :refs/tags/v1.0.2 :
 $ git push <远程仓库的别名> <标签名称>
 
 # 将本地所有的标签全部提交到远程仓库
-$ git push <远程仓库的别名> –tags
+$ git push <远程仓库的别名> --tags
 
 
 ```
