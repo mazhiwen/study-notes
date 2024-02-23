@@ -299,5 +299,5 @@ git log --author="917481446@qq.com" --pretty=tformat: --numstat | awk '{ add += 
 ```
 git config --global pull.rebase false ----- 全局关闭 rebase
 git config --global pull.rebase true ----- 全局开启rebase
-git config --global --add pull.ff only/false ----- 全局开启/关闭fast-forward
+git config --global --add pull.ff true ----- 全局开启/关闭fast-forward
 ```
