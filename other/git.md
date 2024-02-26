@@ -296,6 +296,8 @@ git log --author="917481446@qq.com" --pretty=tformat: --numstat | awk '{ add += 
 
 ## config
 
+[官网 配置](https://git-scm.com/docs/git-config)
+
 ```
 git config --global pull.rebase false ----- 全局关闭 rebase
 git config --global pull.rebase true ----- 全局开启rebase
