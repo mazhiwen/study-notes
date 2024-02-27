@@ -13,3 +13,9 @@
 ## performance tab
 
 ## Lighthouse
+
+## 关闭开启手势
+
+defaults write com.google.Chrome AppleEnableMouseSwipeNavigateWithScrolls -bool false
+
+defaults write com.google.Chrome AppleEnableSwipeNavigateWithScrolls -bool FALSE
