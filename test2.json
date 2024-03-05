@@ -1,26 +1,34 @@
-{ 
-  templateAttr:
-
-  ,
-  imgs, 
-  // 组件列表
-  content:{
-    
-
-
-  }, 
-  contentRelations
-  createBy
-  description
-  functionPermissions
-  height
-  width
-  id
-  isRelease
-  layer
-  name
-  tabId:
-  templateAttr:
-  thumbnail
-}
-
+updated_time: "2024-03-04 10:57:24", 
+max_choose_num: 60, 
+regStatus: "0", 
+activity_platform: 0, 
+link: "https://mp.weixin.qq.com/s/8vqYXHaacG5DAuF13saRGA", 
+remark: {
+  now_male_num: 0, 
+  now_female_num: 0, 
+  now_num: 25
+}, 
+activity_cost: "互选成功收费，不成功完全免费", 
+title: "第53期《首创王牌｜星期四互选》脱单CP双保险｜限时互选 &先线上互选~", 
+max_male_num: 32, 
+max_female_num: 30, 
+is_select: 0, 
+activity_type: 0, 
+activityStatus: "活动报名中", 
+id: 297, 
+is_online: false, 
+created_time: "2024-03-04 10:57:18", 
+address: "线上互选+线下读书会/深圳湾", 
+type_id: 4, 
+end_time: "2024-02-08 12:00:00", 
+begin_time: "2024-02-08 18:00:00", 
+title_img: "https://tatapub-1306533758.cos.ap-guangzhou.myqcloud.com/tata/072b3525ca784f0f8a2a4cf4d8f81d2e.jpg", 
+created_by: "王霞", 
+pre_enroll_num: 25, 
+grade: "7", 
+subtitle: "线上互选时间: 周四晚上~周五中午，互选成功后可任意选择参加读书会或深圳湾", 
+updated_by: "王霞", 
+max_num: 62, 
+status: 1, 
+register: "0"
+  
