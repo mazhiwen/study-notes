@@ -60,6 +60,7 @@ scp -r root@39.107.80.119:/var/www/test  /var/www/
 scp -r test  root@39.107.80.119:/var/www/   把当前目录下的test目录上传到服务器的/var/www/ 目录
 
 
+
 # 不包括当前目录
 scp -P 1688 -r dist/* root@139.199.35.182:/usr/share/nginx/mazhiwen/
 # 包括当前目录
