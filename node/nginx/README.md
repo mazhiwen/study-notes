@@ -136,6 +136,37 @@ http {
 }
 ```
 
+## upstream
+
+upstream块定义了一个上游服务器的集群，便于反向代理中的proxy_pass使用。
+
+```sh
+upstream backend {
+ server backend1.example.com;
+ server backend2.example.com;
+ server backend3.example.com;
+}
+server {
+ location / {
+   proxy_pass http://backend;
+ }
+}
+```
+
+## proxy_pass
+
+代理
+
+```sh
+location /proxy/api {
+ proxy_pass https://proxy.com/test/v1;
+}
+#访问 /proxy/api/aa/bb 会变成实际访问 https://proxy.com/test/v1/aa/bb。也就是 location 匹配到 path 会被 URL 里面的地址给替换掉。
+
+```
+
+其他情况
+
 ## mac安装
 
 <https://www.jianshu.com/p/2892102438f5>

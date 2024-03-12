@@ -33,7 +33,7 @@ example可以是正则，如
 1、从服务器上下载文件
 
 ```sh
-scp root@39.107.80.119:/var/www/test.js
+scp -P 2213 root@43.139.55.236:/usr/local/nginx/conf/nginx.conf 
 ```
 
 把192.168.0.101上的/var/www/test.js 的文件下载到/var/www/local_dir（本地目录）
@@ -41,7 +41,8 @@ scp root@39.107.80.119:/var/www/test.js
 2、上传本地文件到服务器
 
 ```sh
-scp -P 1688 test.js root@139.199.35.182:/usr/share/nginx/mazhiwen/
+scp -P 1688 nginx.conf root@139.199.35.182:/usr/local/nginx/conf
+
 
 ```
 
