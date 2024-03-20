@@ -162,3 +162,12 @@ c，微信号后增加一个复制小按钮
 红娘系统转移前端
 后端升级测试
 到时候有空帮配置一个二级域名 pro，配置成https
+
+图片问题：
+
+资源1
+Request URL: <http://mcc-1254082333.cos.ap-guangzhou.myqcloud.com/tata/T9dSXnqpaQTXxddHJ-rYugcy-MiENYcL.webp>
+
+资源 2:
+
+tatapub
