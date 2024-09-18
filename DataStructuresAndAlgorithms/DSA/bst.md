@@ -28,204 +28,38 @@
 
 非空右子树的所有键值大于其根结点的键值
 
-## 遍历
 
-前中后序命名是以遍历时根节点在 左右中 三个位置中优先遍历位置命名。
-
-一句话总结：先序(根->左->右)，中序(左->根->右)，后序(左->右->根)。如果访问有孩子的节点，先处理孩子的，随后返回
-
-前中后序的实际访问表现，会在访问时，如果子节点可以作为左中右的其中一个的起始规则，则会递归子节点进行访问规则。
-
-### 中序遍历：左中右
-
-中序遍历二叉查找树，得到的就是一个升序的数列
-
-从最左侧叶子节点开始遍历，左中右 -》 以中的父为左 继续 左中右 。 优先遍历最深的左节点，同后序遍历类似，当 访问右节点时， 如果 右节点有左子节点，则优先访问该左子节点，而不是该 右节点。但是如果 右节点没有左子节点，只有右子节点，则优先访问该右节点
+## 代码定义
 
 ```js
-//中序 输出:3 16 22 23 24 25 37 45 99
-function inOrder( node) {
-  if (!(node == null)) {
-    inOrder( node.left);
-    console.log( node.show() + " ");
-    inOrder( node.right);
-  }
-}
-inOrder(root)
-```
-
-### 先序遍历：中左右
-
-从根节点开始，-》 根的左节点 -》 根的左节点的左节点 -》 左节点都为null，末尾左节点的右节点。
-
-访问左节点时，如果左节点有子节点，则把该左节点当作中节点，继续递归 访问中左右。
-
-递归实现：
-
-```js
-//先序：输出:23 16 3 22 45 37 24 25 99
-function preOrder( node) {
-  if (!(node == null)) {
-    console.log( node. show() + " ");
-    preOrder( node. left);
-    preOrder( node. right);
-  }
-}
-preOrder(root)
-```
-
-迭代实现：
-
-```js
-// 前序遍历
-const preorderTraversal = (root) => {
-    const list = [];
-    const stack = [];
-    
-    // 当根节点不为空的时候，将根节点入栈
-    if(root) stack.push(root)
-    while(stack.length > 0) {
-        const curNode = stack.pop()
-        // 第一步的时候，先访问的是根节点
-        list.push(curNode.val)
-        
-        // 我们先打印左子树，然后右子树
-        // 所以先加入栈的是右子树，然后左子树
-        if(curNode.right !== null) {
-            stack.push(curNode.right)
-        }
-        if(curNode.left !== null) {
-            stack.push(curNode.left)
-        }
-    }
-    return list
+function TreeNode(val, left, right) {
+    this.val = (val===undefined ? 0 : val)
+    this.left = (left===undefined ? null : left)
+    this.right = (right===undefined ? null : right)
 }
 ```
 
-原理相同
-
-### 后序遍历：左右中
-
-访问 右节点 时： 如果 右节点有左子节点，则优先访问该左子节点，而不是该 右节点。如果 右节点没有左子节点，只有右子节点，则优先访问该右子节点，而不是该 右节点
-
-```javascript
-//后序: 输出 3 22 16 25 24 37 99 45 23
-function postOrder( node) {
-  if (!(node == null)) {
-    postOrder( node. left);
-    postOrder( node. right);
-    console.log( node. show() + " ");
-  }
-}
-postOrder(root)
-```
-
-### 层序遍历
-
-（即逐层地，从左到右访问所有节点）。
-
-参考 层次遍历，去掉最后reverse
-
-```
-二叉树：
-   3
-  / \
-9  20
-  /  \
-  15   7
-
-数组: [3,9,20,null,null,15,7]
-
-输出 :
-[
-  [3],
-  [9,20],
-  [15,7]
-]
-```
-
-### 层次遍历
-
-给定一个二叉树，返回其节点值自底向上的层次遍历。 （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）
-
-```
-二叉树：
-   3
-  / \
-9  20
-  /  \
-  15   7
 
 
-数组: [3,9,20,null,null,15,7]
+## 二叉树种类
 
-输出 :
-[
-  [15,7],
-  [9,20],
-  [3]
-]
-```
+### 满二叉树
 
-解法一：BFS（广度优先遍历）
+节点数量 2的k方-1 k深度
 
-BFS 是按层层推进的方式，遍历每一层的节点。题目要求的是返回每一层的节点值，所以这题用 BFS 来做非常合适。
+### 完全二叉树
 
-BFS 需要用队列作为辅助结构，我们先将根节点放到队列中，然后不断遍历队列。
+除了底层，其它层都是满的。底层从左到右连续。
 
-```js
-const levelOrderBottom = function(root) {
-    if(!root) return []
-    let res = [], 
-        queue = [root] // queue 存储维护的是当前操作层的节点列表
-    while(queue.length) {
-        let curr = [],
-            tempQueue = [] // tempQueue 存储维护的是 下一层的节点列表
-        while(queue.length) {
-            let node = queue.shift()
-            curr.push(node.val)
-            if(node.left) tempQueue.push(node.left)
-            if(node.right) tempQueue.push(node.right)
-        }
-        res.push(curr)
-        queue = tempQueue
-    }
-    return res.reverse()
-};
-```
+若设二叉树的高度为h，除第 h 层外，其它各层 (1～h-1) 的结点数都达到最大个数，第h层有叶子结点，并且叶子结点都是从左到右依次排布，这就是完全二叉树。
 
-解法二：DFS（深度优先遍历）
+一维数组可以作为完全二叉树的存储结构，堆排序使用的数据结构就是完全二叉树。(二叉树从上到下，从左到右排入数组)
 
-DFS 是沿着树的深度遍历树的节点，尽可能深地搜索树的分支
+### 平衡二叉树
 
-DFS 做本题的主要问题是： DFS 不是按照层次遍历的。为了让递归的过程中同一层的节点放到同一个列表中，在递归时要记录每个节点的深度 depth 。递归到新节点要把该节点放入 depth 对应列表的末尾。
+左子树 右字树 高度差不超1
 
-当遍历到一个新的深度 depth ，而最终结果 res 中还没有创建 depth 对应的列表时，应该在 res 中新建一个列表用来保存该 depth 的所有节点。
-
-```js
-const levelOrderBottom = function(root) {
-    const res = []
-    var dep = function (node, depth){
-        if(!node) return
-        res[depth] = res[depth]||[]
-        res[depth].push(node.val)
-        dep(node.left, depth + 1)
-        dep(node.right, depth + 1)
-    }
-    dep(root, 0)
-    return res.reverse()
-};
-```
-
-### 二叉树的广度优先遍历
-
-见层次遍历
-
-### 二叉树的深度优先遍历
-
-见层次遍历
-
-## 二叉查找树(BST)
+### 二叉搜索树 二叉查找树(BST) 
 
 <https://juejin.im/post/6844903974454165511>
 
@@ -245,7 +79,7 @@ const levelOrderBottom = function(root) {
 
 没有键值相等的点
 
-### 插入
+- 插入
 
 从根节点开始，设置为比较节点，比较当前值与比较结点。 如果当前节点小，设置比较节点的左节点为新的比较节点 ，再进行比较当前值与比较结点。
 
@@ -323,7 +157,7 @@ bst.insert(25);
 //                 25
 ```
 
-### 查找
+- 查找
 
 查找给定值，最大值，最小值
 
@@ -409,7 +243,7 @@ function find( data) {
 
 最大元素一定是在树的最右分枝的端结点上
 
-### 删除
+- 删除
 
 ```javascript
 function remove( data) {
@@ -442,7 +276,7 @@ function removeNode( node, data) {
 }
 ```
 
-### 节点计次
+- 节点计次
 
 ```javascript
 function Node( data, left, right) {
@@ -460,11 +294,6 @@ function update( data) {
 }
 ```
 
-## 完全二叉树
-
-若设二叉树的高度为h，除第 h 层外，其它各层 (1～h-1) 的结点数都达到最大个数，第h层有叶子结点，并且叶子结点都是从左到右依次排布，这就是完全二叉树。
-
-一维数组可以作为完全二叉树的存储结构，堆排序使用的数据结构就是完全二叉树。(二叉树从上到下，从左到右排入数组)
 
 ## 红黑树
 
@@ -573,9 +402,272 @@ x, y 互换
 
 在删除一个节点后，如果删除的节点时红色节点，那么红黑树的性质并不会被影响，此时不需要修正，如果删除的是黑色节点，原红黑树的性质就会被改变，此时我们需要做修正。
 
-## 题目
 
-### 二叉搜索树中第K小的元素
+## 遍历
+
+前中后序命名是以遍历时根节点在 左右中 三个位置中优先遍历位置命名。
+
+一句话总结：先序(根->左->右)，中序(左->根->右)，后序(左->右->根)。如果访问有孩子的节点，先处理孩子的，随后返回
+
+前中后序的实际访问表现，会在访问时，如果子节点可以作为左中右的其中一个的起始规则，则会递归子节点进行访问规则。
+
+### 中序遍历：左中右
+
+leecode 94
+
+中序遍历二叉查找树，得到的就是一个升序的数列
+
+从最左侧叶子节点开始遍历，左中右 -》 以中的父为左 继续 左中右 。 优先遍历最深的左节点，同后序遍历类似，当 访问右节点时， 如果 右节点有左子节点，则优先访问该左子节点，而不是该 右节点。但是如果 右节点没有左子节点，只有右子节点，则优先访问该右节点
+
+```js
+//中序 输出:3 16 22 23 24 25 37 45 99
+function inOrder( node) {
+  if (!(node == null)) {
+    inOrder( node.left);
+    console.log( node.show() + " ");
+    inOrder( node.right);
+  }
+}
+inOrder(root)
+```
+
+### 先序遍历：中左右
+
+leecode 144
+
+从根节点开始，-》 根的左节点 -》 根的左节点的左节点 -》 左节点都为null，末尾左节点的右节点。
+
+访问左节点时，如果左节点有子节点，则把该左节点当作中节点，继续递归 访问中左右。
+
+递归实现：
+
+```js
+//先序：输出:23 16 3 22 45 37 24 25 99
+function preOrder( node) {
+  if (!(node == null)) {
+    console.log( node. show() + " ");
+    preOrder( node. left);
+    preOrder( node. right);
+  }
+}
+preOrder(root)
+```
+
+迭代实现：
+
+```js
+// 前序遍历
+const preorderTraversal = (root) => {
+    const list = [];
+    const stack = [];
+    
+    // 当根节点不为空的时候，将根节点入栈
+    if(root) stack.push(root)
+    while(stack.length > 0) {
+        const curNode = stack.pop()
+        // 第一步的时候，先访问的是根节点
+        list.push(curNode.val)
+        
+        // 我们先打印左子树，然后右子树
+        // 所以先加入栈的是右子树，然后左子树
+        if(curNode.right !== null) {
+            stack.push(curNode.right)
+        }
+        if(curNode.left !== null) {
+            stack.push(curNode.left)
+        }
+    }
+    return list
+}
+```
+
+原理相同
+
+### 后序遍历：左右中
+
+leecode 145
+
+访问 右节点 时： 如果 右节点有左子节点，则优先访问该左子节点，而不是该 右节点。如果 右节点没有左子节点，只有右子节点，则优先访问该右子节点，而不是该 右节点
+
+```javascript
+//后序: 输出 3 22 16 25 24 37 99 45 23
+function postOrder( node) {
+  if (!(node == null)) {
+    postOrder( node. left);
+    postOrder( node. right);
+    console.log( node. show() + " ");
+  }
+}
+postOrder(root)
+```
+
+### 层序遍历
+
+（即逐层地，从左到右访问所有节点）。
+
+参考 层次遍历，去掉最后reverse
+
+```
+二叉树：
+   3
+  / \
+9  20
+  /  \
+  15   7
+
+数组: [3,9,20,null,null,15,7]
+
+输出 :
+[
+  [3],
+  [9,20],
+  [15,7]
+]
+```
+
+### 层次遍历
+
+给定一个二叉树，返回其节点值自底向上的层次遍历。 （即按从叶子节点所在层到根节点所在的层，逐层从左向右遍历）
+
+```
+二叉树：
+   3
+  / \
+9  20
+  /  \
+  15   7
+
+
+数组: [3,9,20,null,null,15,7]
+
+输出 :
+[
+  [15,7],
+  [9,20],
+  [3]
+]
+```
+
+解法一：BFS（广度优先遍历）
+
+解法二：DFS（深度优先遍历）
+
+
+### 二叉树的广度优先遍历
+
+BFS 是按层层推进的方式，遍历每一层的节点。题目要求的是返回每一层的节点值，所以这题用 BFS 来做非常合适。
+
+BFS 需要用队列作为辅助结构，我们先将根节点放到队列中，然后不断遍历队列。
+
+```js
+const levelOrderBottom = function(root) {
+    if(!root) return []
+    let res = [], 
+        queue = [root] // queue 存储维护的是当前操作层的节点列表
+    while(queue.length) {
+        let curr = [],
+            tempQueue = [] // tempQueue 存储维护的是 下一层的节点列表
+        while(queue.length) {
+            let node = queue.shift()
+            curr.push(node.val)
+            if(node.left) tempQueue.push(node.left)
+            if(node.right) tempQueue.push(node.right)
+        }
+        res.push(curr)
+        queue = tempQueue
+    }
+    return res.reverse()
+};
+```
+
+### 二叉树的深度优先遍历
+
+
+DFS 是沿着树的深度遍历树的节点，尽可能深地搜索树的分支
+
+DFS 做本题的主要问题是： DFS 不是按照层次遍历的。为了让递归的过程中同一层的节点放到同一个列表中，在递归时要记录每个节点的深度 depth 。递归到新节点要把该节点放入 depth 对应列表的末尾。
+
+当遍历到一个新的深度 depth ，而最终结果 res 中还没有创建 depth 对应的列表时，应该在 res 中新建一个列表用来保存该 depth 的所有节点。
+
+```js
+const levelOrderBottom = function(root) {
+    const res = []
+    var dep = function (node, depth){
+        if(!node) return
+        res[depth] = res[depth]||[]
+        res[depth].push(node.val)
+        dep(node.left, depth + 1)
+        dep(node.right, depth + 1)
+    }
+    dep(root, 0)
+    return res.reverse()
+};
+```
+
+### 迭代遍历
+
+
+```js
+前序遍历:
+
+// 入栈 右 -> 左
+// 出栈 中 -> 左 -> 右
+var preorderTraversal = function(root, res = []) {
+    if(!root) return res;
+    const stack = [root];
+    let cur = null;
+    while(stack.length) {
+        cur = stack.pop();
+        res.push(cur.val);
+        cur.right && stack.push(cur.right);
+        cur.left && stack.push(cur.left);
+    }
+    return res;
+};
+
+中序遍历:
+
+// 入栈 左 -> 右
+// 出栈 左 -> 中 -> 右
+
+var inorderTraversal = function(root, res = []) {
+    const stack = [];
+    let cur = root;
+    while(stack.length || cur) {
+        if(cur) {
+            stack.push(cur);
+            // 左
+            cur = cur.left;
+        } else {
+            // --> 弹出 中
+            cur = stack.pop();
+            res.push(cur.val); 
+            // 右
+            cur = cur.right;
+        }
+    };
+    return res;
+};
+
+后序遍历:
+
+// 入栈 左 -> 右
+// 出栈 中 -> 右 -> 左 结果翻转
+
+var postorderTraversal = function(root, res = []) {
+    if (!root) return res;
+    const stack = [root];
+    let cur = null;
+    do {
+        cur = stack.pop();
+        res.push(cur.val);
+        cur.left && stack.push(cur.left);
+        cur.right && stack.push(cur.right);
+    } while(stack.length);
+    return res.reverse();
+};
+```
+## 题目 二叉搜索树中第K小的元素
 
 <https://github.com/sisterAn/JavaScript-Algorithms/issues/86>
 

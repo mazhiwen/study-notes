@@ -10,13 +10,16 @@
 
 <https://blog.csdn.net/zw6161080123/article/details/80639932>
 
+## 本质
+
+重复子问题，最佳子结构
+
 动态规划是一种算法，通过将复杂问题分解为子问题来解决给定的复杂问题，并存储子问题的结果，以避免再次计算相同的结果。
 
-以下是一个问题的两个主要特性，表明可以使用动态规划解决给定的问题：重复子问题，最佳子结构
 
 ## 问题特性
 
-### 1. 重叠子问题
+1. 重叠子问题
 
 ```js
 /* simple recursive program for Fibonacci numbers */
@@ -93,7 +96,7 @@ public static int fib(int n) {
 
 合理的动态规划实现是自下而上的逻辑，写出的是递推型动态规划程序。
 
-### 2. 最佳子结构
+ 2. 最佳子结构
 
 给定问题具有最优子结构性质，如果给定问题的最优解可以通过使用子问题的最优解得到。
 
@@ -107,11 +110,11 @@ public static int fib(int n) {
 
 dp问题一般都会包含一个状态，即子问题，而子状态之间如何转换就是一个关键。 什么是状态呢？一个状态可以被定义为一组参数，它可以唯一地标识某个特定的位置或站在给定的问题中。 这组参数应尽可能小以减少状态空间。例如背包问题的index weight 权重。
 
-### 3. 无后效行
+ 3. 无后效行
 
 ## 动态规划解题思路
 
-### 1. 画表格
+ 1. 画表格
 
 <https://juejin.im/post/6844904181187215368>
 
@@ -121,7 +124,7 @@ dp问题一般都会包含一个状态，即子问题，而子状态之间如何
 
 通过画表格，在3*3, 4*4时候总结发现规律，dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
 
-### 2. 推导最佳子结构公式
+2. 推导最佳子结构公式
 
 缓存为dp的，一维或者二维数组.
 
@@ -131,9 +134,17 @@ dp问题一般都会包含一个状态，即子问题，而子状态之间如何
 
 可以按照维度初始变化，一步步推导出最佳子结构dp[i][j] 和 维度 i,j 的关系
 
-### 3. 维度遍历，起始值
+3. 维度遍历，起始值
 
 一维 ，或者二维。代表
+
+## 常规思路
+
+dp数组下标含义
+递推公式
+dp数组如何初始化
+遍历顺序
+打印dp数组
 
 ## 优化路径
 
@@ -218,25 +229,232 @@ int main(){
 
 如果该递归函数有n个参数,那么就定义一个n维数组,数组下标是递归函数参数的取值范围(也就是数组每一维的大小).数组元素的值就是递归函数的返回值(初始化为一个标志值,表明还未被填充),这样就可以从边界值开始逐步的填充数组,相当于计算递归函数的逆过程(这和前面所说的推导过程应该是相同的).
 
-## 题目
+## 题目: 斐波那契数列
 
-### 背包问题
+`
+1 1 2 3 5 8 
+`
+
+<https://www.thisjs.com/2017/09/21/my-view-of-fibonacci/>
+
+大家都知道斐波那契数列，现在要求输入一个整数 n，请你输出斐波那契数列的第 n 项。 n<=39
+
+斐波那契数列的规律是，第一项为0，第二项为1，第三项以后的值都等于前面两项的和
+
+- 递归实现, 普通分治算法
+
+```js
+function fibonacci(n){
+  if(n === 1 || n === 0 ) return n;
+  return fibonacci(n-1) + fibonacci(n-2);
+}
+
+```
+
+问题:
+
+在递归过程中，每创建一个新函数，解释器都会创建一个新的函数栈帧，并且压在当前函数的栈帧上，这就形成了调用栈。因而，当递归层数过大之后，就可能造成调用栈占用内存过大或者溢出。
+
+分析可以发现，递归造成了大量的重复计算。
+
+- 尾调用优化
+
+尾调用是指一个函数里的最后一个动作是一个函数调用的情形：即这个调用的返回值直接被当前函数返回的情形。
+
+在ES6中，只有在strict模式下，才会开启尾调用优化
+
+在ES6中，strict模式下，满足以下条件，尾调用优化会开启，此时引擎不会创建一个新的栈帧，而是清除当前栈帧的数据并复用：
+
+1. 尾调用函数不需要访问当前栈帧中的变量
+
+2. 尾调用返回后，函数没有语句需要继续执行
+
+3. 尾调用的结果就是函数的返回值
+
+例如:
+
+```js
+function B() {
+    return 1;
+}
+function A() {
+    return B();  // return 1
+}
+```
+
+```js
+'use strict'
+function fibonacci(n, current = 0, next = 1) { //es2015默认参数：
+    if(n === 1) return next;
+    if(n === 0) return 0;
+    return fibonacci(n - 1, next, current + next);
+}
+fibonacci(6);
+```
+
+- 递推, 动态规划算法
+
+```js
+function fibonacci(n) {
+  let current = 0;
+  let next = 1;
+  let temp;
+  for(let i = 0; i < n; i++){
+    temp = current;
+    current = next;
+    next += temp;
+  }
+  return current;
+}
+```
+
+- 通项公式法
+
+```js
+function fibonacci(n) {
+    const SQRT_FIVE = Math.sqrt(5);
+    return Math.round(1/SQRT_FIVE * (Math.pow(0.5 + SQRT_FIVE/2, n) - Math.pow(0.5 - SQRT_FIVE/2, n)));
+}
+```
+
+- 转化为矩阵
+
+
+
+<https://juejin.im/post/596837b75188250d781d1552>
+
+## 题目 爬楼梯
+
+假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
+
+每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
+
+示例 1：
+
+输入：n = 2
+输出：2
+解释：有两种方法可以爬到楼顶。
+1. 1 阶 + 1 阶
+2. 2 阶
+示例 2：
+
+输入：n = 3
+输出：3
+解释：有三种方法可以爬到楼顶。
+1. 1 阶 + 1 阶 + 1 阶
+2. 1 阶 + 2 阶
+3. 2 阶 + 1 阶
+
+
+```
+var climbStairs = function(n) {
+    let p = 0, q = 0, r = 1;
+    for (let i = 1; i <= n; ++i) {
+        p = q;
+        q = r;
+        r = p + q;
+    }
+    return r;
+};
+
+```
+
+## 题目 最小花费爬楼梯
+
+给你一个整数数组 cost ，其中 cost[i] 是从楼梯第 i 个台阶向上爬需要支付的费用。一旦你支付此费用，即可选择向上爬一个或者两个台阶。
+
+你可以选择从下标为 0 或下标为 1 的台阶开始爬楼梯。
+
+请你计算并返回达到楼梯顶部的最低花费。
+
+ 
+
+示例 1：
+
+输入：cost = [10,15,20]
+输出：15
+解释：你将从下标为 1 的台阶开始。
+- 支付 15 ，向上爬两个台阶，到达楼梯顶部。
+总花费为 15 。
+示例 2：
+
+输入：cost = [1,100,1,1,1,100,1,1,100,1]
+输出：6
+解释：你将从下标为 0 的台阶开始。
+- 支付 1 ，向上爬两个台阶，到达下标为 2 的台阶。
+- 支付 1 ，向上爬两个台阶，到达下标为 4 的台阶。
+- 支付 1 ，向上爬两个台阶，到达下标为 6 的台阶。
+- 支付 1 ，向上爬一个台阶，到达下标为 7 的台阶。
+- 支付 1 ，向上爬两个台阶，到达下标为 9 的台阶。
+- 支付 1 ，向上爬一个台阶，到达楼梯顶部。
+总花费为 6 。
+ 
+```JS
+var minCostClimbingStairs = function(cost) {
+    const n = cost.length;
+    const dp = new Array(n + 1);
+    dp[0] = dp[1] = 0;
+    for (let i = 2; i <= n; i++) {
+        dp[i] = Math.min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2]);
+    }
+    return dp[n];
+};
+
+```
+## 题目:背包问题
 
 <https://segmentfault.com/a/1190000012829866>
 
-已知 物品个数，总空间，物品重量数组，物品价值数组，求背包能放物品最大价值
-
+已知 物品个数n，总空间bagweight，物品重量数组weight[]，物品价值数组 value[]，求背包能放物品最大价值valueMax
+n指的是每种物品各1个，共n种。
 转换为表格 行为物品，列为容量，从左到右，从上到下计算值。
 
+weight[]:  1 3 4
+value[]: 15 20 30
+
 ```
-          size
-          4     3     2    1
-num 吉他
-    音响   
-    电脑
+          j
+	        0    1    2    3   4
+i 吉他0    0   15   15   15  15
+	音响1    0
+	电脑2    0
 ```
 
 计算每个单元格的值的公式cell[i][j]：比较 上一个单元格的值cell[i-1][j] 和 当前商品的价值+剩余空间的价值(cell[i-1][j-当前商品的重量])
+
+dp[i][j] = Math.max(dp[i-1][j], dp[i-1][j-weights[i]] + value[i]) 
+
+dp[i][j]表示：i竖向表示可以放0-i的物品情况下，且背包空间j时 的最大价值。
+
+
+二维数组写法：
+
+```js
+
+let [n, bagweight] = input[0].split(' ').map(Number);
+let weight = input[1].split(' ').map(Number);
+let value = input[2].split(' ').map(Number);
+
+let dp = Array.from({ length: n }, () => Array(bagweight + 1).fill(0));
+
+for (let j = weight[0]; j <= bagweight; j++) {
+		dp[0][j] = value[0];
+}
+
+for (let i = 1; i < n; i++) {
+		for (let j = 0; j <= bagweight; j++) {
+				if (j < weight[i]) {
+						dp[i][j] = dp[i - 1][j];
+				} else {
+						dp[i][j] = Math.max(dp[i - 1][j], dp[i - 1][j - weight[i]] + value[i]);
+				}
+		}
+}
+console.log(dp[n - 1][bagweight]);
+```
+
+一维数组写法:
+ 
 
 ```js
 function PackageHelper2(goodsNums, goodsWeights, goodsPrice, maxSize) {
@@ -262,39 +480,9 @@ function PackageHelper2(goodsNums, goodsWeights, goodsPrice, maxSize) {
  }
 ```
 
-不同写法：
 
-```js
-//by 司徒正美
- function knapsack(weights, values, W){
-    var n = weights.length -1
-    var f = [[]]
-    for(var j = 0; j <= W; j++){
-        if(j < weights[0]){ //如果容量不能放下物品0的重量，那么价值为0
-           f[0][j] = 0
-        }else{ //否则等于物体0的价值
-           f[0][j] = values[0]
-        }
-    }
-    for(var j = 0; j <= W; j++){
-        for(var i = 1; i <= n; i++ ){
-            if(!f[i]){ //创建新一行
-                f[i] = []
-            }
-            if(j < weights[i]){ //等于之前的最优值
-                f[i][j] = f[i-1][j]
-            }else{
-                f[i][j] = Math.max(f[i-1][j], f[i-1][j-weights[i]] + values[i]) 
-            }
-        }
-    }
-    return f[n][W]
-}
-var a = knapsack([2,2,6,5,4],[6,3,5,4,6],10)
-console.log(a)
-```
 
-### 回文子串
+## 题目:回文子串
 
 <https://github.com/sisterAn/JavaScript-Algorithms/issues/107>
 
@@ -337,7 +525,7 @@ let countSubstrings = function(s) {
 }
 ```
 
-### 数组最大不连续递增子序列
+## 题目: 数组最大不连续递增子序列
 
 arr[] = {3,1,4,1,5,9,2,6,5}的最长递增子序列长度为4。即为：1,4,5,9
 
@@ -369,99 +557,8 @@ public static int MaxChildArrayOrder(int a[]) {
 }
 ```
 
-### 斐波那契数列
 
-<https://www.thisjs.com/2017/09/21/my-view-of-fibonacci/>
-
-大家都知道斐波那契数列，现在要求输入一个整数 n，请你输出斐波那契数列的第 n 项。 n<=39
-
-斐波那契数列的规律是，第一项为0，第二项为1，第三项以后的值都等于前面两项的和
-
-**递归实现, 普通分治算法**
-
-```js
-function fibonacci(n){
-  if(n === 1 || n === 0 ) return n;
-  return fibonacci(n-1) + fibonacci(n-2);
-}
-
-```
-
-问题；
-
-1. 在递归过程中，每创建一个新函数，解释器都会创建一个新的函数栈帧，并且压在当前函数的栈帧上，这就形成了调用栈。因而，当递归层数过大之后，就可能造成调用栈占用内存过大或者溢出。
-
-2. 分析可以发现，递归造成了大量的重复计算。
-
-**尾调用优化**
-
-尾调用是指一个函数里的最后一个动作是一个函数调用的情形：即这个调用的返回值直接被当前函数返回的情形。
-
-在ES6中，只有在strict模式下，才会开启尾调用优化
-
-在ES6中，strict模式下，满足以下条件，尾调用优化会开启，此时引擎不会创建一个新的栈帧，而是清除当前栈帧的数据并复用：
-
-1. 尾调用函数不需要访问当前栈帧中的变量
-
-2. 尾调用返回后，函数没有语句需要继续执行
-
-3. 尾调用的结果就是函数的返回值
-
-例如:
-
-```js
-function B() {
-    return 1;
-}
-function A() {
-    return B();  // return 1
-}
-```
-
-实现斐波那契:
-
-```js
-'use strict'
-function fibonacci(n, current = 0, next = 1) { //es2015默认参数：
-    if(n === 1) return next;
-    if(n === 0) return 0;
-    return fibonacci(n - 1, next, current + next);
-}
-fibonacci(6);
-```
-
-**递推, 动态规划算法**
-
-```js
-function fibonacci(n) {
-  let current = 0;
-  let next = 1;
-  let temp;
-  for(let i = 0; i < n; i++){
-    temp = current;
-    current = next;
-    next += temp;
-  }
-  return current;
-}
-```
-
-**通项公式法**
-
-```js
-function fibonacci(n) {
-    const SQRT_FIVE = Math.sqrt(5);
-    return Math.round(1/SQRT_FIVE * (Math.pow(0.5 + SQRT_FIVE/2, n) - Math.pow(0.5 - SQRT_FIVE/2, n)));
-}
-```
-
-**转化为矩阵**
-
-.....
-
-<https://juejin.im/post/596837b75188250d781d1552>
-
-### 最长公共子序列
+## 题目: 最长公共子序列
 
 LCS-最长公共子序列
 
@@ -555,7 +652,7 @@ console.log(longestSeq(input1,input2,n1,n2));
 
 ```
 
-### 数字三角形问题
+## 题目:数字三角形问题
 
 在上面的数字三角形中寻找一条从顶部到底边的路径，使得路径上所经过的数字之和最大。路径上的每一步都只能往左下或 右下走。只需要求出这个最大和即可，不必给出具体路径。 三角形的行数大于1小于等于100，数字为 0 - 99
 

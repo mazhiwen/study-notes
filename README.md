@@ -186,7 +186,7 @@
   - [算法-分治/归并](./DataStructuresAndAlgorithms/DSA/divide.md)
   - [算法-动态规划](./DataStructuresAndAlgorithms/DSA/dynamic.md)
   - [实例-排序](./DataStructuresAndAlgorithms/DSA/sort.md)
-  - [实例-查找](./DataStructuresAndAlgorithms/DSA/search.md)
+  - [实例-二分](./DataStructuresAndAlgorithms/DSA/search.md)
   - [算法题](./DataStructuresAndAlgorithms/jstopic.md)
 - 前端工程化
   - [工程一些知识](./integration)
