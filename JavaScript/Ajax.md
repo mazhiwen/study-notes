@@ -6,6 +6,23 @@
 
 它是一种异步通信的方法，通过直接由 js 脚本向服务器发起 http 通信，然后根据服务器返回的数据，更新网页的相应部分，而不用刷新整个页面的一种方法。
 
+
+## 格式分类
+
+1. 字符串
+
+JSON字符串 application/json
+urlencoded格式字符串 application/x-www-urlencoded
+普通字符串 text/plain
+
+2. FormData对象 
+文件上传
+
+3. buffer 或者进制格式
+
+
+......
+
 ## AJAX步骤
 
 1.创建 XMLHttpRequest 对象，也就是创建一个异步调用对象

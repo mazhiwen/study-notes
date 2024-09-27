@@ -68,7 +68,7 @@ undefined                          undefined
 
 ### 6.Symbol
 
-### 7.GigInt
+### 7.bigInt
 
 typeof 42n;
 // → 'bigint'

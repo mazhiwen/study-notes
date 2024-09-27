@@ -191,7 +191,7 @@
 - 前端工程化
   - [工程一些知识](./integration)
   - [webpack原理](./integration/webpacksource.md)
-  - [webpack配置](./integration/webpackconfig.md)
+  - [webpack常见知识](./integration/webpackconfig.md)
   - [webpack5](./integration/webpack5.md)
   - [tree-shaking](./integration/tree-shaking.md)
   - [微前端](./integration/微前端.md)

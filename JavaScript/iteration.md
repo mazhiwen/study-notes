@@ -33,7 +33,11 @@ break中止循环(for,do...while,while,label)，switch
 
 可遍历Array,Object
 
-// 这个 for...in 语句循环一个指定的变量来循环一个对象所有可枚举的属性
+这个 for...in 语句循环一个指定的变量来循环一个对象所有可枚举的属性
+
+可迭代共有 也可迭代私有
+
+之能迭代可枚举 非symbol
 
 Array  返回index, object 返回key
 
