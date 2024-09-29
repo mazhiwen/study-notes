@@ -166,8 +166,8 @@
   - [组件通信](./vue/basic/communication.md)
   - [vue指令](./vue/basic/directive.md)
 - [React](./React)
-  - [react技术栈](./React/overview.md)
   - [React知识点](./React/basic.md)
+  - [Redux](./React/redux.md)
 - 数据结构与算法
   - [概念](./DataStructuresAndAlgorithms/README.md)
   - [列表](./DataStructuresAndAlgorithms/DSA/list.md)

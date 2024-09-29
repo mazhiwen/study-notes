@@ -93,8 +93,10 @@ ReactDOM.render
 
 推荐使用hooks组件
 
+
+
 ```js
-class Demo extends React.Component {
+class Demo extends React.Component { // 或者 继承 React.PureComponent
   
   static defaultProps = {
 
@@ -250,20 +252,177 @@ useEffect(()=>{
 
 
 useEffect(()=>{
-
+  // useEffect只可以返回一个函数 不能是promise等
   return ()=>{
     // 如果组件更新，小函数会在组件释放时更新 ,理解为unmount销毁
     // x是上一次值
+    
     console.log(x);
   }
 })
 
 ```
 
+useEffect必须在函数最外层上下文调用 ，不能嵌入到条件判断，循环等语句中
 
 effct链表：MountEffect方法把useEffect中的callback按顺序加入到effect链表中，按照以上顺序。render后会按照顺序规则执行链表callback
 
 每次render都会执行 推入链表，执行链表callback
+
+## useLayoutEffect
+
+useLayoutEffect 和 useEffect 的区别的是，useLayoutEffect执行时间是render中的第二创建虚拟DOM后,并创建了真实DOM,但还未挂载渲染真实DOM马上执行，useEffect是render中的第三步骤渲染为真实DOM后执行.
+
+useLayoutEffect会阻止最后一步挂载渲染真实DOM，执行 effect链表callback。useEffect不会阻止真实DOM挂载渲染
+
+所以两者都可以获取真实DOM，区别只是是否渲染绘制
+
+一般不容易出现样式闪烁 
+
+
+## useRef
+
+- React.createRef:
+
+ 既能类 也能函数组件用
+
+- useRef:
+
+只能函数组件
+
+每次函数执行时 不会重新获取。而createRef会重新创建。所以类组件用createRef 函数中用useRef
+
+```js
+let box = useRef(null)
+box.current
+
+<   ref={box} >
+```
+
+- forwardRef
+
+函数组件 实现ref转发，获取子组件内部的某个元素
+
+类组件直接用ref挂载元素获取
+
+```js
+function parent(){
+lex x= useRef(null);
+
+return 
+    <Child ref={x}>
+}
+
+
+React.forwardRef(function Child(props,ref){
+
+})
+
+```
+
+- useImperativeHandle(ref)
+
+获取子组件内部方法状态等。
+
+useImperativeHandle(ref,()=>{
+
+  // 返回结果可以被父组件获取到
+  return {
+
+  }
+})
+
+```JS
+
+import React,{useRef,forwardRef} from 'react'
+
+const SonComponent = forwardRef((props, refparams) => {
+  useImperativeHandle(refparams, () => {
+    return {
+      logSon: () => {
+        console.log('测试');
+      }
+    }
+  },[])
+  
+  return (
+    <>
+      <div>
+        <input type="text" defaultValue={props.value} ref={refparams} />
+        <button onClick={() => console.log(refparams.current)}>点击打印ref</button>
+      </div>
+    </>
+  )
+
+})
+
+const FatherComponent = () => {
+  const sonRef = useRef()
+  
+  useEffect(()=>{
+    sonRef.current.logSon()  ----测试
+  },[])
+  
+  return (
+    <>
+      <SonComponent ref={sonRef} value='这是子组件的value值' />
+    </>
+  )
+}
+
+```
+## useMemo
+
+只会在第一次 和依赖变化时执行。
+
+在依赖没变化时，会取上次的结果，会缓存
+
+let z = useMemo(()=>{
+
+  return res;
+}, [x, y])
+
+
+## useCallback
+
+组件第一次渲染，执行useCallback，创建一个callback函数。
+
+组件后续更新，会根据依赖是否更新，来是否创建新callback 
+
+也就是可以在依赖不更新时，不重复创建重复的函数
+
+```js
+const handle = useCallback(
+  //callback
+  ()=>{
+
+  }
+  , 
+  []
+)
+```
+
+
+## PureComponent React.memo
+
+
+
+继承PureComponent，在shouldComponentUpdate中已经对新旧属性做了浅比较
+
+同样做法 函数组件用React.memo函数
+
+## 自定义hook
+
+
+类似于mixin
+
+封装公共逻辑处理
+
+创建一个函数，名字是useXxx ，后期就可以在组件中调用这个方法
+
+例如在函数中 吧usestate封装 返回
+
+useXxx命名会在执行时 进行校验。如果不这样命名，不会校验
 
 ## 渲染周期hook顺序
 
@@ -317,13 +476,6 @@ React.children.toArray(props.children).forEach((child)=>{
 
 
 
-## refs与state的选择
-
-refs
-
-React.createRef()
-
-
 
 ## 样式
 
@@ -349,5 +501,26 @@ const StyledChip = withStyles(createStyles({
   },
 }))(Chip);
 ```
+
+
+## 组件通信
+
+
+- 类组件
+
+
+父组件props传递属性给子组件，传递修改props的方法给子组件, 传递DOM用children插槽, 父组件通过ref调用子组件的属性或方法
+
+
+- 函数组件
+
+类似
+
+
+
+
+
+
+
 
 
