@@ -92,4 +92,70 @@ const Compo = function Compo(){
 
 一般注册react状态更新操作
 
+## redux工程化
 
+1. reducer模块化
+
+处理state，action
+
+```js
+import { combineReducers } from 'redux'
+
+const redecer = combineReducers({
+    //...模块化命名
+    namea: ,
+    nameb: ,
+})
+
+// 此时容器中的公共状态
+state = {
+    namea:{
+         
+    },
+    nameb:{
+
+    }
+}
+
+store.getState().namea 
+```
+
+2. 派发标识统一
+
+```js
+// action-types.js
+// 存所有的派发标识，避免冲突
+export const AA = 'AA'
+//...
+
+```
+
+3. actionCreator
+
+管理派发行为对象
+
+actions
+
+## react-redux
+
+在react组件中更方便使用redux
+
+```js
+import {connect} from 'react-redux'
+
+
+connect(mapStateToProps, mapDispatchToProps)(组件)
+
+connect(state=>{
+
+    return {} 
+    // 返回的 作为属性传给组件
+},
+dispatch=>{
+
+    return {}
+    // 返回派发函数
+}
+)
+
+```

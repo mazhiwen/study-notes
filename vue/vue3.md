@@ -14,15 +14,31 @@
 
 <https://juejin.cn/post/6896438269291347976>
 
-做了一下特性变化：
+
+## 基本知识
+
+ts + 组合式API + setup语法糖
+
+可写多个根标签
+
+## 性能提升
+
+打包大小减少41%
+
+初次渲染，更新渲染加快
+
+内存减少
+
+## vite
+
+比webpack 启动快，按需编译,对ts，jsx开箱即用
+
 
 ## Proxy
 
 Object.defineProperty 替换为 Proxy
 
 [实现双向绑定Proxy比defineproperty优劣如何?](https://juejin.cn/post/6844903601416978439)
-
-Object.defineProperty => Proxy
 
 简单对比一下Object.defineProperty 与 Proxy
 
@@ -34,37 +50,158 @@ Object.defineProperty => Proxy
 
 因为Object.defineProperty劫持的是对象的属性，所以新增属性时，需要重新遍历对象， 对其新增属性再次使用Object.defineProperty进行劫持。也就是 Vue2.x 中给数组和对象新增属性时，需要使用$set才能保证新增的属性也是响应式的, $set内部也是通过调用Object.defineProperty去处理的。
 
-## 重构了虚拟DOM
+
 
 ## Composition API
 
-[官方文档](https://vue-composition-api-rfc.netlify.app/zh/api.html#setup)
+vue2 optionsAPI  :分散代码
 
-OptionApi => Composition API
+vue3 composition API： 集中功能代码到function
 
-包括以下：
 
-## toRefs ref  reactive
+## setup
 
-Vue3.x 可以使用reactive和ref来进行数据定义
+```js
+setup(){
+  // 数据
+  let a = 1;
+  
+  //方法
+  function changeName(){
+    a=3 // a变化了，但不是响应式
+    //没有this
+  }
 
-reactive：接收一个普通对象然后返回该普通对象的响应式代理,不接受基本类型。ref可接受基本类型
+  return {
+    a，
+    changeName
+  }
+}
 
-toRefs： 把一个响应式对象转换成普通对象，该普通对象的每个 property 都是一个 ref ，和响应式对象 property 一一对应。
+```
+
+setup返回值也可以是一个函数，是渲染函数，结果直接渲染
+
+data,method 可以拿到setup数据。反之不行
+
+setup不可用this
+
+```html
+
+<script lang='ts' setup 
+name='comp' // 需要setup插件
+>
+let a =1;
+
+
+function changeName(){
+  a=3 
+}
+
+</script>
+```
 
 ## ref
 
+ref基本上就是响应式js语法糖。
+
+可以定义基本类型，也可以定义对象类型的响应式
+
+设置必须用.value
+
 ```js
+// template 不需要.value
 import { ref } from 'vue'
 
 const count = ref(0)
+
+//
+function ca(){
+  // 修改ref数据需要.value
+}
 ```
 
-ref基本上就是响应式js语法糖。
+## reactive
 
-## watch watchEffect
+接收一个普通对象然后返回该普通对象的响应式代理,不接受基本类型。ref可接受基本类型
+
+
+```js
+let car = reactive({
+  //...
+})
+```
+
+## ref vs reactive
+
+基本类型必须ref
+
+浅层相应对象 ref reactive都可以
+
+深层响应对象推荐 reactive
+
+修改整个对象会使reactive对象失去响应式。可用Object.assign()合并对象。ref可以直接设置，不影响响应式
+
+
+## toRefs toRef
+
+
+toRefs把reactive定义的对象内部每一个keyvalue转为ref
+
+```js
+let obj = reactive({
+  a,
+  b
+})
+
+
+// toRef(obj, 'a')
+let {a,b} = toRefs(obj)
+
+//  把a b转为响应式数据,类似分别ref 
+```
+
+## computed
+
+
+```js
+//是只读的
+let ar = computed(()=>{
+
+  return  a... b ...
+})
+
+// 可读可写
+let ar = computed({
+  get(){
+    return 
+  },
+  set(value){
+
+  }
+})
+```
+
+## watch 
+
+watch只能监听以下四种:ref,reactive,函数返回一个值(getter函数),一个包含上述的数组
+
 
 watch 函数用来侦听特定的数据源，并在回调函数中执行副作用。默认情况是惰性的，也就是说仅在侦听的源数据变更时才执行回调。
+
+```js
+// 返回一个停止监视的函数 stopWatch()
+let stopWatch = watch(a,(newV,oldV)=>{
+
+})
+
+```
+
+## watchEffect
+
+
+立即执行函数，并监听
+
 
 ## 生命周期钩子
 
@@ -109,7 +246,7 @@ import useCount from "../hooks/useCount";
             multiple,
             increase,
             decrease,
-        };
+        }; 
     },
 </script>
 ```
@@ -174,6 +311,3 @@ Suspense 只是一个带插槽的组件，只是它的插槽指定了default 和
 
 但是在 Vue3.x 中，可以直接写多个根节点
 
-## API风格
-
-组合式API  选项式API
