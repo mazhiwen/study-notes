@@ -4,13 +4,12 @@
 哈哈
 
 - Web开发
-  - [其他](./web/basic.md)
+  - [浏览器常见知识](./web/basic.md)
   - [前端性能优化大全](./web/performanceapply.md)
   - [WebAPI](./web/browser)
   - [window](./web/window.md)
   - [DOM](./web/DOM/basic.md)
   - [DOM/Element](./web/DOM/Element.md)
-  - [浏览器解析渲染](./web/render.md)
   - [重绘和回流](./web/reflow.md)
   - [WebAssembly](./web/WebAssembly.md)
   - [v8引擎](./web/v8.md)

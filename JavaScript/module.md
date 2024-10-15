@@ -79,7 +79,7 @@ org.CoolSite.Utils.each = function (arr) {
 
 - 可维护性：修改
 
-## 2.CommonJS(2009)
+## 2.CommonJS(2009) node
 
 同步加载
 
@@ -181,7 +181,7 @@ console.log(counter); // 3
 （4）抛出 "not found"
 ```
 
-## 3.AMD(2009)
+## 3.AMD(2009) require.js
 
 ```js
 define(function(){
@@ -251,7 +251,7 @@ require(["jquery","underscore"],function($,_){
 });
 ```
 
-## 4.CMD
+## 4.CMD sea.js
 
 异步加载;
 
@@ -292,6 +292,8 @@ seajs.use(['a'], function(a) {
 ## 6.ES6 Module
 
 import export
+
+<script type='module'>
 
 需要预编译。import 是预先解析、预先加载的，不像 RequireJS 等是执行到点了再发一个请求。无法实现条件加载
 

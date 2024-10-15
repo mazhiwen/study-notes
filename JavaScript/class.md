@@ -5,19 +5,19 @@
 ## 语法
 
 ```js
-function readonly( target, property, descriptor ) {
-    descriptor.writable = false;
-    return descriptor;
-}
-
 
 class User {
 
+  //私有属性
+  x=1;
+
   constructor(x, y) {
+    // this指向实例
     this.x = x;
     this.y = y;
   }
-  @readonly
+
+
   getFullName() {
     return '(' + this.x + ', ' + this.y + ')';
   }
@@ -27,6 +27,49 @@ class User {
 let user = new User( 'John', 'Doe' );
 console.log(user.getFullName());
 ```
+
+## 继承
+
+方法重写: 如果在子类中添加了和父类一样的方法，子类会覆盖父类
+
+
+super表示父类
+
+```js
+
+class parent{
+  fun(){
+
+  }
+}
+
+class aaa extends parent{
+
+
+  constructor(){
+    // 如果子类中写了构造函数，必须super
+    super(); 
+  }
+
+
+  funa(){
+    super.fun();
+  }
+}
+```
+
+## 抽象类
+
+abstract 与其他类区别不大，只能被继承，不能创建实例
+
+abstract抽象方法，子类必须对抽象方法重写
+
+```js
+abstract class aa{
+  abstract fun():void;
+}
+```
+
 
 ## Decorator
 

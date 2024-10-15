@@ -60,7 +60,7 @@ webpack配置中字符串格式的 路径'' 一般是以webpack执行命令的�
 
 ## module
 
-### noparse
+- noparse
 
 module.noParse 配置项可以让 Webpack 忽略对部分没采用模块化的文件的递归解析处理
 
@@ -75,7 +75,7 @@ module.noParse 配置项可以让 Webpack 忽略对部分没采用模块化的�
 }
 ```
 
-### rules
+- rules
 
 rules: exclude优先级高于test和include
 
@@ -159,11 +159,7 @@ runtime mainfest 是webpack用来管理所有模块的交互
 
 配置多个entry可以实现分离
 
-### 预取/预加载模块(prefetch/preload module)
 
-```js
-import(/* webpackPrefetch: true */ 'LoginModal');
-```
 
 ## shimming resolve
 
@@ -193,7 +189,13 @@ module.exports = {
 
 此选项控制是否生成，以及如何生成 source map。
 
-<https://github.com/webpack/webpack/tree/master/examples/source-map>
+devtool: inline-source-map / ...
+
+source map: debug代码行数
+
+## webpack-dev-server
+
+把输出文件放内存 启动服务 监听更新编译
 
 ## resolve
 
@@ -208,15 +210,10 @@ resolve: {
 
 import api from 'api';
 
-## output
 
-是html js 的output配置，主要是js
+## output.publicPath
 
-### path
 
-output.path只是指示输出的目录，对应一个绝对路径
-
-### publicPath
 
 指定在输出html文件中，资源的引用src地址前缀。结合资源路径可拼接成实际访问url。
 
@@ -248,11 +245,22 @@ publicPath: "", // 相对于 HTML 页面（目录相同）
 
 ```__webpack_public_path__```
 
-### library相关
 
-#### library
+## output
 
-#### libraryTarget
+是html js 的output配置，主要是js
+
+- path
+
+output.path只是指示输出的目录，对应一个绝对路径
+
+
+
+- library相关
+
+- library
+
+libraryTarget
 
 libraryTarget: 'var' - （默认值）
 
@@ -375,11 +383,11 @@ $('.my-element').animate(...);
 
 ## html-webpack-plugin
 
-### 单页面
+- 单页面
 
 默认output将所有bundle 添加到生成的index.html
 
-### 多页面配置
+- 多页面配置
 
 在config多建立 plugin实例就可以
 
@@ -392,9 +400,10 @@ plugins: [
   })
 ]
 
-### template
+- template
 
-- ejs  
+ejs  
+
 rule配置ejsloader
 {
   test: /\.ejs$/,
@@ -431,15 +440,13 @@ new webpack.ProvidePlugin({
 
 ## webpack-dev-middleware
 
-<https://juejin.im/entry/574f95922e958a00683e402d>
 
 ## SplitChunksPlugin
 
-<https://juejin.im/post/5af1677c6fb9a07ab508dabb>
-<https://segmentfault.com/a/1190000013476837>
-<https://blog.51cto.com/13869008/2164811>
 
-<https://juejin.cn/post/6844904198023168013#heading-1>
+
+把公共代码抽离出来 
+
 
 ```javascript
 module.exports = {
@@ -513,7 +520,7 @@ module.exports = {
 }
 ```
 
-### chunks
+- chunks
 
 选项，决定要提取那些模块。
 
@@ -527,19 +534,19 @@ initial：提取同步加载和异步加载模块，如果xxx在项目中异步�
 
 all：不管异步加载还是同步加载的模块都提取出来，打包到一个文件中。
 
-### minChunks
+- minChunks
 
 选项：表示要被提取的模块最小被引用次数，引用次数超过或等于minChunks值，才能被提取。
 
-### minSize
+- minSize
 
 默认是30KB（注意这个体积是压缩之前的）在小于30kb的情况下一定要设置一个值，否则也可能打包不出来你想要的东西，而且这东西要加在cacheGroups里面。
 
-### priority
+- priority
 
 方案的优先级，值越大表示提取模块时优先采用此方案。默认值为0。
 
-### cacheGroups
+- cacheGroups
 
 里的每一项最好都要加上chunks参数，不然可能打包不出来你想要的东西。
 
@@ -547,11 +554,11 @@ reuseExistingChunk选项：true/false。为true时，如果当前要提取的模
 
 priority同外面
 
-## 异步加载 按需加载 懒加载 动态导入
+##  动态导入 /  懒加载
 
-[webpack的异步加载原理及分包策略](https://juejin.cn/post/6895546761255845901)
+动态导入/懒加载： 本质上是全部分开打包，运行时动态选择是否加载包体 
 
-- import()
+- import() 
 
 推荐：ES6的 import() 按需加载
 
@@ -622,7 +629,15 @@ document.getElementById('bBtn').onclick = function () {
 // 注意当调用 ES6 模块的 import() 方法（引入模块）时，必须指向模块的 .default 值，因为它才是 promise 被处理后返回的实际的 module 对象。
 ```
 
-- vue 异步组件
+- 懒加载：
+
+按需加载 
+
+降低初始代码块，其他代码块在需要的时候再请求。
+
+本质上是把不同代码块都分别打包，需要的时候再加载。
+
+vue 异步组件
 
 vue路由懒加载:
 
@@ -646,6 +661,16 @@ export default new Router({
 - require.ensure
 
 webpack 的 异步加载
+
+## 预取/预加载模块(prefetch/preload module)
+
+prefetch: 将来某些导航下可能需要的资源。增加link prefetch
+
+preload：当前导航下可能需要的资源。类似懒加载
+
+```js
+import(/* webpackPrefetch: true */ 'LoginModal');
+```
 
 ## DllPlugin 提升构建速度
 
@@ -671,6 +696,14 @@ dll文件后缀以打包时时间戳做后缀
 
 4. 把公共文件抽离出来，单独打包chunk，方便长期缓存
 
+## 浏览器缓存文件
+
+业务代码文件 通过文件名hash缓存
+
+
+缓存第三方: splitchunkplugin: cachegroups
+
+
 ## 代码检测
 
 [eslint](https://github.com/webpack-contrib/eslint-loader)
@@ -680,6 +713,8 @@ dll文件后缀以打包时时间戳做后缀
 见 当前目录 tree-shaking 文件
 
 ## babel-loader
+
+es6转为es5 以更多浏览器支持
 
 cacheDirectory 选项可以提升编译速度。
 

@@ -170,18 +170,173 @@ let a: number[];
 let a: Array<number>;
 ```
 
+## 元组
 
+固定长度的数组
+
+
+```ts
+
+let a: [string,string,...];
+
+```
+
+
+## enum
+
+枚举
+
+```ts
+
+// 定义一个枚举类Gender
+enum Gender{
+    Male = 0,
+    Female = 1,
+}
+let i:Gender;
+
+i=Gender.Male;
+
+i === Gender.Male 
+```
+
+
+## 类型别名
+
+声明一个别名 类型
+
+自定义类型
+
+```ts
+type myType = 1|2|3
+
+let a:myType
+```
+
+## 类
+
+```ts
+
+class Person{
+
+    // 定义属性。 实例属性  
+    name:string  = 'aaa'
+    //静态属性。不在实例上的属性，通过类直接访问
+    static readonly age:number = 18
+
+    // public 可以在任意位置访问修改属性
+    public _b : number;
+
+    // 只能在当前类内部进行访问修改，继承也不能
+    // 只能在类内部操作
+    private _c : number;
+
+
+    // 受保护的属性，只能在当前类 和 子类中使用
+    protected _c : number;
+
+
+    constructor(name:number,b:number){
+        //this.name=name;
+    }
+
+    // 加static属性类似以上
+    fun(){
+
+    }
+
+    get c(){
+        // 获取private _c的时候，只需要直接实例.c获取，会执行c方法
+        return this._c;
+    }
+
+    set c(value:number){
+        // 同理以上get
+        this._c = value;
+    }
+
+}
+```
+
+
+
+
+## 接口
+
+
+interface 用来定义一个类结构，应该包含的属性方法
+
+同时能当成类型声明使用type
+
+接口可以重复声明
+
+接口中所有属性都不能有实际值，只定义结构。方法都是抽象方法
+
+```js
+interface myInterface{
+    a:number;
+    b:number;
+}
+
+
+
+interface myInterface{
+    a:number;
+    
+    fun():void;
+}
+
+class myclass implements myInterface{
+    a:number;
+    
+    constructor(){
+
+    }
+
+    fun(){
+
+    };
+}
+```
 
 
 ## 泛型
 
-因此，我们需要一种方法使返回值的类型与传入参数的类型是相同的。 这里，我们使用了 类型变量，它是一种特殊的变量，只用于表示类型而不是值。
+
+定义函数或者类时，遇到类型不明确可以用泛型
+
+
 
 ```js
-function identity<T>(arg: T): T {
-    return arg;
+//参数按照顺序
+function fun<T,K,...>(a: T,b:K..): T {
+    return a;
 }
+
+// 可以直接调用泛型函数,ts可以自动对类型推断
+fun(10);
+// 指定类型
+fun<string,...>('aa')
+
+class myclass<T>{
+    name:T;
+
+}
+new myclass<string>();
+
+
+interface myInter{}
+function fun<T extends myInter>(a:T):number{
+    //
+}
+
 ```
 
-## 
+
+
+## 编译配置
+
+ts编译器的配置文件 tsconfig.json
+
+
 

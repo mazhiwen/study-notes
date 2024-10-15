@@ -67,3 +67,80 @@ runtime场景，直接将一个应用的 runtime 子模 bundle，应用于另一
 应用到微前端的概念
 
 把包放到其他线上环境，不需要本项目环境打包改资源，通过线上动态加载引入依赖
+
+## 命令
+
+webpack status 打包状态
+
+webpack --help
+
+
+webpack --watch 监控文件变化 自动编译
+
+
+npx 查看命令是否
+
+## 资源模块
+
+module.rule.type属性表示资源类型
+
+asset/resource：导出有url的文件
+
+asset/inline：导出资源URI（如database64）
+
+asset/source： 资源源代码
+
+asset：自动选择data URI 或者  文件。默认会判断资源文件大小来选择(8K)
+
+
+##  output
+
+assetModuleFilename: 资源文件路径名 images/[contenthash][ext] 
+
+contenthash: 根据文件内容生成哈希字符串 
+
+ext: 扩展名
+
+## module.rules
+
+generator 生成的资源配置，如filename文件名
+
+parser:{
+   dataUrlCondition: 判断文件大小导出资源类型
+
+}
+
+## loader
+
+解析module的时候用的loader
+
+module -> .use -> loader
+
+use: ['',....]
+
+loader从use倒序链式调用
+
+
+## mini-css-extra-plugin
+
+抽离css到文件
+
+## css-minizer-plugin
+
+压缩css
+
+## 加载数据
+
+
+xml等
+
+json ： webpack本身支持
+
+yaml:
+
+taml:
+
+json5: json升级
+
+
+
