@@ -1,22 +1,20 @@
 # webpack原理
 
-[Webpack 原理浅析](https://juejin.cn/post/6854818576470933512)
 
-[webpack原理](https://juejin.cn/post/6844903957769224206)
-
-[webpack原理](https://imweb.io/topic/59324940b9b65af940bf58ae)
-
-[某博主webpack进阶系列](https://juejin.cn/post/6937086236926410783)
-
-<https://juejin.cn/post/6844903573675835400#heading-8>
-
-<https://juejin.cn/post/6844903582492426254>
-
-<https://juejin.cn/post/6844903586942451726>
 
 ## 编译入口以及流程
 
 获取到index.js的文件内容之后，并不能直接使用，需要通过将其解析成抽象语法树进行处理，需要使用一个插件@babel/parser将模块代码解析成AST，然后插件@babel/traverse配合着使用，将AST的节点进行替换，替换完成之后，使用插件@babel/generator将AST转换成模块的原有代码，改变的只是将require变成__webpack_require__，需要注意的是需要将路径处理一下，因为此时的路径是相对于src下面的。处理完index之后需要递归调用处理全部的模块，并声称bundle中自执行函数的参数modules
+
+
+## 模块 解析原理
+
+
+webpack模块： 支持各种js模块化的模块原始模块是webpack模块，loader处理这些各类型模块化的模块转化后的模块也成为webpack模块
+
+compiler: 描述webpack整个编译流程的对象
+
+
 
 ## modules
 
@@ -26,7 +24,9 @@ chunk 由 module 组成
 
 ## bundle
 
-modules的拼接
+modules的拼接 
+
+module -> chunk -> bundle
 
 ## loader
 
@@ -38,7 +38,7 @@ loader是文件加载器，能够加载资源文件，并对这些文件进行�
 
 如：sass-loader其实就是一个函数，根据test的匹配规则，将以.scss结束的文件内容读取出来，然后将匹配到的文件内容作为参数传递给一个函数，这个函数将sass文件的内容按照规则进行加工处理成浏览器能够识别的css并输出，所以loader的本质就是一个函数，接受一个参数，这个参数就是匹配到的文件里面的代码。同理，css-loader和style-loader也是这样的处理流程，只是内部做的事情不同。
 
-### 实现
+- 实现
 
 ```js
 // loader
@@ -72,13 +72,13 @@ Webpack 启动后，在读取配置的过程中会先执行 new BasicPlugin(opti
 5. 在实现功能后调用 webpack 提供的 callback。
 ```
 
-### apply方法
+- apply方法
 
 每一个 plugin Class 都必须实现一个 apply 方法，这个方法接收 compiler 实例，然后将真正的钩子函数挂载到 compiler.hook 的某一个声明周期上。
 
 插件是由一个构造函数（此构造函数上的 prototype 对象具有 apply 方法）的所实例化出来的。这个 apply 方法在安装插件时，会被 webpack compiler 调用一次apply
 
-### 例子
+- 例子
 
 ```js
 ///////////////////////////编写插件

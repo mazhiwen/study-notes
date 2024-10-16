@@ -110,6 +110,51 @@ parser:{
 
 }
 
+## devserver
+
+devserver:{
+   static:
+   compress: //压缩
+   port: //端口号
+   headers: //给浏览器的返回头
+   proxy: // 跨域解决. 代理配置，把对浏览器的本host访问转发到配置的host
+   https: {
+      // 放https配置信息
+   }
+   http2: 
+   h5historyfailback: // 访问h5history路由，刷新时不报错
+   host: 0.0.0.0 // 配置本机html的静态服务
+   hot: true // hmr模块热替换
+   liveReload: 
+}
+
+## devtool
+
+此选项控制是否生成，以及如何生成 source map。
+
+devtool: inline-source-map / ...
+
+source map: debug代码行数
+
+## source-map
+
+eval
+
+source-map
+
+hidden-source-map
+
+inline-source-map
+
+eval-source-map
+
+cheap-source-map
+
+cheap-module-source-map 开发环境推荐
+
+生产不开sourcemap，有反编译暴露代码风险，体积大
+
+
 ## loader
 
 解析module的时候用的loader
@@ -143,4 +188,9 @@ taml:
 json5: json升级
 
 
+## husky githooks
+
+
+
+  
 

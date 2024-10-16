@@ -129,7 +129,7 @@ rules: [
 
 ## optimization
 
-### minimizer
+- optimization.minimizer 压缩
 
 ```js
 minimizer: [
@@ -146,7 +146,7 @@ minimizer: [
 ],
 ```
 
-### runtimeChunk
+- runtimeChunk
 
 webpack运行时的代码
 单独打包为一个chunk
@@ -155,7 +155,7 @@ runtimeChunk: {
 }
 runtime mainfest 是webpack用来管理所有模块的交互
 
-### 根据不同entry
+- 根据不同entry
 
 配置多个entry可以实现分离
 
@@ -185,13 +185,7 @@ module.exports = {
 };
 ```
 
-## devtool
 
-此选项控制是否生成，以及如何生成 source map。
-
-devtool: inline-source-map / ...
-
-source map: debug代码行数
 
 ## webpack-dev-server
 
@@ -210,6 +204,9 @@ resolve: {
 
 import api from 'api';
 
+## 环境变量
+
+webpack --env pro --env aa=bb 传入环境参数 再配置文件回调函数中获取参数
 
 ## output.publicPath
 
@@ -704,9 +701,7 @@ dll文件后缀以打包时时间戳做后缀
 缓存第三方: splitchunkplugin: cachegroups
 
 
-## 代码检测
 
-[eslint](https://github.com/webpack-contrib/eslint-loader)
 
 ## tree-shaking
 

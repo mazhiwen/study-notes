@@ -1,13 +1,12 @@
+# 代码检查
+
 ## eslint
 
-
-https://www.imweb.io/topic/59a3fd4a79c5294e26eb6001
+一般用airbnb
 
 
 - 命令行
 eslint --init
-
-
 "lint": "eslint --ext .js,.jsx src",
 "lint-fix": "eslint --fix --ext .js,jsx src"
 
@@ -16,8 +15,8 @@ eslint --init
 eslintjs写错可能会导致检查无效
 lint-fix 一般fix空格，其他fix不了
 
-- react 网络推荐配置
 
+- react 网络推荐配置
 ```javascript
 module.exports = {
     "env": {
@@ -119,6 +118,10 @@ module.exports = {
     }
 };
 ```
+
+
+
+
 ## SassLint
 
 

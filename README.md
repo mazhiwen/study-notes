@@ -1,7 +1,6 @@
 
 # 知识整理
 
-哈哈
 
 - Web开发
   - [浏览器常见知识](./web/basic.md)
@@ -194,7 +193,7 @@
   - [webpack5](./integration/webpack5.md)
   - [tree-shaking](./integration/tree-shaking.md)
   - [微前端](./integration/微前端.md)
-  - [代码检查](./integration/codecheck.md)
+  - [代码检查eslint 等](./integration/codecheck.md)
   - [mock](./integration/mock.md)
   - [grunt](./integration/grunt)
   - [codereview](./integration/cr.md)
@@ -221,6 +220,7 @@
   - [计算机相关知识百科](./computer/basic.md)
 - [数学知识](./math/math.md)
 - [其他](./other)
+  - [PWA](./other/pwa.md)
   - [git](./other/git.md)
   - [github](./other/github.md)
   - [yarn](./other/yarn.md)
