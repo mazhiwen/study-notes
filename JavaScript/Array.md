@@ -8,21 +8,13 @@ Array 构造函数只带一个数字参数的时候，该参数会被作为数�
 
 构造函数 Array(..) 不要求必须带 new 关键字。不带时，它会被自动补上。
 
-## 基本知识
 
-// 数组也是对象，可以添加属性
-//var array=[1,2];
-// array.baz='baz';
-// array.baz  array[baz]
-// array.length : 2
+## Array.map
 
-**迭代**
+- map会生成新的数组，并返回.
 
-## Array.map*
-
-- map会生成新的数组，并返回
 - 传入 函数，每个元素调用一次函数，返回array
-- map 不会修改原数组,可以在 callback 执行时改变原数组
+
 - function内部return的值会赋给返回的新数组对应的索引index  
 
 ```js
@@ -34,16 +26,18 @@ var newArray = array.map(function callback(currentValue, index, array) {
 
 ## array.forEach()
 
-// 为每个数组元素执行callback函数 没有返回值
-// 不修改原数组
+为每个数组元素执行callback函数 没有返回值
+
+对数据的操作会改变原数组
+
 array.forEach(function callback(currentValue, index, array) {  
 })
 
 ## array.every()
 
-// 为数组中的每个元素执行一次 callback 函数
-// 直到它找到一个使 callback 返回 false（表示可转换为布尔值 false 的值）的元素,否则返回true
-// 不修改原数组
+为数组中的每个元素执行一次 callback 函数.直到它找到一个使 callback 返回 false（表示可转换为布尔值 false 的值）的元素,否则返回true
+
+不修改原数组
 
 ```js
 var bool=array.every(function callback(currentValue, index, array){
@@ -80,11 +74,25 @@ var newArray = array.filter(function callback(currentValue, index, array){
 });
 ```
 
-**其他**
+## array.findIndex find
 
-## array.reduce()
+数组方法，find()返回的是第一个符合条件的值；findIndex()返回的是第一个返回条件的值的索引值
+
+findIndex()方法返回数组中满足提供的测试函数的第一个元素的索引。若没有找到对应元素则返回-1。
+
+```js
+// 查询满足callback的index并返回
+findindex = fileList.findIndex((value,index,thisarr)=>{
+    return value.uid===file.uid
+})
+```
+
+
+## array.reduce() reduceRight
 
 reduce() 方法对数组中的每个元素执行一个由您提供的reducer函数(升序执行)，将其结果汇总为单个返回值。
+
+reduceRight逆序操作
 
 reducer 函数的返回值分配给累计器 accumulator ，该返回值 accumulator 在数组的每个迭代中被记住，并最后成为最终的单个结果值。
 
@@ -172,23 +180,14 @@ array.sort(function compareFunction(a, b) {
 array.concat(value1,value2,valuen,arrayn);
 ```
 
-## array.includes*
+## array.includes
 
 arr.includes(searchElement)  
 arr.includes(searchElement, fromIndex)  
 //fromIndex :
 //从该索引处开始查找 searchElement。如果为负值，则按升序从 array.length + fromIndex 的索引开始搜索。默认为 0。
 
-## array.findIndex
 
-findIndex()方法返回数组中满足提供的测试函数的第一个元素的索引。若没有找到对应元素则返回-1。
-
-```js
-// 查询满足callback的index并返回
-findindex = fileList.findIndex((value,index,thisarr)=>{
-    return value.uid===file.uid
-})
-```
 
 ## Array.indexOf
 

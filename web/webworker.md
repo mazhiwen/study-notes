@@ -1,7 +1,6 @@
 
 # web worker
 
-<https://juejin.cn/post/6844903696258564110>
 
 HTML5标准
 

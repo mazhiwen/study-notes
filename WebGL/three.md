@@ -1,28 +1,6 @@
 # Three.js
 
-[使用 Threejs 和 D3 可视化全球新冠疫情](https://juejin.cn/post/6955717062979715079)
 
-[北京到上海，Three.js 旅行轨迹的可视化](https://juejin.cn/post/7041580850261000222)
-
-[three.js实现球体地球2018年全球gdp前十国家标记](https://juejin.cn/post/6844903928916606983)
-
-[【钢铁侠劲舞团】通过钢铁侠的案例来深入 3D 模型使用](https://juejin.cn/post/7171803353310035999)
-
-[Three.js 之 12 Particles 粒子效果](https://juejin.cn/post/7113540626347458591/#heading-12)
-
-[一文带你悟道 Threejs 3D模型开发](https://juejin.cn/post/7170868138068672548)
-
-[Three.js 进阶之旅：模型光源结合生成明暗变化的创意页面-光与影之诗 💡](https://juejin.cn/post/7148969678642102286#heading-27)
-
-[从零开始初尝Three.js【大量案例、简单入手】](https://juejin.cn/post/6844904177345232903)
-
-[Three.js教程 api](http://www.webgl3d.cn/Three.js/?_blank)
-
-[Three.js git hub](https://github.com/mrdoob/three.js/?_blank)
-
-[Three.js官网](https://threejs.org/?_blank)
-
-[Three.js中文文档](http://www.yanhuangxueyuan.com/threejs/docs/index.html?_blank)
 
 ## 导入外部文件
 

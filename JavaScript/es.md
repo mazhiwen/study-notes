@@ -85,6 +85,5 @@ Math.pow(3, 2) //9
 
 ## es2017[es8]
 
-### async/await
 
 ### Object.values/Object.entries

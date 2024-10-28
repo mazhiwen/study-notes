@@ -291,9 +291,14 @@ seajs.use(['a'], function(a) {
 
 ## 6.ES6 Module
 
+```
+
 import export
+import export default
 
 <script type='module'>
+```
+
 
 需要预编译。import 是预先解析、预先加载的，不像 RequireJS 等是执行到点了再发一个请求。无法实现条件加载
 
@@ -303,7 +308,6 @@ import export
 
 浏览器端使用babel将es6编译为es5，或者browserify编译
 
-`import export default`
 
 ```javascript
 // 正常写法:
@@ -335,13 +339,16 @@ import customName from
 
 ## es6 module 对比 CommonJS 模块
 
-1. CommonJS 模块输出的是一个值的拷贝，ES6 模块输出的是值的引用。
+1. CommonJS是对模块的浅拷⻉，ES6 Module是对模块的引⽤
 
-CommonJS 模块输出的是值的拷贝，也就是说，一旦输出一个值，模块内部的变化就影响不到这个值。ES6 模块的运行机制与 CommonJS 不一样。JS 引擎对脚本静态分析的时候，遇到模块加载命令 import，就会生成一个只读引用。等到脚本真正执行时，再根据这个只读引用，到被加载的那个模块里面去取值。
+即ES6 Module只存只读，不能改变其值，也就是指针指向不能变，类似const；可以对commonJS对重新赋值（改变指针指向），但是对ES6 Module赋值会编译报错
 
 2. CommonJS 模块是运行时加载，ES6 模块是编译时输出接口。
 
 CommonJS 模块就是对象，即在输入时是先加载整个模块，生成一个对象，然后再从这个对象上面读取方法，这种加载称为“运行时加载”。而 ES6 模块不是对象，它的对外接口只是一种静态定义，在代码静态解析阶段就会生成。
+
+
+CommonJS和ES6 Module都可以对引⼊的对象进⾏赋值，即对对象内部属性的值进⾏改变
 
 ## es6 相对于 amd cmd的好处
 

@@ -205,7 +205,7 @@ alert(typeof obj); // 'object',保存的是Number的实例
 
 堆和栈的概念存在于数据结构中和操作系统内存中。
 
-### 基本类型 - 栈
+- 基本类型 栈
 
 原始数据类型直接存储在栈（stack）中的简单数据段，占据空间小、大小固定，属于被频繁使用数据，所以放入栈中存储。
 
@@ -213,7 +213,7 @@ alert(typeof obj); // 'object',保存的是Number的实例
 
 栈的特点是先进后出（或后进先出）
 
-### 引用数据 - 堆
+- 引用数据 堆
 
 除了局部变量，其他的全都存在堆中
 
@@ -239,22 +239,10 @@ null === undefined // false
 typeof(null) // object
 ```
 
-## 类型检测
 
-<https://github.com/mqyqingfeng/Blog/issues/28>
 
-typeof : 先做基本类型检测，再对null和其他Object用Object内部属性toString检测
+## Object.prototype.toString.call
 
-typeof检测结果： 7种。undefined、object、boolean、number、string、object, symbol
-
-```javascript
-//常规检测
-var arr=[1,'a'];
-Array.isArray(arr);
-arr instanceof Array;
-// 数字检测另外一种方式
-typeof value === 'number' && !isNaN(value);
-```
 
 Object.prototype.toString : 可以检测至少14种object：
 
@@ -275,7 +263,22 @@ console.log(Object.prototype.toString.call(Math)); // [object Math]
 console.log(Object.prototype.toString.call(JSON)); // [object JSON]
 ```
 
-检测类型的方法封装：
+## 检测类型的方法封装
+
+
+
+typeof : 先做基本类型检测，再对null和其他Object用Object内部属性toString检测
+
+
+```javascript
+//常规检测
+var arr=[1,'a'];
+Array.isArray(arr);
+arr instanceof Array;
+// 数字检测另外一种方式
+typeof value === 'number' && !isNaN(value);
+```
+
 
 ```js
 function getType(value) {
@@ -301,9 +304,6 @@ function getType(value) {
 
 ## typeof
 
-typeof检测给定变量的数据类型
-
-typeof是一个操作符而不是函数，可以不用括号
 
 typeof对基本类型返回基本类型，对引用类型返回"object"
 
@@ -331,21 +331,16 @@ typeof true // 'boolean'
 typeof Symbol() // 'symbol'
 typeof undefined // 'undefined'
 typeof null // 'object'
-```
 
-```js
 // object
 typeof {a:1} === 'object';
 typeof [1, 2, 4] === 'object';
 typeof new Date() === 'object';
-```
 
-```js
 // 函数
 typeof function(){} === 'function';
 ```
 
-// 检测原型
 
 ## 布尔值的隐式强制类型转换
 

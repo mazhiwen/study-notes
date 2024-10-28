@@ -30,6 +30,8 @@ module -> chunk -> bundle
 
 ## loader
 
+loader把依赖树中引入的资源先经过loader处理后，最终会返回js模式的引入模块。被依赖树引入。
+
 loader是文件加载器，能够加载资源文件，并对这些文件进行一些处理，诸如编译、压缩等，最终一起打包到指定的文件中
 
 处理一个文件可以使用多个loader，loader的执行顺序是和use字段声明的loader顺序是相反的，即最后一个loader最先执行，第一个loader最后执行。
@@ -52,15 +54,8 @@ loader的入口需要导出一个函数，这个函数要干的事情就是转�
 
 ## plugin
 
-<https://juejin.cn/post/6844903689442820110>
 
-[官方插件文档](https://v4.webpack.docschina.org/contribute/writing-a-plugin/)
-
-[Webpack原理-编写Plugin](https://juejin.cn/post/6844903550623940621#heading-0)
-
-插件能够 钩入(hook) 到在每个编译(compilation)中触发的所有关键事件。在编译的每一步，插件都具备完全访问 compiler 对象的能力，如果情况合适，还可以访问当前 compilation 对象。
-
-Webpack 启动后，在读取配置的过程中会先执行 new BasicPlugin(options) 初始化一个 BasicPlugin 获得其实例。在初始化 compiler 对象后，再调用 basicPlugin.apply(compiler) 给插件实例传入 compiler 对象。插件实例在获取到 compiler 对象后，就可以通过 compiler.plugin(事件名称, 回调函数) 监听到 Webpack 广播出来的事件。并且可以通过 compiler 对象去操作 Webpack。
+插件通过在webpack生命周期挂载任务函数实现功能
 
 ```
 实现plugin需要:
@@ -71,14 +66,6 @@ Webpack 启动后，在读取配置的过程中会先执行 new BasicPlugin(opti
 4. 操作 webpack 内部的实例特定数据。
 5. 在实现功能后调用 webpack 提供的 callback。
 ```
-
-- apply方法
-
-每一个 plugin Class 都必须实现一个 apply 方法，这个方法接收 compiler 实例，然后将真正的钩子函数挂载到 compiler.hook 的某一个声明周期上。
-
-插件是由一个构造函数（此构造函数上的 prototype 对象具有 apply 方法）的所实例化出来的。这个 apply 方法在安装插件时，会被 webpack compiler 调用一次apply
-
-- 例子
 
 ```js
 ///////////////////////////编写插件
@@ -146,17 +133,14 @@ compilation: 由于webpack的监听文件变化自动编译机制，Compilation�
 
 ## loader和plugin区别
 
-loader -》 plugin
 
-loader对文件进行按照loader规则编译，plugin是在编译结束，生成最终文件之前
+loader是在引入资源时处理，而plugin应用范围更广，涉及整个webpack周期
 
-对于loader，它就是一个转换器，将A文件进行编译形成B文件，这里操作的是文件，比如将A.scss或A.less转变为B.css，单纯的文件转换过程
+对于loader，它就是一个转换器，将A文件进行编译形成B文件，这里操作的是文件，比如将A.scss或A.less转变为B.css，单纯的文件转换过程。 
 
 plugin是一个扩展器，它丰富了wepack本身，针对是loader结束后，webpack打包的整个过程，它并不直接操作文件，而是基于事件机制工作，会监听webpack打包过程中的某些节点，执行广泛的任务。
 
-19 * 14 = 26.6
 
-23 * 14 = 32.2
 
 ## 选择loader 还是 plugin
 

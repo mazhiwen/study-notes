@@ -51,6 +51,11 @@ for (let key in arr) {
 
 ## for...of  
 
+for… in 会遍历对象的整个原型链，性能非常差不推荐使用，而 for … of 只遍历当前对象不会遍历原型链；
+
+对于数组的遍历，for…in 会返回数组中所有可枚举的属性(包括原型链上可枚举的属性)，for…of 只返回数组的下标对应的属性值；
+
+
 遍历value
 
 可遍历Array , 不可Oject
@@ -59,28 +64,14 @@ for (let key in arr) {
 for (let value of arr) {
     console.log(value); // logs "3", "5", "7" // 注意这里没有 hello
 }
-```
 
-```js
 for (let e of iterator) {
     console.log(e);
 }
+
 for (const [key, value] of Object.entries(obj)) {
   console.log(`${key} ${value}`); // "a 5", "b 7", "c 9"
 }
-
-//*******forEach
-Object.entries(obj).forEach(([key, value]) => {
-    console.log(`${key} ${value}`); // "a 5", "b 7", "c 9"
-});
-
-//*******转为 Map
-var obj = { foo: "bar", baz: 42 };
-var map = new Map(Object.entries(obj));
-console.log(map); // Map { foo: "bar", baz: 42 }
-Object.entries(obj).map(([key, value],index) => {
-    console.log(`${key} ${value}`); // "a 5", "b 7", "c 9"
-});
 
 ```
 
@@ -104,7 +95,6 @@ console.log(Object.entries(obj));
 const anObj = { 100: 'a', 2: 'b', 7: 'c' };
 console.log(Object.entries(anObj));
 // [ ['2', 'b'], ['7', 'c'], ['100', 'a'] ]
-// non-object argument will be coerced to an object
 console.log(Object.entries('foo')); // [ ['0', 'f'], ['1', 'o'], ['2', 'o'] ]
 ```
 
