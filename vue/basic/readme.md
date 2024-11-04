@@ -1,17 +1,13 @@
 
 # 关于vue的文档
 
-[Vue 常考基础知识点万字总结](https://juejin.cn/post/6901162042628636686#heading-16)
-
-[Vue 开发必须知道的 36 个技巧【近1W字】](https://juejin.im/post/5d9d386fe51d45784d3f8637)
 
 ## VueCli
 
-<https://cli.vuejs.org/zh/guide/>
 
 ## webpack,懒加载,代码分离
 
-<https://alexjoverm.github.io/2017/07/16/Lazy-load-in-Vue-using-Webpack-s-code-splitting/>
+
 
 ## this.$el
 
@@ -503,6 +499,14 @@ v-leave-to: 2.1.8版及以上 定义离开过渡的结束状态。在离开过�
 .passive: 2.3.0 新增,滚动事件的默认行为 (即滚动行为) 将会立即触发,不能和.prevent 一起使用
 ```
 
+## 表单修饰符
+
+.lazy：在文本框失去焦点时才会渲染
+
+.number：将文本框中所输入的内容转换为number类型
+
+.trim：可以自动过滤输入首尾的空格
+
 ## img加载失败
 
 ```html
@@ -614,3 +618,128 @@ Vue.component('base-checkbox', {
 父组件 data的lovingVue  通过子组件props的checked【子组件model可定义字段】 传递给子组件
 
 子组件 emit:change【model可定义】, 可以更新 父组件的data的lovingVue
+
+
+
+## watch 属性值
+
+```js
+watch: {
+  'obj.a': function() {
+    
+  }
+}
+```
+
+## watch ： immediate和deep
+
+```js
+data() {
+  return {
+    inpValObj: {
+      a: 1,
+    }
+  }
+},
+
+watch:{
+  inpValObj:{
+    // handler: 'getList', // 另外一种写法
+    handler(newVal,oldVal){
+      console.log(newVal)
+      console.log(oldVal)
+    },
+    deep:true,
+    immediate: true
+  }
+}
+//此时发现oldVal和 newVal 值一样; 因为它们索引同一个对象/数组,Vue 不会保留修改之前值的副本; 所以深度监听虽然可以监听到对象的变化,但是无法监听到具体对象里面那个属性的变化
+```
+
+- deep
+
+设置为 true 用于监听对象内部值的变化。以上代码我们修改了 obj 对象中 a 属性的值，我们可以触发其 watch 中的 handler 回调输出新的对象，而如果不加 deep: true，我们只能监听 obj 的改变，并不会触发回调
+
+- immediate
+
+设置为 true 表示创建组件时 立即以表达式的当前值 执行一次
+
+## watch 和computed
+
+watch：监测的是属性值， 只要属性值发生变化，其都会触发执行回调函数来执行一系列操作。
+
+computed：监测的是依赖值，依赖值不变的情况下其会直接读取缓存进行复用，变化的情况下才会重新计算。
+
+计算属性不能执行异步任务，计算属性必须同步执行。也就是说计算属性不能向服务器请求或者执行异步任务。如果遇到异步任务，就交给侦听属性。
+
+watch也可以检测computed属性。
+
+computed 本质是一个惰性求值的观察者，具有缓存性，只有当依赖变化后，第一次访问 computed 属性，才会计算新的值。而 watch 则是当数据发生变化便会调用执行函数。
+
+
+## computed
+
+
+官网： 对于任何复杂逻辑，你都应当使用计算属性。
+
+## computed ： get和set
+
+计算属性由两部分组成：get和set，分别用来获取计算属性和设置计算属性。默认只有get，如果需要set，要自己添加。另外set设置属性，并不是直接修改计算属性，而是修改它的依赖。
+
+```js
+computed: {
+  fullName: {
+    // getter
+    get: function () {
+      return this.firstName + ' ' + this.lastName
+    },
+    // setter
+    set: function (newValue) {
+      //this.fullName = newValue 这种写法会报错
+      var names = newValue.split(' ')
+      this.firstName = names[0]//对它的依赖进行赋值
+      this.lastName = names[names.length - 1]
+    }
+  }
+}
+```
+
+现在再运行 vm.fullName = 'John Doe' 时，setter 会被调用，vm.firstName 和 vm.lastName 也会相应地被更新。
+
+## computed 默认写法
+
+默认是个函数
+
+```js
+data:{ //普通属性
+  msg:'浪里行舟',
+},
+computed:{ //计算属性
+  msg2:function(???this???){ //该函数必须有返回值，用来获取属性，称为get函数
+    return '浪里行舟';
+  },
+  reverseMsg:function(){
+  //可以包含逻辑处理操作，同时reverseMsg依赖于msg,一旦msg发生变化，reverseMsg也会跟着变化
+    return this.msg.split(' ').reverse().join(' ');
+ }
+}
+```
+
+## computed vs method
+
+computed 是可以缓存的，methods 不能缓存: 只要相关依赖没有改变，多次访问计算属性得到的值是之前缓存的计算结果，不会多次执行
+
+计算属性也可以通过闭包来实现传参
+
+```js
+:data="closure(item, itemName, blablaParams)"
+
+computed: {
+ closure () {
+   return function (a, b, c) {
+        /** do something */
+        return data
+    }
+ }
+}
+```

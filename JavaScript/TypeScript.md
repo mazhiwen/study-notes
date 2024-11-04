@@ -6,25 +6,8 @@
 
 [官方文档](https://www.typescriptlang.org/zh/docs/)
 
-[Vue Class Component](https://class-component.vuejs.org/guide/class-component.html#computed-properties)
 
-<https://juejin.cn/post/7294449571857219593?searchId=2024011917322365347780D0807752DF2D>
 
-<https://juejin.cn/post/6844904013289226254>
-
-<https://juejin.cn/post/6917523407886106631>
-
-[1.2W字 | 了不起的 TypeScript 入门教程](https://juejin.cn/post/6844904182843965453)
-
-[2021年与TypeScript愉快玩耍](https://juejin.cn/post/6917830695301677069#heading-15)
-
-[从 JavaScript 到 TypeScript 6 - Vue 引入 TypeScript](https://tasaid.com/blog/20171011233132.html)
-
-[Typescript在Vue中的实践](https://juejin.cn/post/6877373779471761416#heading-4)
-
-[TypeScript + 大型项目实战](https://juejin.cn/post/6844903641829081095#heading-13)
-
-<https://www.cnblogs.com/eedc/p/12166326.html>
 
 ## TS概念
 
@@ -201,7 +184,7 @@ i === Gender.Male
 ```
 
 
-## 类型别名
+## type 类型别名
 
 声明一个别名 类型
 
@@ -213,21 +196,76 @@ type myType = 1|2|3
 let a:myType
 ```
 
-## 类
+## type & interface的异同
+
+在不确定使用type/interface时, 请优先考虑使用interface, 若interface无法满足需求时, 才考虑使用type.
+
+1.都可以用来描述一个函数或对象
+
+2.type interface可以互相继承。type继承任何用& ， interface继承任何用extends
+
+```ts
+interface Person {
+  name: string
+  age: number
+  getName(): string
+}
+type Person1 = {
+  name: string
+  age: number
+  getName(): string
+}
+
+// type继承type声明的接口
+type Person2 = {
+  firstName: string
+  lastName: string
+}
+type User = Person2 & { age: number }
+
+// interface继承type声明的接口
+interface User1 extends Person2 {
+  age: number
+}
+
+// type继承interface声明的接口
+type User2 = User1 & { getFullName(): void }
+```
+
+3. 不同点:
+
+```
+type能够表示非对象类型，而interface只能表示对象类型。
+interface可以继承其他类型，type不支持继承。
+同名interface会自动合并，同名type则会报错。也就是说，TypeScript 不允许使用type多次定义同一个类型。
+interface不能包含属性映射，type可以。
+this关键字只能用于interface。
+type 可以扩展原始数据类型，interface 不行。
+```
+
+
+## class 类
+
+
+implements继承interface
+
+
 
 ```ts
 
 class Person{
 
     // 定义属性。 实例属性  
+    // 公共（public）可写入（writeable）的属性
     name:string  = 'aaa'
+
     //静态属性。不在实例上的属性，通过类直接访问
     static readonly age:number = 18
 
     // public 可以在任意位置访问修改属性
     public _b : number;
 
-    // 只能在当前类内部进行访问修改，继承也不能
+    // private 只能在当前类内部进行访问修改，继承也不能
     // 只能在类内部操作
     private _c : number;
 
@@ -238,13 +276,18 @@ class Person{
 
     constructor(name:number,b:number){
         //this.name=name;
+
+        // extends时添加super
+        super();
     }
 
-    // 加static属性类似以上
+    // 加 static 属性类似以上
     fun(){
 
     }
 
+
+    // 存取器 get set
     get c(){
         // 获取private _c的时候，只需要直接实例.c获取，会执行c方法
         return this._c;
@@ -261,10 +304,11 @@ class Person{
 
 
 
-## 接口
+## interface 接口
 
-
-interface 用来定义一个类结构，应该包含的属性方法
+接口可用于：
+1.对「对象的形状（Shape）」进行描述
+2.对类的一部分行为进行抽象 。定义一个类结构，应该包含的属性方法。需要由类class去实现implements。
 
 同时能当成类型声明使用type
 
@@ -272,38 +316,128 @@ interface 用来定义一个类结构，应该包含的属性方法
 
 接口中所有属性都不能有实际值，只定义结构。方法都是抽象方法
 
+一个接口可以同时继承多个 interface, 实现多个接口成员的合并
+
+Interface 能够继承 Interface ,类，type。 
+
+继承类 再创建子类的过程中满足接口的描述就会必然满足接口继承的类的描述
+
+
+
 ```js
+
+//  1.对象
 interface myInterface{
     a:number;
     b:number;
+    //如果属性是可选的，就在属性名后面加一个问号
+    x?: string;
+    // 如果属性是只读的，需要加上readonly修饰符。
+    readonly a: string;
+    // 对象的属性索引
+    [Key: string]: number;
+
+
 }
 
 
+// 2. 函数
 
+// 写法一
+interface A {
+  f(x: boolean): string;
+}
+
+// 写法二
+interface B {
+  f: (x: boolean) => string;
+}
+
+// 写法三
+interface C {
+  f: { (x: boolean): string };
+}
+
+
+//  2.类 单接口
 interface myInterface{
     a:number;
-    
     fun():void;
 }
-
 class myclass implements myInterface{
     a:number;
-    
-    constructor(){
 
+    constructor(){
     }
 
     fun(){
-
     };
 }
+
+
+//  3.类 多接口
+interface Email {
+  domain: string;
+  address: string;
+}
+interface Account{
+  id: string;
+  firstName: string;
+  lastName: string;
+  getUserFullName(firstName: string, lastName: string): string
+}
+
+// 多接口继承
+interface UserInfo extends Account, Email {
+  nickName: string;
+}
+
+
+
+
+// 4. Interface 也可以用来定义一个类的形状。
+// 需要注意的是类 Interface 只会检查实例的属性，静态属性是需要额外定义一个 Interface
+// Person.ts
+// PersonConstructor => 用以检查静态属性或方法
+interface PersonConstructor {
+  new (name: string, age: number): void
+  typename: string // 静态属性
+  getType(): string // 静态方法
+}
+
+interface PersonInterface {
+  log(msg: string): void
+}
+
+// 不可写成:  class Person implements PersonInterface, PersonInterface
+const Person: PersonConstructor = class Person implements PersonInterface {
+  name: string
+  age: number
+  static typename = 'Person type'
+  static getType(): string {
+    return this.typename
+  }
+
+  constructor(name: string, age: number) {
+    this.name = name
+    this.age = age
+  }
+
+  log(msg: string): void {
+    window.console.log(msg)
+  }
+}
+export default Person
+
 ```
+
+
 
 
 ## 泛型
 
 
-定义函数或者类时，遇到类型不明确可以用泛型
+定义函数，类，接口时，遇到类型不明确可以用泛型
 
 
 

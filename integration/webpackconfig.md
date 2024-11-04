@@ -681,6 +681,34 @@ dll文件后缀以打包时时间戳做后缀
 
 <https://juejin.cn/post/6844903951410659341>
 
+
+## 如何提高webpack的打包速度
+
+利用缓存：利用Webpack的持久缓存功能，避免重复构建没有变化的代码
+
+使用多进程/多线程构建 ：使用thread-loader、happypack等插件可以将构建过程分解为多个进程或线程
+
+使用DllPlugin和HardSourceWebpackPlugin： DllPlugin可以将第三方库预先打包成单独的文件，减少构建时间。HardSourceWebpackPlugin可以缓存中间文件，加速后续构建过程
+
+使用Tree Shaking: 配置Webpack的Tree Shaking机制，去除未使用的代码，减小生成的文件体积
+
+移除不必要的插件: 移除不必要的插件和配置，避免不必要的复杂性和性能开销
+
+## 如何减少打包后的代码体积
+
+代码分割（Code Splitting）：将应用程序的代码划分为多个代码块，按需加载
+
+Tree Shaking：配置Webpack的Tree Shaking机制，去除未使用的代码
+
+压缩代码：使用工具如UglifyJS或Terser来压缩JavaScript代码
+
+使用生产模式：在Webpack中使用生产模式，通过设置mode: 'production'来启用优化
+
+使用压缩工具：使用现代的压缩工具，如Brotli和Gzip，来对静态资源进行压缩
+
+利用CDN加速：将项目中引用的静态资源路径修改为CDN上的路径，减少图片、字体等静态资源等打包
+
+
 ## 打包优化思路
 
 优化思路：
@@ -795,10 +823,253 @@ new webpack.DllReferencePlugin({
 }),
 ```
 
-## webpack优化
 
-[【webpack 性能优化】编译速度从 50S 到 7S](https://juejin.cn/post/6887863430510968839#heading-0)
+## webpack构建流程
 
-<https://juejin.cn/post/6877354359940874254#heading-4>
+Webpack的构建流程主要包括以下几个步骤：
 
-<https://juejin.cn/post/6844903782581534727#heading-26>
+```
+初始化参数。解析Webpack配置参数，合并Shell传入和webpack.config.js文件配置的参数，形成最终的配 置结果。
+
+开始编译。使用上一次得到的参数初始化compiler对象，注册所有配置的插件，插件监听Webpack构建生命周期的事件节点，做出相应的反应，执行对象的run方法开始执行编译。
+
+确定入口。从配置的entry入口，开始解析文件构建AST语法树，找出依赖，递归下去。
+
+编译模块。递归中根据文件类型和loader配置，调用所有配置的loader对文件进行转换，再找出该模块依赖的模块，再递归本步骤直到所有入口依赖的文件都经过了本步骤的处理。
+
+完成模块编译。在经过第四步使用Loader翻译完所有模块后，得到了每个模块被翻译后的最终内容以及它们之间的依赖关系。
+
+输出资源。根据入口和模块之间的依赖关系，组装成一个个包含多个模块的Chunk，再把每个Chunk转换成单独的文件加入到输出列表，这步是可以修改输出内容的最后机会。
+
+输出完成。在确定好输出内容后，根据配置确定输出的路径和文件名，把文件内容写入到文件系统。
+```
+
+这个流程是一个串行的过程，Webpack的运行流程是一个串行的过程，它的工作流程就是将各个插件串联起来。在运行过程中会广播事件，插件只需要监听它所关心的事件，就能加入到这条Webpack机制中，去改变Webpack的运作，使得整个系统扩展性良好。
+
+
+
+## 模块 解析原理
+
+
+webpack模块： 支持各种js模块化的模块原始模块是webpack模块，loader处理这些各类型模块化的模块转化后的模块也成为webpack模块
+
+compiler: 描述webpack整个编译流程的对象
+
+
+
+## modules
+
+webpack对代码模块生成webpack可识别的模块，以及模块组，key-value形式存储
+
+chunk 由 module 组成
+
+## bundle
+
+modules的拼接 
+
+module -> chunk -> bundle
+
+## loader
+
+loader把依赖树中引入的资源先经过loader处理后，最终会返回js模式的引入模块。被依赖树引入。
+
+loader是文件加载器，能够加载资源文件，并对这些文件进行一些处理，诸如编译、压缩等，最终一起打包到指定的文件中
+
+处理一个文件可以使用多个loader，loader的执行顺序是和use字段声明的loader顺序是相反的，即最后一个loader最先执行，第一个loader最后执行。
+
+第一个执行的loader接收源文件内容作为参数，其他loader接收前一个执行的loader的返回值作为参数。最后执行的loader会返回此模块的JavaScript源码
+
+如：sass-loader其实就是一个函数，根据test的匹配规则，将以.scss结束的文件内容读取出来，然后将匹配到的文件内容作为参数传递给一个函数，这个函数将sass文件的内容按照规则进行加工处理成浏览器能够识别的css并输出，所以loader的本质就是一个函数，接受一个参数，这个参数就是匹配到的文件里面的代码。同理，css-loader和style-loader也是这样的处理流程，只是内部做的事情不同。
+
+- 实现
+
+```js
+// loader
+// 将js文件中的 信息 换成 msg
+module.exports = function (content) {
+  return content.replace(/信息/g, 'msg')
+}
+```
+
+loader的入口需要导出一个函数，这个函数要干的事情就是转换一个文件的内容。 函数接收的参数content是一个文件在转换前的字符串形式内容，需要返回一个新的字符串形式内容作为转换后的结果，所有通过模块化倒入的文件都会经过loader。从这里可以看出loader只能处理一个个单独的文件而不能处理代码块。想编写更复杂的loader可参考官方文档
+
+## plugin
+
+
+插件通过在webpack生命周期挂载任务函数实现功能
+
+```
+实现plugin需要:
+
+1. 一个具名 JavaScript 函数。
+2. 在它的原型上定义 apply 方法。
+3. 指定一个触及到 webpack 本身的 事件钩子。
+4. 操作 webpack 内部的实例特定数据。
+5. 在实现功能后调用 webpack 提供的 callback。
+```
+
+```js
+///////////////////////////编写插件
+// 1. 一个JavaScript命名函数
+// 2. 在插件函数的 prototype 上定义一个apply方法
+class HelloWordPlugin {
+  // 3. apply 中有一个 compiler 形参
+  apply(compiler){
+    console.log('插件执行了');
+    // 4. 通过compiler对象可以注册对应的事件，全部的钩子都可以使用
+    // 注册一个编译完成的钩子， 一般需要将插件名作为事件名即可
+    compiler.hooks.done.tap('HelloWordPlugin', (stats) => {
+      console.log('整个webpack打包结束了');
+    })
+
+    compiler.hooks.compilation.tap('HelloWordPlugin', (compilation) => {
+      // 现在，通过 compilation 对象，我们可以 tap(触及) 到各种可用的 hooks 了
+      compilation.hooks.optimize.tap('HelloWordPlugin', () => {
+        console.log('正在优化资源。');
+      });
+    })
+  }
+}
+
+module.exports = HelloWordPlugin
+```
+
+```js
+//////////////////////////// webapck使用插件
+// webpack.config.js
+var HelloWorldPlugin = require('hello-world');
+
+module.exports = {
+  // ... 这里是其他配置 ...
+  plugins: [new HelloWorldPlugin({ options: true })]
+};
+
+```
+
+## 同步与异步的插件钩子
+
+根据所使用的 钩子(hook) 和 tap 方法，插件可以以多种不同的方式运行。
+
+同步类型，用 tap()
+
+异步类型的事件钩子，用tapAsync tapPromise：
+
+```
+tapAsync:执行callback()
+
+tapPromise:返回promise
+```
+
+## Compiler 和 Compilation 的区别
+
+compile: 从webpack启动到退出只存在一个Compiler，Compiler存放着webpack配置
+
+compilation: 由于webpack的监听文件变化自动编译机制，Compilation代表一次编译。
+
+具体这两个实例的内部api现在还没找到全面的文档
+
+## plugin的事件钩子列表
+
+相关内容在官方文档 api目录查看
+
+## loader和plugin区别
+
+
+loader是在引入资源时处理，而plugin应用范围更广，涉及整个webpack周期
+
+对于loader，它就是一个转换器，将A文件进行编译形成B文件，这里操作的是文件，比如将A.scss或A.less转变为B.css，单纯的文件转换过程。 
+
+plugin是一个扩展器，它丰富了wepack本身，针对是loader结束后，webpack打包的整个过程，它并不直接操作文件，而是基于事件机制工作，会监听webpack打包过程中的某些节点，执行广泛的任务。
+
+
+
+## 选择loader 还是 plugin
+
+如果你的扩展是想对一个个单独的文件进行转换那么就编写loader剩下的都是plugin。
+
+## AST
+
+就是将一行代码解析成对象的格式
+
+## tabable
+
+在webpack内部实现事件流机制的核心就在于tapable，有了它就可以通过事件流的形式，将各个插件串联起来，tapable类似于node中的events库，核心原理就是一个订阅发布模式
+
+
+## tree-shaking
+
+
+tree shaking 是一个术语，通常用于描述移除 JavaScript 上下文中的未引用代码(dead-code)。它依赖于 ES2015 模块语法的 静态结构 特性，例如 import 和 export。这个术语和概念实际上是由 ES2015 模块打包工具 rollup 普及起来的。
+
+所谓Tree-shaking就是‘摇’的意思，作用是把项目中没必要的模块全部抖掉，用于在不同的模块之间消除无用的代码，可列为性能优化的范畴。
+
+## 什么是有副作用
+
+有副作用： 例如，函数修改外部参数。被认为有副作用，不能删除
+
+一个文件有副作用表示：会影响全局，不会对他进行treeshaking，也就是这种有副作用的文件，即使没有被引用，打包也会打包进去
+
+## webpack1-4 的 treeshaking 问题
+
+对node_modules 不支持的无效  
+
+webpack4: webpack从第2版本就开始支持Tree-shaking的功能，但是至wp4也并不能实现的那么完美。凡是具有副作用的模块，webpack的Tree-shaking就歇菜了。也就是webpack摇不掉有副作用的，但是没有被引用的代码
+
+## webpack treeshaking 新用法
+
+### 1.语法：需要引用的模块都是ES6规范
+
+Tree-shaking是依赖ES6模块静态分析的（即 import 和 export），必然要保证引用的模块都是ES6规范的。比如： 引入的是lodash-es而不是lodash。
+
+### 2.配置sideEffects 属性
+
+在项目 package.json 文件中，添加一个 "sideEffects" 入口。还可以在 module.rules 配置选项 中设置 "sideEffects"
+
+如果被标记为无副作用的模块没有被直接导出使用，打包工具会跳过进行模块的副作用分析评估。”。
+
+- 没有副作用
+
+表示哪些文件文件 -》没有副作用 -》 也就是这种文件如果没有被引用，可以被 treeshaking 删除，不会打包进去
+
+sideEffect: false 表示全部没有副作用。
+
+```js
+"sideEffects": false
+```
+
+- 有副作用
+
+sideEffect: [] 。数组表示 有副作用的文件
+
+注意这个文件地址，写的是最终被引用的文件。而不是入口
+
+```js
+"sideEffects": [
+  "./src/some-side-effectful-file.js"
+]
+```
+
+### 3.mode: production
+
+mode: production情况下
+
+需要开启配置minifier插件
+
+必须引入一个能够删除未引用代码(dead code)的压缩工具(minifier)（例如 UglifyJSPlugin）。
+
+### 4.关闭babel转换
+
+目前 @babel/preset-env 是默认的，默认是false
+
+在项目中，要把babel设置module: false，禁止 babel将 es6 module 转为CommonJS规范。
+
+```js
+// 使用以下好像不影响 treeshaking 
+[
+  "@babel/preset-env",
+  {
+    "modules": false
+  }
+],
+```
+
